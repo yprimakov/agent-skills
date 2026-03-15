@@ -7,6 +7,7 @@ Skills focused on evaluating companies through financial statements, valuation m
 | Skill | Type | Description |
 |-------|------|-------------|
 | [goldman-sachs-stock-screener](goldman-sachs-stock-screener/) | Entry Point | Guides user through an investment profile questionnaire, then screens 10 stocks and generates MD + HTML reports |
+| [morgan-stanley-dcf-valuation](morgan-stanley-dcf-valuation/) | Entry Point | Builds a 9-step Morgan Stanley-style DCF model for any ticker and generates MD + HTML valuation reports |
 
 ## Structure
 
