@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stock Screening Report | 2026-03-15</title>
+  <title>iMadeFire | Stock Screening Report | 2026-03-15</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <style>
@@ -409,6 +409,39 @@
     .footer-brand-name { font-size: 13px; font-weight: 700; color: var(--indigo); margin-bottom: 2px; }
     .footer-ts { font-family: var(--mono); font-size: 11px; color: var(--t3); }
 
+    /* ── ANALYSIS PANEL ── */
+    .sc-analysis {
+      margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .sc-analysis-toggle {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 11px; font-weight: 700; color: var(--t3);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      cursor: pointer; user-select: none; margin-bottom: 0;
+      transition: color 0.15s;
+    }
+    .sc-analysis-toggle:hover { color: var(--indigo); }
+    .sc-analysis-toggle .toggle-icon {
+      font-size: 10px; transition: transform 0.2s;
+    }
+    .sc-analysis-body {
+      display: none; margin-top: 12px;
+    }
+    .sc-analysis-body.open { display: block; }
+    .sc-analysis-row {
+      display: grid; grid-template-columns: 110px 1fr;
+      gap: 6px 14px; margin-bottom: 10px; align-items: baseline;
+    }
+    .sc-analysis-row:last-child { margin-bottom: 0; }
+    .sc-analysis-key {
+      font-size: 10px; font-weight: 700; color: var(--indigo);
+      text-transform: uppercase; letter-spacing: 0.07em; padding-top: 2px;
+    }
+    .sc-analysis-val {
+      font-size: 12px; color: var(--t2); line-height: 1.6;
+    }
+
     /* ── ANIMATIONS ── */
     @keyframes up {
       from { opacity: 0; transform: translateY(14px); }
@@ -440,36 +473,156 @@ const D = {
     sectors: ["Technology", "Energy", "Real Estate", "Utilities"]
   },
   stocks: [
-    { ticker:"SMCI", company:"Super Micro Computer",          sector:"Technology",
-      pe:"12x",   rev:"+110%", de:"0.9", div:"—",    payout:"N/A",      moat:"Moderate",
-      bull:65,    bear:18,     risk:10,  entry:"$32–$38",   stop:"$26",   alloc:"Speculative" },
-    { ticker:"MSTR", company:"MicroStrategy",                 sector:"Technology",
-      pe:"N/M",   rev:"+6%",   de:"2.1", div:"—",    payout:"N/A",      moat:"Weak",
-      bull:650,   bear:180,    risk:10,  entry:"$290–$340", stop:"$255",  alloc:"Speculative" },
-    { ticker:"IONQ", company:"IonQ Inc.",                     sector:"Technology",
-      pe:"N/M",   rev:"+95%",  de:"0.1", div:"—",    payout:"N/A",      moat:"Moderate",
-      bull:55,    bear:12,     risk:10,  entry:"$22–$28",   stop:"$18",   alloc:"Speculative" },
-    { ticker:"OXY",  company:"Occidental Petroleum",          sector:"Energy",
-      pe:"11x",   rev:"+18%",  de:"0.8", div:"1.2%", payout:"Moderate", moat:"Moderate",
-      bull:72,    bear:40,     risk:7,   entry:"$46–$52",   stop:"$40",   alloc:"Core" },
-    { ticker:"PLUG", company:"Plug Power",                    sector:"Energy",
-      pe:"N/M",   rev:"+28%",  de:"0.3", div:"—",    payout:"N/A",      moat:"Weak",
-      bull:4.50,  bear:0.80,   risk:10,  entry:"$1.80–$2.30", stop:"$1.50", alloc:"Speculative" },
-    { ticker:"RIG",  company:"Transocean",                    sector:"Energy",
-      pe:"N/M",   rev:"+12%",  de:"1.8", div:"—",    payout:"N/A",      moat:"Weak",
-      bull:6.50,  bear:2.00,   risk:9,   entry:"$3.00–$3.60", stop:"$2.60", alloc:"Speculative" },
-    { ticker:"IRM",  company:"Iron Mountain",                 sector:"Real Estate",
-      pe:"38x",   rev:"+14%",  de:"5.2", div:"2.8%", payout:"Moderate", moat:"Strong",
-      bull:145,   bear:88,     risk:6,   entry:"$105–$115", stop:"$95",   alloc:"Core" },
-    { ticker:"IIPR", company:"Innovative Industrial Props",   sector:"Real Estate",
-      pe:"14x",   rev:"+22%",  de:"0.4", div:"7.8%", payout:"High",     moat:"Moderate",
-      bull:145,   bear:65,     risk:8,   entry:"$85–$98",   stop:"$75",   alloc:"Growth" },
-    { ticker:"VST",  company:"Vistra Energy",                 sector:"Utilities",
-      pe:"24x",   rev:"+28%",  de:"3.1", div:"0.8%", payout:"Low",      moat:"Moderate",
-      bull:185,   bear:95,     risk:8,   entry:"$118–$130", stop:"$105",  alloc:"Growth" },
-    { ticker:"CEG",  company:"Constellation Energy",          sector:"Utilities",
-      pe:"21x",   rev:"+19%",  de:"0.5", div:"0.7%", payout:"Moderate", moat:"Strong",
-      bull:310,   bear:195,    risk:7,   entry:"$225–$245", stop:"$210",  alloc:"Core" }
+    { ticker:"SMCI", company:"Super Micro Computer", sector:"Technology",
+      pe:"12x", rev:"+110%", de:"0.9", div:"—", payout:"N/A", moat:"Moderate",
+      bull:65, bear:18, risk:10, entry:"$32–$38", stop:"$26", alloc:"Speculative",
+      analysis:{
+        valuation:"P/E ~12x, heavily depressed due to ongoing DOJ inquiry and delayed SEC filings vs. sector avg ~28x. The discount is regulatory, not fundamental — if cleared, a re-rating to 20x+ is achievable within the year.",
+        growth:"5-year revenue CAGR ~110%, driven by AI server demand. Direct GPU rack integration with NVIDIA gives SMCI a timing advantage in liquid-cooled AI infrastructure.",
+        health:"D/E 0.9 — elevated but manageable. Concern is cash flow timing during compliance resolution, not solvency.",
+        income:"No dividend. All capital reinvested into manufacturing expansion.",
+        moatDetail:"Liquid cooling IP and NVIDIA partnership differentiate SMCI, but Dell and HPE are accelerating AI server programs.",
+        bullRationale:"DOJ matter resolves favorably, NASDAQ compliance restored, AI server demand sustains.",
+        bearRationale:"Delisting risk materializes, major customer defections accelerate.",
+        riskReason:"Binary regulatory outcome dominates all other variables. The DOJ and NASDAQ compliance timeline is the only thing that matters in the next 12 months.",
+        tradingNote:"Catalyst watch: DOJ announcement, NASDAQ filing deadline. Do not exceed 8% of portfolio."
+      }
+    },
+    { ticker:"MSTR", company:"MicroStrategy", sector:"Technology",
+      pe:"N/M", rev:"+6%", de:"2.1", div:"—", payout:"N/A", moat:"Weak",
+      bull:650, bear:180, risk:10, entry:"$290–$340", stop:"$255", alloc:"Speculative",
+      analysis:{
+        valuation:"Trades at a significant premium to Bitcoin NAV. Software revenue is irrelevant to the thesis — this is a leveraged Bitcoin proxy with equity structure.",
+        growth:"Core software revenue CAGR ~6%. The growth story is 100% BTC price appreciation. No operational growth catalyst exists independent of crypto.",
+        health:"D/E 2.1 — convertible debt issued specifically to purchase Bitcoin. Balance sheet is a leveraged cryptocurrency fund dressed as a tech company.",
+        income:"No dividend.",
+        moatDetail:"First-mover corporate BTC treasury narrative is the only moat. Direct BTC ETF adoption by institutions erodes MSTR's unique value proposition.",
+        bullRationale:"BTC breaks $150K, premium to NAV expands on institutional FOMO.",
+        bearRationale:"BTC corrects 40%+, forced liquidation concerns emerge.",
+        riskReason:"Moves 15–20% in a single session regularly. Treat as a call option, not a stock. Sizing discipline is non-negotiable.",
+        tradingNote:"5% max position. Tight leash — this is a lottery ticket, not a core holding."
+      }
+    },
+    { ticker:"IONQ", company:"IonQ Inc.", sector:"Technology",
+      pe:"N/M", rev:"+95%", de:"0.1", div:"—", payout:"N/A", moat:"Moderate",
+      bull:55, bear:12, risk:10, entry:"$22–$28", stop:"$18", alloc:"Speculative",
+      analysis:{
+        valuation:"Pre-profit. Price-to-sales ~18x — market pricing in quantum supremacy that has not yet arrived commercially. Extreme patience or a near-term catalyst required.",
+        growth:"Revenue CAGR ~95% off a very small base. Government and enterprise contracts growing but absolute revenue remains sub-$50M.",
+        health:"D/E 0.1 — near debt-free with $350M+ in cash. Runway is not an immediate concern.",
+        income:"No dividend.",
+        moatDetail:"Trapped-ion architecture IP and early government contracts provide a head start. Google, IBM, and Quantinuum are formidable competitors.",
+        bullRationale:"Major commercial contract win or DOD/NSA partnership announced within the year.",
+        bearRationale:"Competitor breakthrough diminishes trapped-ion relevance; cash burn accelerates.",
+        riskReason:"Technology risk is existential. The gap between quantum hype and commercial reality could widen further before it narrows.",
+        tradingNote:"Watch: conference announcements, patent filings, government contract awards. 5% max position."
+      }
+    },
+    { ticker:"OXY", company:"Occidental Petroleum", sector:"Energy",
+      pe:"11x", rev:"+18%", de:"0.8", div:"1.2%", payout:"Moderate", moat:"Moderate",
+      bull:72, bear:40, risk:7, entry:"$46–$52", stop:"$40", alloc:"Core",
+      analysis:{
+        valuation:"P/E ~11x vs. integrated energy avg ~13x. Slight discount reflects CrownRock acquisition leverage. Buffett's continued accumulation provides a sentiment floor.",
+        growth:"Revenue CAGR ~18%, anchored by Permian Basin production growth and CrownRock integration synergies.",
+        health:"D/E 0.8 — manageable. Active deleveraging underway with FCF directed at debt paydown ahead of buyback resumption.",
+        income:"Dividend yield 1.2%, moderate sustainability. Buybacks paused until leverage target is achieved.",
+        moatDetail:"Permian acreage quality and OxyChem's carbon capture (DAC) business differentiate from pure-play E&Ps.",
+        bullRationale:"Brent crude sustains above $85; CrownRock synergies exceed guidance.",
+        bearRationale:"Oil slides below $60; leverage becomes a market concern.",
+        riskReason:"Most stable pick in this portfolio. Oil price is the primary variable; strong balance sheet limits downside meaningfully.",
+        tradingNote:"Core energy anchor. Can size up to 15% of portfolio. Pair with RIG for diversified energy exposure."
+      }
+    },
+    { ticker:"PLUG", company:"Plug Power", sector:"Energy",
+      pe:"N/M", rev:"+28%", de:"0.3", div:"—", payout:"N/A", moat:"Weak",
+      bull:4.50, bear:0.80, risk:10, entry:"$1.80–$2.30", stop:"$1.50", alloc:"Speculative",
+      analysis:{
+        valuation:"No earnings. Price-to-sales ~1x — market has lost patience with the hydrogen commercialization timeline. Survival, not valuation, is the primary question.",
+        growth:"Revenue CAGR ~28%, but gross margins are negative. Scaling costs faster than revenue — not yet at unit economics inflection.",
+        health:"D/E 0.3 — low debt, but burning cash rapidly. DOE loan guarantee is the critical lifeline.",
+        income:"No dividend.",
+        moatDetail:"Hydrogen electrolyzer technology is not proprietary. Nel, ITM Power, and Cummins compete directly.",
+        bullRationale:"DOE loan funds released; major green hydrogen contract with utility or industrial signed.",
+        bearRationale:"DOE loan delayed; dilutive equity raise required; going-concern risk flagged.",
+        riskReason:"Near-binary outcome. This is a call option on the DOE loan, not a conventional equity position.",
+        tradingNote:"3–5% max. Only hold through a confirmed catalyst. Watch: DOE loan draw announcements, utility RFP awards."
+      }
+    },
+    { ticker:"RIG", company:"Transocean", sector:"Energy",
+      pe:"N/M", rev:"+12%", de:"1.8", div:"—", payout:"N/A", moat:"Weak",
+      bull:6.50, bear:2.00, risk:9, entry:"$3.00–$3.60", stop:"$2.60", alloc:"Speculative",
+      analysis:{
+        valuation:"Loss-making. EV/EBITDA ~7x — cheap if deepwater rig dayrates hold. Leveraged play on the offshore oil capex cycle.",
+        growth:"Revenue CAGR ~12% driven by rig dayrate recovery. Backlog at multi-year highs as E&Ps commit to deepwater programs.",
+        health:"D/E 1.8 — heavily indebted from the prior down-cycle. Refinancing risk is real if oil weakens materially.",
+        income:"No dividend.",
+        moatDetail:"Commodity-like rig services. Ultra-deepwater specialization provides some dayrate pricing power over shallow-water competitors.",
+        bullRationale:"Oil sustains above $80; rig utilization hits 95%+; new contract announcements.",
+        bearRationale:"Oil demand weakens; dayrates roll over; debt maturity wall comes into focus.",
+        riskReason:"High leverage amplifies every oil price move in both directions. Strictly a short-term momentum trade.",
+        tradingNote:"5% max. Pair with OXY for diversified energy exposure."
+      }
+    },
+    { ticker:"IRM", company:"Iron Mountain", sector:"Real Estate",
+      pe:"38x", rev:"+14%", de:"5.2", div:"2.8%", payout:"Moderate", moat:"Strong",
+      bull:145, bear:88, risk:6, entry:"$105–$115", stop:"$95", alloc:"Core",
+      analysis:{
+        valuation:"P/E ~38x on REIT-adjusted basis. Premium reflects data center growth optionality layered on top of a durable physical document storage business.",
+        growth:"Revenue CAGR ~14%. Data center segment growing ~30% YoY, offsetting the flat-to-declining physical storage business.",
+        health:"D/E 5.2 — high but standard for large REITs. Interest coverage healthy at current rates.",
+        income:"Dividend yield 2.8%, moderate sustainability. REIT structure mandates 90%+ distribution of taxable income.",
+        moatDetail:"Physical storage moat is near-impenetrable — customers almost never retrieve documents once stored. Data center footprint adds a growing second moat.",
+        bullRationale:"Data center leasing accelerates; AI workload archival/storage demand spikes.",
+        bearRationale:"Rate re-acceleration compresses REIT multiples sector-wide.",
+        riskReason:"Most conservative pick in this portfolio. Quality ballast with a real estate + AI data center thesis.",
+        tradingNote:"Up to 15% allocation. Most reliable name in this screen."
+      }
+    },
+    { ticker:"IIPR", company:"Innovative Industrial Props", sector:"Real Estate",
+      pe:"14x", rev:"+22%", de:"0.4", div:"7.8%", payout:"High", moat:"Moderate",
+      bull:145, bear:65, risk:8, entry:"$85–$98", stop:"$75", alloc:"Growth",
+      analysis:{
+        valuation:"P/E ~14x — inexpensive for a specialty REIT. Discount reflects cannabis tenant credit risk and federal legal ambiguity.",
+        growth:"Revenue CAGR ~22%, driven by sale-leaseback pipeline expansion across licensed cannabis cultivation facilities.",
+        health:"D/E 0.4 — conservatively financed. One of the healthiest balance sheets in the REIT sector.",
+        income:"Dividend yield 7.8% — highest in this portfolio. Classified High on paper but fundamentally dependent on cannabis tenant solvency.",
+        moatDetail:"First-mover advantage in cannabis real estate with regulatory complexity as a barrier to entry.",
+        bullRationale:"Federal cannabis rescheduling/legalization accelerates; tenant credit quality improves.",
+        bearRationale:"Major tenant default triggers dividend cut; sentiment collapse follows.",
+        riskReason:"Tenant concentration and federal policy are the twin binary risks. Monitor DEA scheduling announcements closely.",
+        tradingNote:"8–10% max. Watch: federal cannabis rescheduling announcements and tenant earnings releases."
+      }
+    },
+    { ticker:"VST", company:"Vistra Energy", sector:"Utilities",
+      pe:"24x", rev:"+28%", de:"3.1", div:"0.8%", payout:"Low", moat:"Moderate",
+      bull:185, bear:95, risk:8, entry:"$118–$130", stop:"$105", alloc:"Growth",
+      analysis:{
+        valuation:"P/E ~24x vs. utilities sector avg ~18x. Premium reflects AI power demand thesis and deregulated electricity market exposure in Texas/PJM.",
+        growth:"Revenue CAGR ~28% — extraordinary for a utility. Retail electricity margins and data center power purchase agreements are the primary engines.",
+        health:"D/E 3.1 — elevated but manageable given strong EBITDA generation. Interest coverage solid.",
+        income:"Dividend yield 0.8%, low sustainability. Capital prioritized toward debt service and growth investment.",
+        moatDetail:"Nuclear + natural gas + solar generation fleet in deregulated markets is difficult to replicate quickly.",
+        bullRationale:"AI power demand drives 10+ year PPAs signed; nuclear relicensing approved.",
+        bearRationale:"Texas grid regulation tightens; sector-wide multiple compression.",
+        riskReason:"Elevated for a utility. Current valuation requires the AI power demand thesis to fully materialize within the year.",
+        tradingNote:"10% allocation. The aggressive utility pick — pairs well with CEG."
+      }
+    },
+    { ticker:"CEG", company:"Constellation Energy", sector:"Utilities",
+      pe:"21x", rev:"+19%", de:"0.5", div:"0.7%", payout:"Moderate", moat:"Strong",
+      bull:310, bear:195, risk:7, entry:"$225–$245", stop:"$210", alloc:"Core",
+      analysis:{
+        valuation:"P/E ~21x. Nuclear renaissance premium — the Microsoft Crane Clean Energy Center deal validated the hyperscaler PPA model and set a pricing benchmark for the industry.",
+        growth:"Revenue CAGR ~19%. Nuclear baseload combined with hyperscaler PPAs signed at 3–4x spot power prices.",
+        health:"D/E 0.5 — clean balance sheet post-Exelon spinoff. Meaningful capacity to lever up for future acquisitions.",
+        income:"Dividend yield 0.7%, moderate sustainability. Growth-oriented capital allocation prioritized.",
+        moatDetail:"Largest nuclear fleet in the United States. Regulatory, cost, and timeline barriers make meaningful replication essentially impossible within a decade.",
+        bullRationale:"Additional hyperscaler PPA announcements; Three Mile Island expansion approved.",
+        bearRationale:"Nuclear subsidy risk from federal policy reversal; macro slowdown curtails data center buildout.",
+        riskReason:"Best risk-adjusted pick in this portfolio. Primary overhang is federal energy policy, not business fundamentals.",
+        tradingNote:"Core utility hold at 12–15% allocation. Highest quality name in this screen."
+      }
+    }
   ],
   allocation: {
     core:        { tickers:["IRM","OXY","CEG"],            weight:"35%" },
@@ -497,8 +650,8 @@ function Topbar() {
   return `
   <div class="topbar">
     <div class="topbar-brand">
-      <div class="brand-icon">S</div>
-      <div class="brand-name">ScreenerAI</div>
+      <div class="brand-icon">🔥</div>
+      <div class="brand-name">iMadeFire</div>
     </div>
     <div class="topbar-center">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
@@ -671,6 +824,30 @@ function Cards() {
         <div class="sc-entry-item"><div class="sc-entry-key">Stop-Loss</div><div class="sc-entry-val red">${s.stop}</div></div>
         <div class="sc-entry-item"><div class="sc-entry-key">Tier</div><div class="sc-entry-val vi">${s.alloc}</div></div>
       </div>
+
+      <div class="sc-analysis">
+        <div class="sc-analysis-toggle" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.toggle-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''">
+          <span>Analyst Notes</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="sc-analysis-body">
+          ${[
+            ['Valuation',    s.analysis.valuation],
+            ['Growth',       s.analysis.growth],
+            ['Fin. Health',  s.analysis.health],
+            ['Income',       s.analysis.income],
+            ['Moat Detail',  s.analysis.moatDetail],
+            ['Bull Case',    s.analysis.bullRationale],
+            ['Bear Case',    s.analysis.bearRationale],
+            ['Risk',         s.analysis.riskReason],
+            ['Trading Note', s.analysis.tradingNote],
+          ].map(([k,v]) => `
+          <div class="sc-analysis-row">
+            <div class="sc-analysis-key">${k}</div>
+            <div class="sc-analysis-val">${v}</div>
+          </div>`).join('')}
+        </div>
+      </div>
     </div>`;
   }).join('');
 
@@ -720,7 +897,7 @@ function Footer() {
       This report is generated for informational and educational purposes using an AI-powered stock screening tool. It does not constitute real-time financial advice. Data reflects model training knowledge and may not reflect current market conditions. Always verify with current data sources and consult a licensed financial advisor before making investment decisions.
     </div>
     <div class="footer-brand">
-      <div class="footer-brand-name">ScreenerAI</div>
+      <div class="footer-brand-name">🔥 iMadeFire</div>
       <div class="footer-ts">Generated ${D.generatedDate}</div>
     </div>
   </div>`;
