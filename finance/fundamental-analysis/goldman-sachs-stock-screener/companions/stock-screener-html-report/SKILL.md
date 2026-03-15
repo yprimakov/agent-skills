@@ -167,3 +167,24 @@ Populate `REPORT_DATA` with all values from the screener output before generatin
 Save as: `gs-stock-screener-report-[DATE].html`
 
 Where `[DATE]` matches the markdown report date (YYYY-MM-DD format).
+
+## Auto-Launch in Browser
+
+After saving the file, immediately open it in the user's default browser using the appropriate command for the detected OS:
+
+**Windows:**
+```bash
+cmd.exe /c start "" "C:\absolute\path\to\gs-stock-screener-report-[DATE].html"
+```
+
+**macOS:**
+```bash
+open "/absolute/path/to/gs-stock-screener-report-[DATE].html"
+```
+
+**Linux:**
+```bash
+xdg-open "/absolute/path/to/gs-stock-screener-report-[DATE].html"
+```
+
+Use the absolute path to the saved file. Run this command immediately after the Write tool confirms the file was saved successfully.

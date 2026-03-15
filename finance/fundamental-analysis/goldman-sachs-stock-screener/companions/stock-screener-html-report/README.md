@@ -55,6 +55,8 @@ Produces a single `.html` file containing:
 |------|--------|------------------|
 | Interactive HTML dashboard | `.html` | `gs-stock-screener-report-YYYY-MM-DD.html` |
 
+After saving, the skill automatically opens the file in the user's default browser using the appropriate OS command (`start` on Windows, `open` on macOS, `xdg-open` on Linux).
+
 ## Data Structure
 
 All report data is defined in a single `REPORT_DATA` JavaScript object at the top of the script block, making it straightforward to swap in updated or real-time data without touching the layout or chart logic.
