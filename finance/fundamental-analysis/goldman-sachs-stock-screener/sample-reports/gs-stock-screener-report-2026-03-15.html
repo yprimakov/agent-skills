@@ -3,1135 +3,835 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GS Equity Research | Stock Screening Report | 2026-03-15</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <title>Stock Screening Report | 2026-03-15</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg-primary: #07090f;
-      --bg-secondary: #0d1117;
-      --bg-card: #111827;
-      --bg-card-hover: #1a2335;
-      --border: rgba(255,255,255,0.06);
-      --border-accent: rgba(201,168,76,0.25);
-      --gold: #c9a84c;
-      --gold-light: #e8c87a;
-      --gold-dim: rgba(201,168,76,0.1);
-      --blue: #4a9eff;
-      --blue-dim: rgba(74,158,255,0.1);
-      --green: #00c896;
-      --green-dim: rgba(0,200,150,0.1);
-      --red: #ff4d6a;
-      --red-dim: rgba(255,77,106,0.1);
-      --amber: #f5a623;
-      --amber-dim: rgba(245,166,35,0.12);
-      --text-primary: #e2e8f0;
-      --text-secondary: #7a8899;
-      --text-muted: #3d4a5c;
-      --font-display: 'Playfair Display', serif;
-      --font-mono: 'IBM Plex Mono', monospace;
-      --font-sans: 'IBM Plex Sans', sans-serif;
+      --bg:          #0b0d1a;
+      --bg-surface:  #111327;
+      --bg-card:     #161930;
+      --bg-card-h:   #1c2040;
+      --bg-input:    #0e1022;
+
+      --indigo:      #6366f1;
+      --indigo-dim:  rgba(99,102,241,0.12);
+      --indigo-glow: rgba(99,102,241,0.25);
+      --violet:      #8b5cf6;
+      --violet-dim:  rgba(139,92,246,0.12);
+
+      --green:       #22c55e;
+      --green-dim:   rgba(34,197,94,0.12);
+      --red:         #f43f5e;
+      --red-dim:     rgba(244,63,94,0.12);
+      --amber:       #f59e0b;
+      --amber-dim:   rgba(245,158,11,0.12);
+      --sky:         #38bdf8;
+      --sky-dim:     rgba(56,189,248,0.12);
+
+      --border:      rgba(255,255,255,0.07);
+      --border-v:    rgba(99,102,241,0.18);
+
+      --t1: #f1f5f9;
+      --t2: #94a3b8;
+      --t3: #475569;
+
+      --r: 12px;
+      --r-sm: 8px;
+      --r-xs: 6px;
+
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --mono: 'IBM Plex Mono', monospace;
+
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-v: 0 4px 24px rgba(99,102,241,0.15);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: var(--bg-primary);
-      background-image:
-        linear-gradient(rgba(201,168,76,0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201,168,76,0.015) 1px, transparent 1px);
-      background-size: 40px 40px;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+      background: var(--bg);
+      background-image: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99,102,241,0.12) 0%, transparent 60%);
+      color: var(--t1);
+      font-family: var(--font);
       font-size: 14px;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── TOP BAR ── */
-    .top-bar {
+    /* ── TOPBAR ── */
+    .topbar {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      padding: 10px 40px;
-      border-bottom: 1px solid var(--border-accent);
-      background: rgba(7,9,15,0.95);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(8px);
+      padding: 0 32px;
+      height: 60px;
+      background: rgba(11,13,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
     }
-    .top-bar-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
+    .topbar-brand {
+      display: flex; align-items: center; gap: 10px;
     }
-    .gs-logo {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--gold);
-      text-transform: uppercase;
+    .brand-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--indigo), var(--violet));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; color: #fff;
+      box-shadow: var(--shadow-v);
     }
-    .top-bar-divider {
-      width: 1px;
-      height: 16px;
-      background: var(--border-accent);
+    .brand-name {
+      font-size: 15px; font-weight: 700; color: var(--t1); letter-spacing: -0.02em;
     }
-    .top-bar-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: var(--text-secondary);
-      text-transform: uppercase;
+    .topbar-center {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg-input); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 14px; width: 280px;
+      color: var(--t3); font-size: 13px;
     }
-    .top-bar-date {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-secondary);
+    .topbar-center svg { flex-shrink: 0; }
+    .topbar-right {
+      display: flex; align-items: center; gap: 12px;
     }
+    .topbar-pill {
+      font-family: var(--mono); font-size: 11px; color: var(--t2);
+      padding: 4px 10px; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .topbar-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border: 2px solid var(--border-v);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: #fff;
+    }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 1280px; margin: 0 auto; padding: 32px 32px 64px; }
 
     /* ── HERO ── */
     .hero {
-      padding: 60px 40px 48px;
-      border-bottom: 1px solid var(--border);
-      animation: fadeSlideUp 0.6s ease both;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 28px;
+      animation: up 0.5s ease both;
     }
+    .hero-left {}
     .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 16px;
+      font-size: 12px; font-weight: 600; color: var(--indigo);
+      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px;
     }
     .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 700;
-      color: var(--text-primary);
-      line-height: 1.15;
-      margin-bottom: 8px;
+      font-size: 28px; font-weight: 800; letter-spacing: -0.03em;
+      color: var(--t1); line-height: 1.2; margin-bottom: 4px;
     }
-    .hero-subtitle {
-      font-family: var(--font-display);
-      font-size: clamp(14px, 2vw, 18px);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--text-secondary);
-      margin-bottom: 28px;
+    .hero-sub {
+      font-size: 14px; color: var(--t2); margin-bottom: 16px;
     }
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; }
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 12px;
-      border-radius: 3px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 12px; border-radius: var(--r-xs);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.01em;
     }
-    .badge-gold { background: var(--gold-dim); border: 1px solid var(--border-accent); color: var(--gold-light); }
-    .badge-blue { background: var(--blue-dim); border: 1px solid rgba(74,158,255,0.2); color: var(--blue); }
-    .badge-sector { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-secondary); }
+    .badge-v   { background: var(--indigo-dim); border: 1px solid var(--border-v); color: #a5b4fc; }
+    .badge-g   { background: var(--green-dim);  border: 1px solid rgba(34,197,94,0.2); color: var(--green); }
+    .badge-sky { background: var(--sky-dim);    border: 1px solid rgba(56,189,248,0.2); color: var(--sky); }
+    .hero-right {
+      text-align: right; flex-shrink: 0;
+    }
+    .hero-date {
+      font-family: var(--mono); font-size: 12px; color: var(--t3); margin-bottom: 4px;
+    }
+    .time-filter {
+      display: inline-flex; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-sm); overflow: hidden;
+    }
+    .time-btn {
+      padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer;
+      color: var(--t3); border: none; background: transparent;
+      transition: all 0.15s;
+    }
+    .time-btn.active {
+      background: var(--indigo); color: #fff;
+    }
 
     /* ── METRICS STRIP ── */
     .metrics-strip {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      border-bottom: 1px solid var(--border);
-      animation: fadeSlideUp 0.6s ease 0.1s both;
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
+      margin-bottom: 24px;
+      animation: up 0.5s 0.05s ease both;
     }
-    .metric-cell {
-      padding: 24px 28px;
-      border-right: 1px solid var(--border);
+    .metric-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .metric-cell:last-child { border-right: none; }
+    .metric-card:hover { border-color: var(--border-v); box-shadow: var(--shadow-v); }
     .metric-label {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 8px;
+      font-size: 11px; font-weight: 600; color: var(--t3);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;
     }
     .metric-value {
-      font-family: var(--font-mono);
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--text-primary);
-      line-height: 1;
-      margin-bottom: 4px;
+      font-family: var(--mono); font-size: 24px; font-weight: 600;
+      color: var(--t1); line-height: 1; margin-bottom: 4px;
     }
-    .metric-sub {
-      font-family: var(--font-sans);
-      font-size: 11px;
-      color: var(--text-secondary);
+    .metric-value.v-indigo { color: var(--indigo); }
+    .metric-value.v-green  { color: var(--green); }
+    .metric-value.v-red    { color: var(--red); }
+    .metric-value.v-amber  { color: var(--amber); }
+    .metric-sub { font-size: 11px; color: var(--t3); }
+    .metric-trend {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: 11px; font-weight: 600; margin-top: 4px;
+      padding: 2px 7px; border-radius: 4px;
     }
-    .metric-value.gold { color: var(--gold); }
-    .metric-value.green { color: var(--green); }
-    .metric-value.red { color: var(--red); }
+    .trend-up   { background: var(--green-dim); color: var(--green); }
+    .trend-down { background: var(--red-dim);   color: var(--red); }
 
     /* ── SECTION ── */
-    .section {
-      padding: 48px 40px;
-      border-bottom: 1px solid var(--border);
-    }
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 32px;
+    .section { margin-bottom: 24px; }
+    .section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
     }
     .section-title {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--text-primary);
+      font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--t1);
+      display: flex; align-items: center; gap: 8px;
     }
-    .section-rule {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .section-title::before {
+      content: ''; display: block; width: 3px; height: 18px;
+      background: linear-gradient(to bottom, var(--indigo), var(--violet));
+      border-radius: 2px;
     }
-    .section-count {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-muted);
-    }
+    .section-meta { font-size: 12px; color: var(--t3); }
 
     /* ── CHARTS ROW ── */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.4fr 1.6fr;
-      gap: 20px;
-      animation: fadeSlideUp 0.6s ease 0.2s both;
+    .charts-row {
+      display: grid; grid-template-columns: 1fr 1.5fr 1.5fr; gap: 16px;
+      animation: up 0.5s 0.1s ease both;
     }
     .chart-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-left: 2px solid var(--gold);
-      border-radius: 4px;
-      padding: 24px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 20px;
+      transition: border-color 0.2s;
     }
-    .chart-card-title {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 20px;
+    .chart-card:hover { border-color: var(--border-v); }
+    .chart-label {
+      font-size: 11px; font-weight: 700; color: var(--t3);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .chart-wrap {
-      position: relative;
+    .chart-label-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--indigo); display: inline-block;
     }
-    .chart-wrap.donut { height: 200px; }
-    .chart-wrap.bar-h { height: 300px; }
-    .chart-wrap.bar-g { height: 300px; }
+    canvas { max-width: 100%; }
 
     /* ── TABLE ── */
     .table-wrap {
-      overflow-x: auto;
-      animation: fadeSlideUp 0.6s ease 0.3s both;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+      animation: up 0.5s 0.15s ease both;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--font-mono);
-      font-size: 12px;
-    }
+    table { width: 100%; border-collapse: collapse; }
     thead th {
-      padding: 10px 14px;
-      text-align: left;
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-accent);
-      white-space: nowrap;
-      cursor: pointer;
-      user-select: none;
-      transition: color 0.2s;
+      padding: 12px 16px;
+      font-size: 11px; font-weight: 700; color: var(--t3);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      background: var(--bg-surface); border-bottom: 1px solid var(--border);
+      white-space: nowrap; cursor: pointer; user-select: none;
+      transition: color 0.15s;
     }
-    thead th:hover { color: var(--gold); }
-    thead th.sorted { color: var(--gold-light); }
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
+    thead th:hover { color: var(--indigo); }
+    thead th.sorted { color: var(--indigo); }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--bg-card-h); }
+    tbody td { padding: 13px 16px; white-space: nowrap; }
+
+    .td-ticker {
+      font-family: var(--mono); font-size: 13px; font-weight: 600;
+      color: #a5b4fc;
     }
-    tbody tr:hover { background: var(--bg-card-hover); }
-    tbody td {
-      padding: 12px 14px;
-      color: var(--text-primary);
-      white-space: nowrap;
+    .td-sector { font-size: 12px; color: var(--t2); }
+    .td-num { font-family: var(--mono); font-size: 12px; color: var(--t1); }
+    .td-green { font-family: var(--mono); font-size: 12px; color: var(--green); font-weight: 500; }
+    .td-red   { font-family: var(--mono); font-size: 12px; color: var(--red); }
+    .td-blue  { font-family: var(--mono); font-size: 12px; color: var(--sky); }
+
+    .moat-pill {
+      display: inline-flex; align-items: center;
+      padding: 3px 9px; border-radius: 5px;
+      font-size: 11px; font-weight: 600;
     }
-    .ticker-cell {
-      font-weight: 600;
-      color: var(--gold-light);
+    .moat-strong   { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
+    .moat-moderate { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+    .moat-weak     { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(244,63,94,0.2); }
+
+    .risk-chip {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 22px; border-radius: 5px;
+      font-family: var(--mono); font-size: 12px; font-weight: 700;
     }
-    .moat-badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 2px;
-      font-size: 10px;
-      font-weight: 500;
-    }
-    .moat-strong { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,200,150,0.2); }
-    .moat-moderate { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,166,35,0.2); }
-    .moat-weak { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,77,106,0.2); }
-    .risk-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 20px;
-      border-radius: 2px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-    .risk-low { background: var(--green-dim); color: var(--green); }
-    .risk-mid { background: var(--amber-dim); color: var(--amber); }
-    .risk-high { background: var(--red-dim); color: var(--red); }
-    .bull { color: var(--green); }
-    .bear { color: var(--red); }
-    .pct-pos { color: var(--green); }
-    .entry-zone { color: var(--blue); }
+    .risk-lo { background: var(--green-dim); color: var(--green); }
+    .risk-md { background: var(--amber-dim); color: var(--amber); }
+    .risk-hi { background: var(--red-dim);   color: var(--red); }
 
     /* ── STOCK CARDS ── */
     .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
     }
     .stock-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-left: 2px solid var(--gold);
-      border-radius: 4px;
-      padding: 24px;
-      opacity: 0;
-      animation: fadeSlideUp 0.5s ease both;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 20px;
+      opacity: 0; animation: up 0.45s ease both;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 20px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--border);
+    .stock-card:hover { border-color: var(--border-v); box-shadow: var(--shadow-v); }
+
+    .sc-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--border);
     }
-    .card-ticker {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--gold-light);
-      line-height: 1;
-      margin-bottom: 4px;
+    .sc-ticker {
+      font-family: var(--mono); font-size: 22px; font-weight: 700;
+      color: #a5b4fc; line-height: 1; margin-bottom: 3px;
     }
-    .card-company {
-      font-family: var(--font-sans);
-      font-size: 12px;
-      color: var(--text-secondary);
+    .sc-company { font-size: 12px; color: var(--t2); }
+    .sc-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+    .sc-sector {
+      font-size: 11px; font-weight: 600; padding: 3px 9px;
+      background: var(--indigo-dim); border: 1px solid var(--border-v);
+      color: #a5b4fc; border-radius: 5px;
     }
-    .card-sector-badge {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      padding: 3px 8px;
-      background: var(--blue-dim);
-      border: 1px solid rgba(74,158,255,0.15);
-      color: var(--blue);
-      border-radius: 2px;
-      white-space: nowrap;
-    }
-    .card-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .card-metric {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 10px 12px;
-    }
-    .card-metric-label {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-    .card-metric-value {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-    .card-targets {
-      display: flex;
-      gap: 12px;
+
+    .sc-metrics {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
       margin-bottom: 16px;
     }
-    .target-block {
-      flex: 1;
-      padding: 10px 14px;
-      border-radius: 3px;
+    .sc-metric {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 10px 12px;
     }
-    .target-bull { background: var(--green-dim); border: 1px solid rgba(0,200,150,0.15); }
-    .target-bear { background: var(--red-dim); border: 1px solid rgba(255,77,106,0.15); }
-    .target-label {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 2px;
+    .sc-metric-label {
+      font-size: 10px; font-weight: 700; color: var(--t3);
+      text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px;
     }
-    .target-bull .target-label { color: rgba(0,200,150,0.7); }
-    .target-bear .target-label { color: rgba(255,77,106,0.7); }
-    .target-price {
-      font-family: var(--font-mono);
-      font-size: 18px;
-      font-weight: 600;
+    .sc-metric-value {
+      font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--t1);
     }
-    .target-bull .target-price { color: var(--green); }
-    .target-bear .target-price { color: var(--red); }
-    .card-risk-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .risk-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-    .risk-bar-track {
-      flex: 1;
-      height: 4px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    .risk-bar-fill {
-      height: 100%;
-      border-radius: 2px;
-      transition: width 0.8s ease;
-    }
-    .risk-bar-score {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 600;
-      min-width: 36px;
-      text-align: right;
-    }
-    .card-entry-box {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 14px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-    }
-    .entry-item { text-align: center; }
-    .entry-item-label {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 2px;
-    }
-    .entry-item-value {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .entry-item-value.entry { color: var(--blue); }
-    .entry-item-value.stop { color: var(--red); }
-    .entry-item-value.alloc { color: var(--gold); }
 
-    /* ── PORTFOLIO TABLE ── */
-    .portfolio-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--font-sans);
-      animation: fadeSlideUp 0.6s ease 0.4s both;
+    .sc-targets {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;
     }
+    .sc-target {
+      padding: 10px 14px; border-radius: var(--r-sm);
+    }
+    .sc-target-bull { background: var(--green-dim); border: 1px solid rgba(34,197,94,0.15); }
+    .sc-target-bear { background: var(--red-dim);   border: 1px solid rgba(244,63,94,0.15); }
+    .sc-target-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 2px;
+    }
+    .sc-target-bull .sc-target-label { color: rgba(34,197,94,0.7); }
+    .sc-target-bear .sc-target-label { color: rgba(244,63,94,0.7); }
+    .sc-target-price { font-family: var(--mono); font-size: 18px; font-weight: 600; }
+    .sc-target-bull .sc-target-price { color: var(--green); }
+    .sc-target-bear .sc-target-price { color: var(--red); }
+
+    .sc-risk-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .sc-risk-label { font-size: 11px; color: var(--t3); white-space: nowrap; }
+    .sc-risk-track {
+      flex: 1; height: 5px; background: var(--bg-surface);
+      border-radius: 3px; overflow: hidden; border: 1px solid var(--border);
+    }
+    .sc-risk-fill { height: 100%; border-radius: 3px; }
+    .sc-risk-score { font-family: var(--mono); font-size: 12px; font-weight: 600; min-width: 36px; text-align: right; }
+
+    .sc-entry {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: var(--r-sm); overflow: hidden;
+    }
+    .sc-entry-item { padding: 10px 12px; }
+    .sc-entry-item + .sc-entry-item { border-left: 1px solid var(--border); }
+    .sc-entry-key {
+      font-size: 10px; font-weight: 700; color: var(--t3);
+      text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 2px;
+    }
+    .sc-entry-val { font-family: var(--mono); font-size: 12px; font-weight: 500; }
+    .sc-entry-val.sky { color: var(--sky); }
+    .sc-entry-val.red { color: var(--red); }
+    .sc-entry-val.vi  { color: #a5b4fc; }
+
+    /* ── PORTFOLIO ── */
+    .portfolio-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+      animation: up 0.5s 0.2s ease both;
+    }
+    .portfolio-table { width: 100%; border-collapse: collapse; }
     .portfolio-table th {
-      padding: 10px 20px;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-accent);
-      text-align: left;
+      padding: 12px 20px; font-size: 11px; font-weight: 700;
+      color: var(--t3); text-transform: uppercase; letter-spacing: 0.08em;
+      background: var(--bg-surface); border-bottom: 1px solid var(--border); text-align: left;
     }
-    .portfolio-table td {
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--border);
+    .portfolio-table td { padding: 18px 20px; border-bottom: 1px solid var(--border); }
+    .portfolio-table tr:last-child td { border-bottom: none; }
+    .alloc-tier { font-family: var(--mono); font-size: 13px; font-weight: 600; }
+    .alloc-vi   { color: #a5b4fc; }
+    .alloc-sky  { color: var(--sky); }
+    .alloc-red  { color: var(--red); }
+    .ticker-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ticker-chip {
+      font-family: var(--mono); font-size: 11px; font-weight: 500;
+      padding: 3px 10px; background: var(--bg-surface);
+      border: 1px solid var(--border); border-radius: 5px; color: var(--t1);
     }
-    .alloc-tier {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .alloc-core { color: var(--gold); }
-    .alloc-growth { color: var(--blue); }
-    .alloc-speculative { color: var(--red); }
-    .alloc-tickers {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .alloc-ticker-chip {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      padding: 3px 10px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--text-primary);
-    }
-    .alloc-weight {
-      font-family: var(--font-mono);
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--text-primary);
+    .alloc-weight { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--t1); }
+    .rationale-box {
+      margin-top: 0; padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--t2); line-height: 1.7; font-style: italic;
     }
 
     /* ── FOOTER ── */
     .footer {
-      padding: 32px 40px;
-      border-top: 1px solid var(--border-accent);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      margin-top: 32px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;
     }
-    .footer-disclaimer {
-      font-family: var(--font-sans);
-      font-size: 11px;
-      color: var(--text-muted);
-      max-width: 600px;
-      line-height: 1.5;
-    }
-    .footer-brand {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--text-muted);
-      text-align: right;
-    }
-    .footer-brand span {
-      display: block;
-      color: var(--gold);
-      font-size: 11px;
-      margin-bottom: 2px;
-    }
+    .footer-disclaimer { font-size: 11px; color: var(--t3); line-height: 1.6; max-width: 580px; }
+    .footer-brand { text-align: right; flex-shrink: 0; }
+    .footer-brand-name { font-size: 13px; font-weight: 700; color: var(--indigo); margin-bottom: 2px; }
+    .footer-ts { font-family: var(--mono); font-size: 11px; color: var(--t3); }
 
     /* ── ANIMATIONS ── */
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes up {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
+    @media (max-width: 960px) {
       .metrics-strip { grid-template-columns: repeat(3, 1fr); }
-      .charts-grid { grid-template-columns: 1fr; }
-      .cards-grid { grid-template-columns: 1fr; }
+      .charts-row    { grid-template-columns: 1fr; }
+      .cards-grid    { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<div id="report"></div>
+<div id="app"></div>
 
 <script>
-/* ════════════════════════════════════════════
-   REPORT DATA — swap this object to update
-   ════════════════════════════════════════════ */
-const REPORT_DATA = {
+/* ════════════════════════════
+   DATA
+════════════════════════════ */
+const D = {
   generatedDate: "2026-03-15",
   client: {
     riskTolerance: "Speculative",
     investmentAmount: "Under $10,000",
-    timeHorizon: "Less than 1 year",
+    timeHorizon: "< 1 Year",
     sectors: ["Technology", "Energy", "Real Estate", "Utilities"]
   },
   stocks: [
-    {
-      ticker: "SMCI", company: "Super Micro Computer", sector: "Technology",
-      pe: "12x", revenueGrowth: "+110%", debtToEquity: "0.9",
-      divYield: "None", payoutScore: "N/A", moat: "Moderate",
-      bullTarget: 65, bearTarget: 18, riskScore: 10,
-      entryZone: "$32–$38", stopLoss: "$26", allocation: "Speculative"
-    },
-    {
-      ticker: "MSTR", company: "MicroStrategy", sector: "Technology",
-      pe: "N/M", revenueGrowth: "+6%", debtToEquity: "2.1",
-      divYield: "None", payoutScore: "N/A", moat: "Weak",
-      bullTarget: 650, bearTarget: 180, riskScore: 10,
-      entryZone: "$290–$340", stopLoss: "$255", allocation: "Speculative"
-    },
-    {
-      ticker: "IONQ", company: "IonQ Inc.", sector: "Technology",
-      pe: "N/M", revenueGrowth: "+95%", debtToEquity: "0.1",
-      divYield: "None", payoutScore: "N/A", moat: "Moderate",
-      bullTarget: 55, bearTarget: 12, riskScore: 10,
-      entryZone: "$22–$28", stopLoss: "$18", allocation: "Speculative"
-    },
-    {
-      ticker: "OXY", company: "Occidental Petroleum", sector: "Energy",
-      pe: "11x", revenueGrowth: "+18%", debtToEquity: "0.8",
-      divYield: "1.2%", payoutScore: "Moderate", moat: "Moderate",
-      bullTarget: 72, bearTarget: 40, riskScore: 7,
-      entryZone: "$46–$52", stopLoss: "$40", allocation: "Core"
-    },
-    {
-      ticker: "PLUG", company: "Plug Power", sector: "Energy",
-      pe: "N/M", revenueGrowth: "+28%", debtToEquity: "0.3",
-      divYield: "None", payoutScore: "N/A", moat: "Weak",
-      bullTarget: 4.50, bearTarget: 0.80, riskScore: 10,
-      entryZone: "$1.80–$2.30", stopLoss: "$1.50", allocation: "Speculative"
-    },
-    {
-      ticker: "RIG", company: "Transocean", sector: "Energy",
-      pe: "N/M", revenueGrowth: "+12%", debtToEquity: "1.8",
-      divYield: "None", payoutScore: "N/A", moat: "Weak",
-      bullTarget: 6.50, bearTarget: 2.00, riskScore: 9,
-      entryZone: "$3.00–$3.60", stopLoss: "$2.60", allocation: "Speculative"
-    },
-    {
-      ticker: "IRM", company: "Iron Mountain", sector: "Real Estate",
-      pe: "38x", revenueGrowth: "+14%", debtToEquity: "5.2",
-      divYield: "2.8%", payoutScore: "Moderate", moat: "Strong",
-      bullTarget: 145, bearTarget: 88, riskScore: 6,
-      entryZone: "$105–$115", stopLoss: "$95", allocation: "Core"
-    },
-    {
-      ticker: "IIPR", company: "Innovative Industrial Properties", sector: "Real Estate",
-      pe: "14x", revenueGrowth: "+22%", debtToEquity: "0.4",
-      divYield: "7.8%", payoutScore: "High", moat: "Moderate",
-      bullTarget: 145, bearTarget: 65, riskScore: 8,
-      entryZone: "$85–$98", stopLoss: "$75", allocation: "Growth"
-    },
-    {
-      ticker: "VST", company: "Vistra Energy", sector: "Utilities",
-      pe: "24x", revenueGrowth: "+28%", debtToEquity: "3.1",
-      divYield: "0.8%", payoutScore: "Low", moat: "Moderate",
-      bullTarget: 185, bearTarget: 95, riskScore: 8,
-      entryZone: "$118–$130", stopLoss: "$105", allocation: "Growth"
-    },
-    {
-      ticker: "CEG", company: "Constellation Energy", sector: "Utilities",
-      pe: "21x", revenueGrowth: "+19%", debtToEquity: "0.5",
-      divYield: "0.7%", payoutScore: "Moderate", moat: "Strong",
-      bullTarget: 310, bearTarget: 195, riskScore: 7,
-      entryZone: "$225–$245", stopLoss: "$210", allocation: "Core"
-    }
+    { ticker:"SMCI", company:"Super Micro Computer",          sector:"Technology",
+      pe:"12x",   rev:"+110%", de:"0.9", div:"—",    payout:"N/A",      moat:"Moderate",
+      bull:65,    bear:18,     risk:10,  entry:"$32–$38",   stop:"$26",   alloc:"Speculative" },
+    { ticker:"MSTR", company:"MicroStrategy",                 sector:"Technology",
+      pe:"N/M",   rev:"+6%",   de:"2.1", div:"—",    payout:"N/A",      moat:"Weak",
+      bull:650,   bear:180,    risk:10,  entry:"$290–$340", stop:"$255",  alloc:"Speculative" },
+    { ticker:"IONQ", company:"IonQ Inc.",                     sector:"Technology",
+      pe:"N/M",   rev:"+95%",  de:"0.1", div:"—",    payout:"N/A",      moat:"Moderate",
+      bull:55,    bear:12,     risk:10,  entry:"$22–$28",   stop:"$18",   alloc:"Speculative" },
+    { ticker:"OXY",  company:"Occidental Petroleum",          sector:"Energy",
+      pe:"11x",   rev:"+18%",  de:"0.8", div:"1.2%", payout:"Moderate", moat:"Moderate",
+      bull:72,    bear:40,     risk:7,   entry:"$46–$52",   stop:"$40",   alloc:"Core" },
+    { ticker:"PLUG", company:"Plug Power",                    sector:"Energy",
+      pe:"N/M",   rev:"+28%",  de:"0.3", div:"—",    payout:"N/A",      moat:"Weak",
+      bull:4.50,  bear:0.80,   risk:10,  entry:"$1.80–$2.30", stop:"$1.50", alloc:"Speculative" },
+    { ticker:"RIG",  company:"Transocean",                    sector:"Energy",
+      pe:"N/M",   rev:"+12%",  de:"1.8", div:"—",    payout:"N/A",      moat:"Weak",
+      bull:6.50,  bear:2.00,   risk:9,   entry:"$3.00–$3.60", stop:"$2.60", alloc:"Speculative" },
+    { ticker:"IRM",  company:"Iron Mountain",                 sector:"Real Estate",
+      pe:"38x",   rev:"+14%",  de:"5.2", div:"2.8%", payout:"Moderate", moat:"Strong",
+      bull:145,   bear:88,     risk:6,   entry:"$105–$115", stop:"$95",   alloc:"Core" },
+    { ticker:"IIPR", company:"Innovative Industrial Props",   sector:"Real Estate",
+      pe:"14x",   rev:"+22%",  de:"0.4", div:"7.8%", payout:"High",     moat:"Moderate",
+      bull:145,   bear:65,     risk:8,   entry:"$85–$98",   stop:"$75",   alloc:"Growth" },
+    { ticker:"VST",  company:"Vistra Energy",                 sector:"Utilities",
+      pe:"24x",   rev:"+28%",  de:"3.1", div:"0.8%", payout:"Low",      moat:"Moderate",
+      bull:185,   bear:95,     risk:8,   entry:"$118–$130", stop:"$105",  alloc:"Growth" },
+    { ticker:"CEG",  company:"Constellation Energy",          sector:"Utilities",
+      pe:"21x",   rev:"+19%",  de:"0.5", div:"0.7%", payout:"Moderate", moat:"Strong",
+      bull:310,   bear:195,    risk:7,   entry:"$225–$245", stop:"$210",  alloc:"Core" }
   ],
-  portfolioAllocation: {
-    core:        { tickers: ["IRM", "OXY", "CEG"], weight: "35%" },
-    growth:      { tickers: ["VST", "IIPR"],        weight: "15%" },
-    speculative: { tickers: ["SMCI", "MSTR", "IONQ", "PLUG", "RIG"], weight: "50%" }
+  allocation: {
+    core:        { tickers:["IRM","OXY","CEG"],            weight:"35%" },
+    growth:      { tickers:["VST","IIPR"],                  weight:"15%" },
+    speculative: { tickers:["SMCI","MSTR","IONQ","PLUG","RIG"], weight:"50%" }
   }
 };
 
-/* ════════════════════
+/* ════════════════════════════
    HELPERS
-   ════════════════════ */
-function riskColor(score) {
-  if (score <= 4) return 'var(--green)';
-  if (score <= 7) return 'var(--amber)';
-  return 'var(--red)';
-}
-function riskClass(score) {
-  if (score <= 4) return 'risk-low';
-  if (score <= 7) return 'risk-mid';
-  return 'risk-high';
-}
-function moatClass(moat) {
-  return { Strong: 'moat-strong', Moderate: 'moat-moderate', Weak: 'moat-weak' }[moat] || 'moat-moderate';
-}
-function formatPrice(p) {
-  if (p >= 1) return '$' + p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  return '$' + p.toFixed(2);
-}
-function avgRisk() {
-  return (REPORT_DATA.stocks.reduce((s, st) => s + st.riskScore, 0) / REPORT_DATA.stocks.length).toFixed(1);
-}
-function topPick() {
-  const s = [...REPORT_DATA.stocks].sort((a, b) => {
-    const upsideA = (a.bullTarget - a.bearTarget) / a.bearTarget;
-    const upsideB = (b.bullTarget - b.bearTarget) / b.bearTarget;
-    return upsideB - upsideA;
-  });
-  return s[0].ticker;
-}
-function avgPE() {
-  const valid = REPORT_DATA.stocks.filter(s => s.pe !== 'N/M');
-  if (!valid.length) return 'N/M';
-  const avg = valid.reduce((sum, s) => sum + parseFloat(s.pe), 0) / valid.length;
-  return avg.toFixed(0) + 'x';
-}
-function highestUpside() {
-  const s = [...REPORT_DATA.stocks].sort((a, b) => {
-    const ua = ((a.bullTarget / a.bearTarget) - 1) * 100;
-    const ub = ((b.bullTarget / b.bearTarget) - 1) * 100;
-    return ub - ua;
-  });
-  const pct = (((s[0].bullTarget / s[0].bearTarget) - 1) * 100).toFixed(0);
-  return '+' + pct + '%';
+════════════════════════════ */
+const riskColor = r => r <= 4 ? 'var(--green)' : r <= 7 ? 'var(--amber)' : 'var(--red)';
+const riskCls   = r => r <= 4 ? 'risk-lo' : r <= 7 ? 'risk-md' : 'risk-hi';
+const moatCls   = m => ({ Strong:'moat-strong', Moderate:'moat-moderate', Weak:'moat-weak' }[m]);
+const px = v => v >= 1 ? '$' + v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : '$' + v.toFixed(2);
+const avgRisk   = () => (D.stocks.reduce((s,x) => s + x.risk, 0) / D.stocks.length).toFixed(1);
+const avgPE     = () => { const v = D.stocks.filter(s => s.pe !== 'N/M'); const a = v.reduce((s,x) => s + parseFloat(x.pe),0) / v.length; return a.toFixed(0)+'x'; };
+const topSpread = () => [...D.stocks].sort((a,b) => (b.bull/b.bear) - (a.bull/a.bear))[0].ticker;
+const maxUpside = () => { const s = [...D.stocks].sort((a,b) => (b.bull/b.bear)-(a.bull/a.bear))[0]; return '+' + (((s.bull/s.bear)-1)*100).toFixed(0)+'%'; };
+
+/* ════════════════════════════
+   RENDER
+════════════════════════════ */
+function Topbar() {
+  return `
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="brand-icon">S</div>
+      <div class="brand-name">ScreenerAI</div>
+    </div>
+    <div class="topbar-center">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      Search stocks, sectors, tickers...
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-pill">${D.generatedDate}</div>
+      <div class="topbar-pill">For Client Use Only</div>
+      <div class="topbar-avatar">U</div>
+    </div>
+  </div>`;
 }
 
-/* ════════════════════
-   RENDER FUNCTIONS
-   ════════════════════ */
-function renderTopBar() {
+function Hero() {
+  const s = D.client;
+  const sectors = s.sectors.map(x => `<span class="badge badge-sky">${x}</span>`).join('');
   return `
-    <div class="top-bar">
-      <div class="top-bar-left">
-        <div class="gs-logo">Goldman Sachs</div>
-        <div class="top-bar-divider"></div>
-        <div class="top-bar-label">Equity Research — Americas</div>
-        <div class="top-bar-divider"></div>
-        <div class="top-bar-label">For Client Use Only</div>
-      </div>
-      <div class="top-bar-date">${REPORT_DATA.generatedDate}</div>
-    </div>`;
-}
-
-function renderHero() {
-  const { client } = REPORT_DATA;
-  const sectorBadges = client.sectors.map(s =>
-    `<span class="badge badge-sector">${s}</span>`).join('');
-  return `
-    <div class="hero">
-      <div class="hero-eyebrow">GS Equity Research | Stock Screening Report</div>
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Stock Screening Report</div>
       <div class="hero-title">Speculative Growth Screen</div>
-      <div class="hero-subtitle">10-Stock Catalyst-Driven Portfolio — Short Horizon</div>
+      <div class="hero-sub">10-Stock Catalyst-Driven Portfolio — Short Horizon</div>
       <div class="hero-badges">
-        <span class="badge badge-gold">⬥ ${client.riskTolerance}</span>
-        <span class="badge badge-gold">⬥ ${client.investmentAmount}</span>
-        <span class="badge badge-blue">⬥ ${client.timeHorizon}</span>
-        ${sectorBadges}
+        <span class="badge badge-v">${s.riskTolerance}</span>
+        <span class="badge badge-v">${s.investmentAmount}</span>
+        <span class="badge badge-g">${s.timeHorizon}</span>
+        ${sectors}
       </div>
-    </div>`;
+    </div>
+    <div class="hero-right">
+      <div class="hero-date">Generated ${D.generatedDate}</div>
+      <div class="time-filter">
+        <button class="time-btn active">12 Months</button>
+        <button class="time-btn">6 Months</button>
+        <button class="time-btn">3 Months</button>
+      </div>
+    </div>
+  </div>`;
 }
 
-function renderMetricsStrip() {
+function MetricsStrip() {
+  const cells = [
+    { label:'Stocks Screened',    val:D.stocks.length,   cls:'v-indigo', sub:'across 4 sectors',       trend:null },
+    { label:'Avg Risk Score',     val:avgRisk()+'/10',   cls:'v-red',    sub:'speculative profile',     trend:{dir:'up', txt:'High Risk'} },
+    { label:'Top Conviction',     val:topSpread(),        cls:'v-indigo', sub:'highest bull/bear spread',trend:null },
+    { label:'Avg P/E (positive)', val:avgPE(),            cls:'',         sub:'6 of 10 earnings+',      trend:null },
+    { label:'Max Bull Upside',    val:maxUpside(),        cls:'v-green',  sub:'bull vs bear spread',    trend:{dir:'up', txt:'Asymmetric'} },
+  ];
   return `
-    <div class="metrics-strip">
-      <div class="metric-cell">
-        <div class="metric-label">Stocks Screened</div>
-        <div class="metric-value gold">${REPORT_DATA.stocks.length}</div>
-        <div class="metric-sub">across 4 sectors</div>
-      </div>
-      <div class="metric-cell">
-        <div class="metric-label">Avg Risk Score</div>
-        <div class="metric-value red">${avgRisk()}<span style="font-size:14px;color:var(--text-muted)">/10</span></div>
-        <div class="metric-sub">speculative profile</div>
-      </div>
-      <div class="metric-cell">
-        <div class="metric-label">Top Conviction</div>
-        <div class="metric-value gold">${topPick()}</div>
-        <div class="metric-sub">highest bull/bear spread</div>
-      </div>
-      <div class="metric-cell">
-        <div class="metric-label">Avg P/E (profitable)</div>
-        <div class="metric-value">${avgPE()}</div>
-        <div class="metric-sub">6 of 10 earnings-positive</div>
-      </div>
-      <div class="metric-cell">
-        <div class="metric-label">Max Bull Upside</div>
-        <div class="metric-value green">${highestUpside()}</div>
-        <div class="metric-sub">bull vs bear spread</div>
-      </div>
-    </div>`;
+  <div class="metrics-strip">
+    ${cells.map(c => `
+    <div class="metric-card">
+      <div class="metric-label">${c.label}</div>
+      <div class="metric-value ${c.cls}">${c.val}</div>
+      ${c.trend ? `<div class="metric-trend trend-${c.trend.dir === 'up' ? 'up':'down'}">▲ ${c.trend.txt}</div>` : ''}
+      <div class="metric-sub">${c.sub}</div>
+    </div>`).join('')}
+  </div>`;
 }
 
-function renderCharts() {
+function Charts() {
   return `
-    <div class="section" style="padding-bottom:32px;">
-      <div class="section-header">
-        <div class="section-title">Portfolio Analytics</div>
-        <div class="section-rule"></div>
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Portfolio Analytics</div>
+      <div class="section-meta">3 views</div>
+    </div>
+    <div class="charts-row">
+      <div class="chart-card">
+        <div class="chart-label"><span>Allocation by Tier</span><span class="chart-label-dot"></span></div>
+        <canvas id="cDonut" height="200"></canvas>
       </div>
-      <div class="charts-grid">
-        <div class="chart-card">
-          <div class="chart-card-title">Allocation by Tier</div>
-          <div class="chart-wrap donut"><canvas id="chartDonut"></canvas></div>
-        </div>
-        <div class="chart-card">
-          <div class="chart-card-title">Risk Score by Ticker</div>
-          <div class="chart-wrap bar-h"><canvas id="chartRisk"></canvas></div>
-        </div>
-        <div class="chart-card">
-          <div class="chart-card-title">Bull vs Bear 12-Month Targets</div>
-          <div class="chart-wrap bar-g"><canvas id="chartTargets"></canvas></div>
-        </div>
+      <div class="chart-card">
+        <div class="chart-label"><span>Risk Score by Ticker</span><span class="chart-label-dot"></span></div>
+        <canvas id="cRisk" height="250"></canvas>
       </div>
-    </div>`;
+      <div class="chart-card">
+        <div class="chart-label"><span>Bull vs Bear 12M Targets</span><span class="chart-label-dot"></span></div>
+        <canvas id="cTargets" height="250"></canvas>
+      </div>
+    </div>
+  </div>`;
 }
 
-function renderSummaryTable() {
-  const rows = REPORT_DATA.stocks.map((s, i) => `
+function Table() {
+  const rows = D.stocks.map((s,i) => `
     <tr>
-      <td style="color:var(--text-muted);font-size:11px;">${i + 1}</td>
-      <td class="ticker-cell">${s.ticker}</td>
-      <td style="color:var(--text-secondary)">${s.sector}</td>
-      <td>${s.pe}</td>
-      <td class="pct-pos">${s.revenueGrowth}</td>
-      <td>${s.debtToEquity}</td>
-      <td>${s.divYield}</td>
-      <td>${s.payoutScore}</td>
-      <td><span class="moat-badge ${moatClass(s.moat)}">${s.moat}</span></td>
-      <td class="bull">${formatPrice(s.bullTarget)}</td>
-      <td class="bear">${formatPrice(s.bearTarget)}</td>
-      <td><span class="risk-pill ${riskClass(s.riskScore)}">${s.riskScore}</span></td>
-      <td class="entry-zone">${s.entryZone}</td>
-      <td style="color:var(--red)">${s.stopLoss}</td>
+      <td style="color:var(--t3);font-family:var(--mono);font-size:11px">${i+1}</td>
+      <td class="td-ticker">${s.ticker}</td>
+      <td class="td-sector">${s.sector}</td>
+      <td class="td-num">${s.pe}</td>
+      <td class="td-green">${s.rev}</td>
+      <td class="td-num">${s.de}</td>
+      <td class="td-num">${s.div}</td>
+      <td class="td-num">${s.payout}</td>
+      <td><span class="moat-pill ${moatCls(s.moat)}">${s.moat}</span></td>
+      <td class="td-green">${px(s.bull)}</td>
+      <td class="td-red">${px(s.bear)}</td>
+      <td><span class="risk-chip ${riskCls(s.risk)}">${s.risk}</span></td>
+      <td class="td-blue">${s.entry}</td>
+      <td class="td-red">${s.stop}</td>
     </tr>`).join('');
 
   return `
-    <div class="section">
-      <div class="section-header">
-        <div class="section-title">Summary Table</div>
-        <div class="section-rule"></div>
-        <div class="section-count">Click headers to sort</div>
-      </div>
-      <div class="table-wrap">
-        <table id="summaryTable">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Ticker</th>
-              <th>Sector</th>
-              <th>P/E</th>
-              <th>Rev Growth</th>
-              <th>D/E</th>
-              <th>Div Yield</th>
-              <th>Payout</th>
-              <th>Moat</th>
-              <th>Bull Target</th>
-              <th>Bear Target</th>
-              <th>Risk</th>
-              <th>Entry Zone</th>
-              <th>Stop-Loss</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-    </div>`;
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Summary Table</div>
+      <div class="section-meta">Click any column header to sort</div>
+    </div>
+    <div class="table-wrap">
+      <table id="tbl">
+        <thead><tr>
+          <th>#</th><th>Ticker</th><th>Sector</th><th>P/E</th>
+          <th>Rev Growth</th><th>D/E</th><th>Div Yield</th><th>Payout</th>
+          <th>Moat</th><th>Bull</th><th>Bear</th><th>Risk</th>
+          <th>Entry Zone</th><th>Stop-Loss</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
 }
 
-function renderStockCards() {
-  const cards = REPORT_DATA.stocks.map((s, i) => {
-    const delay = (i * 0.06).toFixed(2);
-    const riskFillWidth = (s.riskScore / 10 * 100) + '%';
-    const upside = (((s.bullTarget / s.bearTarget) - 1) * 100).toFixed(0);
+function Cards() {
+  const cards = D.stocks.map((s,i) => {
+    const delay = (i * 0.05).toFixed(2);
+    const upside = (((s.bull/s.bear)-1)*100).toFixed(0);
+    const rfill = (s.risk/10*100)+'%';
     return `
-      <div class="stock-card" style="animation-delay:${delay}s">
-        <div class="card-header">
-          <div>
-            <div class="card-ticker">${s.ticker}</div>
-            <div class="card-company">${s.company}</div>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
-            <div class="card-sector-badge">${s.sector}</div>
-            <span class="moat-badge ${moatClass(s.moat)}">${s.moat} Moat</span>
-          </div>
+    <div class="stock-card" style="animation-delay:${delay}s">
+      <div class="sc-header">
+        <div>
+          <div class="sc-ticker">${s.ticker}</div>
+          <div class="sc-company">${s.company}</div>
         </div>
-        <div class="card-metrics">
-          <div class="card-metric">
-            <div class="card-metric-label">P/E Ratio</div>
-            <div class="card-metric-value">${s.pe}</div>
-          </div>
-          <div class="card-metric">
-            <div class="card-metric-label">Rev Growth</div>
-            <div class="card-metric-value" style="color:var(--green)">${s.revenueGrowth}</div>
-          </div>
-          <div class="card-metric">
-            <div class="card-metric-label">Debt / Equity</div>
-            <div class="card-metric-value">${s.debtToEquity}</div>
-          </div>
-          <div class="card-metric">
-            <div class="card-metric-label">Div Yield</div>
-            <div class="card-metric-value">${s.divYield}</div>
-          </div>
-          <div class="card-metric">
-            <div class="card-metric-label">Payout Score</div>
-            <div class="card-metric-value">${s.payoutScore}</div>
-          </div>
-          <div class="card-metric">
-            <div class="card-metric-label">Bull/Bear Spread</div>
-            <div class="card-metric-value" style="color:var(--amber)">+${upside}%</div>
-          </div>
+        <div class="sc-header-right">
+          <div class="sc-sector">${s.sector}</div>
+          <span class="moat-pill ${moatCls(s.moat)}">${s.moat} Moat</span>
         </div>
-        <div class="card-targets">
-          <div class="target-block target-bull">
-            <div class="target-label">▲ Bull Case</div>
-            <div class="target-price">${formatPrice(s.bullTarget)}</div>
-          </div>
-          <div class="target-block target-bear">
-            <div class="target-label">▼ Bear Case</div>
-            <div class="target-price">${formatPrice(s.bearTarget)}</div>
-          </div>
+      </div>
+
+      <div class="sc-metrics">
+        <div class="sc-metric"><div class="sc-metric-label">P/E Ratio</div><div class="sc-metric-value">${s.pe}</div></div>
+        <div class="sc-metric"><div class="sc-metric-label">Rev Growth</div><div class="sc-metric-value" style="color:var(--green)">${s.rev}</div></div>
+        <div class="sc-metric"><div class="sc-metric-label">Debt / Equity</div><div class="sc-metric-value">${s.de}</div></div>
+        <div class="sc-metric"><div class="sc-metric-label">Div Yield</div><div class="sc-metric-value">${s.div}</div></div>
+        <div class="sc-metric"><div class="sc-metric-label">Payout Score</div><div class="sc-metric-value">${s.payout}</div></div>
+        <div class="sc-metric"><div class="sc-metric-label">Bull/Bear Spread</div><div class="sc-metric-value" style="color:var(--amber)">+${upside}%</div></div>
+      </div>
+
+      <div class="sc-targets">
+        <div class="sc-target sc-target-bull">
+          <div class="sc-target-label">▲ Bull Case</div>
+          <div class="sc-target-price">${px(s.bull)}</div>
         </div>
-        <div class="card-risk-row">
-          <div class="risk-label">Risk</div>
-          <div class="risk-bar-track">
-            <div class="risk-bar-fill" style="width:${riskFillWidth};background:${riskColor(s.riskScore)}"></div>
-          </div>
-          <div class="risk-bar-score" style="color:${riskColor(s.riskScore)}">${s.riskScore}/10</div>
+        <div class="sc-target sc-target-bear">
+          <div class="sc-target-label">▼ Bear Case</div>
+          <div class="sc-target-price">${px(s.bear)}</div>
         </div>
-        <div class="card-entry-box">
-          <div class="entry-item">
-            <div class="entry-item-label">Entry Zone</div>
-            <div class="entry-item-value entry">${s.entryZone}</div>
-          </div>
-          <div style="width:1px;background:var(--border)"></div>
-          <div class="entry-item">
-            <div class="entry-item-label">Stop-Loss</div>
-            <div class="entry-item-value stop">${s.stopLoss}</div>
-          </div>
-          <div style="width:1px;background:var(--border)"></div>
-          <div class="entry-item">
-            <div class="entry-item-label">Allocation Tier</div>
-            <div class="entry-item-value alloc">${s.allocation}</div>
-          </div>
-        </div>
-      </div>`;
+      </div>
+
+      <div class="sc-risk-row">
+        <div class="sc-risk-label">Risk</div>
+        <div class="sc-risk-track"><div class="sc-risk-fill" style="width:${rfill};background:${riskColor(s.risk)}"></div></div>
+        <div class="sc-risk-score" style="color:${riskColor(s.risk)}">${s.risk}/10</div>
+      </div>
+
+      <div class="sc-entry">
+        <div class="sc-entry-item"><div class="sc-entry-key">Entry Zone</div><div class="sc-entry-val sky">${s.entry}</div></div>
+        <div class="sc-entry-item"><div class="sc-entry-key">Stop-Loss</div><div class="sc-entry-val red">${s.stop}</div></div>
+        <div class="sc-entry-item"><div class="sc-entry-key">Tier</div><div class="sc-entry-val vi">${s.alloc}</div></div>
+      </div>
+    </div>`;
   }).join('');
 
   return `
-    <div class="section">
-      <div class="section-header">
-        <div class="section-title">Individual Stock Analysis</div>
-        <div class="section-rule"></div>
-        <div class="section-count">${REPORT_DATA.stocks.length} positions</div>
-      </div>
-      <div class="cards-grid">${cards}</div>
-    </div>`;
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Individual Stock Analysis</div>
+      <div class="section-meta">${D.stocks.length} positions</div>
+    </div>
+    <div class="cards-grid">${cards}</div>
+  </div>`;
 }
 
-function renderPortfolioTable() {
-  const { core, growth, speculative } = REPORT_DATA.portfolioAllocation;
+function Portfolio() {
+  const { core, growth, speculative } = D.allocation;
   const row = (cls, label, data) => `
     <tr>
       <td><span class="alloc-tier alloc-${cls}">${label}</span></td>
-      <td>
-        <div class="alloc-tickers">
-          ${data.tickers.map(t => `<span class="alloc-ticker-chip">${t}</span>`).join('')}
-        </div>
-      </td>
+      <td><div class="ticker-chips">${data.tickers.map(t=>`<span class="ticker-chip">${t}</span>`).join('')}</div></td>
       <td><span class="alloc-weight">${data.weight}</span></td>
     </tr>`;
-
   return `
-    <div class="section">
-      <div class="section-header">
-        <div class="section-title">Portfolio Construction</div>
-        <div class="section-rule"></div>
-      </div>
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Portfolio Construction</div>
+    </div>
+    <div class="portfolio-card">
       <table class="portfolio-table">
-        <thead>
-          <tr>
-            <th style="width:160px">Allocation Tier</th>
-            <th>Tickers</th>
-            <th style="width:120px">Weight</th>
-          </tr>
-        </thead>
+        <thead><tr><th style="width:160px">Tier</th><th>Tickers</th><th style="width:110px">Weight</th></tr></thead>
         <tbody>
-          ${row('core', 'Core', core)}
-          ${row('growth', 'Growth', growth)}
-          ${row('speculative', 'Speculative', speculative)}
+          ${row('vi','Core',core)}
+          ${row('sky','Growth',growth)}
+          ${row('red','Speculative',speculative)}
         </tbody>
       </table>
-      <div style="margin-top:20px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border);border-left:2px solid var(--gold);border-radius:4px;">
-        <p style="font-family:var(--font-sans);font-size:13px;color:var(--text-secondary);font-style:italic;line-height:1.7;">
-          For a speculative profile with a sub-$10,000 capital base and a trading horizon under one year, 50% in high-volatility asymmetric bets is appropriate given the stated risk appetite. The Core sleeve provides downside ballast. Hard stop-losses are mandatory across all speculative positions — do not hold through stops on a sub-1-year horizon.
-        </p>
+      <div class="rationale-box">
+        For a speculative profile with a sub-$10,000 capital base and a trading horizon under one year, 50% in high-volatility asymmetric bets is appropriate. The Core sleeve provides downside ballast and quality exposure to the same macro themes without binary risk. Hard stop-losses are mandatory — do not hold through stops on a sub-1-year horizon.
       </div>
-    </div>`;
+    </div>
+  </div>`;
 }
 
-function renderFooter() {
+function Footer() {
   return `
-    <div class="footer">
-      <div class="footer-disclaimer">
-        This report is generated for informational and educational purposes using an AI-powered stock screening skill.
-        It does not constitute real-time financial advice. Data reflects model training knowledge and may not reflect current
-        market conditions. Always verify with current sources and consult a licensed financial advisor before making investment decisions.
-      </div>
-      <div class="footer-brand">
-        <span>GS Stock Screener Skill</span>
-        Generated ${REPORT_DATA.generatedDate}
-      </div>
-    </div>`;
+  <div class="footer">
+    <div class="footer-disclaimer">
+      This report is generated for informational and educational purposes using an AI-powered stock screening tool. It does not constitute real-time financial advice. Data reflects model training knowledge and may not reflect current market conditions. Always verify with current data sources and consult a licensed financial advisor before making investment decisions.
+    </div>
+    <div class="footer-brand">
+      <div class="footer-brand-name">ScreenerAI</div>
+      <div class="footer-ts">Generated ${D.generatedDate}</div>
+    </div>
+  </div>`;
 }
 
-/* ════════════════════
-   CHART INIT
-   ════════════════════ */
+/* ════════════════════════════
+   CHARTS
+════════════════════════════ */
 function initCharts() {
-  Chart.defaults.color = '#7a8899';
+  Chart.defaults.color = '#475569';
   Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
   Chart.defaults.font.family = "'IBM Plex Mono', monospace";
   Chart.defaults.font.size = 11;
 
   // Donut
-  new Chart(document.getElementById('chartDonut'), {
+  new Chart(document.getElementById('cDonut'), {
     type: 'doughnut',
     data: {
-      labels: ['Core', 'Growth', 'Speculative'],
-      datasets: [{
-        data: [35, 15, 50],
-        backgroundColor: ['#c9a84c', '#4a9eff', '#ff4d6a'],
-        borderWidth: 0,
-        hoverOffset: 6
-      }]
+      labels: ['Core','Growth','Speculative'],
+      datasets: [{ data:[35,15,50], backgroundColor:['#6366f1','#38bdf8','#f43f5e'], borderWidth:0, hoverOffset:6 }]
     },
     options: {
-      cutout: '65%',
+      cutout: '68%',
       plugins: {
-        legend: {
-          position: 'bottom',
-          labels: { padding: 16, usePointStyle: true, pointStyleWidth: 10 }
-        },
-        tooltip: {
-          callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
-        }
+        legend: { position:'bottom', labels:{ padding:16, usePointStyle:true, pointStyleWidth:8, color:'#94a3b8' }},
+        tooltip: { callbacks:{ label: c => ` ${c.label}: ${c.parsed}%` }}
       }
     }
   });
 
-  // Risk horizontal bar
-  const riskColors = REPORT_DATA.stocks.map(s => riskColor(s.riskScore));
-  new Chart(document.getElementById('chartRisk'), {
+  // Risk bar
+  new Chart(document.getElementById('cRisk'), {
     type: 'bar',
     data: {
-      labels: REPORT_DATA.stocks.map(s => s.ticker),
-      datasets: [{
-        label: 'Risk Score',
-        data: REPORT_DATA.stocks.map(s => s.riskScore),
-        backgroundColor: riskColors,
-        borderRadius: 2,
-        borderSkipped: false
-      }]
+      labels: D.stocks.map(s => s.ticker),
+      datasets: [{ label:'Risk', data: D.stocks.map(s => s.risk),
+        backgroundColor: D.stocks.map(s => riskColor(s.risk)),
+        borderRadius: 4, borderSkipped: false }]
     },
     options: {
       indexAxis: 'y',
-      plugins: { legend: { display: false } },
+      plugins: { legend:{ display:false } },
       scales: {
-        x: {
-          min: 0, max: 10,
-          ticks: { stepSize: 2 },
-          grid: { color: 'rgba(255,255,255,0.04)' }
-        },
-        y: { grid: { display: false } }
+        x: { min:0, max:10, ticks:{ stepSize:2, color:'#475569' }, grid:{ color:'rgba(255,255,255,0.04)' }},
+        y: { ticks:{ color:'#94a3b8' }, grid:{ display:false }}
       }
     }
   });
 
-  // Bull vs Bear grouped bar
-  new Chart(document.getElementById('chartTargets'), {
+  // Bull vs Bear
+  new Chart(document.getElementById('cTargets'), {
     type: 'bar',
     data: {
-      labels: REPORT_DATA.stocks.map(s => s.ticker),
+      labels: D.stocks.map(s => s.ticker),
       datasets: [
-        {
-          label: 'Bull Target',
-          data: REPORT_DATA.stocks.map(s => s.bullTarget),
-          backgroundColor: 'rgba(0,200,150,0.7)',
-          borderRadius: 2
-        },
-        {
-          label: 'Bear Target',
-          data: REPORT_DATA.stocks.map(s => s.bearTarget),
-          backgroundColor: 'rgba(255,77,106,0.7)',
-          borderRadius: 2
-        }
+        { label:'Bull Target', data: D.stocks.map(s => s.bull), backgroundColor:'rgba(34,197,94,0.65)', borderRadius:4 },
+        { label:'Bear Target', data: D.stocks.map(s => s.bear), backgroundColor:'rgba(244,63,94,0.65)',  borderRadius:4 }
       ]
     },
     options: {
       indexAxis: 'y',
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: { usePointStyle: true, pointStyleWidth: 10, padding: 16 }
-        }
-      },
+      plugins: { legend:{ position:'bottom', labels:{ usePointStyle:true, pointStyleWidth:8, padding:14, color:'#94a3b8' }}},
       scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.04)' } },
-        y: { grid: { display: false } }
+        x: { ticks:{ color:'#475569' }, grid:{ color:'rgba(255,255,255,0.04)' }},
+        y: { ticks:{ color:'#94a3b8' }, grid:{ display:false }}
       }
     }
   });
 }
 
-/* ════════════════════
+/* ════════════════════════════
    TABLE SORT
-   ════════════════════ */
-function initTableSort() {
-  const table = document.getElementById('summaryTable');
-  if (!table) return;
-  const headers = table.querySelectorAll('thead th');
-  let sortCol = -1, sortAsc = true;
-
-  headers.forEach((th, idx) => {
+════════════════════════════ */
+function initSort() {
+  const tbl = document.getElementById('tbl');
+  if (!tbl) return;
+  let col=-1, asc=true;
+  tbl.querySelectorAll('thead th').forEach((th,i) => {
     th.addEventListener('click', () => {
-      if (sortCol === idx) sortAsc = !sortAsc;
-      else { sortCol = idx; sortAsc = true; }
-      headers.forEach(h => h.classList.remove('sorted'));
+      if (col===i) asc=!asc; else { col=i; asc=true; }
+      tbl.querySelectorAll('thead th').forEach(h => h.classList.remove('sorted'));
       th.classList.add('sorted');
-
-      const tbody = table.querySelector('tbody');
-      const rows = Array.from(tbody.querySelectorAll('tr'));
-      rows.sort((a, b) => {
-        const aText = a.cells[idx].textContent.replace(/[$,%x\/]/g, '').trim();
-        const bText = b.cells[idx].textContent.replace(/[$,%x\/]/g, '').trim();
-        const aNum = parseFloat(aText), bNum = parseFloat(bText);
-        const isNum = !isNaN(aNum) && !isNaN(bNum);
-        const cmp = isNum ? aNum - bNum : aText.localeCompare(bText);
-        return sortAsc ? cmp : -cmp;
-      });
-      rows.forEach(r => tbody.appendChild(r));
+      const tb = tbl.querySelector('tbody');
+      [...tb.rows].sort((a,b) => {
+        const av = a.cells[i].textContent.replace(/[$,%x\/▲▼ ]/g,'').trim();
+        const bv = b.cells[i].textContent.replace(/[$,%x\/▲▼ ]/g,'').trim();
+        const an = parseFloat(av), bn = parseFloat(bv);
+        const c = !isNaN(an)&&!isNaN(bn) ? an-bn : av.localeCompare(bv);
+        return asc ? c : -c;
+      }).forEach(r => tb.appendChild(r));
     });
   });
 }
 
-/* ════════════════════
-   BOOTSTRAP
-   ════════════════════ */
+/* ════════════════════════════
+   BOOT
+════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('report');
-  root.innerHTML =
-    renderTopBar() +
-    renderHero() +
-    renderMetricsStrip() +
-    renderCharts() +
-    renderSummaryTable() +
-    renderStockCards() +
-    renderPortfolioTable() +
-    renderFooter();
-
+  document.getElementById('app').innerHTML =
+    Topbar() +
+    `<div class="page">` +
+      Hero() +
+      MetricsStrip() +
+      Charts() +
+      Table() +
+      Cards() +
+      Portfolio() +
+      Footer() +
+    `</div>`;
   initCharts();
-  initTableSort();
+  initSort();
 });
 </script>
 </body>
