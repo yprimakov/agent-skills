@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GS Equity Research | Stock Screening Report | 2026-03-15</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg-primary: #07090f;
+      --bg-secondary: #0d1117;
+      --bg-card: #111827;
+      --bg-card-hover: #1a2335;
+      --border: rgba(255,255,255,0.06);
+      --border-accent: rgba(201,168,76,0.25);
+      --gold: #c9a84c;
+      --gold-light: #e8c87a;
+      --gold-dim: rgba(201,168,76,0.1);
+      --blue: #4a9eff;
+      --blue-dim: rgba(74,158,255,0.1);
+      --green: #00c896;
+      --green-dim: rgba(0,200,150,0.1);
+      --red: #ff4d6a;
+      --red-dim: rgba(255,77,106,0.1);
+      --amber: #f5a623;
+      --amber-dim: rgba(245,166,35,0.12);
+      --text-primary: #e2e8f0;
+      --text-secondary: #7a8899;
+      --text-muted: #3d4a5c;
+      --font-display: 'Playfair Display', serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      --font-sans: 'IBM Plex Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-primary);
+      background-image:
+        linear-gradient(rgba(201,168,76,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.015) 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 40px;
+      border-bottom: 1px solid var(--border-accent);
+      background: rgba(7,9,15,0.95);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .gs-logo {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .top-bar-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border-accent);
+    }
+    .top-bar-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+    .top-bar-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 60px 40px 48px;
+      border-bottom: 1px solid var(--border);
+      animation: fadeSlideUp 0.6s ease both;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(14px, 2vw, 18px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .badge-gold { background: var(--gold-dim); border: 1px solid var(--border-accent); color: var(--gold-light); }
+    .badge-blue { background: var(--blue-dim); border: 1px solid rgba(74,158,255,0.2); color: var(--blue); }
+    .badge-sector { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-secondary); }
+
+    /* ── METRICS STRIP ── */
+    .metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border-bottom: 1px solid var(--border);
+      animation: fadeSlideUp 0.6s ease 0.1s both;
+    }
+    .metric-cell {
+      padding: 24px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .metric-cell:last-child { border-right: none; }
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .metric-value {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .metric-sub {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .metric-value.gold { color: var(--gold); }
+    .metric-value.green { color: var(--green); }
+    .metric-value.red { color: var(--red); }
+
+    /* ── SECTION ── */
+    .section {
+      padding: 48px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .section-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ── CHARTS ROW ── */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 1.6fr;
+      gap: 20px;
+      animation: fadeSlideUp 0.6s ease 0.2s both;
+    }
+    .chart-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--gold);
+      border-radius: 4px;
+      padding: 24px;
+    }
+    .chart-card-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .chart-wrap {
+      position: relative;
+    }
+    .chart-wrap.donut { height: 200px; }
+    .chart-wrap.bar-h { height: 300px; }
+    .chart-wrap.bar-g { height: 300px; }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      overflow-x: auto;
+      animation: fadeSlideUp 0.6s ease 0.3s both;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    thead th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-accent);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    thead th:hover { color: var(--gold); }
+    thead th.sorted { color: var(--gold-light); }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    tbody tr:hover { background: var(--bg-card-hover); }
+    tbody td {
+      padding: 12px 14px;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .ticker-cell {
+      font-weight: 600;
+      color: var(--gold-light);
+    }
+    .moat-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+    .moat-strong { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,200,150,0.2); }
+    .moat-moderate { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,166,35,0.2); }
+    .moat-weak { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,77,106,0.2); }
+    .risk-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 20px;
+      border-radius: 2px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .risk-low { background: var(--green-dim); color: var(--green); }
+    .risk-mid { background: var(--amber-dim); color: var(--amber); }
+    .risk-high { background: var(--red-dim); color: var(--red); }
+    .bull { color: var(--green); }
+    .bear { color: var(--red); }
+    .pct-pos { color: var(--green); }
+    .entry-zone { color: var(--blue); }
+
+    /* ── STOCK CARDS ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .stock-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--gold);
+      border-radius: 4px;
+      padding: 24px;
+      opacity: 0;
+      animation: fadeSlideUp 0.5s ease both;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-ticker {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .card-company {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .card-sector-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 3px 8px;
+      background: var(--blue-dim);
+      border: 1px solid rgba(74,158,255,0.15);
+      color: var(--blue);
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .card-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .card-metric {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 10px 12px;
+    }
+    .card-metric-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .card-metric-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .card-targets {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .target-block {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 3px;
+    }
+    .target-bull { background: var(--green-dim); border: 1px solid rgba(0,200,150,0.15); }
+    .target-bear { background: var(--red-dim); border: 1px solid rgba(255,77,106,0.15); }
+    .target-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .target-bull .target-label { color: rgba(0,200,150,0.7); }
+    .target-bear .target-label { color: rgba(255,77,106,0.7); }
+    .target-price {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .target-bull .target-price { color: var(--green); }
+    .target-bear .target-price { color: var(--red); }
+    .card-risk-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .risk-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .risk-bar-track {
+      flex: 1;
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .risk-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.8s ease;
+    }
+    .risk-bar-score {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      min-width: 36px;
+      text-align: right;
+    }
+    .card-entry-box {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+    }
+    .entry-item { text-align: center; }
+    .entry-item-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .entry-item-value {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .entry-item-value.entry { color: var(--blue); }
+    .entry-item-value.stop { color: var(--red); }
+    .entry-item-value.alloc { color: var(--gold); }
+
+    /* ── PORTFOLIO TABLE ── */
+    .portfolio-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-sans);
+      animation: fadeSlideUp 0.6s ease 0.4s both;
+    }
+    .portfolio-table th {
+      padding: 10px 20px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-accent);
+      text-align: left;
+    }
+    .portfolio-table td {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .alloc-tier {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .alloc-core { color: var(--gold); }
+    .alloc-growth { color: var(--blue); }
+    .alloc-speculative { color: var(--red); }
+    .alloc-tickers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .alloc-ticker-chip {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text-primary);
+    }
+    .alloc-weight {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      padding: 32px 40px;
+      border-top: 1px solid var(--border-accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-disclaimer {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.5;
+    }
+    .footer-brand {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: right;
+    }
+    .footer-brand span {
+      display: block;
+      color: var(--gold);
+      font-size: 11px;
+      margin-bottom: 2px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .metrics-strip { grid-template-columns: repeat(3, 1fr); }
+      .charts-grid { grid-template-columns: 1fr; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="report"></div>
+
+<script>
+/* ════════════════════════════════════════════
+   REPORT DATA — swap this object to update
+   ════════════════════════════════════════════ */
+const REPORT_DATA = {
+  generatedDate: "2026-03-15",
+  client: {
+    riskTolerance: "Speculative",
+    investmentAmount: "Under $10,000",
+    timeHorizon: "Less than 1 year",
+    sectors: ["Technology", "Energy", "Real Estate", "Utilities"]
+  },
+  stocks: [
+    {
+      ticker: "SMCI", company: "Super Micro Computer", sector: "Technology",
+      pe: "12x", revenueGrowth: "+110%", debtToEquity: "0.9",
+      divYield: "None", payoutScore: "N/A", moat: "Moderate",
+      bullTarget: 65, bearTarget: 18, riskScore: 10,
+      entryZone: "$32–$38", stopLoss: "$26", allocation: "Speculative"
+    },
+    {
+      ticker: "MSTR", company: "MicroStrategy", sector: "Technology",
+      pe: "N/M", revenueGrowth: "+6%", debtToEquity: "2.1",
+      divYield: "None", payoutScore: "N/A", moat: "Weak",
+      bullTarget: 650, bearTarget: 180, riskScore: 10,
+      entryZone: "$290–$340", stopLoss: "$255", allocation: "Speculative"
+    },
+    {
+      ticker: "IONQ", company: "IonQ Inc.", sector: "Technology",
+      pe: "N/M", revenueGrowth: "+95%", debtToEquity: "0.1",
+      divYield: "None", payoutScore: "N/A", moat: "Moderate",
+      bullTarget: 55, bearTarget: 12, riskScore: 10,
+      entryZone: "$22–$28", stopLoss: "$18", allocation: "Speculative"
+    },
+    {
+      ticker: "OXY", company: "Occidental Petroleum", sector: "Energy",
+      pe: "11x", revenueGrowth: "+18%", debtToEquity: "0.8",
+      divYield: "1.2%", payoutScore: "Moderate", moat: "Moderate",
+      bullTarget: 72, bearTarget: 40, riskScore: 7,
+      entryZone: "$46–$52", stopLoss: "$40", allocation: "Core"
+    },
+    {
+      ticker: "PLUG", company: "Plug Power", sector: "Energy",
+      pe: "N/M", revenueGrowth: "+28%", debtToEquity: "0.3",
+      divYield: "None", payoutScore: "N/A", moat: "Weak",
+      bullTarget: 4.50, bearTarget: 0.80, riskScore: 10,
+      entryZone: "$1.80–$2.30", stopLoss: "$1.50", allocation: "Speculative"
+    },
+    {
+      ticker: "RIG", company: "Transocean", sector: "Energy",
+      pe: "N/M", revenueGrowth: "+12%", debtToEquity: "1.8",
+      divYield: "None", payoutScore: "N/A", moat: "Weak",
+      bullTarget: 6.50, bearTarget: 2.00, riskScore: 9,
+      entryZone: "$3.00–$3.60", stopLoss: "$2.60", allocation: "Speculative"
+    },
+    {
+      ticker: "IRM", company: "Iron Mountain", sector: "Real Estate",
+      pe: "38x", revenueGrowth: "+14%", debtToEquity: "5.2",
+      divYield: "2.8%", payoutScore: "Moderate", moat: "Strong",
+      bullTarget: 145, bearTarget: 88, riskScore: 6,
+      entryZone: "$105–$115", stopLoss: "$95", allocation: "Core"
+    },
+    {
+      ticker: "IIPR", company: "Innovative Industrial Properties", sector: "Real Estate",
+      pe: "14x", revenueGrowth: "+22%", debtToEquity: "0.4",
+      divYield: "7.8%", payoutScore: "High", moat: "Moderate",
+      bullTarget: 145, bearTarget: 65, riskScore: 8,
+      entryZone: "$85–$98", stopLoss: "$75", allocation: "Growth"
+    },
+    {
+      ticker: "VST", company: "Vistra Energy", sector: "Utilities",
+      pe: "24x", revenueGrowth: "+28%", debtToEquity: "3.1",
+      divYield: "0.8%", payoutScore: "Low", moat: "Moderate",
+      bullTarget: 185, bearTarget: 95, riskScore: 8,
+      entryZone: "$118–$130", stopLoss: "$105", allocation: "Growth"
+    },
+    {
+      ticker: "CEG", company: "Constellation Energy", sector: "Utilities",
+      pe: "21x", revenueGrowth: "+19%", debtToEquity: "0.5",
+      divYield: "0.7%", payoutScore: "Moderate", moat: "Strong",
+      bullTarget: 310, bearTarget: 195, riskScore: 7,
+      entryZone: "$225–$245", stopLoss: "$210", allocation: "Core"
+    }
+  ],
+  portfolioAllocation: {
+    core:        { tickers: ["IRM", "OXY", "CEG"], weight: "35%" },
+    growth:      { tickers: ["VST", "IIPR"],        weight: "15%" },
+    speculative: { tickers: ["SMCI", "MSTR", "IONQ", "PLUG", "RIG"], weight: "50%" }
+  }
+};
+
+/* ════════════════════
+   HELPERS
+   ════════════════════ */
+function riskColor(score) {
+  if (score <= 4) return 'var(--green)';
+  if (score <= 7) return 'var(--amber)';
+  return 'var(--red)';
+}
+function riskClass(score) {
+  if (score <= 4) return 'risk-low';
+  if (score <= 7) return 'risk-mid';
+  return 'risk-high';
+}
+function moatClass(moat) {
+  return { Strong: 'moat-strong', Moderate: 'moat-moderate', Weak: 'moat-weak' }[moat] || 'moat-moderate';
+}
+function formatPrice(p) {
+  if (p >= 1) return '$' + p.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return '$' + p.toFixed(2);
+}
+function avgRisk() {
+  return (REPORT_DATA.stocks.reduce((s, st) => s + st.riskScore, 0) / REPORT_DATA.stocks.length).toFixed(1);
+}
+function topPick() {
+  const s = [...REPORT_DATA.stocks].sort((a, b) => {
+    const upsideA = (a.bullTarget - a.bearTarget) / a.bearTarget;
+    const upsideB = (b.bullTarget - b.bearTarget) / b.bearTarget;
+    return upsideB - upsideA;
+  });
+  return s[0].ticker;
+}
+function avgPE() {
+  const valid = REPORT_DATA.stocks.filter(s => s.pe !== 'N/M');
+  if (!valid.length) return 'N/M';
+  const avg = valid.reduce((sum, s) => sum + parseFloat(s.pe), 0) / valid.length;
+  return avg.toFixed(0) + 'x';
+}
+function highestUpside() {
+  const s = [...REPORT_DATA.stocks].sort((a, b) => {
+    const ua = ((a.bullTarget / a.bearTarget) - 1) * 100;
+    const ub = ((b.bullTarget / b.bearTarget) - 1) * 100;
+    return ub - ua;
+  });
+  const pct = (((s[0].bullTarget / s[0].bearTarget) - 1) * 100).toFixed(0);
+  return '+' + pct + '%';
+}
+
+/* ════════════════════
+   RENDER FUNCTIONS
+   ════════════════════ */
+function renderTopBar() {
+  return `
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <div class="gs-logo">Goldman Sachs</div>
+        <div class="top-bar-divider"></div>
+        <div class="top-bar-label">Equity Research — Americas</div>
+        <div class="top-bar-divider"></div>
+        <div class="top-bar-label">For Client Use Only</div>
+      </div>
+      <div class="top-bar-date">${REPORT_DATA.generatedDate}</div>
+    </div>`;
+}
+
+function renderHero() {
+  const { client } = REPORT_DATA;
+  const sectorBadges = client.sectors.map(s =>
+    `<span class="badge badge-sector">${s}</span>`).join('');
+  return `
+    <div class="hero">
+      <div class="hero-eyebrow">GS Equity Research | Stock Screening Report</div>
+      <div class="hero-title">Speculative Growth Screen</div>
+      <div class="hero-subtitle">10-Stock Catalyst-Driven Portfolio — Short Horizon</div>
+      <div class="hero-badges">
+        <span class="badge badge-gold">⬥ ${client.riskTolerance}</span>
+        <span class="badge badge-gold">⬥ ${client.investmentAmount}</span>
+        <span class="badge badge-blue">⬥ ${client.timeHorizon}</span>
+        ${sectorBadges}
+      </div>
+    </div>`;
+}
+
+function renderMetricsStrip() {
+  return `
+    <div class="metrics-strip">
+      <div class="metric-cell">
+        <div class="metric-label">Stocks Screened</div>
+        <div class="metric-value gold">${REPORT_DATA.stocks.length}</div>
+        <div class="metric-sub">across 4 sectors</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-label">Avg Risk Score</div>
+        <div class="metric-value red">${avgRisk()}<span style="font-size:14px;color:var(--text-muted)">/10</span></div>
+        <div class="metric-sub">speculative profile</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-label">Top Conviction</div>
+        <div class="metric-value gold">${topPick()}</div>
+        <div class="metric-sub">highest bull/bear spread</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-label">Avg P/E (profitable)</div>
+        <div class="metric-value">${avgPE()}</div>
+        <div class="metric-sub">6 of 10 earnings-positive</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-label">Max Bull Upside</div>
+        <div class="metric-value green">${highestUpside()}</div>
+        <div class="metric-sub">bull vs bear spread</div>
+      </div>
+    </div>`;
+}
+
+function renderCharts() {
+  return `
+    <div class="section" style="padding-bottom:32px;">
+      <div class="section-header">
+        <div class="section-title">Portfolio Analytics</div>
+        <div class="section-rule"></div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-card-title">Allocation by Tier</div>
+          <div class="chart-wrap donut"><canvas id="chartDonut"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">Risk Score by Ticker</div>
+          <div class="chart-wrap bar-h"><canvas id="chartRisk"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">Bull vs Bear 12-Month Targets</div>
+          <div class="chart-wrap bar-g"><canvas id="chartTargets"></canvas></div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderSummaryTable() {
+  const rows = REPORT_DATA.stocks.map((s, i) => `
+    <tr>
+      <td style="color:var(--text-muted);font-size:11px;">${i + 1}</td>
+      <td class="ticker-cell">${s.ticker}</td>
+      <td style="color:var(--text-secondary)">${s.sector}</td>
+      <td>${s.pe}</td>
+      <td class="pct-pos">${s.revenueGrowth}</td>
+      <td>${s.debtToEquity}</td>
+      <td>${s.divYield}</td>
+      <td>${s.payoutScore}</td>
+      <td><span class="moat-badge ${moatClass(s.moat)}">${s.moat}</span></td>
+      <td class="bull">${formatPrice(s.bullTarget)}</td>
+      <td class="bear">${formatPrice(s.bearTarget)}</td>
+      <td><span class="risk-pill ${riskClass(s.riskScore)}">${s.riskScore}</span></td>
+      <td class="entry-zone">${s.entryZone}</td>
+      <td style="color:var(--red)">${s.stopLoss}</td>
+    </tr>`).join('');
+
+  return `
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Summary Table</div>
+        <div class="section-rule"></div>
+        <div class="section-count">Click headers to sort</div>
+      </div>
+      <div class="table-wrap">
+        <table id="summaryTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Ticker</th>
+              <th>Sector</th>
+              <th>P/E</th>
+              <th>Rev Growth</th>
+              <th>D/E</th>
+              <th>Div Yield</th>
+              <th>Payout</th>
+              <th>Moat</th>
+              <th>Bull Target</th>
+              <th>Bear Target</th>
+              <th>Risk</th>
+              <th>Entry Zone</th>
+              <th>Stop-Loss</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function renderStockCards() {
+  const cards = REPORT_DATA.stocks.map((s, i) => {
+    const delay = (i * 0.06).toFixed(2);
+    const riskFillWidth = (s.riskScore / 10 * 100) + '%';
+    const upside = (((s.bullTarget / s.bearTarget) - 1) * 100).toFixed(0);
+    return `
+      <div class="stock-card" style="animation-delay:${delay}s">
+        <div class="card-header">
+          <div>
+            <div class="card-ticker">${s.ticker}</div>
+            <div class="card-company">${s.company}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <div class="card-sector-badge">${s.sector}</div>
+            <span class="moat-badge ${moatClass(s.moat)}">${s.moat} Moat</span>
+          </div>
+        </div>
+        <div class="card-metrics">
+          <div class="card-metric">
+            <div class="card-metric-label">P/E Ratio</div>
+            <div class="card-metric-value">${s.pe}</div>
+          </div>
+          <div class="card-metric">
+            <div class="card-metric-label">Rev Growth</div>
+            <div class="card-metric-value" style="color:var(--green)">${s.revenueGrowth}</div>
+          </div>
+          <div class="card-metric">
+            <div class="card-metric-label">Debt / Equity</div>
+            <div class="card-metric-value">${s.debtToEquity}</div>
+          </div>
+          <div class="card-metric">
+            <div class="card-metric-label">Div Yield</div>
+            <div class="card-metric-value">${s.divYield}</div>
+          </div>
+          <div class="card-metric">
+            <div class="card-metric-label">Payout Score</div>
+            <div class="card-metric-value">${s.payoutScore}</div>
+          </div>
+          <div class="card-metric">
+            <div class="card-metric-label">Bull/Bear Spread</div>
+            <div class="card-metric-value" style="color:var(--amber)">+${upside}%</div>
+          </div>
+        </div>
+        <div class="card-targets">
+          <div class="target-block target-bull">
+            <div class="target-label">▲ Bull Case</div>
+            <div class="target-price">${formatPrice(s.bullTarget)}</div>
+          </div>
+          <div class="target-block target-bear">
+            <div class="target-label">▼ Bear Case</div>
+            <div class="target-price">${formatPrice(s.bearTarget)}</div>
+          </div>
+        </div>
+        <div class="card-risk-row">
+          <div class="risk-label">Risk</div>
+          <div class="risk-bar-track">
+            <div class="risk-bar-fill" style="width:${riskFillWidth};background:${riskColor(s.riskScore)}"></div>
+          </div>
+          <div class="risk-bar-score" style="color:${riskColor(s.riskScore)}">${s.riskScore}/10</div>
+        </div>
+        <div class="card-entry-box">
+          <div class="entry-item">
+            <div class="entry-item-label">Entry Zone</div>
+            <div class="entry-item-value entry">${s.entryZone}</div>
+          </div>
+          <div style="width:1px;background:var(--border)"></div>
+          <div class="entry-item">
+            <div class="entry-item-label">Stop-Loss</div>
+            <div class="entry-item-value stop">${s.stopLoss}</div>
+          </div>
+          <div style="width:1px;background:var(--border)"></div>
+          <div class="entry-item">
+            <div class="entry-item-label">Allocation Tier</div>
+            <div class="entry-item-value alloc">${s.allocation}</div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Individual Stock Analysis</div>
+        <div class="section-rule"></div>
+        <div class="section-count">${REPORT_DATA.stocks.length} positions</div>
+      </div>
+      <div class="cards-grid">${cards}</div>
+    </div>`;
+}
+
+function renderPortfolioTable() {
+  const { core, growth, speculative } = REPORT_DATA.portfolioAllocation;
+  const row = (cls, label, data) => `
+    <tr>
+      <td><span class="alloc-tier alloc-${cls}">${label}</span></td>
+      <td>
+        <div class="alloc-tickers">
+          ${data.tickers.map(t => `<span class="alloc-ticker-chip">${t}</span>`).join('')}
+        </div>
+      </td>
+      <td><span class="alloc-weight">${data.weight}</span></td>
+    </tr>`;
+
+  return `
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Portfolio Construction</div>
+        <div class="section-rule"></div>
+      </div>
+      <table class="portfolio-table">
+        <thead>
+          <tr>
+            <th style="width:160px">Allocation Tier</th>
+            <th>Tickers</th>
+            <th style="width:120px">Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${row('core', 'Core', core)}
+          ${row('growth', 'Growth', growth)}
+          ${row('speculative', 'Speculative', speculative)}
+        </tbody>
+      </table>
+      <div style="margin-top:20px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border);border-left:2px solid var(--gold);border-radius:4px;">
+        <p style="font-family:var(--font-sans);font-size:13px;color:var(--text-secondary);font-style:italic;line-height:1.7;">
+          For a speculative profile with a sub-$10,000 capital base and a trading horizon under one year, 50% in high-volatility asymmetric bets is appropriate given the stated risk appetite. The Core sleeve provides downside ballast. Hard stop-losses are mandatory across all speculative positions — do not hold through stops on a sub-1-year horizon.
+        </p>
+      </div>
+    </div>`;
+}
+
+function renderFooter() {
+  return `
+    <div class="footer">
+      <div class="footer-disclaimer">
+        This report is generated for informational and educational purposes using an AI-powered stock screening skill.
+        It does not constitute real-time financial advice. Data reflects model training knowledge and may not reflect current
+        market conditions. Always verify with current sources and consult a licensed financial advisor before making investment decisions.
+      </div>
+      <div class="footer-brand">
+        <span>GS Stock Screener Skill</span>
+        Generated ${REPORT_DATA.generatedDate}
+      </div>
+    </div>`;
+}
+
+/* ════════════════════
+   CHART INIT
+   ════════════════════ */
+function initCharts() {
+  Chart.defaults.color = '#7a8899';
+  Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+  Chart.defaults.font.family = "'IBM Plex Mono', monospace";
+  Chart.defaults.font.size = 11;
+
+  // Donut
+  new Chart(document.getElementById('chartDonut'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Core', 'Growth', 'Speculative'],
+      datasets: [{
+        data: [35, 15, 50],
+        backgroundColor: ['#c9a84c', '#4a9eff', '#ff4d6a'],
+        borderWidth: 0,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      cutout: '65%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { padding: 16, usePointStyle: true, pointStyleWidth: 10 }
+        },
+        tooltip: {
+          callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
+        }
+      }
+    }
+  });
+
+  // Risk horizontal bar
+  const riskColors = REPORT_DATA.stocks.map(s => riskColor(s.riskScore));
+  new Chart(document.getElementById('chartRisk'), {
+    type: 'bar',
+    data: {
+      labels: REPORT_DATA.stocks.map(s => s.ticker),
+      datasets: [{
+        label: 'Risk Score',
+        data: REPORT_DATA.stocks.map(s => s.riskScore),
+        backgroundColor: riskColors,
+        borderRadius: 2,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          min: 0, max: 10,
+          ticks: { stepSize: 2 },
+          grid: { color: 'rgba(255,255,255,0.04)' }
+        },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+
+  // Bull vs Bear grouped bar
+  new Chart(document.getElementById('chartTargets'), {
+    type: 'bar',
+    data: {
+      labels: REPORT_DATA.stocks.map(s => s.ticker),
+      datasets: [
+        {
+          label: 'Bull Target',
+          data: REPORT_DATA.stocks.map(s => s.bullTarget),
+          backgroundColor: 'rgba(0,200,150,0.7)',
+          borderRadius: 2
+        },
+        {
+          label: 'Bear Target',
+          data: REPORT_DATA.stocks.map(s => s.bearTarget),
+          backgroundColor: 'rgba(255,77,106,0.7)',
+          borderRadius: 2
+        }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { usePointStyle: true, pointStyleWidth: 10, padding: 16 }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+}
+
+/* ════════════════════
+   TABLE SORT
+   ════════════════════ */
+function initTableSort() {
+  const table = document.getElementById('summaryTable');
+  if (!table) return;
+  const headers = table.querySelectorAll('thead th');
+  let sortCol = -1, sortAsc = true;
+
+  headers.forEach((th, idx) => {
+    th.addEventListener('click', () => {
+      if (sortCol === idx) sortAsc = !sortAsc;
+      else { sortCol = idx; sortAsc = true; }
+      headers.forEach(h => h.classList.remove('sorted'));
+      th.classList.add('sorted');
+
+      const tbody = table.querySelector('tbody');
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      rows.sort((a, b) => {
+        const aText = a.cells[idx].textContent.replace(/[$,%x\/]/g, '').trim();
+        const bText = b.cells[idx].textContent.replace(/[$,%x\/]/g, '').trim();
+        const aNum = parseFloat(aText), bNum = parseFloat(bText);
+        const isNum = !isNaN(aNum) && !isNaN(bNum);
+        const cmp = isNum ? aNum - bNum : aText.localeCompare(bText);
+        return sortAsc ? cmp : -cmp;
+      });
+      rows.forEach(r => tbody.appendChild(r));
+    });
+  });
+}
+
+/* ════════════════════
+   BOOTSTRAP
+   ════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.getElementById('report');
+  root.innerHTML =
+    renderTopBar() +
+    renderHero() +
+    renderMetricsStrip() +
+    renderCharts() +
+    renderSummaryTable() +
+    renderStockCards() +
+    renderPortfolioTable() +
+    renderFooter();
+
+  initCharts();
+  initTableSort();
+});
+</script>
+</body>
+</html>
