@@ -20,6 +20,12 @@ Skills are grouped into top-level categories. Each category contains specialized
 |----------|-------------|
 | [finance/](finance/) | Financial analysis — markets, portfolios, risk, fundamentals, technicals |
 
+## Design
+
+| Resource | Description |
+|----------|-------------|
+| [design/iMadeFire-ui/](design/iMadeFire-ui/) | Primary design system — dark FinTech dashboard aesthetic for all HTML report outputs |
+
 ## Usage
 
 Skills are designed to be used as Claude Code slash commands. Copy a `skill.md` file into your project's `.claude/commands/` directory, or reference it directly.
