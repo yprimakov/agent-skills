@@ -1,5 +1,6 @@
 ---
 name: stock-screener-html-report
+author: Yury Primakov
 description: Generates a self-contained, interactive HTML report from Goldman Sachs-style stock screening data. Use after the goldman-sachs-stock-screener skill completes its analysis. Produces a production-grade FinTech dashboard with Chart.js visualizations, a sortable data table, and individual stock cards — all in a single HTML file.
 ---
 

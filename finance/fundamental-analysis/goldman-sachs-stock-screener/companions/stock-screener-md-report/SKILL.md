@@ -1,5 +1,6 @@
 ---
 name: stock-screener-md-report
+author: Yury Primakov
 description: Generates a structured Markdown report from Goldman Sachs-style stock screening data. Use after the goldman-sachs-stock-screener skill completes its analysis. Produces a clean, well-formatted .md file suitable for version control, sharing, or rendering in any Markdown viewer.
 ---
 

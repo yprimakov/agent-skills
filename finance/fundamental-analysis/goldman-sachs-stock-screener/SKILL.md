@@ -1,5 +1,6 @@
 ---
 name: goldman-sachs-stock-screener
+author: Yury Primakov
 description: Generates a Goldman Sachs-style stock screening report. Use when the user asks to screen stocks, find top stocks matching their criteria, or wants to build an investment profile. Guides the user through a multiple-choice profile questionnaire before generating the analysis.
 ---
 
