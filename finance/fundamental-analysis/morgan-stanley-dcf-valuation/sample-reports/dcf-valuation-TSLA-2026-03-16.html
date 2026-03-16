@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSLA DCF Valuation — iMadeFire</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg-0: #070b14;
+  --bg-1: #0c1120;
+  --bg-2: #111827;
+  --bg-3: #1a2235;
+  --bg-4: #1f2a40;
+  --border: rgba(255,255,255,0.06);
+  --border-accent: rgba(99,102,241,0.3);
+  --indigo: #6366f1;
+  --indigo-dim: rgba(99,102,241,0.12);
+  --indigo-mid: rgba(99,102,241,0.25);
+  --violet: #8b5cf6;
+  --sky: #38bdf8;
+  --sky-dim: rgba(56,189,248,0.12);
+  --green: #10b981;
+  --green-dim: rgba(16,185,129,0.12);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245,158,11,0.12);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,0.12);
+  --text-1: #f1f5f9;
+  --text-2: #94a3b8;
+  --text-3: #475569;
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-0);
+  color: var(--text-1);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* TOPBAR */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(7,11,20,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar-brand { display: flex; align-items: center; gap: 10px; }
+.brand-logo { font-size: 22px; line-height: 1; }
+.brand-name { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; color: var(--text-1); }
+.topbar-meta { display: flex; align-items: center; gap: 10px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 100px;
+  font-size: 12px; font-weight: 600; font-family: var(--mono);
+  border: 1px solid var(--border-accent);
+  background: var(--indigo-dim); color: var(--indigo);
+}
+.pill-neutral { border-color: var(--border); background: var(--bg-3); color: var(--text-2); }
+.pill-overvalued { border-color: rgba(239,68,68,0.3); background: var(--red-dim); color: var(--red); }
+
+/* HERO */
+.hero {
+  padding: 48px 32px 36px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(99,102,241,0.04) 0%, transparent 100%);
+}
+.hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
+.hero-title { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 6px; }
+.hero-subtitle { color: var(--text-2); font-size: 14px; margin-bottom: 28px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.chip {
+  padding: 5px 14px; border-radius: 100px;
+  font-size: 12px; font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--bg-3); color: var(--text-2);
+}
+
+/* VERDICT CARD */
+.verdict-banner {
+  display: grid; grid-template-columns: auto 1fr auto auto;
+  align-items: center; gap: 24px;
+  padding: 20px 24px; border-radius: var(--radius);
+  border: 1px solid rgba(239,68,68,0.25);
+  background: linear-gradient(135deg, rgba(239,68,68,0.08) 0%, rgba(239,68,68,0.03) 100%);
+  margin-bottom: 0;
+}
+.verdict-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-3); }
+.verdict-badge {
+  font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+  color: var(--red);
+}
+.verdict-stat { text-align: right; }
+.verdict-stat-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.8px; }
+.verdict-stat-value { font-size: 20px; font-weight: 700; font-family: var(--mono); margin-top: 2px; }
+.verdict-thesis {
+  grid-column: 1 / -1;
+  font-size: 13px; color: var(--text-2); line-height: 1.7;
+  padding-top: 16px; border-top: 1px solid var(--border);
+}
+
+/* LAYOUT */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+.section { padding: 40px 0; border-bottom: 1px solid var(--border); }
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px;
+}
+.section-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  color: var(--text-1);
+  display: flex; align-items: center; gap: 8px;
+}
+.section-title::before {
+  content: ''; display: block;
+  width: 3px; height: 16px; border-radius: 2px;
+  background: var(--indigo);
+}
+.section-note { font-size: 12px; color: var(--text-3); font-family: var(--mono); }
+
+/* METRICS STRIP */
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+}
+.metric-card {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px 20px;
+  transition: border-color 0.2s;
+}
+.metric-card:hover { border-color: var(--border-accent); }
+.metric-label { font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-3); margin-bottom: 10px; }
+.metric-value { font-size: 26px; font-weight: 800; font-family: var(--mono); letter-spacing: -1px; color: var(--text-1); line-height: 1; }
+.metric-sub { font-size: 12px; color: var(--text-3); margin-top: 6px; }
+.metric-value.red { color: var(--red); }
+.metric-value.green { color: var(--green); }
+.metric-value.amber { color: var(--amber); }
+.metric-value.indigo { color: var(--indigo); }
+
+/* CHARTS ROW */
+.charts-grid { display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; gap: 16px; }
+.chart-card {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+}
+.chart-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-3); margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
+.chart-title span { color: var(--text-3); font-weight: 400; }
+.chart-container { position: relative; }
+
+/* TABLES */
+.data-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+.data-table th {
+  padding: 10px 14px; text-align: left;
+  font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text-3); border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 12px 14px; border-bottom: 1px solid var(--border);
+  color: var(--text-2); vertical-align: middle;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(255,255,255,0.02); }
+.data-table td.mono { font-family: var(--mono); font-size: 12px; }
+.data-table td.bold { font-weight: 700; color: var(--text-1); }
+.data-table td.green { color: var(--green); font-family: var(--mono); }
+.data-table td.red { color: var(--red); font-family: var(--mono); }
+.data-table td.indigo { color: var(--indigo); font-family: var(--mono); }
+.data-table td.amber { color: var(--amber); font-family: var(--mono); }
+.table-card {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+
+/* TWO-COL CARDS */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.card {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+}
+.card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-3); margin-bottom: 16px; }
+
+/* WACC ROW */
+.wacc-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); }
+.wacc-row:last-child { border-bottom: none; }
+.wacc-row.highlight { background: var(--indigo-dim); border-radius: 6px; padding: 9px 10px; margin: 4px -10px; border-bottom: none; }
+.wacc-key { font-size: 12px; color: var(--text-2); }
+.wacc-val { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text-1); }
+.wacc-val.accent { color: var(--indigo); }
+
+/* TERMINAL VALUE */
+.tv-comparison { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.tv-method {
+  background: var(--bg-3); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px;
+  text-align: center;
+}
+.tv-method.base { border-color: var(--border-accent); background: var(--indigo-dim); }
+.tv-method-name { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-3); margin-bottom: 8px; }
+.tv-method-value { font-size: 22px; font-weight: 800; font-family: var(--mono); color: var(--text-1); }
+.tv-method-sub { font-size: 11px; color: var(--text-3); margin-top: 4px; }
+
+/* SENSITIVITY HEATMAP */
+.sensitivity-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.sensitivity-table th {
+  padding: 8px 14px; font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; color: var(--text-3);
+  text-align: center; border-bottom: 1px solid var(--border);
+}
+.sensitivity-table th.row-header { text-align: left; }
+.sensitivity-table td {
+  padding: 10px 14px; text-align: center;
+  font-family: var(--mono); font-size: 12px; font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: opacity 0.15s;
+}
+.sensitivity-table td:hover { opacity: 0.8; }
+.sensitivity-table td.row-label {
+  text-align: left; font-family: var(--font); font-size: 12px;
+  color: var(--text-3); font-weight: 600; background: transparent !important;
+  border: none; border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.s-green { background: rgba(16,185,129,0.18); color: #34d399; }
+.s-amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.s-red { background: rgba(239,68,68,0.15); color: #f87171; }
+.s-base { outline: 2px solid var(--indigo); outline-offset: -2px; }
+
+/* RISK CARDS */
+.risk-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.risk-card {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px;
+}
+.risk-rank { font-size: 24px; font-weight: 800; font-family: var(--mono); color: var(--indigo); opacity: 0.5; margin-bottom: 10px; }
+.risk-title { font-size: 13px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; line-height: 1.4; }
+.risk-base { font-size: 11px; color: var(--text-3); margin-bottom: 4px; }
+.risk-bear { font-size: 11px; color: var(--red); opacity: 0.8; line-height: 1.5; }
+.impact-badge {
+  display: inline-block; margin-top: 10px;
+  padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
+.impact-critical { background: rgba(239,68,68,0.2); color: var(--red); }
+.impact-high { background: rgba(245,158,11,0.15); color: var(--amber); }
+.impact-medium { background: rgba(99,102,241,0.15); color: var(--indigo); }
+
+/* VALUATION SUMMARY */
+.val-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.val-col { padding: 0 20px; border-right: 1px solid var(--border); }
+.val-col:first-child { padding-left: 0; }
+.val-col:last-child { border-right: none; padding-right: 0; }
+.val-col-header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-3); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.val-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.val-row:last-child { border-bottom: none; }
+.val-row.total { border-top: 1px solid var(--border); padding-top: 10px; margin-top: 4px; }
+.val-row-key { font-size: 12px; color: var(--text-2); }
+.val-row-val { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--text-1); }
+.val-row.total .val-row-key { font-weight: 700; color: var(--text-1); }
+.val-row.total .val-row-val { color: var(--indigo); font-size: 14px; }
+
+/* FOOTER */
+footer {
+  padding: 32px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 24px;
+}
+.footer-brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; }
+.footer-disclaimer { font-size: 11px; color: var(--text-3); max-width: 600px; line-height: 1.6; }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero { animation: fadeUp 0.5s ease both; }
+.metrics-grid .metric-card:nth-child(1) { animation: fadeUp 0.4s 0.1s ease both; }
+.metrics-grid .metric-card:nth-child(2) { animation: fadeUp 0.4s 0.15s ease both; }
+.metrics-grid .metric-card:nth-child(3) { animation: fadeUp 0.4s 0.2s ease both; }
+.metrics-grid .metric-card:nth-child(4) { animation: fadeUp 0.4s 0.25s ease both; }
+.metrics-grid .metric-card:nth-child(5) { animation: fadeUp 0.4s 0.3s ease both; }
+
+/* UTIL */
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.text-muted { color: var(--text-3); font-size: 12px; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+</style>
+</head>
+<body>
+<script>
+const DCF_DATA = {
+  generatedDate: "2026-03-16",
+  ticker: "TSLA",
+  company: "Tesla, Inc.",
+  currentPrice: 265,
+  intrinsicBlended: 143,
+  intrinsicExit: 237,
+  verdict: "OVERVALUED",
+  downside: -46.0,
+  downsideExit: -10.6,
+  thesis: "At $265 per share, Tesla's market capitalization of ~$848B implies the market is pricing in scenario outcomes materially beyond our base case — specifically full-scale FSD monetization, rapid Optimus commercialization, and sustained 20%+ revenue growth through the decade. The exit-multiple method, the most generous framing, yields $237 — still 10.6% below current levels. The blended approach yields $143, a 46% discount. We rate TSLA Overvalued at $265 with a 12-month price target of $237 under the most constructive framing.",
+  metrics: {
+    wacc: "14.6%",
+    tgr: "3.0%",
+    cagr5yr: "18.6%",
+    fcfYear5: "$21.0B",
+    exitMultiple: "28×"
+  },
+  projections: [
+    { year: "2025", revenue: 108.0, growth: 10.5, ebit: 8.6, ebitMargin: 8.0, da: 5.4, capex: 8.6, dwc: 1.0, fcf: 2.6 },
+    { year: "2026", revenue: 126.0, growth: 16.7, ebit: 15.1, ebitMargin: 12.0, da: 6.3, capex: 10.1, dwc: 1.8, fcf: 6.3 },
+    { year: "2027", revenue: 152.0, growth: 20.6, ebit: 22.8, ebitMargin: 15.0, da: 7.6, capex: 12.2, dwc: 2.6, fcf: 10.8 },
+    { year: "2028", revenue: 183.0, growth: 20.4, ebit: 31.1, ebitMargin: 17.0, da: 9.2, capex: 14.6, dwc: 3.1, fcf: 16.1 },
+    { year: "2029", revenue: 213.0, growth: 16.4, ebit: 38.3, ebitMargin: 18.0, da: 10.7, capex: 17.0, dwc: 3.0, fcf: 21.0 }
+  ],
+  wacc: {
+    rf: "4.4%", erp: "5.5%", beta: "2.0", re: "15.4%",
+    rdPretax: "5.2%", taxRate: "21%", rdAftertax: "4.1%",
+    equityWeight: "93%", debtWeight: "7%", wacc: "14.6%"
+  },
+  terminalValue: {
+    ebitdaY5: 49.0, exitMultiple: 28, exitTV: 1372, pvExitTV: 694.3,
+    tgr: 3.0, perpetuityTV: 186, pvPerpTV: 94.0, baseCasePvTV: 394.2
+  },
+  valuation: {
+    pvFCF: 34.1,
+    exitOnly: { pvTV: 694.3, ev: 728.4, eq: 757.4, perShare: 237 },
+    perpOnly: { pvTV: 94.0, ev: 128.1, eq: 157.1, perShare: 49 },
+    blended:  { pvTV: 394.2, ev: 428.3, eq: 457.3, perShare: 143 },
+    netCash: 29.0, sharesOut: 3.2
+  },
+  sensitivity: {
+    multiples: [20, 25, 28, 32, 40],
+    waccs: [11.0, 12.5, 14.6, 16.0, 17.5],
+    grid: [
+      [203, 248, 276, 312, 385],
+      [190, 233, 259, 293, 360],
+      [175, 213, 237, 268, 330],
+      [165, 202, 223, 253, 311],
+      [156, 190, 210, 238, 292]
+    ],
+    baseRow: 2, baseCol: 2
+  },
+  risks: [
+    { rank: 1, title: "FSD monetization timeline", base: "Scaling from 2027", bear: "Delayed to 2030+; zero contribution to 5Y FCF", impact: "critical" },
+    { rank: 2, title: "EV market share vs. Chinese OEMs", base: "~18% global share held", bear: "Erosion to 12%; ASPs fall further", impact: "high" },
+    { rank: 3, title: "EBIT margin recovery to 18%", base: "Achieved via mix shift + software", bear: "Structural cap at 10–12%", impact: "high" },
+    { rank: 4, title: "CapEx normalization", base: "8% of revenue post-2026", bear: "Sustained 10–12% intensity; FCF suppressed", impact: "medium" },
+    { rank: 5, title: "Elon Musk brand/execution risk", base: "Full CEO focus maintained", bear: "Political damage, talent loss, product delays", impact: "medium" }
+  ]
+};
+</script>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <span class="brand-logo">🔥</span>
+    <span class="brand-name">iMadeFire</span>
+  </div>
+  <div class="topbar-meta">
+    <span class="pill">TSLA</span>
+    <span class="pill-neutral pill">DCF Valuation</span>
+    <span class="pill-neutral pill" id="date-pill"></span>
+    <span class="pill pill-overvalued" id="verdict-pill"></span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">DCF Valuation Memo</div>
+    <div class="hero-title" id="hero-title"></div>
+    <div class="hero-subtitle" id="hero-subtitle"></div>
+    <div class="hero-chips" id="hero-chips"></div>
+    <div class="verdict-banner" id="verdict-banner"></div>
+  </div>
+</div>
+
+<!-- METRICS -->
+<div class="container">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Key Assumptions</div>
+    </div>
+    <div class="metrics-grid" id="metrics-grid"></div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Model Analytics</div>
+    </div>
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">Revenue & FCF Projection <span>$B</span></div>
+        <div class="chart-container" style="height:220px">
+          <canvas id="revFcfChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">WACC Components</div>
+        <div class="chart-container" style="height:220px">
+          <canvas id="waccChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Sensitivity Heatmap <span>EV/EBITDA Multiple vs WACC</span></div>
+        <div id="sensitivityHeatmap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTION TABLE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">5-Year Projection Model</div>
+      <div class="section-note">Tax Rate: 21% · D&A: 5% rev · CapEx: 8% rev</div>
+    </div>
+    <div class="table-card">
+      <table class="data-table" id="projTable"></table>
+    </div>
+  </div>
+
+  <!-- WACC + TV -->
+  <div class="section">
+    <div class="section-header"><div class="section-title">WACC & Terminal Value</div></div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">WACC Breakdown</div>
+        <div id="waccBreakdown"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Terminal Value — Dual Method</div>
+        <div class="tv-comparison" id="tvComparison"></div>
+        <p class="text-muted" style="line-height:1.6">The wide divergence is expected for a CapEx-heavy growth company. The exit multiple better captures FSD/Optimus optionality; the perpetuity method anchors to current FCF. We weight both equally in the blended base case.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL SENSITIVITY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Full Sensitivity Analysis</div>
+      <div class="section-note">Green >$305 · Amber $225–$305 · Red <$225 · Current: $265</div>
+    </div>
+    <div class="table-card" style="padding:20px">
+      <table class="sensitivity-table" id="fullSensTable"></table>
+    </div>
+  </div>
+
+  <!-- VALUATION SUMMARY -->
+  <div class="section">
+    <div class="section-header"><div class="section-title">Valuation Bridge</div></div>
+    <div class="card">
+      <div class="val-grid" id="valGrid"></div>
+    </div>
+  </div>
+
+  <!-- RISKS -->
+  <div class="section" style="border-bottom:none">
+    <div class="section-header"><div class="section-title">Key Model Risks</div></div>
+    <div class="risk-grid" id="riskGrid"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand"><span>🔥</span> iMadeFire</div>
+  <div class="footer-disclaimer">This valuation is generated for informational and educational purposes using an AI-powered DCF model. It does not constitute real-time financial advice. Always verify with current data and consult a licensed financial advisor before making investment decisions. Generated: <span id="footer-date"></span></div>
+</footer>
+
+<script>
+const D = DCF_DATA;
+const $ = id => document.getElementById(id);
+
+// TOPBAR + HERO
+$('date-pill').textContent = D.generatedDate;
+$('verdict-pill').textContent = D.verdict;
+$('hero-title').textContent = `${D.company} (${D.ticker})`;
+$('hero-subtitle').textContent = `DCF Intrinsic Value Analysis · Generated ${D.generatedDate}`;
+$('footer-date').textContent = D.generatedDate;
+
+$('hero-chips').innerHTML = ['DCF Model','5-Year Horizon','WACC: 14.6%','Exit + Perpetuity Methods']
+  .map(c => `<span class="chip">${c}</span>`).join('');
+
+$('verdict-banner').innerHTML = `
+  <div>
+    <div class="verdict-label">Verdict</div>
+    <div class="verdict-badge">${D.verdict}</div>
+  </div>
+  <div></div>
+  <div class="verdict-stat">
+    <div class="verdict-stat-label">Intrinsic (Blended)</div>
+    <div class="verdict-stat-value" style="color:var(--red)">$${D.intrinsicBlended}</div>
+  </div>
+  <div class="verdict-stat">
+    <div class="verdict-stat-label">Current Price</div>
+    <div class="verdict-stat-value">$${D.currentPrice}</div>
+  </div>
+  <div class="verdict-stat">
+    <div class="verdict-stat-label">Implied Downside</div>
+    <div class="verdict-stat-value" style="color:var(--red)">${D.downside}%</div>
+  </div>
+  <div class="verdict-thesis">${D.thesis}</div>
+`;
+
+// METRICS
+const metricsData = [
+  { label: 'WACC', value: D.metrics.wacc, sub: 'Blended cost of capital', cls: 'indigo' },
+  { label: 'Terminal Growth Rate', value: D.metrics.tgr, sub: 'Perpetuity method', cls: '' },
+  { label: '5Y Rev CAGR', value: D.metrics.cagr5yr, sub: '2025–2029', cls: 'green' },
+  { label: 'Year 5 FCF', value: D.metrics.fcfYear5, sub: 'Free cash flow 2029', cls: '' },
+  { label: 'EV/EBITDA Exit', value: D.metrics.exitMultiple, sub: 'Terminal multiple (base)', cls: 'amber' }
+];
+$('metrics-grid').innerHTML = metricsData.map(m => `
+  <div class="metric-card">
+    <div class="metric-label">${m.label}</div>
+    <div class="metric-value ${m.cls}">${m.value}</div>
+    <div class="metric-sub">${m.sub}</div>
+  </div>`).join('');
+
+// PROJECTION TABLE
+const projHeaders = ['Year','Revenue ($B)','Growth %','EBIT ($B)','EBIT Margin %','D&A ($B)','CapEx ($B)','ΔNWC ($B)','FCF ($B)'];
+$('projTable').innerHTML = `
+  <thead><tr>${projHeaders.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+  <tbody>${D.projections.map(r => `
+    <tr>
+      <td class="bold mono">${r.year}</td>
+      <td class="mono">$${r.revenue.toFixed(1)}</td>
+      <td class="green">+${r.growth}%</td>
+      <td class="mono">$${r.ebit.toFixed(1)}</td>
+      <td class="indigo">${r.ebitMargin.toFixed(1)}%</td>
+      <td class="mono">$${r.da.toFixed(1)}</td>
+      <td class="mono">$${r.capex.toFixed(1)}</td>
+      <td class="mono">$${r.dwc.toFixed(1)}</td>
+      <td class="green bold">$${r.fcf.toFixed(1)}</td>
+    </tr>`).join('')}
+  </tbody>`;
+
+// WACC BREAKDOWN
+const waccRows = [
+  ['Risk-Free Rate (Rf)', D.wacc.rf], ['Equity Risk Premium (ERP)', D.wacc.erp],
+  ['Beta (β)', D.wacc.beta], ['Cost of Equity (Re)', D.wacc.re],
+  ['Pre-Tax Cost of Debt (Rd)', D.wacc.rdPretax], ['Tax Rate', D.wacc.taxRate],
+  ['After-Tax Cost of Debt', D.wacc.rdAftertax], ['Equity Weight', D.wacc.equityWeight],
+  ['Debt Weight', D.wacc.debtWeight]
+];
+$('waccBreakdown').innerHTML = waccRows.map(([k,v]) => `
+  <div class="wacc-row"><span class="wacc-key">${k}</span><span class="wacc-val">${v}</span></div>
+`).join('') + `<div class="wacc-row highlight"><span class="wacc-key" style="font-weight:700;color:var(--text-1)">WACC (Blended)</span><span class="wacc-val accent" style="font-size:18px">${D.wacc.wacc}</span></div>`;
+
+// TERMINAL VALUE
+const tv = D.terminalValue;
+$('tvComparison').innerHTML = `
+  <div class="tv-method">
+    <div class="tv-method-name">Exit Multiple</div>
+    <div class="tv-method-value">$${tv.pvExitTV.toFixed(0)}B</div>
+    <div class="tv-method-sub">${tv.exitMultiple}× × $${tv.ebitdaY5}B EBITDA</div>
+    <div class="tv-method-sub">TV: $${tv.exitTV}B</div>
+  </div>
+  <div class="tv-method">
+    <div class="tv-method-name">Perpetuity Growth</div>
+    <div class="tv-method-value">$${tv.pvPerpTV.toFixed(0)}B</div>
+    <div class="tv-method-sub">TGR: ${tv.tgr}% · TV: $${tv.perpetuityTV}B</div>
+    <div class="tv-method-sub">FCF₆ / (WACC − g)</div>
+  </div>
+  <div class="tv-method base">
+    <div class="tv-method-name">Base Case (Avg)</div>
+    <div class="tv-method-value" style="color:var(--indigo)">$${tv.baseCasePvTV.toFixed(0)}B</div>
+    <div class="tv-method-sub">PV of terminal value</div>
+    <div class="tv-method-sub">Used in blended model</div>
+  </div>`;
+
+// SENSITIVITY HEATMAP (inline)
+const sens = D.sensitivity;
+const buildHeatmap = (sens, tableId) => {
+  const rows = sens.waccs.map((wacc, ri) => {
+    const cells = sens.multiples.map((mult, ci) => {
+      const val = sens.grid[ri][ci];
+      let cls = val > 305 ? 's-green' : val >= 225 ? 's-amber' : 's-red';
+      if (ri === sens.baseRow && ci === sens.baseCol) cls += ' s-base';
+      return `<td class="${cls}">$${val}</td>`;
+    }).join('');
+    return `<tr><td class="row-label">${wacc.toFixed(1)}%</td>${cells}</tr>`;
+  }).join('');
+  return `
+    <thead><tr>
+      <th class="row-header">WACC \ Multiple</th>
+      ${sens.multiples.map(m => `<th>${m}×</th>`).join('')}
+    </tr></thead>
+    <tbody>${rows}</tbody>`;
+};
+$('sensitivityHeatmap').innerHTML = `<table class="sensitivity-table">${buildHeatmap(sens)}</table>`;
+$('fullSensTable').innerHTML = buildHeatmap(sens);
+
+// VALUATION BRIDGE
+const v = D.valuation;
+$('valGrid').innerHTML = `
+  <div class="val-col">
+    <div class="val-col-header">Exit Multiple Method</div>
+    ${[['PV of FCFs',`$${v.pvFCF}B`],['PV of Terminal Value',`$${v.exitOnly.pvTV}B`],['Enterprise Value',`$${v.exitOnly.ev}B`],['+ Net Cash',`$${v.netCash}B`],['Equity Value',`$${v.exitOnly.eq}B`],['Shares Outstanding',`${v.sharesOut}B`]].map(([k,val])=>`<div class="val-row"><span class="val-row-key">${k}</span><span class="val-row-val">${val}</span></div>`).join('')}
+    <div class="val-row total"><span class="val-row-key">Intrinsic Value / Share</span><span class="val-row-val">$${v.exitOnly.perShare}</span></div>
+  </div>
+  <div class="val-col">
+    <div class="val-col-header">Perpetuity Growth Method</div>
+    ${[['PV of FCFs',`$${v.pvFCF}B`],['PV of Terminal Value',`$${v.perpOnly.pvTV}B`],['Enterprise Value',`$${v.perpOnly.ev}B`],['+ Net Cash',`$${v.netCash}B`],['Equity Value',`$${v.perpOnly.eq}B`],['Shares Outstanding',`${v.sharesOut}B`]].map(([k,val])=>`<div class="val-row"><span class="val-row-key">${k}</span><span class="val-row-val">${val}</span></div>`).join('')}
+    <div class="val-row total"><span class="val-row-key">Intrinsic Value / Share</span><span class="val-row-val">$${v.perpOnly.perShare}</span></div>
+  </div>
+  <div class="val-col">
+    <div class="val-col-header">Blended Base Case</div>
+    ${[['PV of FCFs',`$${v.pvFCF}B`],['PV of Terminal Value',`$${v.blended.pvTV}B`],['Enterprise Value',`$${v.blended.ev}B`],['+ Net Cash',`$${v.netCash}B`],['Equity Value',`$${v.blended.eq}B`],['Shares Outstanding',`${v.sharesOut}B`]].map(([k,val])=>`<div class="val-row"><span class="val-row-key">${k}</span><span class="val-row-val">${val}</span></div>`).join('')}
+    <div class="val-row total"><span class="val-row-key">Intrinsic Value / Share</span><span class="val-row-val">$${v.blended.perShare}</span></div>
+  </div>`;
+
+// RISKS
+$('riskGrid').innerHTML = D.risks.map(r => `
+  <div class="risk-card">
+    <div class="risk-rank">#${r.rank}</div>
+    <div class="risk-title">${r.title}</div>
+    <div class="risk-base">Base: ${r.base}</div>
+    <div class="risk-bear">Bear: ${r.bear}</div>
+    <span class="impact-badge impact-${r.impact}">${r.impact}</span>
+  </div>`).join('');
+
+// CHARTS
+const chartDefaults = {
+  plugins: { legend: { labels: { color: '#94a3b8', font: { family: "'Plus Jakarta Sans'" } } } },
+  scales: {
+    x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#475569' } },
+    y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#475569' } }
+  }
+};
+
+// Revenue & FCF
+new Chart($('revFcfChart'), {
+  type: 'line',
+  data: {
+    labels: D.projections.map(p => p.year),
+    datasets: [
+      {
+        label: 'Revenue', data: D.projections.map(p => p.revenue),
+        borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,0.08)',
+        fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: '#6366f1'
+      },
+      {
+        label: 'FCF', data: D.projections.map(p => p.fcf),
+        borderColor: '#10b981', backgroundColor: 'transparent',
+        borderDash: [5,3], fill: false, tension: 0.4, pointRadius: 4, pointBackgroundColor: '#10b981'
+      }
+    ]
+  },
+  options: { ...chartDefaults, responsive: true, maintainAspectRatio: true,
+    plugins: { ...chartDefaults.plugins, legend: { ...chartDefaults.plugins.legend, position: 'bottom', labels: { ...chartDefaults.plugins.legend.labels, boxWidth: 12, padding: 16 } } }
+  }
+});
+
+// WACC Components
+new Chart($('waccChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Cost of Equity', 'After-Tax Cost of Debt', 'Blended WACC'],
+    datasets: [{
+      data: [15.4, 4.1, 14.6],
+      backgroundColor: ['rgba(139,92,246,0.7)', 'rgba(56,189,248,0.7)', 'rgba(99,102,241,0.85)'],
+      borderRadius: 6, borderSkipped: false
+    }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: true,
+    plugins: { legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw}%` } }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#475569', callback: v => v+'%' } },
+      y: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+    }
+  }
+});
+</script>
+</body>
+</html>
