@@ -2,6 +2,9 @@
   "publishes": {
     "marble-petal-s8gk": {
       "siteUrl": "https://marble-petal-s8gk.here.now/"
+    },
+    "alpine-brook-6rhs": {
+      "siteUrl": "https://alpine-brook-6rhs.here.now/"
     }
   }
 }
