@@ -66,3 +66,7 @@ Invoke this skill when you want to screen stocks based on your investment goals.
 | [stock-screener-html-report](companions/stock-screener-html-report/) | Generates an interactive HTML dashboard with Chart.js visualizations |
 
 > Companion skills are invoked automatically by this entry point. You do not need to call them directly.
+
+## Example Output
+
+![Stock Screener HTML Report](assets/goldman_sacks_stock_screener_example.png)
