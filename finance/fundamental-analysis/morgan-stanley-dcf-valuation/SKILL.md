@@ -17,8 +17,27 @@ If the user simply asks for a "DCF model" without specifying a company, politely
 
 > "Which stock would you like me to value? Please provide the ticker symbol and company name so I can build the DCF model."
 
+## Step 0 — Fetch Live Market Data
+
+**Before building any part of the model**, use WebSearch to retrieve current, real-world data. Never use training data prices or financials — they are stale and will produce materially incorrect analysis.
+
+Search for and record the following:
+
+| Data Point | What to Search |
+|-----------|----------------|
+| Current stock price | `[TICKER] stock price today` |
+| Latest quarterly revenue & margins | `[COMPANY] latest earnings revenue margin [current year]` |
+| Analyst consensus estimates | `[TICKER] analyst revenue estimates [year+1] [year+2]` |
+| Current 10Y Treasury yield | `US 10 year treasury yield today` |
+| Sector EV/EBITDA multiples | `[SECTOR] average EV/EBITDA multiple [current year]` |
+| Stock beta | `[TICKER] beta 5 year` |
+| Net debt / cash position | `[COMPANY] net debt cash balance sheet [latest quarter]` |
+| Shares outstanding | `[TICKER] shares outstanding` |
+
+Cite the source and date for every data point used in the model. If a search returns no results or unreliable data, explicitly state what could not be verified and ask the user to provide it before proceeding. **Never estimate or assume a current price.**
+
 ## Instructions
-Once the target company is identified, execute the following 9-step valuation framework:
+Once live data is gathered and the target company is identified, execute the following 9-step valuation framework:
 
 1. **Revenue Projections:** Build a 5-year revenue projection with clearly stated growth assumptions for each year. Anchor assumptions to recent earnings trends, analyst consensus, and sector tailwinds/headwinds.
 

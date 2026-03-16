@@ -8,14 +8,14 @@
 
 ## Executive Summary
 
-Tesla enters 2026 at a strategic inflection point — margins have compressed sharply from their 2022 peak due to aggressive price cuts and rising EV competition, yet the long-term thesis around FSD monetization, energy storage, and Optimus remains structurally intact. Our base case DCF, using a blended terminal value approach, yields an intrinsic value of **$143 per share** against a current market price of **$265**, implying **-46% downside**. The exit-multiple-only method yields **$237** — still a **-10.6% discount**. Across both methods, the current market price embeds assumptions beyond our base case.
+Tesla enters 2026 at a strategic inflection point — margins have compressed sharply from their 2022 peak due to aggressive price cuts and rising EV competition, yet the long-term thesis around FSD monetization, energy storage, and Optimus remains structurally intact. Our base case DCF, using a blended terminal value approach, yields an intrinsic value of **$143 per share** against a current market price of **$391.20**, implying **-63.4% downside**. The exit-multiple-only method yields **$237** — a **-39.4% discount**. Across both methods, the current market price embeds assumptions materially beyond our base case.
 
 **Verdict:** OVERVALUED
 **DCF Intrinsic Value (Blended):** $143
 **DCF Intrinsic Value (Exit Multiple Only):** $237
-**Current Market Price:** $265
-**Implied Downside (Blended):** -46.0%
-**Implied Downside (Exit Multiple):** -10.6%
+**Current Market Price:** $391.20 *(as of 2026-03-16)*
+**Implied Downside (Blended):** -63.4%
+**Implied Downside (Exit Multiple):** -39.4%
 
 ---
 

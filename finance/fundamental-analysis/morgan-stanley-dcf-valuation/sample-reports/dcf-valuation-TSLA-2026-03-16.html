@@ -307,13 +307,13 @@ const DCF_DATA = {
   generatedDate: "2026-03-16",
   ticker: "TSLA",
   company: "Tesla, Inc.",
-  currentPrice: 265,
+  currentPrice: 391.20,
   intrinsicBlended: 143,
   intrinsicExit: 237,
   verdict: "OVERVALUED",
-  downside: -46.0,
-  downsideExit: -10.6,
-  thesis: "At $265 per share, Tesla's market capitalization of ~$848B implies the market is pricing in scenario outcomes materially beyond our base case — specifically full-scale FSD monetization, rapid Optimus commercialization, and sustained 20%+ revenue growth through the decade. The exit-multiple method, the most generous framing, yields $237 — still 10.6% below current levels. The blended approach yields $143, a 46% discount. We rate TSLA Overvalued at $265 with a 12-month price target of $237 under the most constructive framing.",
+  downside: -63.4,
+  downsideExit: -39.4,
+  thesis: "At $391.20 per share (as of 2026-03-16), Tesla's market capitalization of ~$1.25T implies the market is pricing in scenario outcomes materially beyond our base case — specifically full-scale FSD monetization, rapid Optimus commercialization, and sustained 20%+ revenue growth through the decade. The exit-multiple method, the most generous framing, yields $237 — 39.4% below current levels. The blended approach yields $143, a 63.4% discount. The current price requires heroic assumptions that are not supported by a 5-year DCF framework. We rate TSLA Overvalued at $391.20.",
   metrics: {
     wacc: "14.6%",
     tgr: "3.0%",
@@ -456,7 +456,7 @@ const DCF_DATA = {
   <div class="section">
     <div class="section-header">
       <div class="section-title">Full Sensitivity Analysis</div>
-      <div class="section-note">Green >$305 · Amber $225–$305 · Red <$225 · Current: $265</div>
+      <div class="section-note">Green >$450 · Amber $333–$450 · Red <$333 · Current: $391.20</div>
     </div>
     <div class="table-card" style="padding:20px">
       <table class="sensitivity-table" id="fullSensTable"></table>
@@ -591,7 +591,7 @@ const buildHeatmap = (sens, tableId) => {
   const rows = sens.waccs.map((wacc, ri) => {
     const cells = sens.multiples.map((mult, ci) => {
       const val = sens.grid[ri][ci];
-      let cls = val > 305 ? 's-green' : val >= 225 ? 's-amber' : 's-red';
+      let cls = val > 450 ? 's-green' : val >= 333 ? 's-amber' : 's-red';
       if (ri === sens.baseRow && ci === sens.baseCol) cls += ' s-base';
       return `<td class="${cls}">$${val}</td>`;
     }).join('');

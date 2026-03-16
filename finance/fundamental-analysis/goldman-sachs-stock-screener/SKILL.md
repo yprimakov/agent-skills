@@ -72,9 +72,26 @@ After Q4, display a **profile confirmation summary** in a table and ask the user
 
 > "Does this profile look correct? Type **confirm** to proceed or make any corrections."
 
-## Step 2 — Stock Screening Analysis
+## Step 2 — Fetch Live Market Data
 
-Once the profile is confirmed, execute the following 9-step framework for 10 screened stocks:
+**Before screening any stocks**, use WebSearch to retrieve current, real-world data for all candidate stocks. Never use training data prices or metrics — they are stale and will produce materially incorrect analysis.
+
+For each of the 10 stocks identified, search for and record:
+
+| Data Point | What to Search |
+|-----------|----------------|
+| Current stock price | `[TICKER] stock price today` |
+| Current P/E ratio | `[TICKER] P/E ratio current` |
+| Revenue growth (last 5 years) | `[COMPANY] annual revenue 2020 2021 2022 2023 2024` |
+| Debt-to-equity ratio | `[TICKER] debt to equity ratio current` |
+| Dividend yield | `[TICKER] dividend yield current` |
+| 12-month analyst price targets | `[TICKER] analyst price target consensus` |
+
+Cite the source and date for every data point. If a search returns no results for a specific metric, state it explicitly and use the most recent available figure with a clear caveat. **Never estimate or assume a current price.**
+
+## Step 3 — Stock Screening Analysis
+
+Once the profile is confirmed and live data is gathered, execute the following 9-step framework for 10 screened stocks:
 
 1. **Top Picks:** Identify the top 10 stocks matching the user's criteria with ticker symbols.
 2. **Valuation:** P/E ratio analysis for each stock vs. sector averages.
@@ -86,7 +103,7 @@ Once the profile is confirmed, execute the following 9-step framework for 10 scr
 8. **Risk Assessment:** Risk rating 1–10 with reasoning.
 9. **Trading Plan:** Entry price zones and stop-loss levels.
 
-## Step 3 — Output Generation
+## Step 4 — Output Generation
 
 Generate two output files:
 
