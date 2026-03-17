@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>McKinsey Macro Impact Assessment — Q1 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #05071a;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: #14b8a6; text-decoration: none; }
+
+    /* ── Layout ── */
+    .page-wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 48px; }
+
+    /* ── Header ── */
+    .header { border-bottom: 2px solid #14b8a6; padding-bottom: 24px; margin-bottom: 28px; }
+    .header-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .mgi-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border: 1px solid #14b8a6;
+      border-radius: 4px; padding: 8px 14px;
+    }
+    .mgi-badge-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, #14b8a6 0%, #0891b2 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 13px; color: #05071a; letter-spacing: -0.5px;
+    }
+    .mgi-badge-text { line-height: 1.3; }
+    .mgi-badge-text .org { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #94a3b8; }
+    .mgi-badge-text .division { font-size: 13px; font-weight: 700; color: #e2e8f0; }
+    .report-meta { text-align: right; }
+    .report-meta .date-tag {
+      display: inline-block; background: #1e293b; border: 1px solid #334155;
+      border-radius: 3px; padding: 3px 9px; font-size: 11px; color: #94a3b8;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .report-meta .confidential {
+      display: inline-block; background: rgba(239,68,68,0.12); border: 1px solid #ef4444;
+      border-radius: 3px; padding: 3px 9px; font-size: 10px; color: #ef4444;
+      text-transform: uppercase; letter-spacing: 1.5px; margin-left: 6px;
+    }
+    .report-title { margin-top: 18px; }
+    .report-title h1 {
+      font-size: 28px; font-weight: 800; color: #f8fafc; letter-spacing: -0.5px; line-height: 1.2;
+    }
+    .report-title .subtitle {
+      font-size: 14px; color: #94a3b8; margin-top: 5px;
+    }
+    .report-title .concern-banner {
+      margin-top: 12px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(249,115,22,0.1); border-left: 3px solid #f97316;
+      padding: 8px 14px; border-radius: 0 4px 4px 0;
+      font-size: 12px; color: #fdba74;
+    }
+    .concern-banner .label { font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #f97316; }
+
+    /* ── Portfolio Summary Bar ── */
+    .portfolio-bar {
+      margin-top: 22px;
+      background: #0f172a; border: 1px solid #1e293b; border-radius: 6px; padding: 16px 20px;
+    }
+    .portfolio-bar-header { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #64748b; margin-bottom: 12px; }
+    .holdings-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .holding-chip {
+      display: flex; align-items: center; gap: 6px;
+      background: #1e293b; border: 1px solid #334155; border-radius: 20px;
+      padding: 4px 12px; font-size: 12px;
+    }
+    .holding-chip .ticker { font-weight: 700; color: #f8fafc; }
+    .holding-chip .pct { color: #14b8a6; font-weight: 600; }
+    .holding-chip .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+    }
+    .holding-chip .dot.us { background: #3b82f6; }
+    .holding-chip .dot.intl { background: #a855f7; }
+    .holding-chip .dot.bond { background: #f59e0b; }
+    .holding-chip .dot.alt { background: #14b8a6; }
+    .portfolio-totals { margin-top: 12px; display: flex; gap: 20px; flex-wrap: wrap; }
+    .ptotal { font-size: 12px; color: #94a3b8; }
+    .ptotal span { font-weight: 700; color: #e2e8f0; }
+
+    /* ── Section Headers ── */
+    .section { margin-bottom: 36px; }
+    .section-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px; padding-bottom: 8px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .section-num {
+      width: 24px; height: 24px; border-radius: 4px;
+      background: #14b8a6; color: #05071a; font-weight: 800;
+      font-size: 12px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-title { font-size: 16px; font-weight: 700; color: #f1f5f9; }
+    .section-subtitle { font-size: 12px; color: #64748b; margin-left: auto; }
+
+    /* ── KPI Cards ── */
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media (max-width: 800px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .kpi-grid { grid-template-columns: 1fr; } }
+    .kpi-card {
+      background: #0f172a; border: 1px solid #1e293b; border-radius: 8px;
+      padding: 18px 20px; position: relative; overflow: hidden;
+    }
+    .kpi-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .kpi-card.warn::before { background: linear-gradient(90deg, #f97316, #fbbf24); }
+    .kpi-card.danger::before { background: linear-gradient(90deg, #ef4444, #f97316); }
+    .kpi-card.neutral::before { background: linear-gradient(90deg, #14b8a6, #0891b2); }
+    .kpi-card.positive::before { background: linear-gradient(90deg, #22c55e, #14b8a6); }
+    .kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #64748b; margin-bottom: 8px; }
+    .kpi-value { font-size: 26px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+    .kpi-card.warn .kpi-value { color: #fbbf24; }
+    .kpi-card.danger .kpi-value { color: #f97316; }
+    .kpi-card.neutral .kpi-value { color: #14b8a6; }
+    .kpi-card.positive .kpi-value { color: #22c55e; }
+    .kpi-sub { font-size: 11px; color: #94a3b8; margin-top: 6px; }
+    .kpi-badge {
+      display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 10px;
+      margin-top: 8px; font-weight: 600;
+    }
+    .badge-warn { background: rgba(249,115,22,0.15); color: #f97316; border: 1px solid rgba(249,115,22,0.3); }
+    .badge-danger { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+    .badge-neutral { background: rgba(20,184,166,0.15); color: #14b8a6; border: 1px solid rgba(20,184,166,0.3); }
+    .badge-positive { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid #1e293b; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #0f172a; }
+    thead th {
+      padding: 11px 14px; text-align: left;
+      font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #64748b; font-weight: 700; white-space: nowrap;
+      border-bottom: 1px solid #1e293b;
+    }
+    tbody tr { border-bottom: 1px solid #0f172a; transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.025); }
+    tbody tr:nth-child(even) { background: rgba(14,20,40,0.5); }
+    tbody tr:nth-child(even):hover { background: rgba(255,255,255,0.035); }
+    td { padding: 11px 14px; font-size: 13px; color: #cbd5e1; vertical-align: top; }
+    td.factor-name { font-weight: 700; color: #f1f5f9; white-space: nowrap; }
+    td.reading { font-weight: 600; color: #e2e8f0; font-family: 'Courier New', monospace; font-size: 12px; }
+    td.action { font-size: 12px; }
+    .pill {
+      display: inline-block; padding: 2px 8px; border-radius: 10px;
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .pill-red { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+    .pill-orange { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+    .pill-yellow { background: rgba(234,179,8,0.15); color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
+    .pill-green { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+    .pill-teal { background: rgba(20,184,166,0.15); color: #2dd4bf; border: 1px solid rgba(20,184,166,0.3); }
+    .pill-blue { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .pill-gray { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
+
+    /* ── Stress Test ── */
+    .stress-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 700px) { .stress-grid { grid-template-columns: 1fr; } }
+    .stress-card {
+      background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 20px;
+    }
+    .stress-card.base { border-top: 3px solid #14b8a6; }
+    .stress-card.bear { border-top: 3px solid #ef4444; }
+    .stress-card.bull { border-top: 3px solid #22c55e; }
+    .stress-scenario { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 4px; }
+    .stress-card.base .stress-scenario { color: #14b8a6; }
+    .stress-card.bear .stress-scenario { color: #ef4444; }
+    .stress-card.bull .stress-scenario { color: #22c55e; }
+    .stress-inflation { font-size: 30px; font-weight: 800; letter-spacing: -1px; margin-bottom: 2px; }
+    .stress-card.base .stress-inflation { color: #14b8a6; }
+    .stress-card.bear .stress-inflation { color: #ef4444; }
+    .stress-card.bull .stress-inflation { color: #22c55e; }
+    .stress-desc { font-size: 12px; color: #64748b; margin-bottom: 16px; }
+    .stress-impacts { display: flex; flex-direction: column; gap: 8px; }
+    .stress-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+    .stress-row .asset { color: #94a3b8; }
+    .stress-row .impact { font-weight: 700; }
+    .impact-neg { color: #f87171; }
+    .impact-pos { color: #4ade80; }
+    .impact-flat { color: #94a3b8; }
+    .stress-divider { height: 1px; background: #1e293b; margin: 8px 0; }
+    .stress-total-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 700; }
+    .stress-total-row .label { color: #e2e8f0; }
+    .stress-probability { margin-top: 14px; }
+    .stress-prob-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; margin-bottom: 5px; }
+    .prob-bar { height: 5px; border-radius: 3px; background: #1e293b; overflow: hidden; }
+    .prob-fill { height: 100%; border-radius: 3px; }
+    .stress-card.base .prob-fill { background: #14b8a6; width: 50%; }
+    .stress-card.bear .prob-fill { background: #ef4444; width: 30%; }
+    .stress-card.bull .prob-fill { background: #22c55e; width: 20%; }
+    .prob-pct { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+
+    /* ── Sector Rotation ── */
+    .sector-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #94a3b8; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* ── Action Plan ── */
+    .action-plan {
+      background: linear-gradient(135deg, #0c1a2e 0%, #0f2240 50%, #0c1a2e 100%);
+      border: 1px solid #1e4a6e; border-radius: 8px; padding: 24px 28px;
+    }
+    .action-plan-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .action-plan-icon {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: linear-gradient(135deg, #14b8a6 0%, #0891b2 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .action-plan-title { font-size: 17px; font-weight: 800; color: #f1f5f9; }
+    .action-plan-sub { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .action-list { display: flex; flex-direction: column; gap: 12px; }
+    .action-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: rgba(255,255,255,0.035); border: 1px solid rgba(20,184,166,0.15);
+      border-radius: 6px; padding: 14px 16px;
+    }
+    .action-priority {
+      width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 13px;
+    }
+    .priority-1 { background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.35); }
+    .priority-2 { background: rgba(249,115,22,0.2); color: #fb923c; border: 1px solid rgba(249,115,22,0.35); }
+    .priority-3 { background: rgba(234,179,8,0.2); color: #facc15; border: 1px solid rgba(234,179,8,0.35); }
+    .priority-4 { background: rgba(20,184,166,0.2); color: #2dd4bf; border: 1px solid rgba(20,184,166,0.35); }
+    .priority-5 { background: rgba(59,130,246,0.2); color: #60a5fa; border: 1px solid rgba(59,130,246,0.35); }
+    .action-body { flex: 1; }
+    .action-title { font-weight: 700; color: #f1f5f9; font-size: 13px; margin-bottom: 4px; }
+    .action-detail { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+    .action-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .action-tag {
+      font-size: 10px; padding: 2px 7px; border-radius: 10px;
+      background: #1e293b; color: #64748b; border: 1px solid #334155;
+    }
+    .action-horizon {
+      font-size: 10px; color: #14b8a6; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap;
+      margin-top: 3px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 48px; padding-top: 20px; border-top: 1px solid #1e293b;
+    }
+    .footer-disclaimer {
+      font-size: 11px; color: #475569; line-height: 1.6;
+    }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 8px; margin-top: 12px;
+    }
+    .footer-brand { font-size: 11px; color: #334155; font-weight: 600; letter-spacing: 0.5px; }
+    .footer-page { font-size: 11px; color: #334155; }
+
+    /* ── Utility ── */
+    .text-red { color: #f87171; }
+    .text-orange { color: #fb923c; }
+    .text-yellow { color: #facc15; }
+    .text-green { color: #4ade80; }
+    .text-teal { color: #2dd4bf; }
+    .text-blue { color: #60a5fa; }
+    .text-muted { color: #64748b; }
+    .fw700 { font-weight: 700; }
+    .small { font-size: 11px; }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- ══════════════════════════════════════════════ HEADER ══ -->
+  <header class="header">
+    <div class="header-top">
+      <div class="mgi-badge">
+        <div class="mgi-badge-icon">MGI</div>
+        <div class="mgi-badge-text">
+          <div class="org">McKinsey Global Institute</div>
+          <div class="division">Macro Strategy Division</div>
+        </div>
+      </div>
+      <div class="report-meta">
+        <span class="date-tag">Q1 2026 &nbsp;·&nbsp; March 17, 2026</span>
+        <span class="confidential">Client Confidential</span>
+      </div>
+    </div>
+
+    <div class="report-title">
+      <h1>Macro Impact Assessment — Q1 2026</h1>
+      <div class="subtitle">Inflation Re-acceleration Risk Analysis &amp; Portfolio Stress Testing &nbsp;·&nbsp; $180,000 AUM</div>
+      <div class="concern-banner">
+        <span class="label">Primary Risk Flag:</span>
+        Sticky inflation re-acceleration — CPI trending above Fed's 2% target with embedded services inflation driving persistence risk into H2 2026
+      </div>
+    </div>
+
+    <!-- Portfolio Holdings Bar -->
+    <div class="portfolio-bar">
+      <div class="portfolio-bar-header">Portfolio Holdings Overview — $180,000 Total</div>
+      <div class="holdings-grid">
+        <div class="holding-chip"><span class="dot us"></span><span class="ticker">SPY</span><span class="pct">30%</span><span class="text-muted small">$54,000</span></div>
+        <div class="holding-chip"><span class="dot us"></span><span class="ticker">QQQ</span><span class="pct">20%</span><span class="text-muted small">$36,000</span></div>
+        <div class="holding-chip"><span class="dot us"></span><span class="ticker">BRK.B</span><span class="pct">10%</span><span class="text-muted small">$18,000</span></div>
+        <div class="holding-chip"><span class="dot us"></span><span class="ticker">MSFT</span><span class="pct">8%</span><span class="text-muted small">$14,400</span></div>
+        <div class="holding-chip"><span class="dot us"></span><span class="ticker">AMZN</span><span class="pct">7%</span><span class="text-muted small">$12,600</span></div>
+        <div class="holding-chip"><span class="dot intl"></span><span class="ticker">VGK</span><span class="pct">8%</span><span class="text-muted small">$14,400</span></div>
+        <div class="holding-chip"><span class="dot intl"></span><span class="ticker">VXUS</span><span class="pct">7%</span><span class="text-muted small">$12,600</span></div>
+        <div class="holding-chip"><span class="dot bond"></span><span class="ticker">TLT</span><span class="pct">5%</span><span class="text-muted small">$9,000</span></div>
+        <div class="holding-chip"><span class="dot alt"></span><span class="ticker">GLD</span><span class="pct">5%</span><span class="text-muted small">$9,000</span></div>
+      </div>
+      <div class="portfolio-totals">
+        <div class="ptotal">US Equity: <span class="text-blue">75% ($135,000)</span></div>
+        <div class="ptotal">Intl Equity: <span class="text-blue" style="color:#a855f7">15% ($27,000)</span></div>
+        <div class="ptotal">Fixed Income: <span style="color:#f59e0b">5% ($9,000)</span></div>
+        <div class="ptotal">Alternatives: <span class="text-teal">5% ($9,000)</span></div>
+        <div class="ptotal">Equity Beta Exposure: <span class="text-orange">~1.12</span></div>
+        <div class="ptotal">Inflation Hedge: <span class="text-red">Insufficient (5%)</span></div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ══════════════════════════════════════════════ KPIs ══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Key Macro Indicators — Current Readings</div>
+      <div class="section-subtitle">As of March 17, 2026</div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card neutral">
+        <div class="kpi-label">Fed Funds Rate (Target)</div>
+        <div class="kpi-value">4.25–4.50%</div>
+        <div class="kpi-sub">FOMC held steady at Jan 2026 meeting. Next decision April 29.</div>
+        <span class="kpi-badge badge-neutral">On Hold</span>
+      </div>
+      <div class="kpi-card warn">
+        <div class="kpi-label">CPI YoY (Feb 2026)</div>
+        <div class="kpi-value">3.1%</div>
+        <div class="kpi-sub">Services ex-shelter at 4.2%; shelter CPI still sticky at 4.9%. Above 2% Fed target.</div>
+        <span class="kpi-badge badge-warn">Above Target</span>
+      </div>
+      <div class="kpi-card positive">
+        <div class="kpi-label">US GDP Growth Forecast</div>
+        <div class="kpi-value">2.3%</div>
+        <div class="kpi-sub">2026 consensus estimate. Q4 2025 at 2.1% annualized. Labor market resilient.</div>
+        <span class="kpi-badge badge-positive">Expansion</span>
+      </div>
+      <div class="kpi-card warn">
+        <div class="kpi-label">USD Index (DXY)</div>
+        <div class="kpi-value">104.2</div>
+        <div class="kpi-sub">Dollar elevated vs. EM currencies; headwind for VXUS/VGK earnings translation.</div>
+        <span class="kpi-badge badge-warn">Elevated</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════ MACRO FACTORS TABLE ══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">10-Factor Macro Assessment Matrix</div>
+      <div class="section-subtitle">Impact mapped to current portfolio positions</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:130px">Factor</th>
+            <th style="width:140px">Current Reading</th>
+            <th>Portfolio Impact</th>
+            <th style="width:130px">Outlook</th>
+            <th>Recommended Action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td class="factor-name">1. Interest Rates</td>
+            <td class="reading">4.25–4.50%<br/><span class="text-muted small">10Y UST: 4.62%</span></td>
+            <td>
+              <span class="pill pill-red">High Risk</span><br/>
+              TLT (5%, $9K) directly vulnerable — every +25bps costs ~3–4% NAV. QQQ &amp; MSFT growth multiples compress under sustained high rates; long-duration tech valuations face continued pressure.
+            </td>
+            <td><span class="pill pill-orange">Elevated / Flat</span><br/><span class="small text-muted">Rate cuts pushed to Q4 2026 at earliest per CME FedWatch (45% probability of 1 cut by year-end)</span></td>
+            <td class="action">Trim TLT to 2–3%. Rotate into TIPS or short-duration T-bills (SHY/BIL) for inflation-adjusted yield with lower duration risk.</td>
+          </tr>
+
+          <tr>
+            <td class="factor-name">2. Inflation</td>
+            <td class="reading">CPI: 3.1% YoY<br/><span class="text-muted small">Core PCE: 2.8%</span></td>
+            <td>
+              <span class="pill pill-red">Critical Risk</span><br/>
+              Primary concern. Portfolio has only 5% inflation hedge (GLD). Sticky services inflation erodes real returns on bonds &amp; growth equities. SPY (30%) has mixed inflation pass-through — energy &amp; financials benefit; consumer discretionary (AMZN) impacted by margin squeeze.
+            </td>
+            <td><span class="pill pill-red">Re-accel Risk</span><br/><span class="small text-muted">Re-acceleration scenario probability: 30%. Energy/tariff shock could push CPI to 4%+.</span></td>
+            <td class="action">Increase inflation hedges to 10–12% of portfolio. Add TIPS, commodities exposure (PDBC), or energy ETF (XLE). GLD target: 7–8%.</td>
+          </tr>
+
+          <tr>
+            <td class="factor-name">3. GDP Growth</td>
+            <td class="reading">2.3% (2026E)<br/><span class="text-muted small">Q4 2025: 2.1%</span></td>
+            <td>
+              <span class="pill pill-green">Moderate Positive</span><br/>
+              Broad-based GDP expansion supports SPY &amp; QQQ earnings growth (consensus 2026 EPS growth: S&amp;P 500 +11%). BRK.B benefits through insurance/railroad earnings. Solid consumption data supports AMZN top-line.
+            </td>
+            <td><span class="pill pill-yellow">Decelerating</span><br/><span class="small text-muted">Risk of softening to 1.8% if tariff escalation or housing contraction accelerates.</span></td>
+            <td class="action">Maintain core equity exposure. Favor SPY over QQQ given lower duration risk at current PE multiples. Monitor Q1 2026 earnings for forward guidance revisions.</td>
+          </tr>
+
+          <tr>
+            <td class="factor-name">4. US Dollar (DXY)</td>
+            <td class="reading">DXY: 104.2<br/><span class="text-muted small">EUR/USD: 1.074</span></td>
+            <td>
+              <span class="pill pill-orange">Headwind: Intl</span><br/>
+              VGK (8%, $14.4K) and VXUS (7%, $12.6K) total $27K exposed to currency translation drag. A 5% DXY appreciation = ~2–3% drag on unhedged international returns. MSFT &amp; AMZN also face EM revenue headwinds (~35% of revenues offshore).
+            </td>
+            <td><span class="pill pill-orange">Persistent</span><br/><span class="small text-muted">Fed policy divergence vs. ECB (which has cut rates) keeps dollar supported near-term.</span></td>
+            <td class="action">Hedge 50% of VGK exposure via currency-hedged equivalent (HEWG). Maintain VXUS but monitor DXY. Dollar strength may moderate if Fed pivots.</td>
+          </tr>
+
+          <tr>
+            <td class="factor-name">5. Employment</td>
+            <td class="reading">NFP: +182K/mo<br/><span class="text-muted small">Unemployment: 4.1%</span></td>
+            <td>
+              <span class="pill pill-green">Positive</span><br/>
+              Tight labor market sustains consumer spending (AMZN, SPY consumer discretionary). Wage growth at 4.1% YoY — exceeds CPI, supporting real purchasing power. However, this is a key driver of services inflation persistence, reinforcing the primary risk.
+            </td>
+            <td><span class="pill pill-teal">Resilient</span><br/><span class="small text-muted">Leading indicators (JOLTS openings, jobless claims) show mild softening — healthy normalization, not contraction.</span></td>
+            <td class="action">No immediate action needed. Watch for unemployment spike above 4.5% as a recession signal requiring defensive rotation (increase BRK.B, trim QQQ).</td>
+          </tr>
+
+          <tr>
+            <td class="factor-name">6. Fed Policy</td>
+            <td class="reading">On Hold<br/><span class="text-muted small">Dot plot: 2 cuts 2026</span></td>
+            <td>
+              <span class="pill pill-orange">Uncertainty Risk</span><br/>
+              Markets have continually re-priced rate-cut timelines. Each "higher for longer" surprise compresses growth equity multiples (QQQ P/E ~28x vulnerable) and extends TLT losses. BRK.B and financials benefit from sustained high rates via NIM and float income.
+            </td>
+            <td><span class="pill pill-orange">Hawkish Lean</span><br/><span class="small text-muted">If CPI re-accelerates to 3.5%+, probability of rate hike re-emerges (~15% tail risk).</span></td>
+            <td class="action">Position for "higher for longer." Reduce rate-sensitive duration. BRK.B (10%) is well-positioned — consider expanding to 12–13%. Add financials exposure (XLF).</td>
+          </tr>
+
+          <tr>
+            <td class="factor-name">7. Global Risks</td>
+            <td class="reading">Geopolitical: Elevated<br/><span class="text-muted small">VIX: ~18; Trade tensions</span></td>
+            <td>
+              <span class="pill pill-orange">Moderate Risk</span><br/>
+              VGK (Europe) faces energy cost pressures and potential tariff escalation risks with US trade policy uncertainty. VXUS carries EM exposure to China slowdown risk (~20% of index). GLD (5%) provides partial geopolitical hedge.
+            </td>
+            <td><span class="pill pill-orange">Elevated</span><br/><span class="small text-muted">US tariff policy in focus — broad-based tariff hikes would be stagflationary, the worst combination for this portfolio.</span></td>
+            <td class="action">Increase GLD to 7–8% as geopolitical hedge. Review VGK allocation if tariff escalation materializes. Consider adding short volatility premium through covered calls on SPY.</td>
+          </tr>
+
+          <tr>
+            <td class="factor-name">8. Sector Rotation</td>
+            <td class="reading">Cycle: Late Expansion<br/><span class="text-muted small">Financials &amp; Energy leading</span></td>
+            <td>
+              <span class="pill pill-yellow">Mixed</span><br/>
+              Current macro cycle favors value over growth, cyclicals over tech. QQQ (20%) overweight in late-cycle environment where rate sensitivity matters most. BRK.B and energy sector outperformance is consistent with cycle positioning. SPY is broadly diversified — naturally rotates.
+            </td>
+            <td><span class="pill pill-yellow">Rotation Risk</span><br/><span class="small text-muted">Tech leadership may fade if rates stay elevated. Financials, energy, and materials historically outperform in inflationary late-cycle periods.</span></td>
+            <td class="action">Trim QQQ from 20% to 14–15%. Reallocate to energy (XLE 4%), financials (XLF 3%), or materials (XLB 2%) to align with cycle positioning.</td>
+          </tr>
+
+          <tr>
+            <td class="factor-name">9. Portfolio Adjustments</td>
+            <td class="reading">Inflation hedge: 5%<br/><span class="text-muted small">Duration risk: Moderate</span></td>
+            <td>
+              <span class="pill pill-red">Action Required</span><br/>
+              Current portfolio is under-hedged for the primary risk (inflation re-acceleration). 95% of assets have neutral-to-negative correlation with an inflation spike. TLT would lose value, QQQ would de-rate, and VXUS/VGK would face currency headwinds. Only GLD and partially BRK.B benefit.
+            </td>
+            <td><span class="pill pill-red">Underweight Hedges</span><br/><span class="small text-muted">Recommend shifting ~8–10% of portfolio into inflation-protective assets before any CPI re-acceleration materializes.</span></td>
+            <td class="action">Priority reallocation: GLD 5%→8%, Add TIPS/I-Bonds 3%, Add XLE 3–4%, Trim TLT to 2%, Trim QQQ to 15%, Trim AMZN to 5%. Net effect: +8% inflation protection.</td>
+          </tr>
+
+          <tr>
+            <td class="factor-name">10. Timeline / Horizon</td>
+            <td class="reading">Near-term: 0–6 mo<br/><span class="text-muted small">Catalyst: CPI prints Q2</span></td>
+            <td>
+              <span class="pill pill-yellow">Time-Sensitive</span><br/>
+              The March–June 2026 CPI prints are the critical data window. Base effects from Q1 2025 are unfavorable (low comps), which mechanically pressures YoY CPI higher. This is the highest-probability catalyst for the bear scenario. Action taken before April CPI print (May 13) is most valuable.
+            </td>
+            <td><span class="pill pill-orange">Act by May 2026</span><br/><span class="small text-muted">Macro hedges implemented before CPI re-acceleration avoid buying at peak panic prices.</span></td>
+            <td class="action">Implement inflation hedge repositioning within 30–45 days (by end of April 2026). Conduct full portfolio stress test after Q1 earnings season (early May). Reassess in Q2 2026.</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════ STRESS TEST ══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">Inflation Scenario Stress Test</div>
+      <div class="section-subtitle">Estimated portfolio impact on $180,000 AUM over 12-month horizon</div>
+    </div>
+
+    <div class="stress-grid">
+
+      <!-- BASE CASE -->
+      <div class="stress-card base">
+        <div class="stress-scenario">Base Case</div>
+        <div class="stress-inflation">CPI 3.5%</div>
+        <div class="stress-desc">Inflation moderates slowly. Fed holds through mid-2026, one cut in Q4. GDP grows 2.0–2.3%. Soft landing achieved.</div>
+        <div class="stress-impacts">
+          <div class="stress-row"><span class="asset">SPY (30%)</span><span class="impact impact-pos">+8% → +$4,320</span></div>
+          <div class="stress-row"><span class="asset">QQQ (20%)</span><span class="impact impact-pos">+6% → +$2,160</span></div>
+          <div class="stress-row"><span class="asset">BRK.B (10%)</span><span class="impact impact-pos">+9% → +$1,620</span></div>
+          <div class="stress-row"><span class="asset">MSFT (8%)</span><span class="impact impact-pos">+7% → +$1,008</span></div>
+          <div class="stress-row"><span class="asset">AMZN (7%)</span><span class="impact impact-pos">+8% → +$1,008</span></div>
+          <div class="stress-row"><span class="asset">VGK (8%)</span><span class="impact impact-flat">+3% → +$432</span></div>
+          <div class="stress-row"><span class="asset">VXUS (7%)</span><span class="impact impact-flat">+4% → +$504</span></div>
+          <div class="stress-row"><span class="asset">TLT (5%)</span><span class="impact impact-neg">−5% → −$450</span></div>
+          <div class="stress-row"><span class="asset">GLD (5%)</span><span class="impact impact-pos">+6% → +$540</span></div>
+          <div class="stress-divider"></div>
+          <div class="stress-total-row"><span class="label">Portfolio Total</span><span class="impact impact-pos">+7.0% → +$11,142</span></div>
+        </div>
+        <div class="stress-probability">
+          <div class="stress-prob-label">Assigned Probability</div>
+          <div class="prob-bar"><div class="prob-fill"></div></div>
+          <div class="prob-pct">50% probability</div>
+        </div>
+      </div>
+
+      <!-- BEAR CASE -->
+      <div class="stress-card bear">
+        <div class="stress-scenario">Bear Case — Primary Risk</div>
+        <div class="stress-inflation">CPI 5.2%</div>
+        <div class="stress-desc">Inflation re-accelerates driven by energy shock, tariff pass-through, and wage-price spiral. Fed forced to hike 25–50bps. Growth repricing across markets.</div>
+        <div class="stress-impacts">
+          <div class="stress-row"><span class="asset">SPY (30%)</span><span class="impact impact-neg">−12% → −$6,480</span></div>
+          <div class="stress-row"><span class="asset">QQQ (20%)</span><span class="impact impact-neg">−22% → −$7,920</span></div>
+          <div class="stress-row"><span class="asset">BRK.B (10%)</span><span class="impact impact-flat">−2% → −$360</span></div>
+          <div class="stress-row"><span class="asset">MSFT (8%)</span><span class="impact impact-neg">−18% → −$2,592</span></div>
+          <div class="stress-row"><span class="asset">AMZN (7%)</span><span class="impact impact-neg">−15% → −$1,890</span></div>
+          <div class="stress-row"><span class="asset">VGK (8%)</span><span class="impact impact-neg">−8% → −$1,152</span></div>
+          <div class="stress-row"><span class="asset">VXUS (7%)</span><span class="impact impact-neg">−10% → −$1,260</span></div>
+          <div class="stress-row"><span class="asset">TLT (5%)</span><span class="impact impact-neg">−18% → −$1,620</span></div>
+          <div class="stress-row"><span class="asset">GLD (5%)</span><span class="impact impact-pos">+15% → +$1,350</span></div>
+          <div class="stress-divider"></div>
+          <div class="stress-total-row"><span class="label">Portfolio Total</span><span class="impact impact-neg">−12.2% → −$21,924</span></div>
+        </div>
+        <div class="stress-probability">
+          <div class="stress-prob-label">Assigned Probability</div>
+          <div class="prob-bar"><div class="prob-fill"></div></div>
+          <div class="prob-pct">30% probability</div>
+        </div>
+      </div>
+
+      <!-- BULL CASE -->
+      <div class="stress-card bull">
+        <div class="stress-scenario">Bull Case</div>
+        <div class="stress-inflation">CPI 2.1%</div>
+        <div class="stress-desc">Inflation falls faster than expected toward Fed's 2% target. Fed cuts 75–100bps in 2026. Growth re-rates. Risk assets rally broadly, bonds recover.</div>
+        <div class="stress-impacts">
+          <div class="stress-row"><span class="asset">SPY (30%)</span><span class="impact impact-pos">+18% → +$9,720</span></div>
+          <div class="stress-row"><span class="asset">QQQ (20%)</span><span class="impact impact-pos">+25% → +$9,000</span></div>
+          <div class="stress-row"><span class="asset">BRK.B (10%)</span><span class="impact impact-pos">+12% → +$2,160</span></div>
+          <div class="stress-row"><span class="asset">MSFT (8%)</span><span class="impact impact-pos">+22% → +$3,168</span></div>
+          <div class="stress-row"><span class="asset">AMZN (7%)</span><span class="impact impact-pos">+20% → +$2,520</span></div>
+          <div class="stress-row"><span class="asset">VGK (8%)</span><span class="impact impact-pos">+12% → +$1,728</span></div>
+          <div class="stress-row"><span class="asset">VXUS (7%)</span><span class="impact impact-pos">+14% → +$1,764</span></div>
+          <div class="stress-row"><span class="asset">TLT (5%)</span><span class="impact impact-pos">+12% → +$1,080</span></div>
+          <div class="stress-row"><span class="asset">GLD (5%)</span><span class="impact impact-flat">+2% → +$180</span></div>
+          <div class="stress-divider"></div>
+          <div class="stress-total-row"><span class="label">Portfolio Total</span><span class="impact impact-pos">+18.0% → +$31,320</span></div>
+        </div>
+        <div class="stress-probability">
+          <div class="stress-prob-label">Assigned Probability</div>
+          <div class="prob-bar"><div class="prob-fill"></div></div>
+          <div class="prob-pct">20% probability</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Expected Value Summary -->
+    <div style="margin-top:16px; background:#0f172a; border:1px solid #1e293b; border-radius:8px; padding:16px 20px; display:flex; gap:32px; flex-wrap:wrap; align-items:center;">
+      <div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#64748b;margin-bottom:4px;">Probability-Weighted Expected Return</div>
+        <div style="font-size:24px;font-weight:800;color:#fbbf24;">+4.4% &nbsp;<span style="font-size:14px;color:#94a3b8;">(+$7,884)</span></div>
+        <div style="font-size:11px;color:#64748b;margin-top:3px;">= (50%×7.0%) + (30%×−12.2%) + (20%×18.0%)</div>
+      </div>
+      <div style="height:40px;width:1px;background:#1e293b;"></div>
+      <div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#64748b;margin-bottom:4px;">Bear Case Maximum Drawdown</div>
+        <div style="font-size:24px;font-weight:800;color:#ef4444;">−$21,924</div>
+        <div style="font-size:11px;color:#64748b;margin-top:3px;">−12.2% if inflation re-accelerates to 5.2%</div>
+      </div>
+      <div style="height:40px;width:1px;background:#1e293b;"></div>
+      <div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#64748b;margin-bottom:4px;">Key Risk Asymmetry</div>
+        <div style="font-size:13px;font-weight:700;color:#f97316;">Bear case loss = 2.8× Base case gain</div>
+        <div style="font-size:11px;color:#64748b;margin-top:3px;">Indicates portfolio is skewed right-tail dependent; hedging is urgent</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════ SECTOR ROTATION ══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Sector Rotation Map — Late Expansion / Inflationary Cycle</div>
+      <div class="section-subtitle">Current cycle positioning recommendations</div>
+    </div>
+
+    <div class="sector-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Overweight</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#94a3b8"></div>Neutral / Hold</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Underweight / Reduce</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f97316"></div>Watch / Trim</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Sector / Asset</th>
+            <th>Positioning</th>
+            <th>Portfolio Exposure</th>
+            <th>Inflation Sensitivity</th>
+            <th>Rate Sensitivity</th>
+            <th>Cycle Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="factor-name">Energy (XLE)</td>
+            <td><span class="pill pill-green">Overweight</span></td>
+            <td><span class="text-orange">0% — Not held</span></td>
+            <td><span class="text-green fw700">Positive</span> (direct beneficiary)</td>
+            <td><span class="text-green fw700">Low</span></td>
+            <td>Energy is the primary CPI driver; oil/gas producers pass inflation through directly. Historically outperforms in inflationary regimes by 300–500bps.</td>
+          </tr>
+          <tr>
+            <td class="factor-name">Financials (XLF / BRK.B)</td>
+            <td><span class="pill pill-green">Overweight</span></td>
+            <td><span class="text-teal">~12% via BRK.B + SPY</span></td>
+            <td><span class="text-teal fw700">Mixed</span> (benefits via NIM)</td>
+            <td><span class="text-green fw700">Benefits</span></td>
+            <td>Banks &amp; insurers earn more on float and NIM at higher rates. BRK.B insurance float generates exceptional returns. Net interest margin expansion supports earnings growth.</td>
+          </tr>
+          <tr>
+            <td class="factor-name">Materials / Commodities</td>
+            <td><span class="pill pill-green">Overweight</span></td>
+            <td><span class="text-orange">Minimal via SPY (~3%)</span></td>
+            <td><span class="text-green fw700">Positive</span> (hard asset prices rise)</td>
+            <td><span class="text-green fw700">Low</span></td>
+            <td>Copper, aluminum, and industrial metals benefit from infrastructure spend &amp; inflation pass-through. Gold (GLD) serves dual role as monetary hedge.</td>
+          </tr>
+          <tr>
+            <td class="factor-name">Healthcare (XLV)</td>
+            <td><span class="pill pill-teal">Neutral</span></td>
+            <td><span class="text-muted">~13% via SPY/BRK.B</span></td>
+            <td><span class="text-teal fw700">Low Sensitivity</span></td>
+            <td><span class="text-yellow fw700">Moderate</span></td>
+            <td>Defensive characteristics provide portfolio ballast in volatile macro. Pricing power in pharma partially offsets inflation. Aging demographics provide secular tailwind.</td>
+          </tr>
+          <tr>
+            <td class="factor-name">Consumer Staples (XLP)</td>
+            <td><span class="pill pill-teal">Neutral</span></td>
+            <td><span class="text-muted">~6% via SPY</span></td>
+            <td><span class="text-teal fw700">Mixed</span> (pass-through varies)</td>
+            <td><span class="text-yellow fw700">Moderate</span></td>
+            <td>Defensive quality useful if inflation hits consumer spending. Pricing power in branded goods supports margins. Underperforms in strong growth — appropriate hedge allocation only.</td>
+          </tr>
+          <tr>
+            <td class="factor-name">Technology (QQQ / MSFT / AMZN)</td>
+            <td><span class="pill pill-orange">Reduce</span></td>
+            <td><span class="text-red fw700">35% — Overweight</span></td>
+            <td><span class="text-red fw700">Negative</span> (margin pressure)</td>
+            <td><span class="text-red fw700">High</span> (long-duration DCF)</td>
+            <td>High-multiple, long-duration growth stocks de-rate in sustained high-rate environments. QQQ P/E ~28x vulnerable to 10–20% compression if rates hold or rise. Largest single risk concentration.</td>
+          </tr>
+          <tr>
+            <td class="factor-name">Consumer Discretionary</td>
+            <td><span class="pill pill-orange">Reduce</span></td>
+            <td><span class="text-orange">~11% via AMZN + SPY</span></td>
+            <td><span class="text-red fw700">Negative</span> (demand destruction)</td>
+            <td><span class="text-yellow fw700">Moderate-High</span></td>
+            <td>Consumer purchasing power eroded by inflation + high rates. AMZN exposure partially offset by AWS (cloud/enterprise, more defensive). Discretionary spending historically contracts when real wages fall.</td>
+          </tr>
+          <tr>
+            <td class="factor-name">Long-Duration Bonds (TLT)</td>
+            <td><span class="pill pill-red">Underweight</span></td>
+            <td><span class="text-orange">5% — Trim to 2%</span></td>
+            <td><span class="text-red fw700">Strongly Negative</span></td>
+            <td><span class="text-red fw700">Very High</span> (~18y duration)</td>
+            <td>TLT with ~18-year duration is the worst positioned asset for an inflation re-acceleration scenario. Every 100bps rate rise = ~15–18% price decline. Provides negative real yield at current CPI levels.</td>
+          </tr>
+          <tr>
+            <td class="factor-name">Gold (GLD)</td>
+            <td><span class="pill pill-green">Increase</span></td>
+            <td><span class="text-yellow">5% — Target 7–8%</span></td>
+            <td><span class="text-green fw700">Strongly Positive</span></td>
+            <td><span class="text-teal fw700">Low / Uncorrelated</span></td>
+            <td>Gold is the most direct inflation hedge available. Real rates still suppressed vs. historical norms; gold performs well when real rates are negative or declining. Geopolitical risk premium adds further support.</td>
+          </tr>
+          <tr>
+            <td class="factor-name">Intl Developed (VGK / VXUS)</td>
+            <td><span class="pill pill-yellow">Cautious</span></td>
+            <td><span class="text-muted">15% — Currency risk</span></td>
+            <td><span class="text-yellow fw700">Mixed</span></td>
+            <td><span class="text-teal fw700">Lower (ECB cutting)</span></td>
+            <td>European equities trade at cheaper valuations (P/E ~14x vs. US 22x) but face energy cost headwinds and USD strength drag. VXUS EM exposure vulnerable to China slowdown. Hedge FX or trim if DXY strengthens further.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════ ACTION PLAN ══ -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">Executive Action Plan</div>
+      <div class="section-subtitle">Priority-ordered recommendations for Q1–Q2 2026</div>
+    </div>
+
+    <div class="action-plan">
+      <div class="action-plan-header">
+        <div class="action-plan-icon">&#9650;</div>
+        <div>
+          <div class="action-plan-title">5 Prioritized Portfolio Actions — Implement Within 30–45 Days</div>
+          <div class="action-plan-sub">Ranked by urgency and impact relative to primary inflation re-acceleration risk. Target completion: April 30, 2026.</div>
+        </div>
+      </div>
+
+      <div class="action-list">
+
+        <div class="action-item">
+          <div class="action-priority priority-1">1</div>
+          <div class="action-body">
+            <div class="action-title">Reduce Technology Overweight — Trim QQQ from 20% to 14–15%</div>
+            <div class="action-detail">
+              Sell $9,000–$10,800 of QQQ (5–6% of portfolio). The 20% allocation to QQQ represents the single largest risk concentration in a high-rate, inflationary environment. QQQ's 28x forward P/E is acutely sensitive to rate repricing. Reallocate proceeds into: Energy ETF (XLE) +3–4%, Financials (XLF) +2–3%, or TIPS (TIP) +2–3%. This single action reduces portfolio rate sensitivity by an estimated 15% and improves inflation alignment.
+            </div>
+            <div class="action-tags">
+              <span class="action-tag">QQQ</span><span class="action-tag">XLE</span><span class="action-tag">XLF</span><span class="action-tag">TIPS</span>
+            </div>
+            <div class="action-horizon">Horizon: Immediate (within 2 weeks)</div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-priority priority-2">2</div>
+          <div class="action-body">
+            <div class="action-title">Increase Inflation Hedge Allocation — GLD 5% to 7–8%, Add TIPS</div>
+            <div class="action-detail">
+              Current 5% inflation protection ($9,000 GLD) is dangerously insufficient for the primary risk scenario. Target: increase inflation-protective assets to 10–12% of portfolio ($18,000–$21,600). Action: (a) Add $3,600–$5,400 to GLD, bringing allocation to 7–8%. (b) Initiate TIP (iShares TIPS Bond ETF) position at 3% ($5,400) from proceeds of TLT reduction. This doubles inflation hedge coverage from 5% to 10–11% at minimal cost to expected returns in base/bull scenarios (+0.3% drag) while dramatically reducing bear case loss from −12.2% to ~−8%.
+            </div>
+            <div class="action-tags">
+              <span class="action-tag">GLD</span><span class="action-tag">TIP</span><span class="action-tag">Inflation Hedge</span>
+            </div>
+            <div class="action-horizon">Horizon: 1–2 weeks</div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-priority priority-3">3</div>
+          <div class="action-body">
+            <div class="action-title">Eliminate Long-Duration Bond Risk — Trim TLT from 5% to 2%, Rotate to Short Duration</div>
+            <div class="action-detail">
+              TLT's ~18-year duration is the most rate-sensitive instrument in the portfolio and directly contradicts the inflation hedge thesis. Reduce TLT from 5% ($9,000) to 2% ($3,600) — a $5,400 reduction. Reinvest in: BIL (3-month T-Bill ETF) or SHY (1–3 year Treasury) for capital preservation with 4.9–5.1% current yield, dramatically outperforming TLT on a risk-adjusted basis in any inflation scenario. In bear case alone, this action saves ~$800 in projected losses.
+            </div>
+            <div class="action-tags">
+              <span class="action-tag">TLT — Trim</span><span class="action-tag">BIL</span><span class="action-tag">SHY</span><span class="action-tag">Duration Risk</span>
+            </div>
+            <div class="action-horizon">Horizon: 1–2 weeks</div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-priority priority-4">4</div>
+          <div class="action-body">
+            <div class="action-title">Hedge International Currency Exposure — Convert 50% of VGK to Currency-Hedged Equivalent</div>
+            <div class="action-detail">
+              VGK's $14,400 position is fully unhedged EUR/USD exposure. With DXY at 104.2 and the ECB actively cutting rates while the Fed holds, EUR/USD likely has further downside. Convert ~$7,200 (50% of VGK) into HEWG (iShares Currency Hedged MSCI Germany) or equivalent hedged European ETF. Maintains European equity beta while removing FX drag estimated at 2–4% annually. Retain VXUS as is — diversification benefit outweighs FX cost given its global spread.
+            </div>
+            <div class="action-tags">
+              <span class="action-tag">VGK</span><span class="action-tag">HEWG</span><span class="action-tag">Currency Hedge</span><span class="action-tag">EUR/USD</span>
+            </div>
+            <div class="action-horizon">Horizon: 2–4 weeks</div>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-priority priority-5">5</div>
+          <div class="action-body">
+            <div class="action-title">Set Macro Monitoring Triggers — Establish CPI Threshold Alerts and Rebalancing Rules</div>
+            <div class="action-detail">
+              Establish three trigger-based rules: (A) If April CPI print (released May 13, 2026) exceeds 3.3% MoM or 4.0% YoY — immediately initiate bear case playbook: cut QQQ to 10%, increase GLD to 10%, exit TLT entirely. (B) If unemployment rises above 4.5% — shift to defensive rotation: increase BRK.B to 15%, add XLV, reduce AMZN to 4%. (C) If Fed signals rate cut path resumes — reverse current hedging posture, increase QQQ/MSFT/AMZN, reduce GLD, extend duration via TLT. Review full portfolio at Q2 2026 earnings completion (August 2026).
+            </div>
+            <div class="action-tags">
+              <span class="action-tag">CPI Triggers</span><span class="action-tag">Risk Management</span><span class="action-tag">Rebalancing Rules</span><span class="action-tag">Ongoing</span>
+            </div>
+            <div class="action-horizon">Horizon: Set up within 1 week; ongoing monitoring</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer-disclaimer">
+      <strong style="color:#475569">Disclaimer:</strong> This report is produced for informational and analytical purposes only and does not constitute investment advice, a solicitation, or a recommendation to buy or sell any security or financial instrument. All projections, scenario analyses, and price estimates are hypothetical and based on publicly available macroeconomic data as of March 17, 2026. Actual portfolio outcomes will differ materially from projections due to market volatility, unforeseen macro events, and individual circumstances. Past performance of referenced instruments (SPY, QQQ, BRK.B, MSFT, AMZN, VGK, VXUS, TLT, GLD) is not indicative of future results. McKinsey Global Institute macro research is independent and does not represent the views of any investment bank, broker-dealer, or registered investment adviser. Consult a qualified financial professional before making investment decisions. This document is client confidential and not for redistribution.
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-brand">McKinsey Global Institute &nbsp;·&nbsp; Macro Strategy Division</div>
+      <div class="footer-page">Q1 2026 Macro Impact Assessment &nbsp;·&nbsp; March 17, 2026 &nbsp;·&nbsp; Page 1 of 1</div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

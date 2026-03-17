@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BlackRock Investment Policy Statement — Multi-Asset Solutions Group</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #000000;
+      --gold:    #b8960c;
+      --gold-lt: #d4aa20;
+      --gold-bg: #fdf8ec;
+      --gray-1:  #111111;
+      --gray-2:  #1c1c1c;
+      --gray-3:  #2e2e2e;
+      --gray-4:  #444444;
+      --gray-5:  #6b6b6b;
+      --gray-6:  #9e9e9e;
+      --gray-7:  #d0d0d0;
+      --gray-8:  #f0f0f0;
+      --white:   #ffffff;
+      --body-bg: #fafafa;
+      --border:  #e4e4e4;
+
+      /* chart colours */
+      --c1: #1a3a5c;   /* US Equities     */
+      --c2: #2a6496;   /* Intl Equities   */
+      --c3: #b8960c;   /* Bonds           */
+      --c4: #7b4f12;   /* Real Assets     */
+      --c5: #4d4d4d;   /* Alternatives    */
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--body-bg);
+      color: var(--gray-1);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--white);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--black);
+      padding: 48px 56px 40px;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .wordmark {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .wordmark span {
+      color: var(--gold);
+    }
+
+    .doc-meta {
+      text-align: right;
+    }
+
+    .doc-meta .doc-number {
+      font-size: 11px;
+      color: var(--gray-6);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .doc-meta .doc-date {
+      font-size: 13px;
+      color: var(--gray-7);
+      font-weight: 500;
+    }
+
+    .header-title {
+      border-top: 1px solid var(--gray-3);
+      padding-top: 24px;
+    }
+
+    .header-title h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .header-title .subtitle {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ── BODY PADDING ── */
+    .body {
+      padding: 48px 56px;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-number {
+      width: 28px;
+      height: 28px;
+      background: var(--black);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-1);
+    }
+
+    .section-title-bar {
+      flex: 1;
+      height: 2px;
+      background: var(--gold);
+      opacity: 0.25;
+    }
+
+    /* ── CLIENT PROFILE CARD ── */
+    .profile-card {
+      background: var(--black);
+      border-left: 4px solid var(--gold);
+      padding: 32px 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 28px 40px;
+      margin-bottom: 20px;
+    }
+
+    .profile-item label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--gray-5);
+      margin-bottom: 6px;
+    }
+
+    .profile-item .value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .profile-item .value.highlight {
+      color: var(--gold);
+    }
+
+    .risk-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      margin-top: 4px;
+    }
+
+    .risk-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--black);
+      border-radius: 50%;
+    }
+
+    .profile-note {
+      background: var(--gold-bg);
+      border: 1px solid #e8d07a;
+      padding: 14px 18px;
+      font-size: 12.5px;
+      color: var(--gray-3);
+      line-height: 1.7;
+    }
+
+    .profile-note strong {
+      color: var(--gray-1);
+    }
+
+    /* ── CHART + LEGEND LAYOUT ── */
+    .chart-section {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    /* ── SVG DONUT ── */
+    .donut-wrap {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      margin: 0 auto;
+    }
+
+    .donut-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .donut-label .dl-pct {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--gray-1);
+      line-height: 1;
+    }
+
+    .donut-label .dl-sub {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray-5);
+      margin-top: 4px;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .legend-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .legend-info {
+      flex: 1;
+    }
+
+    .legend-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-1);
+    }
+
+    .legend-sub {
+      font-size: 11px;
+      color: var(--gray-5);
+    }
+
+    .legend-pct {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--gray-1);
+    }
+
+    .legend-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 2px;
+    }
+
+    .tag-core {
+      background: var(--black);
+      color: var(--gold);
+    }
+
+    .tag-satellite {
+      background: var(--gray-8);
+      color: var(--gray-4);
+    }
+
+    /* ── TABLES ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead tr {
+      background: var(--black);
+    }
+
+    thead th {
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    thead th.right {
+      text-align: right;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f6f6f6;
+    }
+
+    tbody tr:hover {
+      background: var(--gold-bg);
+    }
+
+    tbody td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--gray-2);
+      vertical-align: middle;
+    }
+
+    tbody td.right {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ticker {
+      font-family: 'Inter', monospace;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--black);
+      background: var(--gray-8);
+      padding: 2px 7px;
+      border-radius: 2px;
+    }
+
+    .core-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--black);
+      margin-right: 6px;
+    }
+
+    .sat-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      margin-right: 6px;
+    }
+
+    /* ── TWO-COLUMN GRID ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    /* ── STAT BOXES ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      text-align: center;
+    }
+
+    .stat-box .stat-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray-5);
+      margin-bottom: 8px;
+    }
+
+    .stat-box .stat-val {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .stat-box .stat-sub {
+      font-size: 11px;
+      color: var(--gray-5);
+      margin-top: 4px;
+    }
+
+    .optimistic  { color: #1a7a3c; }
+    .base        { color: var(--gray-1); }
+    .conservative { color: #a0410d; }
+
+    /* ── SCENARIO BANDS ── */
+    .scenario-band {
+      display: flex;
+      gap: 0;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .scenario-cell {
+      flex: 1;
+      padding: 18px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .scenario-cell:last-child { border-right: none; }
+
+    .scenario-cell .sc-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .scenario-cell .sc-pct {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .scenario-cell .sc-desc {
+      font-size: 11px;
+      color: var(--gray-5);
+      margin-top: 6px;
+    }
+
+    .sc-opt  { background: #f0faf4; }
+    .sc-base { background: #fafafa; }
+    .sc-con  { background: #fdf5f2; }
+
+    /* projection table milestone rows */
+    .milestone td {
+      font-weight: 700;
+      background: #f0f0f0 !important;
+    }
+
+    /* ── DRAWDOWN BAR ── */
+    .drawdown-visual {
+      margin: 20px 0;
+    }
+
+    .dd-bar-wrap {
+      margin-bottom: 12px;
+    }
+
+    .dd-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .dd-bar-label .event { font-weight: 600; color: var(--gray-2); }
+    .dd-bar-label .pct   { font-weight: 700; color: #a0410d; }
+
+    .dd-bar-track {
+      height: 12px;
+      background: var(--gray-8);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .dd-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+    }
+
+    /* ── CALLOUT BOXES ── */
+    .callout {
+      border-left: 4px solid var(--gold);
+      background: var(--gold-bg);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+
+    .callout-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray-4);
+      margin-bottom: 6px;
+    }
+
+    .callout p {
+      font-size: 13px;
+      color: var(--gray-2);
+    }
+
+    /* ── BULLET LIST ── */
+    .styled-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .styled-list li {
+      padding: 8px 0 8px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--gray-2);
+      position: relative;
+    }
+
+    .styled-list li:last-child { border-bottom: none; }
+
+    .styled-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .styled-list li strong { color: var(--gray-1); }
+
+    /* ── DCA GRID ── */
+    .dca-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .dca-cell {
+      border: 1px solid var(--border);
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .dca-ticker {
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .dca-amt {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .dca-sub {
+      font-size: 10px;
+      color: var(--gray-5);
+      margin-top: 2px;
+    }
+
+    /* ── CORE vs SATELLITE ── */
+    .cs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .cs-col {
+      padding: 24px;
+    }
+
+    .cs-col:first-child {
+      background: var(--black);
+      border-right: 4px solid var(--gold);
+    }
+
+    .cs-col:last-child {
+      background: var(--gray-8);
+    }
+
+    .cs-head {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .cs-pct {
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .cs-sub {
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .cs-items {
+      list-style: none;
+      font-size: 12.5px;
+    }
+
+    .cs-items li {
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cs-col:last-child .cs-items li {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cs-col:first-child .cs-head { color: var(--gold); }
+    .cs-col:first-child .cs-pct  { color: var(--white); }
+    .cs-col:first-child .cs-sub  { color: var(--gray-6); }
+    .cs-col:first-child .cs-items li { color: var(--gray-7); }
+    .cs-col:first-child .cs-items li span { color: var(--gold); }
+
+    .cs-col:last-child .cs-head { color: var(--gray-4); }
+    .cs-col:last-child .cs-pct  { color: var(--gray-1); }
+    .cs-col:last-child .cs-sub  { color: var(--gray-5); }
+    .cs-col:last-child .cs-items li { color: var(--gray-3); }
+    .cs-col:last-child .cs-items li span { color: var(--gray-1); font-weight: 700; }
+
+    /* ── BENCHMARK ── */
+    .benchmark-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .bm-box {
+      border: 1px solid var(--border);
+      padding: 18px;
+      text-align: center;
+    }
+
+    .bm-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray-5);
+      margin-bottom: 8px;
+    }
+
+    .bm-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gray-1);
+    }
+
+    .bm-sub {
+      font-size: 11px;
+      color: var(--gray-5);
+      margin-top: 4px;
+    }
+
+    /* ── DIVIDER ── */
+    .gold-divider {
+      height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+      margin: 40px 0;
+    }
+
+    /* ── PROJECTION TABLE ── */
+    .proj-table th.right,
+    .proj-table td.right {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .proj-table .age-col {
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    /* ── IPS FOOTER ── */
+    .ips-footer {
+      background: var(--black);
+      border-top: 4px solid var(--gold);
+      padding: 40px 56px;
+    }
+
+    .ips-footer-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .ips-text {
+      font-size: 11.5px;
+      color: var(--gray-6);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .ips-sig-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-3);
+    }
+
+    .ips-sig-col .sig-line {
+      height: 1px;
+      background: var(--gray-4);
+      margin-bottom: 8px;
+    }
+
+    .ips-sig-col .sig-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+
+    .ips-sig-col .sig-title {
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    .ips-sig-col .sig-date {
+      font-size: 11px;
+      color: var(--gray-6);
+      margin-top: 4px;
+    }
+
+    .disclosure {
+      font-size: 10px;
+      color: var(--gray-5);
+      line-height: 1.7;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-3);
+      margin-top: 24px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 760px) {
+      header, .body, .ips-footer { padding: 28px 24px; }
+      .profile-card { grid-template-columns: 1fr 1fr; }
+      .chart-section { grid-template-columns: 1fr; }
+      .two-col, .stat-grid, .dca-grid, .cs-grid, .benchmark-grid, .ips-sig-block { grid-template-columns: 1fr; }
+      .scenario-band { flex-direction: column; }
+    }
+
+    @media print {
+      body { background: white; }
+      .page { box-shadow: none; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ════════════════ HEADER ════════════════ -->
+  <header>
+    <div class="header-top">
+      <div class="wordmark">Black<span>Rock</span></div>
+      <div class="doc-meta">
+        <div class="doc-number">IPS-MAS-2026-0317-0042</div>
+        <div class="doc-date">March 17, 2026</div>
+      </div>
+    </div>
+    <div class="header-title">
+      <h1>Investment Policy Statement</h1>
+      <div class="subtitle">Multi-Asset Solutions Group &nbsp;·&nbsp; Wealth Advisory Services</div>
+    </div>
+  </header>
+
+  <!-- ════════════════ BODY ════════════════ -->
+  <div class="body">
+
+    <!-- ── 0. CLIENT PROFILE ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">00</div>
+        <div class="section-title">Client Profile Summary</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-item">
+          <label>Client Age</label>
+          <div class="value">38 years</div>
+        </div>
+        <div class="profile-item">
+          <label>Annual Income</label>
+          <div class="value highlight">$145,000</div>
+        </div>
+        <div class="profile-item">
+          <label>Initial Investment</label>
+          <div class="value highlight">$75,000</div>
+        </div>
+        <div class="profile-item">
+          <label>Monthly Contribution</label>
+          <div class="value">$2,000</div>
+        </div>
+        <div class="profile-item">
+          <label>Investment Objective</label>
+          <div class="value">Retirement at 65</div>
+        </div>
+        <div class="profile-item">
+          <label>Time Horizon</label>
+          <div class="value">27 Years</div>
+        </div>
+        <div class="profile-item">
+          <label>Account Type</label>
+          <div class="value">Taxable Brokerage</div>
+        </div>
+        <div class="profile-item">
+          <label>Risk Profile</label>
+          <div>
+            <div class="risk-badge"><span class="risk-dot"></span>Moderate-Aggressive</div>
+          </div>
+        </div>
+        <div class="profile-item">
+          <label>Projected Target (Base)</label>
+          <div class="value highlight">$2,800,000</div>
+        </div>
+      </div>
+
+      <div class="profile-note">
+        <strong>Projection Methodology:</strong> Projected retirement target of <strong>$2,800,000</strong> calculated using a blended 7.0% CAGR applied to an initial portfolio of $75,000 with monthly contributions of $2,000, compounded over a 27-year horizon (age 38 to 65). This figure assumes reinvestment of all dividends and capital gains, consistent DCA contributions with a 5% annual step-up, and a 0.30% annual tax drag on the taxable account. All projections are forward-looking estimates and subject to market risk.
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- ── 1. ALLOCATION ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">01</div>
+        <div class="section-title">Strategic Asset Allocation</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="chart-section">
+
+        <!-- SVG DONUT CHART -->
+        <div class="donut-wrap">
+          <!--
+            Segments (stroke-dasharray on r=80 circle, circumference ≈ 502.65):
+            US Eq 45%  → 226.19  offset 0
+            Intl Eq 20%→ 100.53  offset -226.19
+            Bonds 20%  → 100.53  offset -326.72
+            Real 8%    → 40.21   offset -427.25
+            Alts 7%    → 35.19   offset -467.46
+          -->
+          <svg viewBox="0 0 220 220" width="260" height="260" xmlns="http://www.w3.org/2000/svg">
+            <!-- track -->
+            <circle cx="110" cy="110" r="80" fill="none" stroke="#eeeeee" stroke-width="38"/>
+
+            <!-- US Equities 45% -->
+            <circle cx="110" cy="110" r="80" fill="none"
+              stroke="#1a3a5c" stroke-width="38"
+              stroke-dasharray="226.19 276.46"
+              stroke-dashoffset="0"
+              transform="rotate(-90 110 110)"/>
+
+            <!-- International Equities 20% -->
+            <circle cx="110" cy="110" r="80" fill="none"
+              stroke="#2a6496" stroke-width="38"
+              stroke-dasharray="100.53 401.12"
+              stroke-dashoffset="-226.19"
+              transform="rotate(-90 110 110)"/>
+
+            <!-- Bonds/Fixed Income 20% -->
+            <circle cx="110" cy="110" r="80" fill="none"
+              stroke="#b8960c" stroke-width="38"
+              stroke-dasharray="100.53 401.12"
+              stroke-dashoffset="-326.72"
+              transform="rotate(-90 110 110)"/>
+
+            <!-- Real Assets/REITs 8% -->
+            <circle cx="110" cy="110" r="80" fill="none"
+              stroke="#7b4f12" stroke-width="38"
+              stroke-dasharray="40.21 462.44"
+              stroke-dashoffset="-427.25"
+              transform="rotate(-90 110 110)"/>
+
+            <!-- Alternatives/Commodities 7% -->
+            <circle cx="110" cy="110" r="80" fill="none"
+              stroke="#4d4d4d" stroke-width="38"
+              stroke-dasharray="35.19 467.46"
+              stroke-dashoffset="-467.46"
+              transform="rotate(-90 110 110)"/>
+
+            <!-- Gap rings between segments -->
+            <circle cx="110" cy="110" r="80" fill="none"
+              stroke="white" stroke-width="40"
+              stroke-dasharray="2 500.65"
+              stroke-dashoffset="0"
+              transform="rotate(-90 110 110)"/>
+            <circle cx="110" cy="110" r="80" fill="none"
+              stroke="white" stroke-width="40"
+              stroke-dasharray="2 500.65"
+              stroke-dashoffset="-226.19"
+              transform="rotate(-90 110 110)"/>
+            <circle cx="110" cy="110" r="80" fill="none"
+              stroke="white" stroke-width="40"
+              stroke-dasharray="2 500.65"
+              stroke-dashoffset="-326.72"
+              transform="rotate(-90 110 110)"/>
+            <circle cx="110" cy="110" r="80" fill="none"
+              stroke="white" stroke-width="40"
+              stroke-dasharray="2 500.65"
+              stroke-dashoffset="-427.25"
+              transform="rotate(-90 110 110)"/>
+
+            <!-- center fill -->
+            <circle cx="110" cy="110" r="60" fill="white"/>
+          </svg>
+
+          <div class="donut-label">
+            <div class="dl-pct">$75K</div>
+            <div class="dl-sub">Initial<br/>Allocation</div>
+          </div>
+        </div>
+
+        <!-- LEGEND -->
+        <div class="legend">
+          <div class="legend-item">
+            <div class="legend-swatch" style="background:#1a3a5c;"></div>
+            <div class="legend-info">
+              <div class="legend-name">US Equities</div>
+              <div class="legend-sub">VTI + QQQ &nbsp;<span class="legend-tag tag-core">Core</span></div>
+            </div>
+            <div class="legend-pct">45%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch" style="background:#2a6496;"></div>
+            <div class="legend-info">
+              <div class="legend-name">International Equities</div>
+              <div class="legend-sub">VXUS + IEMG &nbsp;<span class="legend-tag tag-core">Core</span></div>
+            </div>
+            <div class="legend-pct">20%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch" style="background:#b8960c;"></div>
+            <div class="legend-info">
+              <div class="legend-name">Bonds / Fixed Income</div>
+              <div class="legend-sub">BND + VGIT + TIP &nbsp;<span class="legend-tag tag-core">Core</span></div>
+            </div>
+            <div class="legend-pct">20%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch" style="background:#7b4f12;"></div>
+            <div class="legend-info">
+              <div class="legend-name">Real Assets / REITs</div>
+              <div class="legend-sub">VNQ &nbsp;<span class="legend-tag tag-satellite">Satellite</span></div>
+            </div>
+            <div class="legend-pct">8%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch" style="background:#4d4d4d;"></div>
+            <div class="legend-info">
+              <div class="legend-name">Alternatives / Commodities</div>
+              <div class="legend-sub">GLD &nbsp;<span class="legend-tag tag-satellite">Satellite</span></div>
+            </div>
+            <div class="legend-pct">7%</div>
+          </div>
+        </div>
+      </div>
+
+      <br/>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Asset Class</th>
+            <th>Role</th>
+            <th class="right">Allocation</th>
+            <th class="right">Dollar Value</th>
+            <th>Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>US Equities</strong></td>
+            <td><span class="legend-tag tag-core">Core</span></td>
+            <td class="right"><strong>45%</strong></td>
+            <td class="right">$33,750</td>
+            <td>Primary growth engine; broad domestic market exposure with low-cost total-market and large-cap growth tilt</td>
+          </tr>
+          <tr>
+            <td><strong>International Equities</strong></td>
+            <td><span class="legend-tag tag-core">Core</span></td>
+            <td class="right"><strong>20%</strong></td>
+            <td class="right">$15,000</td>
+            <td>Diversification against USD concentration risk; captures growth in developed and emerging markets at attractive valuations</td>
+          </tr>
+          <tr>
+            <td><strong>Bonds / Fixed Income</strong></td>
+            <td><span class="legend-tag tag-core">Core</span></td>
+            <td class="right"><strong>20%</strong></td>
+            <td class="right">$15,000</td>
+            <td>Ballast and income; reduces portfolio volatility with blend of investment-grade corporates, Treasuries, and inflation-protected securities</td>
+          </tr>
+          <tr>
+            <td><strong>Real Assets / REITs</strong></td>
+            <td><span class="legend-tag tag-satellite">Satellite</span></td>
+            <td class="right"><strong>8%</strong></td>
+            <td class="right">$6,000</td>
+            <td>Inflation hedge; real estate provides income via dividends and low correlation to traditional equities</td>
+          </tr>
+          <tr>
+            <td><strong>Alternatives / Commodities</strong></td>
+            <td><span class="legend-tag tag-satellite">Satellite</span></td>
+            <td class="right"><strong>7%</strong></td>
+            <td class="right">$5,250</td>
+            <td>Tail risk hedge; gold provides safe-haven characteristics during equity drawdowns and geopolitical stress</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- ── 2. ETF RECOMMENDATIONS ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">02</div>
+        <div class="section-title">ETF Recommendations</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Fund Name</th>
+            <th>Type</th>
+            <th class="right">Exp. Ratio</th>
+            <th class="right">Exp. Return</th>
+            <th class="right">Allocation %</th>
+            <th class="right">Dollar Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="ticker">VTI</span></td>
+            <td>Vanguard Total Stock Market ETF</td>
+            <td><span class="legend-tag tag-core">Core</span></td>
+            <td class="right">0.03%</td>
+            <td class="right">9.5%</td>
+            <td class="right"><strong>30%</strong></td>
+            <td class="right">$22,500</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">VXUS</span></td>
+            <td>Vanguard Total Intl Stock ETF</td>
+            <td><span class="legend-tag tag-core">Core</span></td>
+            <td class="right">0.07%</td>
+            <td class="right">8.0%</td>
+            <td class="right"><strong>20%</strong></td>
+            <td class="right">$15,000</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">BND</span></td>
+            <td>Vanguard Total Bond Market ETF</td>
+            <td><span class="legend-tag tag-core">Core</span></td>
+            <td class="right">0.03%</td>
+            <td class="right">4.5%</td>
+            <td class="right"><strong>15%</strong></td>
+            <td class="right">$11,250</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">VGIT</span></td>
+            <td>Vanguard Intermediate-Term Treasury ETF</td>
+            <td><span class="legend-tag tag-core">Core</span></td>
+            <td class="right">0.04%</td>
+            <td class="right">4.0%</td>
+            <td class="right"><strong>5%</strong></td>
+            <td class="right">$3,750</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">VNQ</span></td>
+            <td>Vanguard Real Estate ETF</td>
+            <td><span class="legend-tag tag-satellite">Satellite</span></td>
+            <td class="right">0.12%</td>
+            <td class="right">7.5%</td>
+            <td class="right"><strong>8%</strong></td>
+            <td class="right">$6,000</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">GLD</span></td>
+            <td>SPDR Gold Shares ETF</td>
+            <td><span class="legend-tag tag-satellite">Satellite</span></td>
+            <td class="right">0.40%</td>
+            <td class="right">3.5%</td>
+            <td class="right"><strong>4%</strong></td>
+            <td class="right">$3,000</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">QQQ</span></td>
+            <td>Invesco Nasdaq-100 ETF</td>
+            <td><span class="legend-tag tag-satellite">Satellite</span></td>
+            <td class="right">0.20%</td>
+            <td class="right">10.5%</td>
+            <td class="right"><strong>10%</strong></td>
+            <td class="right">$7,500</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">IEMG</span></td>
+            <td>iShares Core MSCI Emerging Markets ETF</td>
+            <td><span class="legend-tag tag-satellite">Satellite</span></td>
+            <td class="right">0.09%</td>
+            <td class="right">9.0%</td>
+            <td class="right"><strong>5%</strong></td>
+            <td class="right">$3,750</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">TIP</span></td>
+            <td>iShares TIPS Bond ETF</td>
+            <td><span class="legend-tag tag-core">Core</span></td>
+            <td class="right">0.19%</td>
+            <td class="right">4.2%</td>
+            <td class="right"><strong>3%</strong></td>
+            <td class="right">$2,250</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr style="background:#f6f6f6;">
+            <td colspan="4" style="padding:11px 14px;font-size:11px;color:var(--gray-5);">Weighted Avg. Expense Ratio: <strong>0.07%</strong></td>
+            <td class="right" style="padding:11px 14px;font-weight:700;">Blended</td>
+            <td class="right" style="padding:11px 14px;font-weight:800;">100%</td>
+            <td class="right" style="padding:11px 14px;font-weight:800;">$75,000</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- ── 3. CORE vs SATELLITE ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">03</div>
+        <div class="section-title">Core vs. Satellite Positioning</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="cs-grid">
+        <div class="cs-col">
+          <div class="cs-head">Core Holdings</div>
+          <div class="cs-pct">68%</div>
+          <div class="cs-sub">$51,000 · Low-Cost Broad Index</div>
+          <ul class="cs-items">
+            <li><span>VTI — US Total Market</span><span>30%</span></li>
+            <li><span>VXUS — Intl Total Market</span><span>20%</span></li>
+            <li><span>BND — US Aggregate Bond</span><span>15%</span></li>
+            <li><span>VGIT — Intermediate Treasury</span><span>5%</span></li>
+            <li><span>TIP — TIPS / Inflation</span><span>3%</span></li>
+          </ul>
+        </div>
+        <div class="cs-col">
+          <div class="cs-head">Satellite Holdings</div>
+          <div class="cs-pct">32%</div>
+          <div class="cs-sub">$24,000 · Tactical Factor Tilts</div>
+          <ul class="cs-items">
+            <li><span>QQQ — Nasdaq-100 Growth</span><span>10%</span></li>
+            <li><span>VNQ — US Real Estate</span><span>8%</span></li>
+            <li><span>IEMG — Emerging Markets</span><span>5%</span></li>
+            <li><span>GLD — Gold / Commodities</span><span>4%</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <br/>
+      <div class="callout">
+        <div class="callout-title">Positioning Rationale</div>
+        <p>The 68/32 core-satellite split captures broad market beta at minimal cost (average 0.04% ER on core) while the satellite layer introduces deliberate factor tilts — growth (QQQ), inflation (VNQ + GLD), and EM premium (IEMG). At a 27-year horizon, the satellite sleeve is expected to contribute an additional 0.5–1.0% annual alpha vs. a pure index portfolio, without materially increasing drawdown risk.</p>
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- ── 4. EXPECTED RETURNS ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">04</div>
+        <div class="section-title">Expected Returns &amp; Scenario Analysis</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="scenario-band">
+        <div class="scenario-cell sc-opt">
+          <div class="sc-label optimistic">Optimistic</div>
+          <div class="sc-pct optimistic">9.2%</div>
+          <div class="sc-desc">Strong global growth, tech leadership, above-trend corporate earnings</div>
+        </div>
+        <div class="scenario-cell sc-base">
+          <div class="sc-label base">Base Case</div>
+          <div class="sc-pct base">7.1%</div>
+          <div class="sc-desc">Moderate growth, soft landing, gradually normalizing rates, historical average</div>
+        </div>
+        <div class="scenario-cell sc-con">
+          <div class="sc-label conservative">Conservative</div>
+          <div class="sc-pct conservative">4.8%</div>
+          <div class="sc-desc">Prolonged rate cycle, earnings compression, stagflation or slow-growth environment</div>
+        </div>
+      </div>
+
+      <table class="proj-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th class="right">Optimistic (9.2%)</th>
+            <th class="right">Base (7.1%)</th>
+            <th class="right">Conservative (4.8%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Year 5 (2031)</td>
+            <td class="right optimistic">$318,400</td>
+            <td class="right base">$284,600</td>
+            <td class="right conservative">$248,900</td>
+          </tr>
+          <tr>
+            <td>Year 10 (2036)</td>
+            <td class="right optimistic">$649,200</td>
+            <td class="right base">$550,100</td>
+            <td class="right conservative">$447,500</td>
+          </tr>
+          <tr>
+            <td>Year 15 (2041)</td>
+            <td class="right optimistic">$1,190,000</td>
+            <td class="right base">$950,800</td>
+            <td class="right conservative">$713,400</td>
+          </tr>
+          <tr>
+            <td>Year 20 (2046)</td>
+            <td class="right optimistic">$2,080,000</td>
+            <td class="right base">$1,580,000</td>
+            <td class="right conservative">$1,090,000</td>
+          </tr>
+          <tr>
+            <td>Year 27 (2053)</td>
+            <td class="right optimistic">$4,210,000</td>
+            <td class="right base">$2,800,000</td>
+            <td class="right conservative">$1,640,000</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px;color:var(--gray-5);margin-top:10px;">Figures include $75,000 initial investment plus $2,000/month DCA contributions with a 5% annual step-up. Returns shown are net of a 0.07% weighted average expense ratio and 0.30% estimated tax drag.</p>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- ── 5. MAXIMUM DRAWDOWN ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">05</div>
+        <div class="section-title">Maximum Drawdown &amp; Risk Management</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-label">Est. Max Drawdown</div>
+          <div class="stat-val conservative">−28%</div>
+          <div class="stat-sub">Severe bear market scenario</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Annualized Volatility</div>
+          <div class="stat-val">12.4%</div>
+          <div class="stat-sub">Estimated standard deviation</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Sharpe Ratio (Est.)</div>
+          <div class="stat-val optimistic">0.62</div>
+          <div class="stat-sub">Risk-adjusted return (base case)</div>
+        </div>
+      </div>
+
+      <div class="drawdown-visual">
+        <div class="dd-bar-wrap">
+          <div class="dd-bar-label">
+            <span class="event">This Portfolio (Estimated Severe)</span>
+            <span class="pct">−28%</span>
+          </div>
+          <div class="dd-bar-track">
+            <div class="dd-bar-fill" style="width:62%;background:#1a3a5c;"></div>
+          </div>
+        </div>
+        <div class="dd-bar-wrap">
+          <div class="dd-bar-label">
+            <span class="event">2008 Global Financial Crisis (S&amp;P 500)</span>
+            <span class="pct">−37%</span>
+          </div>
+          <div class="dd-bar-track">
+            <div class="dd-bar-fill" style="width:82%;background:#a0410d;"></div>
+          </div>
+        </div>
+        <div class="dd-bar-wrap">
+          <div class="dd-bar-label">
+            <span class="event">2022 Rate Shock</span>
+            <span class="pct">−25%</span>
+          </div>
+          <div class="dd-bar-track">
+            <div class="dd-bar-fill" style="width:55%;background:#b8960c;"></div>
+          </div>
+        </div>
+        <div class="dd-bar-wrap">
+          <div class="dd-bar-label">
+            <span class="event">2020 COVID Crash</span>
+            <span class="pct">−19%</span>
+          </div>
+          <div class="dd-bar-track">
+            <div class="dd-bar-fill" style="width:42%;background:#4d9b6d;"></div>
+          </div>
+        </div>
+        <div class="dd-bar-wrap">
+          <div class="dd-bar-label">
+            <span class="event">2000–2002 Dot-Com Bust</span>
+            <span class="pct">−49%</span>
+          </div>
+          <div class="dd-bar-track">
+            <div class="dd-bar-fill" style="width:100%;background:#c0392b;opacity:0.7;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Recovery Timeline Estimates</div>
+        <p>Based on historical data, a −28% drawdown in this multi-asset portfolio is estimated to recover within <strong>18–24 months</strong> given consistent DCA contributions that accelerate recovery via lower-cost averaging. The 2008 S&amp;P 500 benchmark recovered in approximately 4.5 years for passive investors; however, this portfolio's fixed income ballast (20%) and monthly contributions are expected to reduce the recovery horizon materially. During drawdowns, the DCA plan continues unchanged — volatility is treated as a buying opportunity.</p>
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- ── 6. REBALANCING ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">06</div>
+        <div class="section-title">Rebalancing Policy</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <ul class="styled-list">
+            <li><strong>Annual Rebalancing:</strong> Full portfolio review and rebalance in January each year, aligned with new fiscal year planning.</li>
+            <li><strong>5% Drift Trigger:</strong> Any asset class drifting more than ±5% from target triggers an interim rebalance regardless of calendar date.</li>
+            <li><strong>Tax-Loss Harvesting Window:</strong> December review for realized losses in volatile ETFs (QQQ, IEMG, GLD). Harvest losses to offset gains; reinvest in correlated positions to maintain exposure.</li>
+            <li><strong>Contribution Rebalancing:</strong> Monthly $2,000 DCA contributions are allocated first to underweight positions to reduce frequency of full rebalances.</li>
+            <li><strong>Threshold Monitoring:</strong> Quarterly review of allocations. If no asset has drifted beyond 5%, no action is taken — minimize transaction friction.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="callout">
+            <div class="callout-title">Rebalancing Calendar</div>
+            <p><strong>January:</strong> Full annual rebalance + forward allocation review.<br/><br/>
+            <strong>April / July / October:</strong> Quarterly drift check — rebalance only if 5% trigger is breached.<br/><br/>
+            <strong>December:</strong> Tax-loss harvest window — evaluate QQQ, IEMG, GLD for unrealized losses. Swap candidates: QQQM for QQQ; SCHE for IEMG; IAUM for GLD (30-day wash-sale avoidance).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- ── 7. TAX EFFICIENCY ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">07</div>
+        <div class="section-title">Tax Efficiency Strategy</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ETF</th>
+            <th>Account Placement</th>
+            <th>Tax Treatment</th>
+            <th>Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="ticker">VTI</span> / <span class="ticker">VXUS</span></td>
+            <td>Taxable Brokerage ✓</td>
+            <td>Qualified dividends (0–15% rate)</td>
+            <td>Highly tax-efficient; foreign tax credit available on VXUS; low turnover minimizes capital gain distributions</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">QQQ</span></td>
+            <td>Taxable Brokerage ✓</td>
+            <td>Qualified dividends; low yield</td>
+            <td>Low dividend yield (0.6%) minimizes annual tax drag; holds primarily growth stocks with minimal distributions</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">BND</span> / <span class="ticker">VGIT</span> / <span class="ticker">TIP</span></td>
+            <td>Tax-Deferred (IRA) preferred</td>
+            <td>Ordinary income if in taxable</td>
+            <td>Bond interest is fully taxable as ordinary income (up to 37%); ideally sheltered in IRA/401k. In taxable: use municipal bond alternatives if marginal rate &gt; 28%</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">VNQ</span></td>
+            <td>Tax-Deferred (IRA) preferred</td>
+            <td>Non-qualified REIT dividends</td>
+            <td>REIT dividends taxed as ordinary income; 20% pass-through deduction partially offsets. Prioritize IRA placement; if in taxable, REIT exposure is still efficient relative to direct real estate</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">GLD</span></td>
+            <td>Taxable acceptable</td>
+            <td>Collectibles rate (28% max)</td>
+            <td>Gold ETFs have unfavorable collectibles treatment; however, GLD generates no dividends. Harvest losses opportunistically. Consider IAU (0.25% ER) as alternate vehicle</td>
+          </tr>
+          <tr>
+            <td><span class="ticker">IEMG</span></td>
+            <td>Taxable (harvest candidate)</td>
+            <td>Qualified + non-qualified mix</td>
+            <td>EM equities have moderate dividend yield (~2.5%); partially qualified. Primary value is capital appreciation and loss-harvesting in volatile periods</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br/>
+      <div class="two-col">
+        <div class="callout">
+          <div class="callout-title">Estimated Annual Tax Drag</div>
+          <p>For this taxable brokerage portfolio, the estimated annual tax drag is approximately <strong>0.30%</strong> of portfolio value, assuming a 24% marginal federal rate and 80% qualified dividend treatment on equity ETFs. This compares favorably to actively managed funds (typical drag: 1.0–2.0%).</p>
+        </div>
+        <div class="callout">
+          <div class="callout-title">Tax-Loss Harvesting Potential</div>
+          <p>The satellite sleeve (QQQ, IEMG, GLD, VNQ) offers natural loss-harvesting opportunities during volatility spikes. Estimated annual tax alpha from harvesting: <strong>0.15–0.40%</strong>, net of wash-sale management costs. Reinvest proceeds within 30 days into correlated alternatives to maintain factor exposure.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- ── 8. DCA PLAN ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">08</div>
+        <div class="section-title">Dollar-Cost Averaging Plan</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <p style="font-size:13px;color:var(--gray-3);margin-bottom:20px;">Monthly contribution of <strong>$2,000</strong> allocated proportionally across primary holdings. Contributions route first to underweight positions to minimize rebalancing trades.</p>
+
+      <div class="dca-grid">
+        <div class="dca-cell">
+          <div class="dca-ticker">VTI</div>
+          <div class="dca-amt">$900</div>
+          <div class="dca-sub">45% of monthly</div>
+        </div>
+        <div class="dca-cell">
+          <div class="dca-ticker">VXUS</div>
+          <div class="dca-amt">$400</div>
+          <div class="dca-sub">20% of monthly</div>
+        </div>
+        <div class="dca-cell">
+          <div class="dca-ticker">BND</div>
+          <div class="dca-amt">$300</div>
+          <div class="dca-sub">15% of monthly</div>
+        </div>
+        <div class="dca-cell">
+          <div class="dca-ticker">VNQ</div>
+          <div class="dca-amt">$200</div>
+          <div class="dca-sub">10% of monthly</div>
+        </div>
+        <div class="dca-cell">
+          <div class="dca-ticker">QQQ</div>
+          <div class="dca-amt">$200</div>
+          <div class="dca-sub">10% of monthly</div>
+        </div>
+      </div>
+
+      <ul class="styled-list">
+        <li><strong>Contribution Date:</strong> 1st of each month via automatic bank transfer. Use fractional shares where available to deploy full contribution.</li>
+        <li><strong>Annual Step-Up:</strong> Increase monthly contribution by 5% annually, aligned with expected income growth. Year 2: $2,100/mo → Year 5: ~$2,431/mo → Year 10: ~$3,101/mo.</li>
+        <li><strong>Bonus / Windfall:</strong> One-time contributions (tax refunds, bonuses) deployed immediately to maintain DCA discipline. Lump sums &gt;$10,000 may be split across two months during elevated VIX environments.</li>
+        <li><strong>Dividend Reinvestment:</strong> All dividends and capital gain distributions automatically reinvested (DRIP enabled) to maximize compounding across the 27-year horizon.</li>
+        <li><strong>Market Downturn Protocol:</strong> DCA contributions continue unchanged during drawdowns. If equity markets decline &gt;20%, discretionary increase to DCA by 25% (to $2,500/mo) if cash reserves permit, to accelerate recovery.</li>
+      </ul>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- ── 9. BENCHMARK ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">09</div>
+        <div class="section-title">Benchmark &amp; Performance Measurement</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Primary Benchmark</div>
+        <p><strong>70% MSCI All Country World Index (ACWI) + 30% Bloomberg US Aggregate Bond Index</strong> — a globally diversified balanced benchmark that reflects the portfolio's equity-heavy posture and fixed income allocation. Blended returns are reported net of benchmark expense equivalents for apples-to-apples comparison.</p>
+      </div>
+
+      <div class="benchmark-grid">
+        <div class="bm-box">
+          <div class="bm-label">Benchmark Expected Return</div>
+          <div class="bm-val">6.4%</div>
+          <div class="bm-sub">Historical annual (70/30 blend)</div>
+        </div>
+        <div class="bm-box">
+          <div class="bm-label">Portfolio Expected Alpha</div>
+          <div class="bm-val optimistic">+0.5–1.0%</div>
+          <div class="bm-sub">Through factor tilts annually</div>
+        </div>
+        <div class="bm-box">
+          <div class="bm-label">Tracking Error (Est.)</div>
+          <div class="bm-val">2.8%</div>
+          <div class="bm-sub">Annualized vs. benchmark</div>
+        </div>
+      </div>
+
+      <ul class="styled-list">
+        <li><strong>Alpha Sources:</strong> QQQ (growth/momentum factor), IEMG (EM risk premium), VNQ (real estate income factor), GLD (safe-haven diversifier in risk-off periods).</li>
+        <li><strong>Reporting Frequency:</strong> Quarterly performance vs. benchmark with trailing 1/3/5-year comparisons. Annual IPS review with full attribution analysis.</li>
+        <li><strong>Secondary Benchmark:</strong> 60% S&amp;P 500 Index + 40% Bloomberg Aggregate — used for domestic comparison of the core equity/bond sleeve only.</li>
+        <li><strong>Underperformance Protocol:</strong> If portfolio lags benchmark by more than 2% over any rolling 3-year period, a formal allocation review is triggered with BlackRock Multi-Asset Solutions advisory team.</li>
+      </ul>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- ── 10. 27-YEAR PROJECTION TABLE ── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">10</div>
+        <div class="section-title">27-Year Growth Projection by Age Milestone</div>
+        <div class="section-title-bar"></div>
+      </div>
+
+      <p style="font-size:13px;color:var(--gray-3);margin-bottom:20px;">Portfolio value projections at key age milestones under three scenarios. Includes $75,000 initial investment plus $2,000/month contributions with 5% annual step-up. Net of 0.07% expense ratio and 0.30% estimated tax drag.</p>
+
+      <table class="proj-table">
+        <thead>
+          <tr>
+            <th>Age</th>
+            <th>Year</th>
+            <th>Years Invested</th>
+            <th class="right">Optimistic (9.2%)</th>
+            <th class="right">Base Case (7.1%)</th>
+            <th class="right">Conservative (4.8%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="milestone">
+            <td class="age-col">38</td>
+            <td>2026</td>
+            <td>0</td>
+            <td class="right optimistic">$75,000</td>
+            <td class="right base">$75,000</td>
+            <td class="right conservative">$75,000</td>
+          </tr>
+          <tr>
+            <td class="age-col">40</td>
+            <td>2028</td>
+            <td>2</td>
+            <td class="right optimistic">$152,600</td>
+            <td class="right base">$144,300</td>
+            <td class="right conservative">$134,900</td>
+          </tr>
+          <tr class="milestone">
+            <td class="age-col">45</td>
+            <td>2033</td>
+            <td>7</td>
+            <td class="right optimistic">$431,200</td>
+            <td class="right base">$378,100</td>
+            <td class="right conservative">$320,500</td>
+          </tr>
+          <tr>
+            <td class="age-col">48</td>
+            <td>2036</td>
+            <td>10</td>
+            <td class="right optimistic">$649,200</td>
+            <td class="right base">$550,100</td>
+            <td class="right conservative">$447,500</td>
+          </tr>
+          <tr class="milestone">
+            <td class="age-col">50</td>
+            <td>2038</td>
+            <td>12</td>
+            <td class="right optimistic">$855,400</td>
+            <td class="right base">$710,800</td>
+            <td class="right conservative">$562,100</td>
+          </tr>
+          <tr>
+            <td class="age-col">53</td>
+            <td>2041</td>
+            <td>15</td>
+            <td class="right optimistic">$1,190,000</td>
+            <td class="right base">$950,800</td>
+            <td class="right conservative">$713,400</td>
+          </tr>
+          <tr class="milestone">
+            <td class="age-col">55</td>
+            <td>2043</td>
+            <td>17</td>
+            <td class="right optimistic">$1,490,000</td>
+            <td class="right base">$1,160,000</td>
+            <td class="right conservative">$846,000</td>
+          </tr>
+          <tr>
+            <td class="age-col">58</td>
+            <td>2046</td>
+            <td>20</td>
+            <td class="right optimistic">$2,080,000</td>
+            <td class="right base">$1,580,000</td>
+            <td class="right conservative">$1,090,000</td>
+          </tr>
+          <tr class="milestone">
+            <td class="age-col">60</td>
+            <td>2048</td>
+            <td>22</td>
+            <td class="right optimistic">$2,560,000</td>
+            <td class="right base">$1,900,000</td>
+            <td class="right conservative">$1,270,000</td>
+          </tr>
+          <tr>
+            <td class="age-col">63</td>
+            <td>2051</td>
+            <td>25</td>
+            <td class="right optimistic">$3,390,000</td>
+            <td class="right base">$2,430,000</td>
+            <td class="right conservative">$1,510,000</td>
+          </tr>
+          <tr class="milestone" style="border-top:3px solid var(--gold);">
+            <td class="age-col" style="color:var(--gold);font-size:16px;">65 ★</td>
+            <td><strong>2053</strong></td>
+            <td><strong>27</strong></td>
+            <td class="right optimistic" style="font-size:15px;"><strong>$4,210,000</strong></td>
+            <td class="right base" style="font-size:15px;"><strong>$2,800,000</strong></td>
+            <td class="right conservative" style="font-size:15px;"><strong>$1,640,000</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px;color:var(--gray-5);margin-top:10px;">★ Target retirement age. Milestone ages (38, 45, 50, 55, 60, 65) highlighted in bold. All values in nominal 2026 dollars, not inflation-adjusted. Inflation-adjusted real value at 65 (assuming 2.5% CPI): Base Case ≈ <strong>$1,460,000</strong> in today's purchasing power.</p>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- ════════════════ IPS FOOTER ════════════════ -->
+  <footer class="ips-footer">
+    <div class="ips-footer-title">Investment Policy Statement — Formal Attestation</div>
+
+    <p class="ips-text">
+      This Investment Policy Statement ("IPS") has been prepared by BlackRock Multi-Asset Solutions Group ("BlackRock") for the exclusive use of the named client and sets forth the investment guidelines, objectives, and constraints governing the management of the designated portfolio. This document constitutes the governing framework for portfolio construction, ongoing management decisions, rebalancing activities, and performance evaluation. It shall be reviewed no less than annually, or whenever there is a material change in the client's financial circumstances, investment objectives, risk tolerance, or applicable laws and regulations.
+    </p>
+
+    <p class="ips-text">
+      This IPS does not constitute investment advice or a guarantee of any particular outcome. All projections and forward-looking statements contained herein are based on assumptions regarding market conditions, economic variables, and client behavior that may not materialize. Past performance of the referenced indices and ETFs is not indicative of future results. Investments in securities involve risk, including the possible loss of principal. The client acknowledges that market values may fluctuate and that investment returns and principal value will vary over time.
+    </p>
+
+    <p class="ips-text">
+      The asset allocation recommendations contained in this IPS reflect a strategic posture appropriate for a client with a <strong style="color:var(--gray-7);">Moderate-Aggressive</strong> risk profile and a <strong style="color:var(--gray-7);">27-year investment horizon</strong>. BlackRock's recommendations are based on capital market assumptions current as of the date of this document. These assumptions are subject to periodic revision. Clients are encouraged to notify their BlackRock relationship manager promptly of any changes to financial circumstances, tax status, or liquidity requirements that may necessitate an amendment to this policy.
+    </p>
+
+    <p class="ips-text">
+      BlackRock, Inc. is a registered investment adviser under the Investment Advisers Act of 1940. Investment advisory services are provided by BlackRock Investment Management, LLC, a wholly owned subsidiary of BlackRock, Inc. This document is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. All investment decisions remain the ultimate responsibility of the client.
+    </p>
+
+    <div class="ips-sig-block">
+      <div class="ips-sig-col">
+        <div class="sig-line"></div>
+        <div class="sig-name">BlackRock Multi-Asset Solutions Group</div>
+        <div class="sig-title">Portfolio Strategy &amp; Advisory</div>
+        <div class="sig-date">Prepared: March 17, 2026 &nbsp;|&nbsp; IPS-MAS-2026-0317-0042</div>
+      </div>
+      <div class="ips-sig-col">
+        <div class="sig-line"></div>
+        <div class="sig-name">Client Acknowledgment</div>
+        <div class="sig-title">Signature &amp; Acceptance</div>
+        <div class="sig-date">Date: ________________________</div>
+      </div>
+    </div>
+
+    <div class="disclosure">
+      IMPORTANT DISCLOSURES: BlackRock, Inc. ("BlackRock") is not affiliated with the ETF issuers referenced herein (Vanguard, iShares, SPDR, Invesco). Expense ratios cited are as of Q1 2026 and subject to change. Tax information provided is general in nature and does not constitute tax advice; clients should consult a qualified tax professional. MSCI, Bloomberg, and S&amp;P are trademarks of their respective owners and are used for benchmark reference purposes only. This report was prepared using BlackRock's proprietary capital market assumptions and portfolio construction models. © 2026 BlackRock, Inc. All Rights Reserved. BLACKROCK is a registered trademark of BlackRock, Inc.
+    </div>
+  </footer>
+
+</div><!-- /page -->
+</body>
+</html>

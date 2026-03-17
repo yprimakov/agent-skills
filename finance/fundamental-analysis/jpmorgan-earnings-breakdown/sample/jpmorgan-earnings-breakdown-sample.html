@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J.P. Morgan Equity Research — NVDA Q1 FY2026 Earnings Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --jpm-blue:        #003087;
+      --jpm-blue-mid:    #004aad;
+      --jpm-blue-light:  #e8eef8;
+      --jpm-gold:        #c89520;
+      --text-primary:    #111827;
+      --text-secondary:  #4b5563;
+      --border:          #d1d5db;
+      --row-alt:         #f7f9fc;
+      --green:           #15803d;
+      --green-bg:        #dcfce7;
+      --red:             #b91c1c;
+      --red-bg:          #fee2e2;
+      --amber:           #92400e;
+      --amber-bg:        #fef3c7;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: #f0f2f5;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 32px auto;
+      background: #fff;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+    }
+
+    /* ─── Header / Banner ──────────────────────────────────── */
+    .header {
+      background: var(--jpm-blue);
+      color: #fff;
+      padding: 0;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px 14px;
+      border-bottom: 2px solid var(--jpm-gold);
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .logo-wordmark {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .logo-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--jpm-gold);
+      margin: 4px 0;
+    }
+
+    .logo-sub {
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+    }
+
+    .header-badge {
+      background: var(--jpm-gold);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 2px;
+    }
+
+    .header-meta {
+      padding: 14px 32px 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .header-title-block .ticker-line {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--jpm-gold);
+      margin-bottom: 4px;
+    }
+
+    .header-title-block h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .header-title-block .subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      margin-top: 4px;
+    }
+
+    .header-details {
+      text-align: right;
+      color: rgba(255,255,255,0.75);
+      font-size: 11.5px;
+      line-height: 1.8;
+    }
+
+    .header-details strong {
+      color: #fff;
+    }
+
+    /* ─── Decision Summary Box ─────────────────────────────── */
+    .decision-box {
+      background: var(--jpm-blue);
+      border-left: 5px solid var(--jpm-gold);
+      margin: 28px 32px;
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,48,135,0.18);
+    }
+
+    .decision-header {
+      background: rgba(0,0,0,0.18);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .decision-header-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--jpm-gold);
+    }
+
+    .decision-body {
+      padding: 20px 20px 22px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .rating-badge {
+      background: var(--jpm-gold);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 16px 24px;
+      border-radius: 3px;
+      text-align: center;
+      line-height: 1;
+      min-width: 160px;
+    }
+
+    .rating-badge .rating-word {
+      display: block;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 4px;
+    }
+
+    .decision-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px 24px;
+    }
+
+    .dm-item label {
+      display: block;
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 2px;
+    }
+
+    .dm-item .dm-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .dm-item .dm-value.upside {
+      color: #4ade80;
+    }
+
+    .decision-action {
+      grid-column: 1 / -1;
+      margin-top: 6px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .decision-action .action-line {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.01em;
+    }
+
+    .decision-action .options-line {
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+      margin-top: 4px;
+    }
+
+    .options-line span {
+      background: rgba(200,149,32,0.25);
+      color: var(--jpm-gold);
+      border: 1px solid rgba(200,149,32,0.4);
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-family: 'Inter', monospace;
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+
+    /* ─── Content Layout ───────────────────────────────────── */
+    .content {
+      padding: 0 32px 32px;
+    }
+
+    /* ─── Section Headers ──────────────────────────────────── */
+    .section {
+      margin-bottom: 30px;
+      page-break-inside: avoid;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--jpm-blue);
+    }
+
+    .section-number {
+      background: var(--jpm-blue);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--jpm-blue);
+      letter-spacing: 0.01em;
+    }
+
+    /* ─── Tables ───────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    thead tr {
+      background: var(--jpm-blue);
+      color: #fff;
+    }
+
+    thead th {
+      padding: 9px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    thead th.right { text-align: right; }
+    thead th.center { text-align: center; }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--row-alt);
+    }
+
+    tbody td {
+      padding: 9px 12px;
+      vertical-align: middle;
+    }
+
+    tbody td.right { text-align: right; }
+    tbody td.center { text-align: center; }
+
+    tfoot tr {
+      background: var(--jpm-blue-light);
+      border-top: 2px solid var(--jpm-blue);
+    }
+
+    tfoot td {
+      padding: 9px 12px;
+      font-weight: 600;
+      font-size: 12.5px;
+    }
+
+    /* ─── Beat / Miss Pills ────────────────────────────────── */
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .pill-beat {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid #bbf7d0;
+    }
+
+    .pill-miss {
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid #fecaca;
+    }
+
+    .pill-est {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #fde68a;
+    }
+
+    .text-beat { color: var(--green); font-weight: 600; }
+    .text-miss { color: var(--red); font-weight: 600; }
+    .text-est  { color: var(--amber); font-weight: 600; }
+
+    /* ─── Metric Cards ─────────────────────────────────────── */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .metric-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 14px 14px 12px;
+      background: #fff;
+    }
+
+    .metric-card .mc-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .metric-card .mc-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--jpm-blue);
+      line-height: 1.1;
+    }
+
+    .metric-card .mc-sub {
+      font-size: 10.5px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .metric-card .mc-yoy {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    /* ─── Bullet Lists ─────────────────────────────────────── */
+    .watch-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .watch-list li {
+      padding: 8px 12px 8px 32px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      font-size: 12.5px;
+    }
+
+    .watch-list li:nth-child(even) {
+      background: var(--row-alt);
+    }
+
+    .watch-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 12px;
+      color: var(--jpm-blue);
+      font-size: 11px;
+    }
+
+    .watch-list li strong {
+      color: var(--jpm-blue);
+    }
+
+    /* ─── Guidance Block ───────────────────────────────────── */
+    .guidance-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .guidance-card {
+      background: var(--jpm-blue-light);
+      border: 1px solid #b8cceb;
+      border-radius: 4px;
+      padding: 14px 16px;
+    }
+
+    .guidance-card .gc-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--jpm-blue);
+      margin-bottom: 6px;
+    }
+
+    .guidance-card .gc-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--jpm-blue);
+      line-height: 1.2;
+    }
+
+    .guidance-card .gc-note {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .quote-block {
+      background: var(--jpm-blue-light);
+      border-left: 4px solid var(--jpm-blue);
+      padding: 14px 18px;
+      border-radius: 0 4px 4px 0;
+      margin-top: 12px;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+
+    .quote-block cite {
+      display: block;
+      font-style: normal;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Implied Move ─────────────────────────────────────── */
+    .implied-move-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .im-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .im-card .im-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .im-card .im-value {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--jpm-blue);
+    }
+
+    .im-card .im-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* ─── Bull / Bear Cards ────────────────────────────────── */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .scenario-card {
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid;
+    }
+
+    .scenario-card.bull {
+      border-color: #bbf7d0;
+    }
+
+    .scenario-card.bear {
+      border-color: #fecaca;
+    }
+
+    .scenario-header {
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scenario-card.bull .scenario-header {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .scenario-card.bear .scenario-header {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .scenario-body {
+      padding: 14px 16px;
+      font-size: 12.5px;
+    }
+
+    .scenario-body ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .scenario-body ul li {
+      padding: 4px 0 4px 16px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+
+    .scenario-body ul li:last-child { border-bottom: none; }
+
+    .scenario-card.bull .scenario-body ul li::before {
+      content: '+';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .scenario-card.bear .scenario-body ul li::before {
+      content: '−';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .scenario-target {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .scenario-card.bull .scenario-target {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .scenario-card.bear .scenario-target {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    /* ─── Recommendation Box ───────────────────────────────── */
+    .rec-box {
+      background: linear-gradient(135deg, var(--jpm-blue) 0%, var(--jpm-blue-mid) 100%);
+      border-radius: 4px;
+      padding: 24px 28px;
+      color: #fff;
+    }
+
+    .rec-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--jpm-gold);
+      margin-bottom: 12px;
+    }
+
+    .rec-box p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 10px;
+    }
+
+    .rec-box p:last-child { margin-bottom: 0; }
+
+    .rec-tag {
+      display: inline-block;
+      background: var(--jpm-gold);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+
+    /* ─── Price Reaction Table ─────────────────────────────── */
+    .reaction-positive { color: var(--green); font-weight: 700; }
+    .reaction-negative { color: var(--red); font-weight: 700; }
+
+    /* ─── Footer ───────────────────────────────────────────── */
+    .footer {
+      background: #f8f9fb;
+      border-top: 2px solid var(--jpm-blue);
+      padding: 20px 32px;
+    }
+
+    .analyst-block {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .analyst-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--jpm-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .analyst-info .analyst-name {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--jpm-blue);
+    }
+
+    .analyst-info .analyst-title {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+    }
+
+    .disclosure {
+      font-size: 10px;
+      color: #6b7280;
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--jpm-blue);
+    }
+
+    /* ─── Print ────────────────────────────────────────────── */
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; margin: 0; }
+      .section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════════════════ HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <div class="header-brand">
+        <div class="logo-block">
+          <div class="logo-wordmark">J.P. MORGAN</div>
+          <div class="logo-divider"></div>
+          <div class="logo-sub">Equity Research</div>
+        </div>
+      </div>
+      <div class="header-badge">Initiating Coverage / Earnings Preview</div>
+    </div>
+    <div class="header-meta">
+      <div class="header-title-block">
+        <div class="ticker-line">NVDA &nbsp;·&nbsp; NASDAQ &nbsp;·&nbsp; Technology — Semiconductors</div>
+        <h1>NVIDIA Corporation</h1>
+        <div class="subtitle">Q1 FY2026 Earnings Preview &amp; Initiation of Coverage</div>
+      </div>
+      <div class="header-details">
+        <div><strong>Date:</strong> March 17, 2026</div>
+        <div><strong>Earnings Date:</strong> Late May 2026 (Est.)</div>
+        <div><strong>Fiscal Year End:</strong> January 26</div>
+        <div><strong>Market Cap:</strong> ~$2.79T</div>
+        <div><strong>Current Price:</strong> $114.20</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════ DECISION BOX -->
+  <div class="decision-box">
+    <div class="decision-header">
+      <div class="decision-header-label">J.P. Morgan Investment Thesis &amp; Recommendation Summary</div>
+    </div>
+    <div class="decision-body">
+      <div class="rating-badge">
+        <span class="rating-word">Rating</span>
+        OVERWEIGHT
+      </div>
+      <div>
+        <div class="decision-metrics">
+          <div class="dm-item">
+            <label>Price Target</label>
+            <div class="dm-value">$165.00</div>
+          </div>
+          <div class="dm-item">
+            <label>Current Price</label>
+            <div class="dm-value">$114.20</div>
+          </div>
+          <div class="dm-item">
+            <label>Implied Upside</label>
+            <div class="dm-value upside">+44.5%</div>
+          </div>
+          <div class="decision-action" style="grid-column:1/-1">
+            <div class="action-line">BUY BEFORE EARNINGS — Risk/reward favorable ahead of print</div>
+            <div class="options-line">
+              Options Strategy: <span>Long May $120/$130 Call Spread &nbsp;·&nbsp; ~$3.20 debit &nbsp;·&nbsp; ~3:1 risk/reward</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ CONTENT -->
+  <div class="content">
+
+    <!-- ── 1. Earnings History ──────────────────────────────── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <div class="section-title">Earnings History — Last Four Quarters</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Quarter</th>
+            <th class="right">Reported EPS</th>
+            <th class="right">Consensus Est.</th>
+            <th class="right">Surprise ($)</th>
+            <th class="right">Surprise (%)</th>
+            <th class="center">Result</th>
+            <th class="right">Revenue (A)</th>
+            <th class="right">Rev. Est.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Q2 FY2025</strong><br/><span style="font-size:11px;color:#6b7280">Aug 2024</span></td>
+            <td class="right text-beat">$0.68</td>
+            <td class="right">$0.64</td>
+            <td class="right text-beat">+$0.04</td>
+            <td class="right text-beat">+6.3%</td>
+            <td class="center"><span class="pill pill-beat">BEAT</span></td>
+            <td class="right">$30.0B</td>
+            <td class="right">$28.7B</td>
+          </tr>
+          <tr>
+            <td><strong>Q3 FY2025</strong><br/><span style="font-size:11px;color:#6b7280">Nov 2024</span></td>
+            <td class="right text-beat">$0.78</td>
+            <td class="right">$0.71</td>
+            <td class="right text-beat">+$0.07</td>
+            <td class="right text-beat">+9.9%</td>
+            <td class="center"><span class="pill pill-beat">BEAT</span></td>
+            <td class="right">$35.1B</td>
+            <td class="right">$32.9B</td>
+          </tr>
+          <tr>
+            <td><strong>Q4 FY2025</strong><br/><span style="font-size:11px;color:#6b7280">Feb 2025</span></td>
+            <td class="right text-beat">$0.89</td>
+            <td class="right">$0.83</td>
+            <td class="right text-beat">+$0.06</td>
+            <td class="right text-beat">+7.2%</td>
+            <td class="center"><span class="pill pill-beat">BEAT</span></td>
+            <td class="right">$39.3B</td>
+            <td class="right">$37.6B</td>
+          </tr>
+          <tr style="background:#fefce8;">
+            <td><strong>Q1 FY2026E</strong><br/><span style="font-size:11px;color:#6b7280">May 2026 (est.)</span></td>
+            <td class="right text-est">$0.97E</td>
+            <td class="right">$0.94</td>
+            <td class="right text-est">+$0.03E</td>
+            <td class="right text-est">+3.2%E</td>
+            <td class="center"><span class="pill pill-est">PREVIEW</span></td>
+            <td class="right">$43.8BE</td>
+            <td class="right">$43.8B</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4"><strong>3-Quarter Avg. EPS Beat</strong></td>
+            <td class="right text-beat"><strong>+7.8%</strong></td>
+            <td colspan="3" style="font-size:11.5px;color:#4b5563">NVDA has beaten EPS estimates in 11 of the last 12 quarters</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- ── 2. Consensus Estimates ───────────────────────────── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <div class="section-title">Consensus Estimates — Q1 FY2026</div>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="mc-label">Revenue (Consensus)</div>
+          <div class="mc-value">$43.8B</div>
+          <div class="mc-yoy">+67% YoY</div>
+          <div class="mc-sub">vs. $26.3B Q1 FY25</div>
+        </div>
+        <div class="metric-card">
+          <div class="mc-label">EPS (Non-GAAP)</div>
+          <div class="mc-value">$0.94</div>
+          <div class="mc-yoy">+42% YoY</div>
+          <div class="mc-sub">vs. $0.66 Q1 FY25</div>
+        </div>
+        <div class="metric-card">
+          <div class="mc-label">Gross Margin</div>
+          <div class="mc-value">74.8%</div>
+          <div class="mc-yoy">+30bps YoY</div>
+          <div class="mc-sub">vs. 74.5% Q1 FY25</div>
+        </div>
+        <div class="metric-card">
+          <div class="mc-label">Data Center Revenue</div>
+          <div class="mc-value">$38.9B</div>
+          <div class="mc-yoy">+78% YoY</div>
+          <div class="mc-sub">89% of total revenue</div>
+        </div>
+      </div>
+      <table style="margin-top:12px;">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="right">JPM Est.</th>
+            <th class="right">Consensus</th>
+            <th class="right">JPM vs. Cons.</th>
+            <th class="right">Prior Quarter (Q4 FY25)</th>
+            <th class="right">YoY Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Total Revenue</td>
+            <td class="right text-beat">$44.5B</td>
+            <td class="right">$43.8B</td>
+            <td class="right text-beat">+$0.7B</td>
+            <td class="right">$39.3B</td>
+            <td class="right text-beat">+67.1%</td>
+          </tr>
+          <tr>
+            <td>Non-GAAP EPS</td>
+            <td class="right text-beat">$0.97</td>
+            <td class="right">$0.94</td>
+            <td class="right text-beat">+$0.03</td>
+            <td class="right">$0.89</td>
+            <td class="right text-beat">+42.4%</td>
+          </tr>
+          <tr>
+            <td>Gross Margin (non-GAAP)</td>
+            <td class="right text-beat">75.2%</td>
+            <td class="right">74.8%</td>
+            <td class="right text-beat">+40bps</td>
+            <td class="right">73.5%</td>
+            <td class="right text-beat">+270bps</td>
+          </tr>
+          <tr>
+            <td>Operating Income</td>
+            <td class="right text-beat">$27.1B</td>
+            <td class="right">$26.5B</td>
+            <td class="right text-beat">+$0.6B</td>
+            <td class="right">$23.6B</td>
+            <td class="right text-beat">+71.0%</td>
+          </tr>
+          <tr>
+            <td>Operating Margin</td>
+            <td class="right text-beat">60.9%</td>
+            <td class="right">60.5%</td>
+            <td class="right text-beat">+40bps</td>
+            <td class="right">60.0%</td>
+            <td class="right text-beat">+280bps</td>
+          </tr>
+          <tr>
+            <td>Free Cash Flow</td>
+            <td class="right text-beat">$23.4B</td>
+            <td class="right">$22.9B</td>
+            <td class="right text-beat">+$0.5B</td>
+            <td class="right">$20.0B</td>
+            <td class="right text-beat">+68.5%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── 3. Key Metrics Wall Street Is Watching ───────────── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <div class="section-title">Key Metrics Wall Street Is Watching</div>
+      </div>
+      <ul class="watch-list">
+        <li><strong>Data Center Revenue vs. $38.9B Consensus</strong> — The single most watched line item. Any print above $40B would be materially positive; below $36B would trigger a significant sell-off. Hyperscaler spending plans through H1 2026 are the primary driver.</li>
+        <li><strong>Blackwell GPU Shipment Volumes &amp; Ramp Velocity</strong> — Wall Street wants confirmation of an accelerating Blackwell ramp. Management commentary on GB200 NVL72 rack-scale system availability is the key qualitative signal this quarter.</li>
+        <li><strong>China Revenue Disclosure</strong> — Following BIS export restrictions in October 2023 and subsequent rule tightening, China revenue has been in structural decline. Any update on H20 chip demand or workaround solutions for the Chinese market will move the stock.</li>
+        <li><strong>Gross Margin Trajectory</strong> — Blackwell systems carry higher initial COGS due to new packaging and supply chain complexity. Consensus expects 74.8%; a print above 75% would signal the ramp cost headwinds are clearing faster than expected.</li>
+        <li><strong>Q2 FY2026 Revenue Guidance</strong> — Given NVDA's history of conservative guidance followed by large beats, management's Q2 guide will be dissected for any softening in demand language. The market is pricing ~$46-47B for Q2.</li>
+        <li><strong>Hyperscaler Capex Commentary</strong> — Management's characterization of customer backlog, lead times, and forward purchasing commitments from Microsoft, Google, Amazon, and Meta will be scrutinized for any demand softening signals.</li>
+        <li><strong>Networking Revenue (Spectrum-X)</strong> — NVDA's Ethernet networking business is emerging as a significant incremental growth driver. Any color on attach rates and competitive dynamics vs. Broadcom will be closely watched.</li>
+      </ul>
+    </div>
+
+    <!-- ── 4. Segment Breakdown ─────────────────────────────── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <div class="section-title">Revenue Segment Breakdown — Q1 FY2026 Estimates</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Segment</th>
+            <th class="right">Q1 FY26E Revenue</th>
+            <th class="right">% of Total</th>
+            <th class="right">Q1 FY25 Actual</th>
+            <th class="right">YoY Growth</th>
+            <th class="right">QoQ Growth</th>
+            <th>Key Driver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Data Center</strong></td>
+            <td class="right text-beat"><strong>$38,900M</strong></td>
+            <td class="right"><strong>88.8%</strong></td>
+            <td class="right">$22,604M</td>
+            <td class="right text-beat">+72.1%</td>
+            <td class="right text-beat">+15.0%</td>
+            <td>H100/H200 sustained + Blackwell ramp</td>
+          </tr>
+          <tr>
+            <td><strong>Gaming</strong></td>
+            <td class="right">$3,200M</td>
+            <td class="right">7.3%</td>
+            <td class="right">$2,647M</td>
+            <td class="right text-beat">+20.9%</td>
+            <td class="right text-miss">−3.0%</td>
+            <td>RTX 50-series sell-through; seasonal softness</td>
+          </tr>
+          <tr>
+            <td><strong>Professional Visualization</strong></td>
+            <td class="right">$500M</td>
+            <td class="right">1.1%</td>
+            <td class="right">$427M</td>
+            <td class="right text-beat">+17.1%</td>
+            <td class="right text-beat">+4.2%</td>
+            <td>RTX 6000 Ada / enterprise AI workstations</td>
+          </tr>
+          <tr>
+            <td><strong>Automotive</strong></td>
+            <td class="right">$400M</td>
+            <td class="right">0.9%</td>
+            <td class="right">$329M</td>
+            <td class="right text-beat">+21.6%</td>
+            <td class="right text-beat">+5.3%</td>
+            <td>DRIVE Orin design wins; DRIVE Thor ramp</td>
+          </tr>
+          <tr>
+            <td><strong>OEM &amp; Other</strong></td>
+            <td class="right">$780M</td>
+            <td class="right">1.8%</td>
+            <td class="right">$595M</td>
+            <td class="right text-beat">+31.1%</td>
+            <td class="right">+2.6%</td>
+            <td>Embedded, crypto / miscellaneous</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td class="right"><strong>$43,780M</strong></td>
+            <td class="right"><strong>100%</strong></td>
+            <td class="right"><strong>$26,044M</strong></td>
+            <td class="right text-beat"><strong>+68.1%</strong></td>
+            <td class="right text-beat"><strong>+11.4%</strong></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- ── 5. Management Guidance ───────────────────────────── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <div class="section-title">Management Guidance &amp; Forward Commentary</div>
+      </div>
+      <div class="guidance-grid">
+        <div class="guidance-card">
+          <div class="gc-label">Q1 FY2026 Revenue Guidance (Issued)</div>
+          <div class="gc-value">$43.0B ± 2%</div>
+          <div class="gc-note">Range: $42.1B – $43.9B &nbsp;·&nbsp; JPM Est: $44.5B (above top of range)</div>
+        </div>
+        <div class="guidance-card">
+          <div class="gc-label">Q1 FY2026 Gross Margin Guidance</div>
+          <div class="gc-value">73.5% – 74.0%</div>
+          <div class="gc-note">Non-GAAP. Reflects Blackwell initial ramp costs. JPM sees sequential expansion to 75.2% by Q2.</div>
+        </div>
+        <div class="guidance-card">
+          <div class="gc-label">Operating Expenses Guidance</div>
+          <div class="gc-value">~$3.6B</div>
+          <div class="gc-note">Non-GAAP. Includes Blackwell NRE and headcount additions in AI research.</div>
+        </div>
+        <div class="guidance-card">
+          <div class="gc-label">Capital Returns (Ongoing Program)</div>
+          <div class="gc-value">$50B Buyback Auth.</div>
+          <div class="gc-note">$10B executed in Q4 FY25. Board authorized additional $25B repurchase in February 2026.</div>
+        </div>
+      </div>
+      <div class="quote-block">
+        "Demand for Blackwell is overwhelming. We are shipping every unit we can build, and our supply partners are working at maximum capacity to meet hyperscaler lead times of 8–12 weeks."
+        <cite>— Colette Kress, CFO, NVIDIA Q4 FY2025 Earnings Call, February 26, 2025</cite>
+      </div>
+    </div>
+
+    <!-- ── 6. Options Implied Move ──────────────────────────── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <div class="section-title">Options Market — Implied Earnings Move</div>
+      </div>
+      <div class="implied-move-grid">
+        <div class="im-card">
+          <div class="im-label">Implied Move (ATM Straddle)</div>
+          <div class="im-value">±9.4%</div>
+          <div class="im-sub">Based on May front-month straddle pricing at $114.20 spot</div>
+        </div>
+        <div class="im-card">
+          <div class="im-label">Historical Avg. Post-Earnings Move</div>
+          <div class="im-value">±11.2%</div>
+          <div class="im-sub">Last 8 quarters average absolute move</div>
+        </div>
+        <div class="im-card">
+          <div class="im-label">Implied vs. Historical</div>
+          <div class="im-value" style="color:var(--green);">−1.8%</div>
+          <div class="im-sub">Options appear to be underpricing historical volatility — favors buyers of spreads</div>
+        </div>
+      </div>
+      <table style="margin-top:14px;">
+        <thead>
+          <tr>
+            <th>Strike / Strategy</th>
+            <th class="right">Type</th>
+            <th class="right">Expiry</th>
+            <th class="right">Premium / Debit</th>
+            <th class="right">Max Profit</th>
+            <th class="right">Max Loss</th>
+            <th class="right">Breakeven</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>$120/$130 Call Spread</strong> <span style="background:#dcfce7;color:#15803d;font-size:10px;padding:1px 6px;border-radius:2px;font-weight:600;margin-left:4px;">JPM PREFERRED</span></td>
+            <td class="right">Debit Spread</td>
+            <td class="right">May 2026</td>
+            <td class="right text-beat">$3.20</td>
+            <td class="right text-beat">$6.80 (+212%)</td>
+            <td class="right text-miss">$3.20</td>
+            <td class="right">$123.20</td>
+          </tr>
+          <tr>
+            <td>$110/$120 Call Spread</td>
+            <td class="right">Debit Spread</td>
+            <td class="right">May 2026</td>
+            <td class="right">$4.80</td>
+            <td class="right text-beat">$5.20 (+108%)</td>
+            <td class="right text-miss">$4.80</td>
+            <td class="right">$114.80</td>
+          </tr>
+          <tr>
+            <td>ATM Straddle ($114)</td>
+            <td class="right">Straddle</td>
+            <td class="right">May 2026</td>
+            <td class="right">$10.72</td>
+            <td class="right">Unlimited (calls)</td>
+            <td class="right text-miss">$10.72</td>
+            <td class="right">$103.28 / $124.72</td>
+          </tr>
+          <tr>
+            <td>$100 Put (Downside Hedge)</td>
+            <td class="right">Long Put</td>
+            <td class="right">May 2026</td>
+            <td class="right">$2.90</td>
+            <td class="right">$97.10 (at zero)</td>
+            <td class="right text-miss">$2.90</td>
+            <td class="right">$97.10</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px;color:#6b7280;margin-top:8px;font-style:italic;">* All options prices are indicative mid-market estimates. Actual fills may vary. Not a solicitation to trade. See disclosures below.</p>
+    </div>
+
+    <!-- ── 7. Historical Price Reactions ───────────────────── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">7</div>
+        <div class="section-title">Historical Post-Earnings Price Reactions</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Quarter</th>
+            <th class="right">EPS Surprise</th>
+            <th class="right">Revenue Surprise</th>
+            <th class="right">Price Before</th>
+            <th class="right">Price After</th>
+            <th class="right">1-Day Move</th>
+            <th>Commentary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Q1 FY2025</strong><br/><span style="font-size:11px;color:#6b7280">May 2024</span></td>
+            <td class="right text-beat">+$0.09 (+15.5%)</td>
+            <td class="right text-beat">+$1.3B (+5.2%)</td>
+            <td class="right">$88.00</td>
+            <td class="right text-beat">$102.44</td>
+            <td class="right reaction-positive">+16.4%</td>
+            <td>Data Center blowout; guidance raised materially</td>
+          </tr>
+          <tr>
+            <td><strong>Q2 FY2025</strong><br/><span style="font-size:11px;color:#6b7280">Aug 2024</span></td>
+            <td class="right text-beat">+$0.04 (+6.3%)</td>
+            <td class="right text-beat">+$1.3B (+4.5%)</td>
+            <td class="right">$117.93</td>
+            <td class="right text-beat">$128.89</td>
+            <td class="right reaction-positive">+9.3%</td>
+            <td>Solid beat; Blackwell delays flagged but absorbed</td>
+          </tr>
+          <tr>
+            <td><strong>Q3 FY2025</strong><br/><span style="font-size:11px;color:#6b7280">Nov 2024</span></td>
+            <td class="right text-beat">+$0.07 (+9.9%)</td>
+            <td class="right text-beat">+$2.2B (+6.7%)</td>
+            <td class="right">$144.37</td>
+            <td class="right text-beat">$165.56</td>
+            <td class="right reaction-positive">+14.7%</td>
+            <td>Blackwell ramp confirmed; record Data Center; $50B buyback announced</td>
+          </tr>
+          <tr>
+            <td><strong>Q4 FY2025</strong><br/><span style="font-size:11px;color:#6b7280">Feb 2025</span></td>
+            <td class="right text-beat">+$0.06 (+7.2%)</td>
+            <td class="right text-beat">+$1.7B (+4.5%)</td>
+            <td class="right">$135.58</td>
+            <td class="right text-miss">$124.92</td>
+            <td class="right reaction-negative">−8.2%</td>
+            <td>Beat on numbers but guidance tone cautious; margin outlook concerned market; profit-taking after prior run</td>
+          </tr>
+          <tr style="background:#fefce8;">
+            <td><strong>Q1 FY2026E</strong><br/><span style="font-size:11px;color:#6b7280">May 2026 (est.)</span></td>
+            <td class="right text-est">+$0.03E (+3.2%)</td>
+            <td class="right text-est">+$0.7BE (+1.6%)</td>
+            <td class="right">$114.20</td>
+            <td class="right" style="color:#92400e;">TBD</td>
+            <td class="right" style="color:#92400e;">Est. ±9.4%</td>
+            <td>Blackwell demand commentary + margin trajectory = key swing factors</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── 8. Bull Case ────────────────────────────────────── -->
+    <!-- ── 9. Bear Case ───────────────────────────────────── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">8–9</div>
+        <div class="section-title">Bull Case vs. Bear Case Scenarios</div>
+      </div>
+      <div class="scenario-grid">
+        <div class="scenario-card bull">
+          <div class="scenario-header">
+            <span style="font-size:18px;">&#9650;</span> Bull Case Scenario
+          </div>
+          <div class="scenario-body">
+            <ul>
+              <li>Blackwell demand significantly exceeds supply; GB200 NVL72 achieves volume delivery</li>
+              <li>Data Center revenue exceeds $41B — $2B+ above consensus estimates</li>
+              <li>Gross margins expand to 75%+ as Blackwell packaging costs normalize</li>
+              <li>Management guides Q2 FY26 to $47B+, signaling continued demand acceleration</li>
+              <li>China revenue stabilizes via HPC compliant products; U.S. regulatory clarity improves</li>
+              <li>Hyperscalers announce incremental capex increases referencing NVDA supply constraints</li>
+              <li>Networking segment (Spectrum-X) contributes $1B+ for first time</li>
+            </ul>
+            <div class="scenario-target">
+              Bull Case Price Target: $175–$190 (+53% to +67%)<br/>
+              <span style="font-size:11px;font-weight:400;opacity:0.85;">Implies ~27–28x CY2026 EV/Sales</span>
+            </div>
+          </div>
+        </div>
+        <div class="scenario-card bear">
+          <div class="scenario-header">
+            <span style="font-size:18px;">&#9660;</span> Bear Case Scenario
+          </div>
+          <div class="scenario-body">
+            <ul>
+              <li>New BIS export regulations restrict H20 shipments, eliminating remaining China revenue</li>
+              <li>Blackwell supply remains constrained by CoWoS packaging bottleneck through H2 2026</li>
+              <li>Gross margins compress to ~72% due to elevated Blackwell initial production costs</li>
+              <li>Hyperscaler capex growth decelerates; Microsoft or Google signals AI infrastructure pause</li>
+              <li>Competition from AMD MI400 and custom ASICs (Google TPU, Amazon Trainium) accelerates</li>
+              <li>Q2 FY26 guidance disappoints at $42–44B range vs. $46B+ market expectation</li>
+              <li>Valuation re-rating risk: multiple compression from 30x to 22–24x forward earnings</li>
+            </ul>
+            <div class="scenario-target">
+              Bear Case Price Target: $95–$100 (−12% to −17%)<br/>
+              <span style="font-size:11px;font-weight:400;opacity:0.85;">Implies ~18–19x CY2026 EV/Sales at trough</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 10. Recommendation ─────────────────────────────── -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">10</div>
+        <div class="section-title">J.P. Morgan Recommendation</div>
+      </div>
+      <div class="rec-box">
+        <h3>BUY BEFORE EARNINGS — Initiating at OVERWEIGHT, $165 Price Target</h3>
+        <p>
+          <span class="rec-tag">Thesis</span>
+          We initiate coverage of NVIDIA (NVDA) with an Overweight rating and a 12-month price target of $165, implying 44.5% upside from the current price of $114.20. Our thesis is grounded in three pillars: (1) the structural underpenetration of AI infrastructure relative to secular demand, (2) NVIDIA's unassailable competitive moat via the CUDA ecosystem, and (3) an accelerating Blackwell ramp that consensus estimates are too conservative on.
+        </p>
+        <p>
+          <span class="rec-tag">Earnings Setup</span>
+          Heading into the Q1 FY2026 print in late May, the risk/reward is favorable. NVDA trades at $114, having corrected 31% from its November 2024 high of $165 — driven by export control uncertainty and broader semiconductor multiple compression. At current levels, the stock prices in roughly zero Blackwell upside on our estimates, creating an asymmetric setup with limited downside relative to significant potential upside if Blackwell demand tracks our conviction.
+        </p>
+        <p>
+          <span class="rec-tag">Options Strategy</span>
+          We recommend the May 2026 $120/$130 call spread at an approximately $3.20 debit (indicative). The structure offers ~$6.80 of maximum profit (212% return on premium) if NVDA settles above $130 on expiry — consistent with a +14% move from spot, which is below the historical average post-earnings move of +11.2% for positive prints. Maximum loss is the $3.20 debit. Risk/reward is approximately 2.1:1. For larger position sizes, consider laddering into the $110/$120 call spread as well.
+        </p>
+        <p>
+          <span class="rec-tag">Risk/Reward</span>
+          Bull case to $175–190 (+53–67%) vs. bear case to $95–100 (−17–21%). On a probability-weighted basis (65% bull / 35% bear, at midpoints), our expected value suggests approximately $152–155 fair value, comfortably above current levels. Key risks to our thesis include incremental export restrictions, hyperscaler demand deceleration, and competitive GPU alternatives gaining enterprise traction.
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- ═══════════════════════════════════════════════════════ FOOTER -->
+  <footer class="footer">
+    <div class="analyst-block">
+      <div class="analyst-avatar">JS</div>
+      <div class="analyst-info">
+        <div class="analyst-name">John Smith, CFA &nbsp;·&nbsp; Senior Technology Equity Analyst</div>
+        <div class="analyst-title">J.P. Morgan Securities LLC &nbsp;·&nbsp; Semiconductors &amp; Technology Hardware &nbsp;·&nbsp; (212) 555-0147 &nbsp;·&nbsp; john.smith@jpmorgan.com</div>
+      </div>
+    </div>
+    <div class="disclosure">
+      <strong class="footer-brand">J.P. MORGAN</strong> &nbsp;|&nbsp; Important Disclosures &amp; Analyst Certifications
+      <br/><br/>
+      <strong>Analyst Certification:</strong> The research analyst(s) denoted by an "AC" on the cover of this report certifies (or, where multiple research analysts are listed on the cover, each named analyst certifies), with respect to each security or issuer that the analyst covers in this research, that: (1) all of the views expressed in this report accurately reflect the research analyst's personal views about any and all of the subject securities or issuers; and (2) no part of any of the research analyst's compensation was, is, or will be directly or indirectly related to the specific recommendations or views expressed by the research analyst(s) in this report.
+      <br/><br/>
+      <strong>Important Disclosures:</strong> J.P. Morgan does and seeks to do business with companies covered in its research reports. As a result, investors should be aware that the firm may have a conflict of interest that could affect the objectivity of this report. Investors should consider this report as only a single factor in making their investment decision. The price and value of investments referred to in this research, and the income from them, may fluctuate. Past performance is not a guide to future performance, future returns are not guaranteed, and a loss of original capital may occur. Transactions in securities mentioned may not be suitable for all investors.
+      <br/><br/>
+      <strong>Explanation of JPM's Equity Research Ratings:</strong> Overweight [OW]: Over the next 6 to 12 months, we expect this stock will outperform the average total return of the stocks in the analyst's (or the analyst's team's) coverage universe. Neutral [N]: Over the next 6 to 12 months, we expect this stock will perform in line with the average total return of the stocks in the analyst's (or the analyst's team's) coverage universe. Underweight [UW]: Over the next 6 to 12 months, we expect this stock will underperform the average total return of the stocks in the analyst's (or the analyst's team's) coverage universe.
+      <br/><br/>
+      <strong>Options Risk Disclosure:</strong> Options are not suitable for all investors. Options involve risk and are not appropriate for all investors. Prior to buying or selling options, investors must read the current Options Disclosure Document (ODD). The document is available from your J.P. Morgan representative. Spreads and other multiple-leg options strategies involve additional risk and multiple commissions and are not suitable for all investors.
+      <br/><br/>
+      This material is for information purposes only. All data as of March 17, 2026. This document is a J.P. Morgan Equity Research report and is produced by J.P. Morgan Securities LLC, a member of FINRA, SIPC and regulated as a broker-dealer by the Securities and Exchange Commission. All rights reserved. &copy; 2026 JPMorgan Chase &amp; Co.
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

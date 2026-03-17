@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bain & Company | Cloud Computing Competitive Landscape Assessment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bain-red: #CC0000;
+      --bain-red-dark: #A00000;
+      --bain-red-light: #F8E8E8;
+      --bain-gray-50: #F9FAFB;
+      --bain-gray-100: #F3F4F6;
+      --bain-gray-200: #E5E7EB;
+      --bain-gray-300: #D1D5DB;
+      --bain-gray-500: #6B7280;
+      --bain-gray-600: #4B5563;
+      --bain-gray-700: #374151;
+      --bain-gray-900: #111827;
+      --bain-green: #166534;
+      --bain-green-bg: #DCFCE7;
+      --bain-amber: #92400E;
+      --bain-amber-bg: #FEF3C7;
+      --bain-blue: #1E40AF;
+      --bain-blue-bg: #DBEAFE;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bain-gray-100);
+      color: var(--bain-gray-900);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .report-header {
+      background: #FFFFFF;
+      border-top: 5px solid var(--bain-red);
+      padding: 36px 60px 28px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--bain-gray-200);
+    }
+
+    .header-left .firm-name {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--bain-red);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .header-left .report-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--bain-gray-900);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .header-left .report-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .sector-badge {
+      background: var(--bain-red);
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+    }
+
+    .date-badge {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--bain-gray-500);
+      letter-spacing: 0.02em;
+    }
+
+    .header-right {
+      text-align: right;
+      flex-shrink: 0;
+      margin-left: 40px;
+    }
+
+    .bain-logo-mark {
+      width: 56px;
+      height: 56px;
+      background: var(--bain-red);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+      margin-bottom: 10px;
+    }
+
+    .bain-logo-mark span {
+      color: #FFFFFF;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .confidential-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--bain-gray-500);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .report-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 40px 60px;
+    }
+
+    /* ── EXECUTIVE SUMMARY BANNER ── */
+    .exec-summary {
+      background: #FFFFFF;
+      border-left: 5px solid var(--bain-red);
+      border-radius: 0 6px 6px 0;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: start;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+
+    .exec-summary-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bain-red);
+      margin-bottom: 8px;
+    }
+
+    .exec-summary h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--bain-gray-900);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .pick-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bain-red-light);
+      border: 1.5px solid var(--bain-red);
+      border-radius: 4px;
+      padding: 6px 14px;
+      margin-bottom: 14px;
+    }
+
+    .pick-badge .ticker {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--bain-red);
+    }
+
+    .pick-badge .pick-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bain-red-dark);
+    }
+
+    .exec-rationale {
+      font-size: 14px;
+      color: var(--bain-gray-700);
+      line-height: 1.65;
+      max-width: 680px;
+    }
+
+    .outlook-panel {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .outlook-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bain-gray-500);
+      margin-bottom: 8px;
+    }
+
+    .outlook-badge {
+      background: var(--bain-green-bg);
+      border: 1.5px solid var(--bain-green);
+      color: var(--bain-green);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* ── SECTION CARDS ── */
+    .section-card {
+      background: #FFFFFF;
+      border-radius: 6px;
+      margin-bottom: 28px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+
+    .section-header {
+      background: var(--bain-gray-50);
+      border-bottom: 2px solid var(--bain-red);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .section-number {
+      width: 28px;
+      height: 28px;
+      background: var(--bain-red);
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--bain-gray-900);
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .section-body {
+      padding: 24px 28px;
+    }
+
+    /* ── TABLES ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table thead tr {
+      background: var(--bain-gray-900);
+    }
+
+    .data-table thead th {
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .data-table thead th:not(:first-child) {
+      text-align: right;
+    }
+
+    .data-table tbody tr {
+      border-bottom: 1px solid var(--bain-gray-200);
+    }
+
+    .data-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .data-table tbody tr:hover {
+      background: var(--bain-gray-50);
+    }
+
+    .data-table tbody tr.highlight-row {
+      background: var(--bain-red-light);
+    }
+
+    .data-table tbody tr.highlight-row:hover {
+      background: #F0D0D0;
+    }
+
+    .data-table tbody td {
+      padding: 11px 14px;
+      color: var(--bain-gray-700);
+    }
+
+    .data-table tbody td:not(:first-child) {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ticker-cell {
+      font-weight: 800;
+      color: var(--bain-gray-900) !important;
+      font-size: 13px;
+    }
+
+    .company-cell {
+      font-weight: 500;
+      color: var(--bain-gray-600) !important;
+      font-size: 12px;
+    }
+
+    .positive-val { color: var(--bain-green) !important; font-weight: 600; }
+    .negative-val { color: var(--bain-red) !important; font-weight: 600; }
+    .highlight-val { color: var(--bain-red) !important; font-weight: 700; }
+
+    /* ── MOAT SCORES ── */
+    .moat-score {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 24px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .score-5 { background: #166534; color: #FFFFFF; }
+    .score-4 { background: #15803D; color: #FFFFFF; }
+    .score-3 { background: #CA8A04; color: #FFFFFF; }
+    .score-2 { background: #EA580C; color: #FFFFFF; }
+    .score-1 { background: var(--bain-red); color: #FFFFFF; }
+
+    .moat-total {
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--bain-gray-900);
+    }
+
+    .winner-tag {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bain-red);
+      border: 1px solid var(--bain-red);
+      border-radius: 2px;
+      padding: 2px 6px;
+      margin-left: 6px;
+      white-space: nowrap;
+    }
+
+    /* ── GRADE BADGES ── */
+    .grade-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .grade-a-plus { background: var(--bain-green-bg); color: var(--bain-green); }
+    .grade-a { background: #DCFCE7; color: #15803D; }
+    .grade-b-plus { background: var(--bain-blue-bg); color: var(--bain-blue); }
+    .grade-b { background: #DBEAFE; color: #2563EB; }
+    .grade-c { background: var(--bain-amber-bg); color: var(--bain-amber); }
+
+    /* ── MARKET SHARE BAR CHART ── */
+    .market-share-chart {
+      margin-top: 8px;
+    }
+
+    .chart-company-block {
+      margin-bottom: 20px;
+    }
+
+    .chart-company-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--bain-gray-700);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+
+    .chart-year-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--bain-gray-500);
+      width: 36px;
+      flex-shrink: 0;
+    }
+
+    .chart-bar-track {
+      flex: 1;
+      background: var(--bain-gray-100);
+      border-radius: 2px;
+      height: 22px;
+      overflow: hidden;
+    }
+
+    .chart-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      transition: width 0.3s ease;
+    }
+
+    .chart-bar-fill span {
+      font-size: 11px;
+      font-weight: 700;
+      color: #FFFFFF;
+      white-space: nowrap;
+    }
+
+    .bar-aws-2022 { background: #1D4ED8; width: 66%; }
+    .bar-aws-2025 { background: #1D4ED8; width: 60%; }
+    .bar-azure-2022 { background: var(--bain-red); width: 42%; }
+    .bar-azure-2025 { background: var(--bain-red); width: 50%; }
+    .bar-gcp-2022 { background: #047857; width: 20%; }
+    .bar-gcp-2025 { background: #047857; width: 24%; }
+
+    .chart-legend {
+      display: flex;
+      gap: 20px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--bain-gray-600);
+      font-weight: 500;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── TREND TABLE ── */
+    .trend-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .trend-table th {
+      background: var(--bain-gray-900);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      text-align: center;
+    }
+
+    .trend-table th:first-child { text-align: left; }
+
+    .trend-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--bain-gray-200);
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .trend-table td:first-child { text-align: left; font-weight: 700; color: var(--bain-gray-900); }
+
+    .share-arrow-up { color: var(--bain-green); font-weight: 700; }
+    .share-arrow-down { color: var(--bain-red); font-weight: 700; }
+
+    /* ── SWOT ── */
+    .swot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .swot-company-block h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--bain-gray-900);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--bain-red);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .swot-quadrant-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .swot-quadrant {
+      border-radius: 4px;
+      padding: 12px 14px;
+    }
+
+    .swot-s { background: #DCFCE7; border: 1px solid #BBF7D0; }
+    .swot-w { background: #FEE2E2; border: 1px solid #FECACA; }
+    .swot-o { background: #DBEAFE; border: 1px solid #BFDBFE; }
+    .swot-t { background: #FEF3C7; border: 1px solid #FDE68A; }
+
+    .swot-quadrant-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .swot-s .swot-quadrant-label { color: #166534; }
+    .swot-w .swot-quadrant-label { color: #991B1B; }
+    .swot-o .swot-quadrant-label { color: #1E40AF; }
+    .swot-t .swot-quadrant-label { color: #92400E; }
+
+    .swot-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .swot-list li {
+      font-size: 12px;
+      color: var(--bain-gray-700);
+      padding: 3px 0;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.4;
+    }
+
+    .swot-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+      opacity: 0.6;
+    }
+
+    /* ── RADAR CHART (SVG) ── */
+    .radar-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .radar-chart-container {
+      flex-shrink: 0;
+    }
+
+    .radar-legend {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .radar-legend h4 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--bain-gray-500);
+      margin-bottom: 14px;
+    }
+
+    .radar-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .radar-legend-swatch {
+      width: 32px;
+      height: 4px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .radar-legend-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--bain-gray-700);
+    }
+
+    .radar-score-table {
+      margin-top: 20px;
+    }
+
+    .radar-score-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .radar-score-table th {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--bain-gray-500);
+      padding: 6px 8px;
+      text-align: left;
+      border-bottom: 1px solid var(--bain-gray-200);
+    }
+
+    .radar-score-table td {
+      padding: 6px 8px;
+      color: var(--bain-gray-700);
+      border-bottom: 1px solid var(--bain-gray-100);
+    }
+
+    /* ── CAPEX TABLE ── */
+    .capex-bars {
+      margin-top: 12px;
+    }
+
+    .capex-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .capex-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--bain-gray-700);
+      width: 60px;
+      flex-shrink: 0;
+    }
+
+    .capex-bar-track {
+      flex: 1;
+      background: var(--bain-gray-100);
+      border-radius: 2px;
+      height: 24px;
+      overflow: hidden;
+    }
+
+    .capex-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+    }
+
+    .capex-bar-fill span {
+      font-size: 11px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .capex-msft { background: var(--bain-red); width: 100%; }
+    .capex-amzn { background: #1D4ED8; width: 94%; }
+    .capex-goog { background: #047857; width: 63%; }
+
+    /* ── THREAT CARDS ── */
+    .threat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .threat-card {
+      border: 1px solid var(--bain-gray-200);
+      border-radius: 5px;
+      padding: 16px;
+    }
+
+    .threat-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .threat-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .threat-high { background: #FEE2E2; }
+    .threat-med { background: var(--bain-amber-bg); }
+    .threat-low { background: var(--bain-blue-bg); }
+
+    .threat-card-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--bain-gray-900);
+    }
+
+    .threat-severity {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+
+    .severity-high { background: #FEE2E2; color: #991B1B; }
+    .severity-med { background: var(--bain-amber-bg); color: var(--bain-amber); }
+    .severity-low { background: var(--bain-blue-bg); color: var(--bain-blue); }
+
+    .threat-desc {
+      font-size: 12px;
+      color: var(--bain-gray-600);
+      line-height: 1.5;
+    }
+
+    /* ── WINNER PANEL ── */
+    .winner-panel {
+      background: var(--bain-gray-900);
+      border-radius: 5px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .winner-ticker-block {
+      text-align: center;
+    }
+
+    .winner-ticker {
+      font-size: 40px;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .winner-ticker-sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .winner-rationale h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .winner-rationale p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .winner-rationale ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 12px;
+    }
+
+    .winner-rationale ul li {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      padding: 5px 0;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .winner-rationale ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--bain-red);
+      font-weight: 700;
+    }
+
+    .winner-price-block {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .price-target-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+    }
+
+    .price-target-value {
+      font-size: 36px;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .price-upside {
+      font-size: 13px;
+      font-weight: 700;
+      color: #4ADE80;
+      margin-top: 4px;
+    }
+
+    .price-horizon {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+    }
+
+    /* ── CATALYSTS ── */
+    .catalysts-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .catalyst-item {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--bain-gray-100);
+    }
+
+    .catalyst-item:last-child {
+      border-bottom: none;
+    }
+
+    .catalyst-num {
+      width: 28px;
+      height: 28px;
+      background: var(--bain-red);
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .catalyst-content h5 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--bain-gray-900);
+      margin-bottom: 4px;
+    }
+
+    .catalyst-content p {
+      font-size: 13px;
+      color: var(--bain-gray-600);
+      line-height: 1.5;
+    }
+
+    .catalyst-horizon {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bain-blue);
+      background: var(--bain-blue-bg);
+      border-radius: 2px;
+      padding: 2px 8px;
+      display: inline-block;
+      margin-top: 6px;
+    }
+
+    /* ── FOOTER ── */
+    .report-footer {
+      background: var(--bain-gray-900);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 20px 40px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .report-footer span {
+      color: rgba(255,255,255,0.25);
+      margin: 0 10px;
+    }
+
+    /* ── UTILITY ── */
+    .two-col-table-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .table-note {
+      font-size: 11px;
+      color: var(--bain-gray-500);
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    .section-intro {
+      font-size: 13px;
+      color: var(--bain-gray-600);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .report-header { padding: 24px 20px 20px; flex-wrap: wrap; }
+      .report-body { padding: 20px 16px 40px; }
+      .swot-grid { grid-template-columns: 1fr; }
+      .winner-panel { grid-template-columns: 1fr; }
+      .two-col-table-wrap { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════ -->
+  <header class="report-header">
+    <div class="header-left">
+      <div class="firm-name">Bain &amp; Company &nbsp;|&nbsp; Strategic Advisory</div>
+      <div class="report-title">Competitive Landscape Assessment</div>
+      <div class="report-meta">
+        <span class="sector-badge">Cloud Computing</span>
+        <span class="date-badge">March 2026</span>
+        <span class="date-badge" style="color:var(--bain-gray-300)">|</span>
+        <span class="date-badge">Hyperscaler Infrastructure</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="bain-logo-mark"><span>B</span></div>
+      <div class="confidential-label">Client Confidential</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       BODY
+  ═══════════════════════════════════════ -->
+  <main class="report-body">
+
+    <!-- EXECUTIVE SUMMARY -->
+    <div class="exec-summary">
+      <div>
+        <div class="exec-summary-label">Executive Summary &nbsp;·&nbsp; Top Pick</div>
+        <h2>Primary Investment Recommendation</h2>
+        <div class="pick-badge">
+          <span class="ticker">MSFT</span>
+          <span class="pick-label">Microsoft Azure &nbsp;·&nbsp; Top Pick</span>
+        </div>
+        <p class="exec-rationale">
+          Microsoft Azure represents the highest-conviction opportunity in the hyperscaler sector, driven by a uniquely durable combination of enterprise switching costs — rooted in Active Directory, Office 365, and Teams — and best-in-class AI monetization through Copilot at $30/seat across a 345M Office commercial seat base. Azure is accelerating cloud revenue share gains (21% → 25% in three years) while sustaining industry-leading 43% operating margins, superior to AWS and dramatically ahead of GCP. At a current multiple implying roughly 18% upside to our $510 price target, MSFT offers the most attractive risk/reward in the sector given its unmatched cross-sell engine and compounding AI optionality.
+        </p>
+      </div>
+      <div class="outlook-panel">
+        <div class="outlook-label">Sector Outlook</div>
+        <div class="outlook-badge">&#10003;&nbsp; Attractive</div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 1: TOP COMPETITORS OVERVIEW
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <div class="section-title">Top Competitors Overview</div>
+      </div>
+      <div class="section-body">
+        <p class="section-intro">Six-company landscape covering the dominant hyperscalers and notable challengers. Market cap and cloud revenue as of FY2025.</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th>Company / Segment</th>
+              <th>Mkt Cap</th>
+              <th>Cloud Rev FY25</th>
+              <th>YoY Growth</th>
+              <th>Cloud Op. Margin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ticker-cell">AMZN</td>
+              <td class="company-cell">Amazon Web Services</td>
+              <td>$2.20T</td>
+              <td>$108B</td>
+              <td class="positive-val">+17%</td>
+              <td>38%</td>
+            </tr>
+            <tr class="highlight-row">
+              <td class="ticker-cell">MSFT ★</td>
+              <td class="company-cell">Microsoft Azure &amp; Cloud</td>
+              <td>$3.00T</td>
+              <td>$96B</td>
+              <td class="positive-val">+28%</td>
+              <td class="highlight-val">43%</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">GOOG</td>
+              <td class="company-cell">Google Cloud Platform</td>
+              <td>$1.95T</td>
+              <td>$48B</td>
+              <td class="positive-val">+31%</td>
+              <td>12%</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">ORCL</td>
+              <td class="company-cell">Oracle Cloud Infrastructure</td>
+              <td>$420B</td>
+              <td>$24B</td>
+              <td class="positive-val">+24%</td>
+              <td>29%</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">IBM</td>
+              <td class="company-cell">IBM Hybrid Cloud</td>
+              <td>$185B</td>
+              <td>$22B</td>
+              <td>+5%</td>
+              <td>18%</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">SNOW</td>
+              <td class="company-cell">Snowflake Data Cloud</td>
+              <td>$45B</td>
+              <td>$3.9B</td>
+              <td class="positive-val">+28%</td>
+              <td class="negative-val">-8%</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note">★ Top Pick. Cloud revenue includes IaaS, PaaS, and related managed services. Margins are segment-level operating margins where disclosed.</p>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 2: FINANCIAL COMPARISON
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <div class="section-title">Financial Comparison</div>
+      </div>
+      <div class="section-body">
+        <p class="section-intro">Revenue CAGR and profitability metrics underscore Microsoft's superior combination of accelerating growth and best-in-class margins. MSFT leads on all margin dimensions.</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th>Rev CAGR (3yr)</th>
+              <th>Gross Margin</th>
+              <th>FCF Margin</th>
+              <th>P/E (NTM)</th>
+              <th>P/S (NTM)</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td class="ticker-cell">MSFT ★</td>
+              <td class="positive-val">+19%</td>
+              <td class="highlight-val">70%</td>
+              <td class="highlight-val">38%</td>
+              <td>31x</td>
+              <td>11x</td>
+              <td><span class="grade-badge grade-a-plus">A+</span></td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">AMZN</td>
+              <td>+13%</td>
+              <td>49%</td>
+              <td>14%</td>
+              <td>38x</td>
+              <td>3.2x</td>
+              <td><span class="grade-badge grade-b-plus">B+</span></td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">GOOG</td>
+              <td>+14%</td>
+              <td>58%</td>
+              <td>21%</td>
+              <td>23x</td>
+              <td>6.1x</td>
+              <td><span class="grade-badge grade-b-plus">B+</span></td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">ORCL</td>
+              <td>+14%</td>
+              <td>71%</td>
+              <td>24%</td>
+              <td>29x</td>
+              <td>8.5x</td>
+              <td><span class="grade-badge grade-b">B</span></td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">IBM</td>
+              <td>+3%</td>
+              <td>55%</td>
+              <td>13%</td>
+              <td>19x</td>
+              <td>2.4x</td>
+              <td><span class="grade-badge grade-c">C</span></td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">SNOW</td>
+              <td>+35%</td>
+              <td>68%</td>
+              <td class="negative-val">-3%</td>
+              <td>NM</td>
+              <td>11x</td>
+              <td><span class="grade-badge grade-c">C</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note">NTM = Next Twelve Months consensus estimates. FCF Margin = levered free cash flow / total revenue. SNOW P/E not meaningful (pre-profitability).</p>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 3: COMPETITIVE MOATS
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <div class="section-title">Competitive Moats Analysis</div>
+      </div>
+      <div class="section-body">
+        <p class="section-intro">Proprietary Bain moat framework scores each competitor 1–5 across four dimensions. MSFT wins on switching costs; AWS wins on infrastructure breadth; GCP wins on AI/ML tooling differentiation.</p>
+        <table class="data-table" style="margin-bottom:18px;">
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th style="text-align:center">Brand Power</th>
+              <th style="text-align:center">Cost Advantage</th>
+              <th style="text-align:center">Network Effect</th>
+              <th style="text-align:center">Switching Costs</th>
+              <th style="text-align:center">Total Score</th>
+              <th>Key Edge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td class="ticker-cell">MSFT ★</td>
+              <td style="text-align:center"><span class="moat-score score-5">5</span></td>
+              <td style="text-align:center"><span class="moat-score score-4">4</span></td>
+              <td style="text-align:center"><span class="moat-score score-5">5</span></td>
+              <td style="text-align:center"><span class="moat-score score-5">5</span></td>
+              <td style="text-align:center"><span class="moat-total">19/20</span></td>
+              <td style="font-size:12px; color:var(--bain-gray-600)">Office 365 + Azure AD lock-in<span class="winner-tag">Switching</span></td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">AMZN</td>
+              <td style="text-align:center"><span class="moat-score score-5">5</span></td>
+              <td style="text-align:center"><span class="moat-score score-5">5</span></td>
+              <td style="text-align:center"><span class="moat-score score-4">4</span></td>
+              <td style="text-align:center"><span class="moat-score score-4">4</span></td>
+              <td style="text-align:center"><span class="moat-total">18/20</span></td>
+              <td style="font-size:12px; color:var(--bain-gray-600)">Broadest IaaS service catalog<span class="winner-tag">Infra Breadth</span></td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">GOOG</td>
+              <td style="text-align:center"><span class="moat-score score-4">4</span></td>
+              <td style="text-align:center"><span class="moat-score score-4">4</span></td>
+              <td style="text-align:center"><span class="moat-score score-4">4</span></td>
+              <td style="text-align:center"><span class="moat-score score-3">3</span></td>
+              <td style="text-align:center"><span class="moat-total">15/20</span></td>
+              <td style="font-size:12px; color:var(--bain-gray-600)">TPU advantage + Vertex AI<span class="winner-tag">AI / ML</span></td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">ORCL</td>
+              <td style="text-align:center"><span class="moat-score score-4">4</span></td>
+              <td style="text-align:center"><span class="moat-score score-3">3</span></td>
+              <td style="text-align:center"><span class="moat-score score-2">2</span></td>
+              <td style="text-align:center"><span class="moat-score score-5">5</span></td>
+              <td style="text-align:center"><span class="moat-total">14/20</span></td>
+              <td style="font-size:12px; color:var(--bain-gray-600)">Legacy DB/ERP lock-in</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">IBM</td>
+              <td style="text-align:center"><span class="moat-score score-3">3</span></td>
+              <td style="text-align:center"><span class="moat-score score-2">2</span></td>
+              <td style="text-align:center"><span class="moat-score score-2">2</span></td>
+              <td style="text-align:center"><span class="moat-score score-4">4</span></td>
+              <td style="text-align:center"><span class="moat-total">11/20</span></td>
+              <td style="font-size:12px; color:var(--bain-gray-600)">Mainframe + regulated verticals</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">SNOW</td>
+              <td style="text-align:center"><span class="moat-score score-3">3</span></td>
+              <td style="text-align:center"><span class="moat-score score-2">2</span></td>
+              <td style="text-align:center"><span class="moat-score score-3">3</span></td>
+              <td style="text-align:center"><span class="moat-score score-2">2</span></td>
+              <td style="text-align:center"><span class="moat-total">10/20</span></td>
+              <td style="font-size:12px; color:var(--bain-gray-600)">Data sharing network, data gravity</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note">Scores represent Bain analyst consensus (1 = Weak, 5 = World-Class). Switching Costs for MSFT reflect Azure Active Directory identity dependency and M365 ecosystem integration depth.</p>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 4: MOAT RADAR CHART
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <div class="section-title">Moat Radar — MSFT vs. AWS vs. GCP</div>
+      </div>
+      <div class="section-body">
+        <div class="radar-wrapper">
+          <div class="radar-chart-container">
+            <!-- SVG Radar Chart: 4 axes, 3 companies -->
+            <svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <style>
+                  .axis-label { font-family: Inter, sans-serif; font-size: 11px; font-weight: 700; fill: #374151; }
+                  .axis-sub   { font-family: Inter, sans-serif; font-size: 9px;  fill: #6B7280; }
+                </style>
+              </defs>
+
+              <!-- Center point -->
+              <!-- cx=160, cy=160, radius for each score level: r=26 per unit (max=5 → r=130) -->
+              <!-- 4 axes at 45° intervals: Top=Brand(270°), Right=Cost(0°), Bottom=Network(90°), Left=Switch(180°) -->
+              <!-- Axis angles: Brand=270°(-90°), Cost=0°, Network=90°, Switch=180° -->
+              <!-- Top: (160, 30)  Right: (290, 160)  Bottom: (160, 290)  Left: (30, 160) -->
+
+              <!-- Grid rings -->
+              <polygon points="160,134 186,160 160,186 134,160" fill="none" stroke="#E5E7EB" stroke-width="1"/>
+              <polygon points="160,108 212,160 160,212 108,160" fill="none" stroke="#E5E7EB" stroke-width="1"/>
+              <polygon points="160,82 238,160 160,238 82,160" fill="none" stroke="#E5E7EB" stroke-width="1"/>
+              <polygon points="160,56 264,160 160,264 56,160" fill="none" stroke="#E5E7EB" stroke-width="1"/>
+              <polygon points="160,30 290,160 160,290 30,160" fill="none" stroke="#D1D5DB" stroke-width="1.5"/>
+
+              <!-- Axis lines -->
+              <line x1="160" y1="160" x2="160" y2="30"  stroke="#D1D5DB" stroke-width="1.5"/>
+              <line x1="160" y1="160" x2="290" y2="160" stroke="#D1D5DB" stroke-width="1.5"/>
+              <line x1="160" y1="160" x2="160" y2="290" stroke="#D1D5DB" stroke-width="1.5"/>
+              <line x1="160" y1="160" x2="30"  y2="160" stroke="#D1D5DB" stroke-width="1.5"/>
+
+              <!-- Score ring labels -->
+              <text x="165" y="134" class="axis-sub">1</text>
+              <text x="165" y="108" class="axis-sub">2</text>
+              <text x="165" y="82"  class="axis-sub">3</text>
+              <text x="165" y="56"  class="axis-sub">4</text>
+              <text x="165" y="33"  class="axis-sub">5</text>
+
+              <!--
+                MSFT: Brand=5, Cost=4, Network=5, Switch=5
+                  Top(Brand 5):   (160, 30)
+                  Right(Cost 4):  (264, 160)
+                  Bottom(Net 5):  (160, 290)
+                  Left(Switch 5): (30, 160)
+              -->
+              <polygon
+                points="160,30 264,160 160,290 30,160"
+                fill="rgba(204,0,0,0.15)"
+                stroke="#CC0000"
+                stroke-width="2.5"
+                stroke-linejoin="round"
+              />
+
+              <!--
+                AWS: Brand=5, Cost=5, Network=4, Switch=4
+                  Top(Brand 5):   (160, 30)
+                  Right(Cost 5):  (290, 160)
+                  Bottom(Net 4):  (160, 264)
+                  Left(Switch 4): (56, 160)
+              -->
+              <polygon
+                points="160,30 290,160 160,264 56,160"
+                fill="rgba(29,78,216,0.10)"
+                stroke="#1D4ED8"
+                stroke-width="2"
+                stroke-linejoin="round"
+                stroke-dasharray="6,3"
+              />
+
+              <!--
+                GCP: Brand=4, Cost=4, Network=4, Switch=3
+                  Top(Brand 4):   (160, 56)
+                  Right(Cost 4):  (264, 160)
+                  Bottom(Net 4):  (160, 264)
+                  Left(Switch 3): (82, 160)
+              -->
+              <polygon
+                points="160,56 264,160 160,264 82,160"
+                fill="rgba(4,120,87,0.10)"
+                stroke="#047857"
+                stroke-width="2"
+                stroke-linejoin="round"
+                stroke-dasharray="4,4"
+              />
+
+              <!-- Axis labels -->
+              <text x="160" y="16" text-anchor="middle" class="axis-label">Brand Power</text>
+              <text x="308" y="155" text-anchor="start" class="axis-label">Cost</text>
+              <text x="308" y="167" text-anchor="start" class="axis-sub">Advantage</text>
+              <text x="160" y="308" text-anchor="middle" class="axis-label">Network</text>
+              <text x="160" y="319" text-anchor="middle" class="axis-sub">Effect</text>
+              <text x="12"  y="155" text-anchor="start" class="axis-label">Switching</text>
+              <text x="12"  y="167" text-anchor="start" class="axis-sub">Costs</text>
+
+              <!-- Dot markers — MSFT -->
+              <circle cx="160" cy="30"  r="4" fill="#CC0000"/>
+              <circle cx="264" cy="160" r="4" fill="#CC0000"/>
+              <circle cx="160" cy="290" r="4" fill="#CC0000"/>
+              <circle cx="30"  cy="160" r="4" fill="#CC0000"/>
+
+              <!-- Dot markers — AWS -->
+              <circle cx="160" cy="30"  r="3.5" fill="#1D4ED8" opacity="0.8"/>
+              <circle cx="290" cy="160" r="3.5" fill="#1D4ED8" opacity="0.8"/>
+              <circle cx="160" cy="264" r="3.5" fill="#1D4ED8" opacity="0.8"/>
+              <circle cx="56"  cy="160" r="3.5" fill="#1D4ED8" opacity="0.8"/>
+
+              <!-- Dot markers — GCP -->
+              <circle cx="160" cy="56"  r="3.5" fill="#047857" opacity="0.8"/>
+              <circle cx="264" cy="160" r="3.5" fill="#047857" opacity="0.8"/>
+              <circle cx="160" cy="264" r="3.5" fill="#047857" opacity="0.8"/>
+              <circle cx="82"  cy="160" r="3.5" fill="#047857" opacity="0.8"/>
+            </svg>
+          </div>
+
+          <div class="radar-legend">
+            <h4>Moat Coverage</h4>
+            <div class="radar-legend-item">
+              <div class="radar-legend-swatch" style="background:#CC0000; height:3px;"></div>
+              <span class="radar-legend-text">MSFT — Azure (19/20)</span>
+            </div>
+            <div class="radar-legend-item">
+              <div class="radar-legend-swatch" style="background:#1D4ED8; height:2px; border-top: 2px dashed #1D4ED8; background:none;"></div>
+              <span class="radar-legend-text">AMZN — AWS (18/20)</span>
+            </div>
+            <div class="radar-legend-item">
+              <div class="radar-legend-swatch" style="border-top: 2px dashed #047857; background:none;"></div>
+              <span class="radar-legend-text">GOOG — GCP (15/20)</span>
+            </div>
+
+            <div class="radar-score-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Dimension</th>
+                    <th>MSFT</th>
+                    <th>AWS</th>
+                    <th>GCP</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Brand Power</td>
+                    <td><span class="moat-score score-5" style="font-size:11px; width:24px; height:20px;">5</span></td>
+                    <td><span class="moat-score score-5" style="font-size:11px; width:24px; height:20px;">5</span></td>
+                    <td><span class="moat-score score-4" style="font-size:11px; width:24px; height:20px;">4</span></td>
+                  </tr>
+                  <tr>
+                    <td>Cost Advantage</td>
+                    <td><span class="moat-score score-4" style="font-size:11px; width:24px; height:20px;">4</span></td>
+                    <td><span class="moat-score score-5" style="font-size:11px; width:24px; height:20px;">5</span></td>
+                    <td><span class="moat-score score-4" style="font-size:11px; width:24px; height:20px;">4</span></td>
+                  </tr>
+                  <tr>
+                    <td>Network Effect</td>
+                    <td><span class="moat-score score-5" style="font-size:11px; width:24px; height:20px;">5</span></td>
+                    <td><span class="moat-score score-4" style="font-size:11px; width:24px; height:20px;">4</span></td>
+                    <td><span class="moat-score score-4" style="font-size:11px; width:24px; height:20px;">4</span></td>
+                  </tr>
+                  <tr>
+                    <td>Switching Costs</td>
+                    <td><span class="moat-score score-5" style="font-size:11px; width:24px; height:20px;">5</span></td>
+                    <td><span class="moat-score score-4" style="font-size:11px; width:24px; height:20px;">4</span></td>
+                    <td><span class="moat-score score-3" style="font-size:11px; width:24px; height:20px;">3</span></td>
+                  </tr>
+                  <tr style="border-top:2px solid var(--bain-gray-200);">
+                    <td style="font-weight:700; color:var(--bain-gray-900);">Total</td>
+                    <td style="font-weight:800; color:var(--bain-red);">19/20</td>
+                    <td style="font-weight:800; color:var(--bain-blue);">18/20</td>
+                    <td style="font-weight:800; color:#047857;">15/20</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 5: MARKET SHARE TRENDS
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <div class="section-title">Cloud Market Share Trends (2022–2025)</div>
+      </div>
+      <div class="section-body">
+        <p class="section-intro">Azure has gained 4 percentage points of market share over three years; AWS has ceded 3 points. GCP has grown 2 points but pace has plateaued in 2025.</p>
+
+        <table class="trend-table" style="margin-bottom:24px;">
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>2022</th>
+              <th>2023</th>
+              <th>2024</th>
+              <th>2025</th>
+              <th>Delta 3yr</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AWS (AMZN)</td>
+              <td>33%</td>
+              <td>32%</td>
+              <td>31%</td>
+              <td>30%</td>
+              <td class="share-arrow-down">▼ -3pp</td>
+            </tr>
+            <tr>
+              <td style="color:var(--bain-red); font-weight:800;">Azure (MSFT) ★</td>
+              <td>21%</td>
+              <td>22%</td>
+              <td>24%</td>
+              <td>25%</td>
+              <td class="share-arrow-up">▲ +4pp</td>
+            </tr>
+            <tr>
+              <td>GCP (GOOG)</td>
+              <td>10%</td>
+              <td>11%</td>
+              <td>12%</td>
+              <td>12%</td>
+              <td class="share-arrow-up">▲ +2pp</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="market-share-chart">
+          <div class="chart-company-block">
+            <div class="chart-company-name" style="color:#1D4ED8;">AWS — Amazon Web Services</div>
+            <div class="chart-row">
+              <div class="chart-year-label">2022</div>
+              <div class="chart-bar-track">
+                <div class="chart-bar-fill bar-aws-2022"><span>33%</span></div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-year-label">2025</div>
+              <div class="chart-bar-track">
+                <div class="chart-bar-fill bar-aws-2025"><span>30%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-company-block">
+            <div class="chart-company-name" style="color:var(--bain-red);">Azure — Microsoft ★</div>
+            <div class="chart-row">
+              <div class="chart-year-label">2022</div>
+              <div class="chart-bar-track">
+                <div class="chart-bar-fill bar-azure-2022"><span>21%</span></div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-year-label">2025</div>
+              <div class="chart-bar-track">
+                <div class="chart-bar-fill bar-azure-2025"><span>25%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-company-block">
+            <div class="chart-company-name" style="color:#047857;">GCP — Google Cloud</div>
+            <div class="chart-row">
+              <div class="chart-year-label">2022</div>
+              <div class="chart-bar-track">
+                <div class="chart-bar-fill bar-gcp-2022"><span>10%</span></div>
+              </div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-year-label">2025</div>
+              <div class="chart-bar-track">
+                <div class="chart-bar-fill bar-gcp-2025"><span>12%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#1D4ED8;"></div>
+            <span>AWS (declining, ceded 3pp)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--bain-red);"></div>
+            <span>Azure (gaining, +4pp)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#047857;"></div>
+            <span>GCP (modest growth, +2pp)</span>
+          </div>
+        </div>
+        <p class="table-note">Source: Synergy Research Group, IDC, company disclosures. Bars scaled to maximum 2022 value (AWS 33% = 66% bar width). Remaining share held by Alibaba Cloud, Huawei Cloud, and others.</p>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 6: MANAGEMENT QUALITY
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <div class="section-title">Management Quality &amp; Capital Allocation</div>
+      </div>
+      <div class="section-body">
+        <p class="section-intro">Management quality is a key differentiator in capital-intensive technology businesses. Satya Nadella's decade-long transformation of MSFT stands as a benchmark for large-cap technology leadership.</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>CEO</th>
+              <th>Tenure</th>
+              <th>CEO Score</th>
+              <th>Cap. Alloc. Grade</th>
+              <th>Buyback Track Record</th>
+              <th>Dividend</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td class="ticker-cell">MSFT ★</td>
+              <td style="font-weight:600;">Satya Nadella</td>
+              <td>12 yrs</td>
+              <td><span class="grade-badge grade-a-plus">A+</span></td>
+              <td><span class="grade-badge grade-a-plus">A+</span></td>
+              <td style="font-size:12px;">$225B returned since FY2014</td>
+              <td class="positive-val">Yes (1.0%)</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">AMZN</td>
+              <td style="font-weight:600;">Andy Jassy</td>
+              <td>4 yrs</td>
+              <td><span class="grade-badge grade-b-plus">B+</span></td>
+              <td><span class="grade-badge grade-b-plus">B+</span></td>
+              <td style="font-size:12px;">$6B buyback (nascent)</td>
+              <td style="color:var(--bain-gray-500);">None</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">GOOG</td>
+              <td style="font-weight:600;">Sundar Pichai</td>
+              <td>10 yrs</td>
+              <td><span class="grade-badge grade-b">B</span></td>
+              <td><span class="grade-badge grade-b-plus">B+</span></td>
+              <td style="font-size:12px;">$70B annual buyback</td>
+              <td class="positive-val">Yes (0.5%)</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">ORCL</td>
+              <td style="font-weight:600;">Safra Catz</td>
+              <td>10 yrs</td>
+              <td><span class="grade-badge grade-b">B</span></td>
+              <td><span class="grade-badge grade-b">B</span></td>
+              <td style="font-size:12px;">Aggressive debt-funded buybacks</td>
+              <td class="positive-val">Yes (1.1%)</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">IBM</td>
+              <td style="font-weight:600;">Arvind Krishna</td>
+              <td>5 yrs</td>
+              <td><span class="grade-badge grade-b">B</span></td>
+              <td><span class="grade-badge grade-c">C</span></td>
+              <td style="font-size:12px;">Paused; prioritizing M&amp;A</td>
+              <td class="positive-val">Yes (3.3%)</td>
+            </tr>
+            <tr>
+              <td class="ticker-cell">SNOW</td>
+              <td style="font-weight:600;">Sridhar Ramaswamy</td>
+              <td>1 yr</td>
+              <td><span class="grade-badge grade-c">C</span></td>
+              <td><span class="grade-badge grade-c">C</span></td>
+              <td style="font-size:12px;">None (pre-FCF profitability)</td>
+              <td style="color:var(--bain-gray-500);">None</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note">CEO Score reflects Bain qualitative assessment of strategic vision, execution track record, and alignment with long-term shareholder interests.</p>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 7: INNOVATION PIPELINE & AI
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">7</div>
+        <div class="section-title">Innovation Pipeline &amp; AI Investment</div>
+      </div>
+      <div class="section-body">
+        <p class="section-intro">GenAI capital expenditure is the defining investment cycle of the current era. Microsoft leads in committed spend and has the clearest monetization path via Copilot. AWS Bedrock and GCP Vertex remain strong but lack MSFT's seat-based commercial distribution leverage.</p>
+
+        <div style="margin-bottom:24px;">
+          <div style="font-size:12px; font-weight:700; color:var(--bain-gray-500); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;">GenAI / Infrastructure Capex Commitment FY2025 ($B)</div>
+          <div class="capex-bars">
+            <div class="capex-row">
+              <div class="capex-label">MSFT</div>
+              <div class="capex-bar-track">
+                <div class="capex-bar-fill capex-msft"><span>$80B</span></div>
+              </div>
+            </div>
+            <div class="capex-row">
+              <div class="capex-label">AMZN</div>
+              <div class="capex-bar-track">
+                <div class="capex-bar-fill capex-amzn"><span>$75B</span></div>
+              </div>
+            </div>
+            <div class="capex-row">
+              <div class="capex-label">GOOG</div>
+              <div class="capex-bar-track">
+                <div class="capex-bar-fill capex-goog"><span>$50B</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>MSFT — Azure OpenAI / Copilot</th>
+              <th>AMZN — Bedrock / Q</th>
+              <th>GOOG — Vertex AI / Gemini</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600; color:var(--bain-gray-700);">AI Foundation Model</td>
+              <td>OpenAI partnership (GPT-4o, o3); exclusive API</td>
+              <td>Multi-model (Anthropic, Meta, Mistral, Titan)</td>
+              <td>Gemini 2.0 Ultra; in-house TPU advantage</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600; color:var(--bain-gray-700);">Monetization Vehicle</td>
+              <td class="highlight-val">Copilot $30/seat/mo — 345M seats TAM</td>
+              <td>Amazon Q $25/user; Bedrock token-based</td>
+              <td>Gemini for Workspace $30/seat; Vertex API</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600; color:var(--bain-gray-700);">Revenue Timing</td>
+              <td>Accelerating — >20M Copilot seats active</td>
+              <td>Early — Q adoption limited to enterprise</td>
+              <td>Early — <10M Gemini Workspace active</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600; color:var(--bain-gray-700);">Differentiated Edge</td>
+              <td>M365 workflow integration depth</td>
+              <td>Data/compute breadth; Alexa integration</td>
+              <td>TPU cost advantage; search data flywheel</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600; color:var(--bain-gray-700);">Copilot Est. ARR 2026</td>
+              <td class="positive-val">~$10B+ (Bain estimate)</td>
+              <td>~$2B (Bain estimate)</td>
+              <td>~$3B (Bain estimate)</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note">Copilot seat count from Microsoft FY2025 Q2 earnings commentary. Bedrock/Vertex revenue estimated from AWS/GCP segment filings and analyst surveys.</p>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 8: SECTOR THREATS
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">8</div>
+        <div class="section-title">Sector Threats &amp; Risk Framework</div>
+      </div>
+      <div class="section-body">
+        <p class="section-intro">Five material threats warrant monitoring. Regulatory pressure is the most near-term risk; AI commoditization represents the most structural long-term concern.</p>
+        <div class="threat-grid">
+
+          <div class="threat-card">
+            <div class="threat-card-header">
+              <div class="threat-icon threat-high">⚖️</div>
+              <div class="threat-card-title">EU Digital Markets Act</div>
+            </div>
+            <span class="threat-severity severity-high">High</span>
+            <p class="threat-desc">DMA interoperability mandates and gatekeeper designations could force cloud provider unbundling (e.g., Azure AD separation from M365), directly targeting MSFT's primary moat. Potential €10B+ fine risk.</p>
+          </div>
+
+          <div class="threat-card">
+            <div class="threat-card-header">
+              <div class="threat-icon threat-high">🤖</div>
+              <div class="threat-card-title">AI Commoditization Risk</div>
+            </div>
+            <span class="threat-severity severity-high">High</span>
+            <p class="threat-desc">Open-source foundation models (Llama 4, Mistral) closing quality gap with proprietary models threatens the premium pricing power of Azure OpenAI and Bedrock. Margin compression likely as model costs fall.</p>
+          </div>
+
+          <div class="threat-card">
+            <div class="threat-card-header">
+              <div class="threat-icon threat-med">💻</div>
+              <div class="threat-card-title">GPU Cost &amp; Supply Constraints</div>
+            </div>
+            <span class="threat-severity severity-med">Medium</span>
+            <p class="threat-desc">Dependency on NVIDIA H100/H200 supply chains and elevated GPU capex ($80B+/yr) creates margin risk if AI workload monetization lags infrastructure investment timelines by more than 12–18 months.</p>
+          </div>
+
+          <div class="threat-card">
+            <div class="threat-card-header">
+              <div class="threat-icon threat-med">🏛️</div>
+              <div class="threat-card-title">Sovereign Cloud Requirements</div>
+            </div>
+            <span class="threat-severity severity-med">Medium</span>
+            <p class="threat-desc">Fragmentation of the global cloud market via data residency mandates (Germany, India, Brazil) increases build costs and limits economies of scale. Smaller players gain protected niches in regulated markets.</p>
+          </div>
+
+          <div class="threat-card">
+            <div class="threat-card-header">
+              <div class="threat-icon threat-low">🌏</div>
+              <div class="threat-card-title">Chinese Competition — Alibaba Cloud</div>
+            </div>
+            <span class="threat-severity severity-low">Low (Ex-China)</span>
+            <p class="threat-desc">Alibaba Cloud, Huawei Cloud, and Tencent Cloud dominate APAC domestic markets and are expanding to SE Asia and MENA. Limited competitive overlap with US hyperscalers outside of price-sensitive emerging markets.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 9: SWOT — MSFT vs AMZN
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">9</div>
+        <div class="section-title">SWOT Analysis — MSFT vs. AMZN</div>
+      </div>
+      <div class="section-body">
+        <p class="section-intro">Side-by-side SWOT for the top two competitors. MSFT's strengths are concentrated in enterprise distribution and AI monetization; AWS leads on service breadth and operational maturity.</p>
+        <div class="swot-grid">
+
+          <!-- MSFT SWOT -->
+          <div class="swot-company-block">
+            <h4>MSFT — Microsoft Azure ★</h4>
+            <div class="swot-quadrant-grid">
+              <div class="swot-quadrant swot-s">
+                <div class="swot-quadrant-label">Strengths</div>
+                <ul class="swot-list">
+                  <li>Unmatched enterprise distribution via M365 (345M seats)</li>
+                  <li>Azure AD identity layer creates deep switching costs across all cloud workloads</li>
+                  <li>OpenAI partnership delivers exclusive enterprise AI models with first-mover Copilot monetization</li>
+                </ul>
+              </div>
+              <div class="swot-quadrant swot-w">
+                <div class="swot-quadrant-label">Weaknesses</div>
+                <ul class="swot-list">
+                  <li>Azure still trails AWS by ~$12B in cloud revenue; narrower bare-metal IaaS catalog</li>
+                  <li>Consumer and SMB segments undermonetized relative to enterprise focus</li>
+                  <li>Activision acquisition integration cost and distraction from cloud core</li>
+                </ul>
+              </div>
+              <div class="swot-quadrant swot-o">
+                <div class="swot-quadrant-label">Opportunities</div>
+                <ul class="swot-list">
+                  <li>Copilot upsell to 345M existing seats at $30/mo = $125B annual ARR potential</li>
+                  <li>Office 365 E3→E5 upgrade cycle driven by security and AI features</li>
+                  <li>AI-driven cloud workload migration from on-premise legacy environments</li>
+                </ul>
+              </div>
+              <div class="swot-quadrant swot-t">
+                <div class="swot-quadrant-label">Threats</div>
+                <ul class="swot-list">
+                  <li>EU DMA gatekeeper designation targeting M365/Azure AD bundling</li>
+                  <li>OpenAI partnership may weaken as open-source models commoditize AI</li>
+                  <li>Google's Workspace + Gemini integration competes directly for M365 seat share</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- AMZN SWOT -->
+          <div class="swot-company-block">
+            <h4>AMZN — Amazon Web Services</h4>
+            <div class="swot-quadrant-grid">
+              <div class="swot-quadrant swot-s">
+                <div class="swot-quadrant-label">Strengths</div>
+                <ul class="swot-list">
+                  <li>Broadest IaaS service catalog (200+ services) with 17 years of production-grade maturity</li>
+                  <li>38% operating margin with significant further expansion runway as mix shifts to higher-margin services</li>
+                  <li>Graviton4 and Trainium2 custom silicon provides cost leadership vs. NVIDIA-dependent peers</li>
+                </ul>
+              </div>
+              <div class="swot-quadrant swot-w">
+                <div class="swot-quadrant-label">Weaknesses</div>
+                <ul class="swot-list">
+                  <li>No enterprise productivity suite (no equivalent to M365) limits cross-sell depth</li>
+                  <li>Losing cloud market share consistently since 2021; brand still associated with e-commerce first</li>
+                  <li>Amazon Q enterprise AI adoption lags Copilot; no dominant seat-based monetization vehicle</li>
+                </ul>
+              </div>
+              <div class="swot-quadrant swot-o">
+                <div class="swot-quadrant-label">Opportunities</div>
+                <ul class="swot-list">
+                  <li>$108B cloud base with pricing power as customers consolidate multi-cloud spend</li>
+                  <li>Bedrock multi-model strategy positions AWS as neutral AI infrastructure layer</li>
+                  <li>Retail/logistics data flywheel creates unique AI training advantages for supply chain AI</li>
+                </ul>
+              </div>
+              <div class="swot-quadrant swot-t">
+                <div class="swot-quadrant-label">Threats</div>
+                <ul class="swot-list">
+                  <li>Azure share gains accelerating; risk of falling to #2 by revenue within 3 years</li>
+                  <li>FTC antitrust scrutiny of AWS marketplace bundling practices</li>
+                  <li>Capex intensity ($75B/yr) straining free cash flow even as retail margins improve</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 10: WINNER SELECTION
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">10</div>
+        <div class="section-title">Winner Selection &amp; Investment Thesis</div>
+      </div>
+      <div class="section-body">
+        <div class="winner-panel">
+          <div class="winner-ticker-block">
+            <div class="winner-ticker">MSFT</div>
+            <div class="winner-ticker-sub">Microsoft Azure</div>
+            <div style="margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.15);">
+              <div style="font-size:10px; font-weight:700; color:rgba(255,255,255,0.4); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px;">Rating</div>
+              <div style="font-size:13px; font-weight:800; color:#4ADE80; background:rgba(74,222,128,0.12); border:1px solid rgba(74,222,128,0.3); border-radius:4px; padding:6px 12px; text-align:center;">STRONG BUY</div>
+            </div>
+          </div>
+
+          <div class="winner-rationale">
+            <h4>Investment Thesis</h4>
+            <p>Microsoft Azure is the single best investment in the cloud computing sector, representing the optimal combination of durable competitive advantages, AI monetization optionality, and valuation discipline. No other hyperscaler matches Azure's ability to monetize AI at scale through an existing, deeply embedded enterprise customer base.</p>
+            <ul>
+              <li>Copilot at $30/seat/month across a 345M seat addressable base represents up to $125B of incremental ARR — the largest near-term AI monetization opportunity in enterprise technology</li>
+              <li>Azure Active Directory identity layer creates the deepest switching costs in the sector; enterprises cannot migrate workloads without re-architecting identity, security, and compliance infrastructure</li>
+              <li>43% cloud operating margin — highest in the peer group — demonstrates that MSFT can invest aggressively in AI infrastructure ($80B capex) without destroying returns, unlike GCP at 12% margin</li>
+              <li>Reasonable valuation: 31x NTM P/E vs. AMZN at 38x, with faster cloud revenue growth (+28% vs +17%)</li>
+              <li>Office 365 E5 upsell cycle, Teams Premium, and Security platform add multiple durable compounding vectors beyond core cloud IaaS</li>
+            </ul>
+          </div>
+
+          <div class="winner-price-block">
+            <div class="price-target-label">12-Mo Price Target</div>
+            <div class="price-target-value">$510</div>
+            <div class="price-upside">▲ +18% Upside</div>
+            <div class="price-horizon">vs. ~$432 current</div>
+            <div style="margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.15);">
+              <div style="font-size:10px; font-weight:700; color:rgba(255,255,255,0.4); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px;">Key Metrics</div>
+              <div style="font-size:12px; color:rgba(255,255,255,0.7); margin-bottom:4px;">Cloud Rev Growth: <strong style="color:#FFFFFF;">+28%</strong></div>
+              <div style="font-size:12px; color:rgba(255,255,255,0.7); margin-bottom:4px;">Op. Margin: <strong style="color:#FFFFFF;">43%</strong></div>
+              <div style="font-size:12px; color:rgba(255,255,255,0.7); margin-bottom:4px;">FCF Margin: <strong style="color:#FFFFFF;">38%</strong></div>
+              <div style="font-size:12px; color:rgba(255,255,255,0.7);">Moat Score: <strong style="color:#FFFFFF;">19/20</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         SECTION 11: CATALYSTS (MSFT)
+    ───────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-number">11</div>
+        <div class="section-title">Catalysts for MSFT — Next 12 Months</div>
+      </div>
+      <div class="section-body">
+        <p class="section-intro">Five distinct catalyst pathways support the $510 price target realization within 12 months. Copilot seat acceleration is the highest-conviction near-term driver.</p>
+        <ul class="catalysts-list">
+
+          <li class="catalyst-item">
+            <div class="catalyst-num">1</div>
+            <div class="catalyst-content">
+              <h5>Copilot Seat Penetration Acceleration</h5>
+              <p>With 20M+ active Copilot seats as of early 2026 against a 345M seat base, penetration sits below 6%. Each 5pp increase in penetration adds approximately $6B in ARR. Upcoming Copilot Studio self-serve expansion and IT admin tooling improvements are unlocking SMB and mid-market segments previously excluded from AI licensing tiers.</p>
+              <span class="catalyst-horizon">Q1–Q3 2026</span>
+            </div>
+          </li>
+
+          <li class="catalyst-item">
+            <div class="catalyst-num">2</div>
+            <div class="catalyst-content">
+              <h5>Azure AI Workload Mix Shift</h5>
+              <p>AI-specific workloads (training, inference, RAG pipelines) are migrating from internal on-premise GPU clusters to Azure AI Foundry as enterprise MLOps complexity increases. This mix shift carries 5–8pp higher margin than general IaaS, and Azure's share in the AI inference market is growing disproportionately due to the Azure OpenAI exclusive agreement.</p>
+              <span class="catalyst-horizon">Ongoing — accelerating H2 2026</span>
+            </div>
+          </li>
+
+          <li class="catalyst-item">
+            <div class="catalyst-num">3</div>
+            <div class="catalyst-content">
+              <h5>Office 365 E5 Upsell Cycle</h5>
+              <p>E5 at $57/user/month (vs. E3 at $36) bundles advanced security, compliance, and AI features. Approximately 40% of M365 commercial seats remain on E3 or below. MSFT's security business ($20B+ ARR, fastest growing division) is the primary E5 upgrade driver, and Copilot features are now exclusively E5-tiered in new licensing agreements.</p>
+              <span class="catalyst-horizon">Q2–Q4 2026</span>
+            </div>
+          </li>
+
+          <li class="catalyst-item">
+            <div class="catalyst-num">4</div>
+            <div class="catalyst-content">
+              <h5>Activist / Governance Pressure on Google (Competitive Tailwind)</h5>
+              <p>TCI Fund Management and other Google shareholders are publicly pressuring Alphabet to reduce headcount and improve capital efficiency. Prolonged internal distraction at Google reduces GCP competitive execution intensity, creating a multi-quarter window for Azure to deepen wins in AI-forward enterprise accounts where GCP had been gaining traction.</p>
+              <span class="catalyst-horizon">H1 2026</span>
+            </div>
+          </li>
+
+          <li class="catalyst-item">
+            <div class="catalyst-num">5</div>
+            <div class="catalyst-content">
+              <h5>AWS Margin Compression Creating Workload Share Shift</h5>
+              <p>AWS is investing $75B in capex in a year its cloud revenue grew "only" 17% — implying a widening capex/revenue gap that puts margin pressure on AMZN. Enterprise customers renegotiating multi-year EDP (Enterprise Discount Program) commitments are increasingly splitting workloads between AWS and Azure, with Azure winning identity, AI, and productivity-adjacent workloads by default.</p>
+              <span class="catalyst-horizon">H2 2026 — FY2027</span>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="report-footer">
+    Bain &amp; Company
+    <span>|</span>
+    Confidential and Proprietary
+    <span>|</span>
+    For Client Use Only
+    <span>|</span>
+    March 2026
+    <span>|</span>
+    Cloud Computing / Hyperscaler Infrastructure
+  </footer>
+
+</body>
+</html>
