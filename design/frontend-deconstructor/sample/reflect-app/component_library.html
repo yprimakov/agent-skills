@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reflect.app — Component Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     DESIGN TOKENS — from theme_architecture.jsonc
+     ============================================================ */
+  :root {
+    /* Colors — Brand */
+    --color-brand-primary: #030014;
+    --color-brand-violet: #7132FF;
+    --color-brand-violet-soft: #5046e4;
+    --color-brand-lavender-light: #e59cff;
+    --color-brand-lavender-mid: #ba9cff;
+    --color-brand-lavender-blue: #9cb2ff;
+    --color-brand-starlight: #c9b1ff;
+
+    /* Colors — Background */
+    --color-bg-page: #030014;
+    --color-bg-header: rgba(3, 0, 20, 0.08);
+    --color-bg-nav-pill: rgba(255, 255, 255, 0.02);
+    --color-bg-card-hover: rgba(255, 255, 255, 0.06);
+    --color-bg-ai-card-hover: rgba(255, 255, 255, 0.05);
+    --color-bg-btn-primary: rgba(113, 47, 255, 0.12);
+    --color-bg-btn-primary-hover: rgba(113, 47, 255, 0.24);
+    --color-bg-btn-secondary: rgba(147, 130, 255, 0.01);
+
+    /* Colors — Text */
+    --color-text-primary: #ffffff;
+    --color-text-nav-default: #ffffffe6;
+    --color-text-nav-hover: #ffffff99;
+    --color-text-description: #efedfdb3;
+    --color-text-description-dim: #efedfd99;
+    --color-text-near-white: #ffffffcc;
+    --color-text-faded-70: #ffffff70;
+    --color-text-faded-52: #ffffff52;
+    --color-text-button: #f4f0ff;
+
+    /* Colors — Border */
+    --color-border-nav-pill: rgba(255, 255, 255, 0.08);
+    --color-border-ai-hover: rgba(255, 255, 255, 0.161);
+
+    /* Shadows */
+    --shadow-btn-primary: inset 0 0 12px #bf97ff3d;
+    --shadow-btn-primary-hover: inset 0 0 12px #bf97ff70;
+    --shadow-btn-secondary: inset 0 0 12px #ffffff14;
+    --shadow-badge-default: inset 0 -7px 11px #a48fff1f;
+    --shadow-badge-hover: inset 0 -7px 11px #a48fff3d;
+    --shadow-deep: 32px 36px 32px rgba(3, 0, 20, 0.50);
+    --shadow-glow-outer: 0 0 6px 4px #ed78ff0a;
+    --shadow-grid-overlay: inset 0 0 24px #ffffff0a;
+
+    /* Gradients */
+    --gradient-badge-text: linear-gradient(90.01deg, #e59cff 0.01%, #ba9cff 50.01%, #9cb2ff 100%);
+    --gradient-ai-rainbow: linear-gradient(to right, #FC72FF, #8F68FF, #487BFF, #2CD9FF, #2CFFCC);
+    --gradient-hero-radial: radial-gradient(37.74% 81.78% at 50% 26.56%, rgba(148,101,255,0.08) 0%, rgba(3,0,20,0) 100%);
+    --gradient-btn-primary-overlay: linear-gradient(180deg, rgba(60,8,126,0) 0%, rgba(60,8,126,0.32) 100%);
+    --gradient-btn-primary-hover-overlay: linear-gradient(180deg, rgba(60,8,126,0) 0%, rgba(60,8,126,0.42) 100%);
+    --gradient-btn-secondary-overlay: linear-gradient(180deg, rgba(243,238,255,0) 0%, rgba(243,238,255,0.04) 100%);
+
+    /* Backdrop Blur */
+    --blur-sm: blur(6px);
+    --blur-md: blur(8px);
+    --blur-lg: blur(12px);
+    --blur-xl: blur(16px);
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-default: 8px;
+    --radius-lg: 24px;
+    --radius-badge: 32px;
+    --radius-full: 999px;
+
+    /* Typography */
+    --font-display: 'Inter', system-ui, sans-serif; /* AeonikPro substitute */
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-feature-ui: "ss01" on, "cv10" on, "calt" off, "liga" off;
+
+    /* Motion */
+    --ease-primary: cubic-bezier(0.6, 0.6, 0, 1);
+    --duration-fastest: 0.2s;
+    --duration-fast: 0.3s;
+    --duration-default: 0.45s;
+    --duration-slow: 1s;
+    --duration-slower: 2s;
+  }
+
+  /* ============================================================
+     RESET & BASE
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--color-bg-page);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================================
+     COMPONENT LIBRARY SHELL
+     ============================================================ */
+  .cl-page {
+    min-height: 100vh;
+    padding: 80px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cl-header {
+    margin-bottom: 72px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 40px;
+  }
+
+  .cl-page-title {
+    font-size: 48px;
+    line-height: 56px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+  }
+
+  .cl-page-subtitle {
+    font-size: 16px;
+    color: var(--color-text-description);
+    line-height: 24px;
+  }
+
+  .cl-page-subtitle a {
+    color: var(--color-brand-lavender-mid);
+    text-decoration: none;
+  }
+
+  .cl-section {
+    margin-bottom: 80px;
+  }
+
+  .cl-section-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-faded-52);
+    margin-bottom: 32px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .cl-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .cl-label {
+    font-size: 12px;
+    color: var(--color-text-faded-52);
+    margin-top: 8px;
+    font-family: monospace;
+    line-height: 1.4;
+  }
+
+  .cl-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* ============================================================
+     ANIMATIONS
+     ============================================================ */
+  @keyframes hue-rotate {
+    from { filter: hue-rotate(0deg); }
+    to   { filter: hue-rotate(360deg); }
+  }
+
+  @keyframes risingStars {
+    from { transform: translateY(0); opacity: 1; }
+    to   { transform: translateY(-200px); opacity: 0; }
+  }
+
+  @keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(300%); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes radar-rotate {
+    from { transform: rotate(-201deg); }
+    to   { transform: rotate(159deg); }
+  }
+
+  @keyframes star-twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  /* ============================================================
+     COLOR SWATCHES
+     ============================================================ */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .swatch-color {
+    height: 64px;
+    border-radius: var(--radius-default);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .swatch-name {
+    font-size: 11px;
+    color: var(--color-text-faded-70);
+    line-height: 1.4;
+  }
+
+  .swatch-value {
+    font-size: 10px;
+    color: var(--color-text-faded-52);
+    font-family: monospace;
+    line-height: 1.4;
+  }
+
+  /* ============================================================
+     TYPOGRAPHY SPECIMENS
+     ============================================================ */
+  .type-h1 {
+    font-family: var(--font-display);
+    font-size: 72px;
+    line-height: 80px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .type-h2 {
+    font-family: var(--font-body);
+    font-size: 56px;
+    line-height: 64px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .type-h3 {
+    font-size: 48px;
+    line-height: 56px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .type-h5 {
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .type-hero-desc {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+    color: var(--color-text-description);
+  }
+
+  .type-body {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: var(--color-text-description);
+  }
+
+  .type-body-medium {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .type-ui {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: var(--color-text-nav-default);
+    font-feature-settings: var(--font-feature-ui);
+  }
+
+  .type-meta {
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 500;
+    color: var(--color-text-faded-70);
+    font-feature-settings: var(--font-feature-ui);
+  }
+
+  .type-gradient-badge {
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--gradient-badge-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .type-gradient-ai {
+    font-size: 18px;
+    font-weight: 500;
+    background: var(--gradient-ai-rainbow);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: hue-rotate 2s infinite linear;
+  }
+
+  /* ============================================================
+     BADGE COMPONENT
+     ============================================================ */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: var(--radius-badge);
+    backdrop-filter: var(--blur-sm);
+    -webkit-backdrop-filter: var(--blur-sm);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: default;
+    transition: box-shadow var(--duration-default) var(--ease-primary);
+  }
+
+  .badge--hero {
+    padding: 4px 13px 4px 8px;
+    box-shadow: var(--shadow-badge-default);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .badge--hero:hover {
+    box-shadow: var(--shadow-badge-hover);
+  }
+
+  .badge--section {
+    padding: 6px 14px 6px 15px;
+    box-shadow: var(--shadow-badge-default);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .badge--section:hover {
+    box-shadow: var(--shadow-badge-hover);
+  }
+
+  .badge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gradient-badge-text);
+    flex-shrink: 0;
+  }
+
+  .badge__text {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+    background: var(--gradient-badge-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-feature-settings: var(--font-feature-ui);
+  }
+
+  /* ============================================================
+     BUTTON COMPONENT
+     ============================================================ */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: var(--radius-default);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: var(--color-text-button);
+    backdrop-filter: var(--blur-md);
+    -webkit-backdrop-filter: var(--blur-md);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    font-feature-settings: var(--font-feature-ui);
+  }
+
+  .button::before,
+  .button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-default);
+    transition: opacity var(--duration-fastest) var(--ease-primary);
+  }
+
+  /* Primary Button */
+  .button--primary::before {
+    background: var(--color-bg-btn-primary);
+    box-shadow: var(--shadow-btn-primary);
+    background-image: var(--gradient-btn-primary-overlay);
+    background-blend-mode: normal;
+    opacity: 1;
+  }
+
+  .button--primary::after {
+    background: var(--color-bg-btn-primary-hover);
+    box-shadow: var(--shadow-btn-primary-hover);
+    background-image: var(--gradient-btn-primary-hover-overlay);
+    opacity: 0;
+  }
+
+  .button--primary:hover::before { opacity: 0; }
+  .button--primary:hover::after  { opacity: 1; }
+
+  .button--primary {
+    background: var(--color-bg-btn-primary);
+    box-shadow: var(--shadow-btn-primary);
+  }
+
+  .button__label {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Secondary Button */
+  .button--secondary::before {
+    background: var(--color-bg-btn-secondary);
+    box-shadow: var(--shadow-btn-secondary);
+    background-image: var(--gradient-btn-secondary-overlay);
+    opacity: 1;
+  }
+
+  .button--secondary::after {
+    background: rgba(147, 130, 255, 0.05);
+    box-shadow: var(--shadow-btn-secondary);
+    background-image: var(--gradient-btn-secondary-overlay);
+    opacity: 0;
+  }
+
+  .button--secondary:hover::before { opacity: 0; }
+  .button--secondary:hover::after  { opacity: 1; }
+
+  .button--secondary {
+    background: var(--color-bg-btn-secondary);
+    box-shadow: var(--shadow-btn-secondary);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ============================================================
+     NAVIGATION COMPONENT
+     ============================================================ */
+  .nav-demo {
+    background: var(--color-bg-header);
+    backdrop-filter: var(--blur-xl);
+    -webkit-backdrop-filter: var(--blur-xl);
+    padding: 26px 24px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .nav-pill {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--color-bg-nav-pill);
+    border: 1px solid var(--color-border-nav-pill);
+    border-radius: var(--radius-full);
+    padding: 10px 12px;
+    backdrop-filter: var(--blur-sm);
+    -webkit-backdrop-filter: var(--blur-sm);
+  }
+
+  .nav-pill li {
+    list-style: none;
+    margin: 0 12px;
+  }
+
+  .nav-pill a {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: var(--color-text-nav-default);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-primary);
+    font-feature-settings: var(--font-feature-ui);
+    white-space: nowrap;
+  }
+
+  .nav-pill a:hover {
+    color: var(--color-text-nav-hover);
+  }
+
+  .nav-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* ============================================================
+     HERO SECTION
+     ============================================================ */
+  .hero-demo {
+    background: var(--color-bg-page);
+    border-radius: var(--radius-lg);
+    padding: 80px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .hero-demo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-hero-radial);
+    pointer-events: none;
+  }
+
+  /* Star field */
+  .hero-demo::after {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(201,177,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(201,177,255,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 55% 15%, rgba(201,177,255,0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 45%, rgba(201,177,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 70%, rgba(201,177,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 20% 80%, rgba(201,177,255,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 45% 35%, rgba(201,177,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 25%, rgba(201,177,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 80%, rgba(201,177,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 50%, rgba(201,177,255,0.3) 0%, transparent 100%);
+    animation: hue-rotate 70s linear infinite;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .hero-demo > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-content {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .hero-badge-wrap {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: 64px;
+    line-height: 72px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 20px;
+  }
+
+  .hero-desc {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+    color: var(--color-text-description);
+    margin-bottom: 32px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  /* ============================================================
+     FEATURE CARD
+     ============================================================ */
+  .feature-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-lg);
+    padding: 24px 32px 36px;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.06) 100%);
+    opacity: 0;
+    transition: opacity var(--duration-default) var(--ease-primary);
+    pointer-events: none;
+  }
+
+  .feature-card:hover::after {
+    opacity: 1;
+  }
+
+  .feature-card__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-default);
+    background: rgba(113, 47, 255, 0.15);
+    border: 1px solid rgba(113, 47, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  .feature-card__title {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+  }
+
+  .feature-card__desc {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: var(--color-text-description);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  /* ============================================================
+     AI SHOWCASE ITEM
+     ============================================================ */
+  .ai-showcase-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: var(--radius-default);
+    border: 1px solid rgba(255,255,255,0.06);
+    background: transparent;
+    cursor: default;
+    transition:
+      background var(--duration-default) var(--ease-primary),
+      border-color var(--duration-default) var(--ease-primary);
+  }
+
+  .ai-showcase-item:hover {
+    background: var(--color-bg-ai-card-hover);
+    border-color: var(--color-border-ai-hover);
+  }
+
+  .ai-showcase-item__icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+
+  .ai-showcase-item__label {
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 500;
+    background: var(--gradient-ai-rainbow);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .ai-showcase-item__desc {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: var(--color-text-description-dim);
+    margin-top: 2px;
+  }
+
+  /* ============================================================
+     CONNECTED CARD
+     ============================================================ */
+  .connected-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .connected-card--glow {
+    background: radial-gradient(100% 146.88% at 100% 100%, rgba(255,255,255,0.03) 0%, rgba(3,0,20,0) 100%);
+  }
+
+  .connected-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .connected-card__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(186, 156, 255, 0.1);
+    border: 1px solid rgba(186, 156, 255, 0.2);
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-brand-lavender-mid);
+    margin-bottom: 16px;
+  }
+
+  .connected-card__title {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+  }
+
+  .connected-card__body {
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--color-text-description);
+  }
+
+  /* ============================================================
+     SECTION HEADER PATTERN
+     ============================================================ */
+  .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .section-header__badge {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .section-header__title {
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+  }
+
+  .section-header__desc {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: var(--color-text-description);
+    max-width: 455px;
+    margin: 0 auto;
+  }
+
+  /* ============================================================
+     RESEARCH CARD
+     ============================================================ */
+  .research-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-lg);
+    padding: 32px 32px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .research-card__radar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(113, 47, 255, 0.06);
+    border: 1px solid rgba(113, 47, 255, 0.15);
+    margin: 0 auto 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .research-card__radar::before {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(186,156,255,0.6));
+    transform-origin: right center;
+    animation: radar-rotate 4s linear infinite;
+    top: 50%;
+    right: 50%;
+  }
+
+  .research-card__radar-center {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-brand-lavender-mid);
+    box-shadow: 0 0 12px rgba(186,156,255,0.6);
+    position: relative;
+    z-index: 1;
+  }
+
+  .research-card__title {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+  }
+
+  .research-card__desc {
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--color-text-description);
+  }
+
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* ============================================================
+     GLASSMORPHISM SHOWCASE
+     ============================================================ */
+  .glass-demo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .glass-layer {
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 120px;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .glass-layer--header {
+    background: var(--color-bg-header);
+    backdrop-filter: var(--blur-xl);
+    -webkit-backdrop-filter: var(--blur-xl);
+  }
+
+  .glass-layer--button {
+    background: var(--color-bg-btn-primary);
+    backdrop-filter: var(--blur-md);
+    -webkit-backdrop-filter: var(--blur-md);
+    box-shadow: var(--shadow-btn-primary);
+  }
+
+  .glass-layer--card {
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: var(--blur-lg);
+    -webkit-backdrop-filter: var(--blur-lg);
+    box-shadow: var(--shadow-grid-overlay);
+  }
+
+  .glass-layer__label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    font-feature-settings: var(--font-feature-ui);
+  }
+
+  .glass-layer__value {
+    font-size: 11px;
+    color: var(--color-text-faded-52);
+    font-family: monospace;
+  }
+
+  /* ============================================================
+     MOTION DEMO
+     ============================================================ */
+  .motion-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .motion-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .motion-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-faded-70);
+    width: 160px;
+    flex-shrink: 0;
+    font-family: monospace;
+  }
+
+  .motion-track {
+    flex: 1;
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 1px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .motion-track::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-brand-lavender-mid);
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    animation: shimmer 2s var(--ease) infinite;
+  }
+
+  .motion-track--fastest::after { --ease: cubic-bezier(0.6, 0.6, 0, 1); animation-duration: 0.8s; }
+  .motion-track--fast::after    { --ease: cubic-bezier(0.6, 0.6, 0, 1); animation-duration: 1.2s; }
+  .motion-track--default::after { --ease: cubic-bezier(0.6, 0.6, 0, 1); animation-duration: 1.6s; }
+  .motion-track--linear::after  { --ease: linear; animation-duration: 1.4s; }
+
+  /* ============================================================
+     DIVIDER
+     ============================================================ */
+  .cl-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: 64px 0;
+  }
+
+  /* ============================================================
+     GRADIENT SPECIMENS
+     ============================================================ */
+  .gradient-specimen {
+    height: 48px;
+    border-radius: var(--radius-default);
+    margin-bottom: 8px;
+  }
+
+  /* ============================================================
+     SHADOW SPECIMENS
+     ============================================================ */
+  .shadow-specimen {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-default);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 72px;
+    font-size: 13px;
+    color: var(--color-text-faded-70);
+    font-family: monospace;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* ============================================================
+     STARLIGHT ANIMATION DEMO
+     ============================================================ */
+  .starlight-demo {
+    position: relative;
+    height: 200px;
+    background: var(--color-bg-page);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--color-brand-starlight);
+    animation: risingStars linear infinite, star-twinkle linear infinite;
+  }
+
+  .star:nth-child(1)  { width:1px; height:1px; left:10%; animation-duration: 4s, 2s; animation-delay: 0s,  0.2s; }
+  .star:nth-child(2)  { width:2px; height:2px; left:20%; animation-duration: 6s, 3s; animation-delay: 1s,  0.8s; }
+  .star:nth-child(3)  { width:1px; height:1px; left:35%; animation-duration: 5s, 2.5s; animation-delay: 0.5s, 0.4s; }
+  .star:nth-child(4)  { width:1px; height:1px; left:50%; animation-duration: 7s, 1.5s; animation-delay: 2s,  1s; }
+  .star:nth-child(5)  { width:2px; height:2px; left:65%; animation-duration: 4.5s,2s; animation-delay: 0.3s, 0.6s; }
+  .star:nth-child(6)  { width:1px; height:1px; left:78%; animation-duration: 6s, 3s; animation-delay: 1.5s, 0.2s; }
+  .star:nth-child(7)  { width:1px; height:1px; left:88%; animation-duration: 5s, 2s; animation-delay: 0.8s, 1.2s; }
+  .star:nth-child(8)  { width:2px; height:2px; left:42%; animation-duration: 8s, 2.5s; animation-delay: 3s,  0.5s; }
+  .star:nth-child(9)  { width:1px; height:1px; left:58%; animation-duration: 4s, 1.8s; animation-delay: 0.7s, 0.9s; }
+  .star:nth-child(10) { width:1px; height:1px; left:5%;  animation-duration: 5.5s,2.2s; animation-delay: 2.5s, 0.3s; }
+  .star:nth-child(11) { width:2px; height:2px; left:25%; animation-duration: 7s, 3s; animation-delay: 1.2s, 1.5s; }
+  .star:nth-child(12) { width:1px; height:1px; left:72%; animation-duration: 6s, 2s; animation-delay: 0.4s, 0.7s; }
+
+  .starlight-demo__label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-description);
+    position: relative;
+    z-index: 1;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="cl-page">
+
+  <!-- PAGE HEADER -->
+  <div class="cl-header">
+    <h1 class="cl-page-title">Reflect.app — Component Library</h1>
+    <p class="cl-page-subtitle">
+      Design system extracted from <a href="https://reflect.app/" target="_blank">reflect.app</a> on 2026-03-16.
+      All tokens sourced from <code>theme_architecture.jsonc</code>. Font substitute: Inter (Google Fonts) in place of self-hosted AeonikPro / Inter V.
+    </p>
+  </div>
+
+
+  <!-- ========================================================
+       NAVIGATION
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Navigation</div>
+    <nav class="nav-demo">
+      <a href="#" class="nav-logo">Reflect</a>
+      <ul class="nav-pill">
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Changelog</a></li>
+        <li><a href="#">Download</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="button button--secondary"><span class="button__label">Login</span></button>
+        <button class="button button--primary"><span class="button__label">Start free trial</span></button>
+      </div>
+    </nav>
+    <div class="cl-label">Fixed header · backdrop-filter: blur(16px) · nav pill: border-radius: 999px · hover dims links to 60% opacity</div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       HERO SECTION
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Hero Section</div>
+    <div class="hero-demo">
+      <div class="hero-content">
+        <div class="hero-badge-wrap">
+          <div class="badge badge--hero">
+            <span class="badge__dot"></span>
+            <span class="badge__text">Backed by Y Combinator</span>
+          </div>
+        </div>
+        <h1 class="hero-title">A better way to<br/>think and remember</h1>
+        <p class="hero-desc">Reflect is a note-taking app that uses AI to help you think more clearly and remember what matters.</p>
+        <div class="hero-actions">
+          <button class="button button--primary"><span class="button__label">Start free trial</span></button>
+          <button class="button button--secondary"><span class="button__label">See how it works</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="cl-label">AeonikPro substitute at 64px · Radial gradient overlay · Animated star field background · padding-top: 173px on real site</div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       BUTTONS
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Buttons</div>
+    <div class="cl-row">
+      <div class="cl-item">
+        <button class="button button--primary"><span class="button__label">Start free trial</span></button>
+        <div class="cl-label">Primary · rgba(113,47,255,0.12)<br/>hover: opacity doubles via ::after</div>
+      </div>
+      <div class="cl-item">
+        <button class="button button--secondary"><span class="button__label">Login</span></button>
+        <div class="cl-label">Secondary · rgba(147,130,255,0.01)<br/>inset 0 0 12px #ffffff14</div>
+      </div>
+      <div class="cl-item">
+        <button class="button button--primary" disabled style="opacity:0.4;cursor:not-allowed"><span class="button__label">Disabled</span></button>
+        <div class="cl-label">Disabled state · opacity: 0.4</div>
+      </div>
+    </div>
+    <div style="margin-top:8px; font-size:13px; color:var(--color-text-faded-52); font-family:monospace; line-height:1.6">
+      Shared: 14px / 500 / padding: 8px 16px / border-radius: 8px / backdrop-filter: blur(8px)<br/>
+      Hover mechanism: ::before fades out (opacity 1→0), ::after fades in (opacity 0→1) · 0.2s cubic-bezier(0.6,0.6,0,1)
+    </div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       BADGES
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Badges</div>
+    <div class="cl-row">
+      <div class="cl-item">
+        <div class="badge badge--hero">
+          <span class="badge__dot"></span>
+          <span class="badge__text">Backed by Y Combinator</span>
+        </div>
+        <div class="cl-label">Hero badge · padding: 4px 13px 4px 8px<br/>inset 0 -7px 11px #a48fff1f</div>
+      </div>
+      <div class="cl-item">
+        <div class="badge badge--section">
+          <span class="badge__text">AI-Powered</span>
+        </div>
+        <div class="cl-label">Section badge · padding: 6px 14px 6px 15px</div>
+      </div>
+      <div class="cl-item">
+        <div class="badge badge--section">
+          <span class="badge__text">New Feature</span>
+        </div>
+        <div class="cl-label">Gradient: #e59cff → #ba9cff → #9cb2ff<br/>border-radius: 32px · backdrop-filter: blur(6px)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       FEATURE CARDS
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Feature Cards (4-column grid)</div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-card__icon">🧠</div>
+        <div class="feature-card__title">Networked notes</div>
+        <div class="feature-card__desc">Every note is connected. See how ideas relate automatically.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">🔐</div>
+        <div class="feature-card__title">End-to-end encrypted</div>
+        <div class="feature-card__desc">Your thoughts are private. Always. No one can read them but you.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">⚡</div>
+        <div class="feature-card__title">AI that understands you</div>
+        <div class="feature-card__desc">Ask questions across all your notes. Get answers with context.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">📅</div>
+        <div class="feature-card__title">Daily notes</div>
+        <div class="feature-card__desc">Capture anything. It all gets organized automatically.</div>
+      </div>
+    </div>
+    <div class="cl-label" style="margin-top:12px">padding: 24px 32px 36px · hover: gradient overlay fades in at 0.06 opacity · transition: 0.45s cubic-bezier(0.6,0.6,0,1)</div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       SECTION HEADER PATTERN
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Section Header Pattern</div>
+    <div class="section-header">
+      <div class="section-header__badge">
+        <div class="badge badge--section">
+          <span class="badge__text">AI Integration</span>
+        </div>
+      </div>
+      <h2 class="section-header__title">Built for how you actually think</h2>
+      <p class="section-header__desc">Not just a place to store notes — a thinking tool that grows smarter with you.</p>
+    </div>
+    <div class="cl-label" style="text-align:center">Badge → Title → Description · description max-width: 455px · margin: 12px auto 0</div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       AI SHOWCASE ITEMS
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">AI Showcase Items</div>
+    <div style="display:flex; flex-direction:column; gap:8px; max-width:560px">
+      <div class="ai-showcase-item">
+        <div class="ai-showcase-item__icon">✨</div>
+        <div>
+          <div class="ai-showcase-item__label">AI summarization</div>
+          <div class="ai-showcase-item__desc">Condense long notes into key points instantly</div>
+        </div>
+      </div>
+      <div class="ai-showcase-item">
+        <div class="ai-showcase-item__icon">🔍</div>
+        <div>
+          <div class="ai-showcase-item__label">Semantic search</div>
+          <div class="ai-showcase-item__desc">Find notes by meaning, not just keywords</div>
+        </div>
+      </div>
+      <div class="ai-showcase-item">
+        <div class="ai-showcase-item__icon">💬</div>
+        <div>
+          <div class="ai-showcase-item__label">Chat with your notes</div>
+          <div class="ai-showcase-item__desc">Ask questions across your entire knowledge base</div>
+        </div>
+      </div>
+    </div>
+    <div class="cl-label" style="margin-top:12px">Rainbow gradient text · hover: bg rgba(255,255,255,0.05) + border rgba(255,255,255,0.161)<br/>gradient: #FC72FF → #8F68FF → #487BFF → #2CD9FF → #2CFFCC</div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       CONNECTED CARDS
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Connected Cards (2-column grid)</div>
+    <div class="connected-grid">
+      <div class="connected-card connected-card--glow">
+        <div class="connected-card__tag">🔗 Backlinks</div>
+        <div class="connected-card__title">See how everything connects</div>
+        <div class="connected-card__body">Every mention creates a link. Navigate your knowledge graph with one click. Discover connections you didn't know existed.</div>
+      </div>
+      <div class="connected-card">
+        <div class="connected-card__tag">📡 Networked</div>
+        <div class="connected-card__title">Your second brain, networked</div>
+        <div class="connected-card__body">Notes aren't isolated documents — they're nodes in a network. The more you write, the smarter it gets.</div>
+      </div>
+    </div>
+    <div class="cl-label" style="margin-top:12px">Left card: radial corner glow background · padding: 32px · border-radius: 24px</div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       RESEARCH CARDS
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Research Cards (2-column grid)</div>
+    <div class="research-grid">
+      <div class="research-card">
+        <div class="research-card__radar">
+          <div class="research-card__radar-center"></div>
+        </div>
+        <div class="research-card__title">Research mode</div>
+        <div class="research-card__desc">Deep dive into any topic. Reflect surfaces related notes and sources as you write.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-card__radar">
+          <div class="research-card__radar-center"></div>
+        </div>
+        <div class="research-card__title">Pattern recognition</div>
+        <div class="research-card__desc">The AI finds themes across your writing that you might have missed yourself.</div>
+      </div>
+    </div>
+    <div class="cl-label" style="margin-top:12px">padding: 32px 32px 48px · text-align: center · radar animation: researchRadarRotate -201deg→159deg</div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       COLOR PALETTE
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Color Palette</div>
+
+    <div style="margin-bottom:32px">
+      <div style="font-size:12px;color:var(--color-text-faded-52);margin-bottom:12px;font-family:monospace">BRAND</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#030014"></div>
+          <div class="swatch-name">brand.primary</div>
+          <div class="swatch-value">#030014</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#7132FF"></div>
+          <div class="swatch-name">brand.violet</div>
+          <div class="swatch-value">#7132FF</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#5046e4"></div>
+          <div class="swatch-name">brand.violetSoft</div>
+          <div class="swatch-value">#5046e4</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#e59cff"></div>
+          <div class="swatch-name">brand.lavenderLight</div>
+          <div class="swatch-value">#e59cff</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#ba9cff"></div>
+          <div class="swatch-name">brand.lavenderMid</div>
+          <div class="swatch-value">#ba9cff</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#9cb2ff"></div>
+          <div class="swatch-name">brand.lavenderBlue</div>
+          <div class="swatch-value">#9cb2ff</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#c9b1ff"></div>
+          <div class="swatch-name">brand.starlight</div>
+          <div class="swatch-value">#c9b1ff</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:32px">
+      <div style="font-size:12px;color:var(--color-text-faded-52);margin-bottom:12px;font-family:monospace">TEXT HIERARCHY (all on #030014 background)</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#ffffff;border:1px solid rgba(255,255,255,0.2)"></div>
+          <div class="swatch-name">text.primary</div>
+          <div class="swatch-value">#ffffff</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#ffffffe6"></div>
+          <div class="swatch-name">text.navDefault</div>
+          <div class="swatch-value">#ffffffe6 (~90%)</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#efedfdb3"></div>
+          <div class="swatch-name">text.description</div>
+          <div class="swatch-value">#efedfdb3 (~70%)</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#ffffff99"></div>
+          <div class="swatch-name">text.navHover</div>
+          <div class="swatch-value">#ffffff99 (~60%)</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#ffffff70"></div>
+          <div class="swatch-name">text.faded70</div>
+          <div class="swatch-value">#ffffff70</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#ffffff52"></div>
+          <div class="swatch-name">text.faded52</div>
+          <div class="swatch-value">#ffffff52</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#f4f0ff"></div>
+          <div class="swatch-name">text.button</div>
+          <div class="swatch-value">#f4f0ff</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:12px;color:var(--color-text-faded-52);margin-bottom:12px;font-family:monospace">GRADIENTS</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div class="cl-item">
+          <div class="gradient-specimen" style="background: linear-gradient(90.01deg, #e59cff 0.01%, #ba9cff 50.01%, #9cb2ff 100%)"></div>
+          <div class="cl-label">Badge text gradient</div>
+        </div>
+        <div class="cl-item">
+          <div class="gradient-specimen" style="background: linear-gradient(to right, #FC72FF, #8F68FF, #487BFF, #2CD9FF, #2CFFCC)"></div>
+          <div class="cl-label">AI rainbow gradient</div>
+        </div>
+        <div class="cl-item">
+          <div class="gradient-specimen" style="background: linear-gradient(180deg, rgba(60,8,126,0) 0%, rgba(60,8,126,0.32) 100%), rgba(113,47,255,0.12)"></div>
+          <div class="cl-label">Button primary overlay</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       TYPOGRAPHY
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Typography Scale</div>
+    <div style="display:flex;flex-direction:column;gap:32px">
+      <div class="cl-item">
+        <div class="type-h1">A better way to think</div>
+        <div class="cl-label">H1 · AeonikPro (Inter sub) · 72px / 80px / 500 · Hero only</div>
+      </div>
+      <div class="cl-item">
+        <div class="type-h2">Section headline</div>
+        <div class="cl-label">H2 · Inter V · 56px / 64px / 500</div>
+      </div>
+      <div class="cl-item">
+        <div class="type-h3">Sub-section title</div>
+        <div class="cl-label">H3 · Inter V · 48px / 56px / 500</div>
+      </div>
+      <div class="cl-item">
+        <div class="type-h5">Large card title</div>
+        <div class="cl-label">H5 · Inter V · 32px / 40px / 500</div>
+      </div>
+      <div class="cl-item">
+        <div class="type-hero-desc">Reflect is a networked note-taking app that uses AI to help you think more clearly and remember what matters most to you.</div>
+        <div class="cl-label">Hero description · 18px / 28px / 400 · #efedfdb3</div>
+      </div>
+      <div class="cl-item">
+        <div class="type-body">Section body copy. Your notes connect automatically into a networked knowledge graph.</div>
+        <div class="cl-label">Body / Section description · 16px / 24px / 400 · #efedfdb3</div>
+      </div>
+      <div class="cl-item">
+        <div class="type-body-medium">Card title medium weight</div>
+        <div class="cl-label">Card title · 16px / 24px / 500 · #ffffff</div>
+      </div>
+      <div class="cl-item">
+        <div class="type-ui">Navigation link · Button label</div>
+        <div class="cl-label">UI text · 14px / 20px / 500 · font-feature-settings: "ss01" on, "cv10" on, "calt" off, "liga" off</div>
+      </div>
+      <div class="cl-item">
+        <div class="type-meta">Meeting details · Meta information</div>
+        <div class="cl-label">Meta / caption · 13px / 20px / 500 · #ffffff70</div>
+      </div>
+      <div class="cl-item">
+        <div class="type-gradient-badge">New feature badge</div>
+        <div class="cl-label">Badge gradient text · linear-gradient(90.01deg, #e59cff → #ba9cff → #9cb2ff)</div>
+      </div>
+      <div class="cl-item">
+        <div class="type-gradient-ai">AI-powered intelligence</div>
+        <div class="cl-label">AI rainbow text · gradient + hue-rotate(2s infinite linear)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       GLASSMORPHISM LAYERS
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Glass-morphism Layers</div>
+    <div class="glass-demo">
+      <div class="glass-layer glass-layer--header">
+        <div class="glass-layer__label">Header / Nav</div>
+        <div class="glass-layer__value">rgba(3,0,20,0.08)<br/>blur(16px) — heaviest</div>
+      </div>
+      <div class="glass-layer glass-layer--button">
+        <div class="glass-layer__label">Button Primary</div>
+        <div class="glass-layer__value">rgba(113,47,255,0.12)<br/>blur(8px) + inset shadow</div>
+      </div>
+      <div class="glass-layer glass-layer--card">
+        <div class="glass-layer__label">Card</div>
+        <div class="glass-layer__value">rgba(255,255,255,0.02)<br/>blur(12px) + grid overlay</div>
+      </div>
+    </div>
+    <div class="cl-label" style="margin-top:12px">All use backdrop-filter: blur() + semi-transparent bg + inset box-shadow. No traditional drop shadows.</div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       SHADOWS
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Shadow Tokens</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+      <div class="cl-item">
+        <div class="shadow-specimen" style="box-shadow: inset 0 0 12px #bf97ff3d">btn-primary<br/>default</div>
+        <div class="cl-label">inset 0 0 12px #bf97ff3d</div>
+      </div>
+      <div class="cl-item">
+        <div class="shadow-specimen" style="box-shadow: inset 0 0 12px #bf97ff70">btn-primary<br/>hover</div>
+        <div class="cl-label">inset 0 0 12px #bf97ff70</div>
+      </div>
+      <div class="cl-item">
+        <div class="shadow-specimen" style="box-shadow: inset 0 0 12px #ffffff14">btn-secondary</div>
+        <div class="cl-label">inset 0 0 12px #ffffff14</div>
+      </div>
+      <div class="cl-item">
+        <div class="shadow-specimen" style="box-shadow: inset 0 -7px 11px #a48fff1f">badge<br/>default</div>
+        <div class="cl-label">inset 0 -7px 11px #a48fff1f<br/>(bottom-weighted glow)</div>
+      </div>
+      <div class="cl-item">
+        <div class="shadow-specimen" style="box-shadow: inset 0 -7px 11px #a48fff3d">badge<br/>hover</div>
+        <div class="cl-label">inset 0 -7px 11px #a48fff3d</div>
+      </div>
+      <div class="cl-item">
+        <div class="shadow-specimen" style="box-shadow: inset 0 0 24px #ffffff0a">grid overlay<br/>inset</div>
+        <div class="cl-label">inset 0 0 24px #ffffff0a</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       BORDER RADIUS
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Border Radius</div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end">
+      <div class="cl-item" style="align-items:center">
+        <div style="width:48px;height:48px;background:rgba(186,156,255,0.15);border:1px solid rgba(186,156,255,0.3);border-radius:4px"></div>
+        <div class="cl-label" style="text-align:center">sm<br/>4px</div>
+      </div>
+      <div class="cl-item" style="align-items:center">
+        <div style="width:48px;height:48px;background:rgba(186,156,255,0.15);border:1px solid rgba(186,156,255,0.3);border-radius:6px"></div>
+        <div class="cl-label" style="text-align:center">md<br/>6px</div>
+      </div>
+      <div class="cl-item" style="align-items:center">
+        <div style="width:64px;height:48px;background:rgba(186,156,255,0.15);border:1px solid rgba(186,156,255,0.3);border-radius:8px"></div>
+        <div class="cl-label" style="text-align:center">default<br/>8px · buttons</div>
+      </div>
+      <div class="cl-item" style="align-items:center">
+        <div style="width:80px;height:64px;background:rgba(186,156,255,0.15);border:1px solid rgba(186,156,255,0.3);border-radius:24px"></div>
+        <div class="cl-label" style="text-align:center">lg<br/>24px · cards</div>
+      </div>
+      <div class="cl-item" style="align-items:center">
+        <div style="width:96px;height:40px;background:rgba(186,156,255,0.15);border:1px solid rgba(186,156,255,0.3);border-radius:32px"></div>
+        <div class="cl-label" style="text-align:center">badge<br/>32px</div>
+      </div>
+      <div class="cl-item" style="align-items:center">
+        <div style="width:96px;height:36px;background:rgba(186,156,255,0.15);border:1px solid rgba(186,156,255,0.3);border-radius:999px"></div>
+        <div class="cl-label" style="text-align:center">full<br/>999px · nav pill</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       MOTION
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Motion Tokens</div>
+    <div class="motion-demo">
+      <div class="motion-row">
+        <div class="motion-label">0.2s — fastest</div>
+        <div class="motion-track motion-track--fastest"></div>
+        <div class="cl-label" style="width:200px">btn pseudo-element crossfade</div>
+      </div>
+      <div class="motion-row">
+        <div class="motion-label">0.3s — fast</div>
+        <div class="motion-track motion-track--fast"></div>
+        <div class="cl-label" style="width:200px">nav link color change</div>
+      </div>
+      <div class="motion-row">
+        <div class="motion-label">0.45s — default</div>
+        <div class="motion-track motion-track--default"></div>
+        <div class="cl-label" style="width:200px">card overlay, badge shadow</div>
+      </div>
+      <div class="motion-row">
+        <div class="motion-label">linear — loops</div>
+        <div class="motion-track motion-track--linear"></div>
+        <div class="cl-label" style="width:200px">all infinite animations</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;padding:16px 20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-default)">
+      <div style="font-size:12px;color:var(--color-text-faded-52);margin-bottom:4px;font-family:monospace">PRIMARY EASING — used on all interactive transitions</div>
+      <div style="font-size:18px;font-weight:500;color:var(--color-brand-lavender-mid);font-family:monospace">cubic-bezier(0.6, 0.6, 0, 1)</div>
+      <div style="font-size:13px;color:var(--color-text-faded-70);margin-top:4px">Pronounced deceleration — fast start, long smooth tail. The site's motion signature.</div>
+    </div>
+  </div>
+
+  <div class="cl-divider"></div>
+
+
+  <!-- ========================================================
+       ANIMATION DEMO
+       ======================================================== -->
+  <div class="cl-section">
+    <div class="cl-section-title">Animation — Rising Stars</div>
+    <div class="starlight-demo">
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <span class="starlight-demo__label">risingStarsAnimation — translateY(0) → translateY(-200px) · linear · infinite</span>
+    </div>
+  </div>
+
+</div><!-- /cl-page -->
+
+</body>
+</html>

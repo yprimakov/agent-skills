@@ -1,0 +1,423 @@
+{
+  // ============================================================
+  // Reflect.app — Theme Architecture
+  // Source: https://reflect.app/
+  // Extracted: 2026-03-16
+  // Method: Static HTML/CSS analysis via WebFetch
+  // UNVERIFIED tokens are labeled where values could not be
+  // confirmed from computed styles (static analysis only).
+  // ============================================================
+
+  // ----------------------------------------------------------
+  // COLOR TOKENS
+  // ----------------------------------------------------------
+  "colors": {
+
+    "brand": {
+      "primary":         "#030014",   // Deep purple-black — page base
+      "violet":          "#7132FF",   // Primary violet (button bg base) // UNVERIFIED exact hex
+      "violetSoft":      "#5046e4",   // CTA button fill (alternate)
+      "lavenderLight":   "#e59cff",   // Badge gradient start
+      "lavenderMid":     "#ba9cff",   // Badge gradient middle / starlight
+      "lavenderBlue":    "#9cb2ff",   // Badge gradient end
+      "starlight":       "#c9b1ff"    // Shimmer/starlight accent
+    },
+
+    "background": {
+      "page":            "#030014",   // Body background
+      "headerFrosted":   "rgba(3, 0, 20, 0.08)",    // Fixed header
+      "navPill":         "rgba(255, 255, 255, 0.02)", // Nav pill container
+      "cardHover":       "rgba(255, 255, 255, 0.06)", // Feature card hover overlay
+      "aiCardHover":     "rgba(255, 255, 255, 0.05)", // AI showcase hover
+      "buttonPrimary":   "rgba(113, 47, 255, 0.12)",  // Primary button default
+      "buttonPrimaryHover": "rgba(113, 47, 255, 0.24)", // Primary button hover
+      "buttonSecondary": "rgba(147, 130, 255, 0.01)", // Secondary button default
+      "connectedCard1":  "radial-gradient(100% 146.88% at 100% 100%, rgba(255,255,255,0.03) 0%, rgba(3,0,20,0) 100%)"
+    },
+
+    "text": {
+      "primary":         "#ffffff",       // Body default
+      "navDefault":      "#ffffffe6",     // Nav links (~90% white)
+      "navHover":        "#ffffff99",     // Nav links on hover (~60% white)
+      "description":     "#efedfdb3",    // Section descriptions (~70% warm white)
+      "descriptionDim":  "#efedfd99",    // Dimmer body copy (~60% warm white)
+      "nearWhite":       "#ffffffcc",    // ~80% white (#fffc)
+      "faded70":         "#ffffff70",    // Captions, metadata
+      "faded52":         "#ffffff52",    // Most faded text
+      "buttonText":      "#f4f0ff"       // Button label color
+    },
+
+    "border": {
+      "navPill":         "rgba(255, 255, 255, 0.08)",  // Nav pill border
+      "aiShowcaseHover": "rgba(255, 255, 255, 0.161)"  // AI card border on hover (#ffffff29)
+    },
+
+    "shadow": {
+      "buttonPrimaryDefault":  "inset 0 0 12px #bf97ff3d",
+      "buttonPrimaryHover":    "inset 0 0 12px #bf97ff70",
+      "buttonSecondary":       "inset 0 0 12px #ffffff14",
+      "badgeDefault":          "inset 0 -7px 11px #a48fff1f",
+      "badgeHover":            "inset 0 -7px 11px #a48fff3d",
+      "deepShadow":            "32px 36px 32px #03001480",
+      "glowOuter":             "0 0 6px 4px #ed78ff0a"
+    },
+
+    "gradients": {
+      "badgeText":    "linear-gradient(90.01deg, #e59cff 0.01%, #ba9cff 50.01%, #9cb2ff 100%)",
+      "badgeBlend":   "linear-gradient(0deg, rgba(255,255,255,0.4), rgba(255,255,255,0.4))", // screen blended over badgeText
+      "aiRainbow":    "linear-gradient(to right, #FC72FF, #8F68FF, #487BFF, #2CD9FF, #2CFFCC)",
+      "heroRadial":   "radial-gradient(37.74% 81.78% at 50% 26.56%, rgba(148,101,255,0.08) 0%, rgba(3,0,20,0) 100%)",
+      "buttonPrimaryOverlay": "linear-gradient(180deg, rgba(60,8,126,0) 0%, rgba(60,8,126,0.32) 100%)",
+      "buttonPrimaryHoverOverlay": "linear-gradient(180deg, rgba(60,8,126,0) 0%, rgba(60,8,126,0.42) 100%)",
+      "buttonSecondaryOverlay": "linear-gradient(180deg, rgba(243,238,255,0) 0%, rgba(243,238,255,0.04) 100%)"
+    }
+  },
+
+  // ----------------------------------------------------------
+  // TYPOGRAPHY TOKENS
+  // ----------------------------------------------------------
+  "typography": {
+
+    "fontFamilies": {
+      "display":  "AeonikPro, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+      "body":     "Inter V, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+      // Note: AeonikPro and Inter V are self-hosted via @font-face (woff2/woff)
+      // Sources: /home/fonts/AeonikPro/medium.woff2, /home/fonts/InterV/regular.woff2, /home/fonts/InterV/medium.woff2
+      "fontDisplay": "swap"
+    },
+
+    "fontWeights": {
+      "regular": 400,
+      "medium":  500
+      // Only two weights in use — no bold (600+) detected
+    },
+
+    "fontSizes": {
+      // Desktop scale
+      "h1":          "72px",   // Hero title (AeonikPro)
+      "h2":          "56px",   // Section title
+      "h3":          "48px",   // Sub-section title
+      "h5":          "32px",   // Large card title
+      "heroDesc":    "18px",   // Hero description paragraph
+      "bodyLarge":   "16px",   // Section descriptions, card text, logo
+      "aiLabel":     "15px",   // AI showcase labels
+      "ui":          "14px",   // Buttons, nav links
+      "meta":        "13px",   // Meeting/metadata details
+
+      // Responsive scale (max-width: 1248px)
+      "h1Mobile":    "44px",
+      "h2Mobile":    "40px",
+      "h3Mobile":    "36px"
+    },
+
+    "lineHeights": {
+      "h1":        "80px",
+      "h2":        "64px",
+      "h3":        "56px",
+      "h5":        "40px",
+      "heroDesc":  "28px",
+      "body":      "24px",   // 16px and 15px text
+      "ui":        "20px",   // 14px and 13px text
+
+      // Mobile
+      "h1Mobile":  "52px",
+      "h2Mobile":  "48px",
+      "h3Mobile":  "40px"
+    },
+
+    "letterSpacing": {
+      // UNVERIFIED — no explicit letter-spacing values found in extracted CSS
+      // Font likely relies on built-in metrics
+    },
+
+    "fontFeatureSettings": {
+      "ui":       "\"ss01\" on, \"cv10\" on, \"calt\" off, \"liga\" off",  // Nav, buttons, cards
+      "display":  "unset"  // AeonikPro headings reset to font defaults
+    }
+  },
+
+  // ----------------------------------------------------------
+  // SPACING TOKENS
+  // ----------------------------------------------------------
+  "spacing": {
+    // Base unit: 4px (all values are multiples of 4)
+    "unit": "4px",
+
+    // Named scale
+    "1":   "4px",
+    "2":   "8px",
+    "3":   "12px",
+    "4":   "16px",
+    "5":   "20px",
+    "6":   "24px",
+    "7":   "28px",  // UNVERIFIED — inferred from line-height, not explicit spacing token
+    "8":   "32px",
+    "9":   "36px",
+    "10":  "40px",
+    "12":  "48px",
+    "16":  "64px",
+    "20":  "80px",
+    "28":  "110px",
+    "29":  "116px",
+    "32":  "128px",
+    "36":  "145px",
+    "43":  "173px",
+
+    // Container max-widths
+    "container": {
+      "sm":  "1128px",
+      "md":  "1200px",
+      "default": "1248px",
+      "lg":  "1296px"
+    },
+
+    // Section padding (as used in CSS)
+    "sectionPadding": {
+      "hero":        "173px top (desktop), 108px top (mobile)",
+      "connected":   "496px top, 145px bottom",
+      "ai":          "116px top, 110px bottom",
+      "research":    "64px top, 128px bottom",
+      "encryption":  "222px top, 236px bottom (desktop); 134px top, 46px bottom (mobile)",
+      "meetings":    "294px top, 24px bottom"
+    }
+  },
+
+  // ----------------------------------------------------------
+  // BORDER TOKENS
+  // ----------------------------------------------------------
+  "borders": {
+
+    "radii": {
+      "none":    "0px",
+      "sm":      "4px",
+      "md":      "6px",
+      "default": "8px",    // Buttons, small cards
+      "lg":      "24px",   // Large components
+      "badge":   "32px",   // Hero and section badges
+      "full":    "999px"   // Nav pill (fully rounded)
+    },
+
+    "widths": {
+      "default": "1px"   // Only 1px borders observed
+    }
+  },
+
+  // ----------------------------------------------------------
+  // SHADOW TOKENS
+  // ----------------------------------------------------------
+  "shadows": {
+    "buttonPrimaryDefault":  "inset 0 0 12px #bf97ff3d",
+    "buttonPrimaryHover":    "inset 0 0 12px #bf97ff70",
+    "buttonSecondary":       "inset 0 0 12px #ffffff14",
+    "badgeDefault":          "inset 0 -7px 11px #a48fff1f",
+    "badgeHover":            "inset 0 -7px 11px #a48fff3d",
+    "deepShadow":            "32px 36px 32px rgba(3, 0, 20, 0.50)",
+    "glowOuterPink":         "0 0 6px 4px #ed78ff0a",
+    "aiCardInset":           "inset 0 0 20px rgba(var(--rgb), 0.25)",  // Dynamic color via CSS var
+    "gridOverlay":           "inset 0 0 24px #ffffff0a"
+  },
+
+  // ----------------------------------------------------------
+  // BACKDROP BLUR TOKENS
+  // ----------------------------------------------------------
+  "backdropBlur": {
+    "sm":   "blur(6px)",   // Badges
+    "md":   "blur(8px)",   // Buttons
+    "lg":   "blur(12px)",  // Some cards
+    "xl":   "blur(16px)"   // Header
+  },
+
+  // ----------------------------------------------------------
+  // MOTION TOKENS
+  // ----------------------------------------------------------
+  "motion": {
+
+    "durations": {
+      "fastest":  "0.2s",   // Button pseudo-element crossfade
+      "fast":     "0.3s",   // Nav link color
+      "default":  "0.45s",  // Card overlays, badge shadows
+      "slow":     "1s",     // Looping linear animations
+      "slower":   "2s",     // Hue rotation loop
+      "starfield": "70s"    // Hero star field rotation
+    },
+
+    "easings": {
+      "primary":    "cubic-bezier(0.6, 0.6, 0, 1)", // Default for all interactive transitions
+      "linear":     "linear",  // Used for all infinite looping animations
+      "aiShowcase": "linear forwards"  // AI text reveal (1 iteration)
+    },
+
+    "transitions": {
+      "buttonOverlay":  "0.2s opacity cubic-bezier(0.6, 0.6, 0, 1)",
+      "navLinkColor":   "0.3s cubic-bezier(0.6, 0.6, 0, 1) color",
+      "badgeShadow":    "0.45s cubic-bezier(0.6, 0.6, 0, 1) box-shadow",
+      "cardOverlay":    "0.45s cubic-bezier(0.6, 0.6, 0, 1) opacity"
+    },
+
+    "keyframes": {
+      "heroBlackHoleStarsRotate": {
+        "description": "Rotating star field behind hero section",
+        "duration": "70s",
+        "iteration": "infinite",
+        "timing": "linear"
+      },
+      "heroBlackHoleStarsTwinkle": {
+        "description": "Star opacity pulsing/twinkling",
+        "iteration": "infinite",
+        "timing": "linear"
+      },
+      "risingStarsAnimation": {
+        "description": "Stars rise upward: translateY(0) → translateY(-2000px)",
+        "iteration": "infinite",
+        "timing": "linear"
+      },
+      "hueRotate": {
+        "description": "filter: hue-rotate(0deg) → hue-rotate(360deg) on accent elements",
+        "duration": "2s",
+        "iteration": "infinite",
+        "timing": "linear"
+      },
+      "researchRadarRotate": {
+        "description": "Radar sweep arm: rotate(-201deg) → rotate(159deg)",
+        "iteration": "infinite"  // UNVERIFIED duration
+      },
+      "researchRadarItem": {
+        "description": "Radar blip appears: opacity 0→1, scale(0) → scale(1.2)",
+        "timing": "staggered via --animation-delay CSS var"
+      },
+      "aiShowcaseText": {
+        "description": "AI text reveal animation",
+        "duration": "4s",
+        "iteration": "1",
+        "timing": "linear forwards"
+      },
+      "aiShowcaseStarlight1": {
+        "description": "Shimmer travels across element: translate(-100%) → translate(100%)",
+        "iteration": "infinite"  // UNVERIFIED duration
+      },
+      "connectedCardBacklinkCircle": {
+        "description": "Backlink circle appears on scroll: opacity 0→1, scale(0) → scale(1)",
+        "trigger": "scroll / intersection observer (JS-driven)"
+      }
+    }
+  },
+
+  // ----------------------------------------------------------
+  // Z-INDEX LAYERS
+  // ----------------------------------------------------------
+  "zIndex": {
+    "base":    1,
+    "section": 2,
+    "header":  3,     // .section-header z-index
+    "fixed":   10,    // .header (nav bar)
+    "tooltip": 999,
+    "overlay": 9999   // Black hole animation overlay
+  },
+
+  // ----------------------------------------------------------
+  // COMPONENT MAP
+  // ----------------------------------------------------------
+  "components": {
+
+    "header": {
+      "position": "fixed",
+      "width": "100vw",
+      "zIndex": 10,
+      "background": "rgba(3, 0, 20, 0.08)",
+      "backdropFilter": "blur(16px)",
+      "padding": "0 20px"
+    },
+
+    "navPill": {
+      "background": "rgba(255, 255, 255, 0.02)",
+      "border": "1px solid rgba(255, 255, 255, 0.08)",
+      "borderRadius": "999px",
+      "padding": "10px 12px",
+      "position": "absolute center (transform: translate(-50%))"
+    },
+
+    "navLink": {
+      "fontSize": "14px",
+      "lineHeight": "20px",
+      "fontWeight": 500,
+      "colorDefault": "#ffffffe6",
+      "colorHover": "#ffffff99",
+      "transition": "0.3s cubic-bezier(0.6, 0.6, 0, 1) color",
+      "fontFeatureSettings": "\"ss01\" on, \"cv10\" on, \"calt\" off, \"liga\" off"
+    },
+
+    "buttonPrimary": {
+      "fontSize": "14px",
+      "lineHeight": "20px",
+      "fontWeight": 500,
+      "color": "#f4f0ff",
+      "padding": "8px 16px",
+      "borderRadius": "8px",
+      "backdropFilter": "blur(8px)",
+      "backgroundDefault": "rgba(113, 47, 255, 0.12) + linear-gradient overlay",
+      "shadowDefault": "inset 0 0 12px #bf97ff3d",
+      "backgroundHover": "rgba(113, 47, 255, 0.24) + linear-gradient overlay",
+      "shadowHover": "inset 0 0 12px #bf97ff70",
+      "hoverMechanism": "pseudo-element opacity crossfade",
+      "transitionDuration": "0.2s cubic-bezier(0.6, 0.6, 0, 1)"
+    },
+
+    "buttonSecondary": {
+      "fontSize": "14px",
+      "lineHeight": "20px",
+      "fontWeight": 500,
+      "color": "#f4f0ff",
+      "padding": "8px 16px",
+      "borderRadius": "8px",
+      "backdropFilter": "blur(8px)",
+      "backgroundDefault": "rgba(147, 130, 255, 0.01) + subtle gradient overlay",
+      "shadowDefault": "inset 0 0 12px #ffffff14",
+      "backgroundHover": "slightly increased opacity",
+      "shadowHover": "inset 0 0 12px #ffffff14"
+    },
+
+    "heroBadge": {
+      "borderRadius": "32px",
+      "backdropFilter": "blur(6px)",
+      "padding": "4px 13px 4px 8px",
+      "shadowDefault": "inset 0 -7px 11px #a48fff1f",
+      "shadowHover": "inset 0 -7px 11px #a48fff3d",
+      "transition": "0.45s cubic-bezier(0.6, 0.6, 0, 1) box-shadow",
+      "textGradient": "linear-gradient(90.01deg, #e59cff 0.01%, #ba9cff 50.01%, #9cb2ff 100%) blended screen"
+    },
+
+    "sectionBadge": {
+      "borderRadius": "32px",
+      "backdropFilter": "blur(6px)",
+      "padding": "6px 14px 6px 15px",
+      "shadow": "inset 0 -7px 11px #a48fff1f",
+      "textGradient": "same as heroBadge"
+    },
+
+    "featureCard": {
+      "padding": "24px 32px 36px",
+      "overflow": "hidden",
+      "hoverOverlay": "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.06) 100%)",
+      "overlayTransition": "0.45s cubic-bezier(0.6, 0.6, 0, 1) opacity"
+    },
+
+    "researchCard": {
+      "padding": "32px 32px 48px",
+      "textAlign": "center"
+    },
+
+    "aiShowcaseItem": {
+      "backgroundHover": "rgba(255, 255, 255, 0.05)",
+      "borderDefault": "1px solid transparent", // UNVERIFIED exact default color
+      "borderHover": "1px solid rgba(255, 255, 255, 0.161)",
+      "rainbowTextGradient": "linear-gradient(to right, #FC72FF, #8F68FF, #487BFF, #2CD9FF, #2CFFCC)"
+    },
+
+    "grid": {
+      "featuresCards": "grid-template-columns: repeat(4, 1fr)",
+      "connectedCards": "grid-template-columns: repeat(2, 1fr)",
+      "researchCards": "grid-template-columns: repeat(2, 1fr)",
+      "aiCards": "flex; flex-wrap: wrap; justify-content: center"
+    }
+  }
+}
