@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>yuryprimakov.com — Component Library</title>
+<style>
+  /* ============================================================
+     DESIGN TOKENS — from theme_architecture.jsonc
+     shadcn/ui default theme mapped to Tailwind slate palette
+     ============================================================ */
+  :root {
+    /* Light mode */
+    --background:        #ffffff;
+    --foreground:        #020817;
+    --primary:           #0f172a;
+    --primary-fg:        #f8fafc;
+    --secondary:         #f1f5f9;
+    --secondary-fg:      #0f172a;
+    --muted:             #f1f5f9;
+    --muted-fg:          #64748b;
+    --accent:            #f1f5f9;
+    --border:            #e2e8f0;
+    --input:             #e2e8f0;
+    --ring:              #020817;
+    --destructive:       #ef4444;
+    --card:              #ffffff;
+    --card-fg:           #020817;
+
+    /* Spotlight glow colors */
+    --spotlight-orb1:    rgba(248, 250, 252, 1);   /* slate-50 */
+    --spotlight-orb2:    rgb(237, 233, 254);        /* violet-100 */
+
+    /* Radius */
+    --radius:            0.5rem;    /* 8px base */
+    --radius-sm:         0.25rem;
+    --radius-md:         0.375rem;
+    --radius-lg:         0.5rem;
+    --radius-xl:         0.75rem;
+    --radius-2xl:        1rem;
+    --radius-3xl:        1.5rem;    /* card wrapper */
+
+    /* Typography */
+    --font-sans:         system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+
+    /* Motion */
+    --ease-out:          cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out:       cubic-bezier(0.4, 0, 0.2, 1);
+    --duration-fast:     0.15s;
+    --duration-default:  0.2s;
+    --duration-slow:     0.5s;
+
+    /* Shadows */
+    --shadow-sm:         0 1px 2px 0 rgba(0,0,0,0.05);
+    --shadow:            0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+    --shadow-md:         0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    --shadow-lg:         0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    --shadow-xl:         0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+  }
+
+  .dark {
+    /* Dark mode overrides */
+    --background:        #020817;
+    --foreground:        #f8fafc;
+    --primary:           #f8fafc;
+    --primary-fg:        #0f172a;
+    --secondary:         #1e293b;
+    --secondary-fg:      #f8fafc;
+    --muted:             #1e293b;
+    --muted-fg:          #94a3b8;
+    --accent:            #1e293b;
+    --border:            #1e293b;
+    --input:             #1e293b;
+    --ring:              #cbd5e1;
+    --destructive:       #7f1d1d;
+    --card:              #020817;
+    --card-fg:           #f8fafc;
+
+    --spotlight-orb1:    rgba(248, 250, 252, 1);   /* slate-50 */
+    --spotlight-orb2:    rgb(139, 92, 246);         /* violet-500 */
+  }
+
+  /* ============================================================
+     RESET & BASE
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================================
+     SPOTLIGHT EFFECT (exact implementation from source)
+     ============================================================ */
+  .spotlight-wrapper {
+    position: relative;
+    border-radius: var(--radius-3xl);   /* 24px */
+    padding: 1px;                        /* hairline gap for rim light */
+    background: var(--border);
+  }
+
+  .spotlight-wrapper::before,
+  .spotlight-wrapper::after {
+    content: '';
+    position: absolute;
+    border-radius: 9999px;
+    pointer-events: none;
+    transition: opacity var(--duration-slow) var(--ease-out);
+  }
+
+  /* Orb 1 — white/slate bloom */
+  .spotlight-wrapper::before {
+    width: 320px; height: 320px;
+    left: -160px; top: -160px;
+    background: var(--spotlight-orb1);
+    opacity: 0.2;
+    z-index: 10;
+    filter: blur(100px);
+    transform: translate(var(--mouse-x, 0px), var(--mouse-y, 0px));
+  }
+
+  /* Orb 2 — violet tint */
+  .spotlight-wrapper::after {
+    width: 384px; height: 384px;
+    left: -192px; top: -192px;
+    background: var(--spotlight-orb2);
+    opacity: 0.2;
+    z-index: 30;
+    filter: blur(100px);
+    transform: translate(var(--mouse-x, 0px), var(--mouse-y, 0px));
+  }
+
+  .dark .spotlight-wrapper::after {
+    opacity: 0.1;
+  }
+
+  .spotlight-card {
+    position: relative;
+    z-index: 20;
+    border-radius: calc(var(--radius-3xl) - 1px);
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    box-shadow: inset 0px 1px 0px rgba(255,255,255,0.1);
+  }
+
+  /* ============================================================
+     COMPONENT LIBRARY SHELL
+     ============================================================ */
+  .cl-page {
+    min-height: 100vh;
+    padding: 80px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cl-header {
+    margin-bottom: 72px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cl-page-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 8px;
+    letter-spacing: -0.025em;
+  }
+
+  .cl-page-subtitle {
+    font-size: 14px;
+    color: var(--muted-fg);
+    line-height: 1.5;
+  }
+
+  .cl-page-subtitle a {
+    color: var(--foreground);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cl-section {
+    margin-bottom: 80px;
+  }
+
+  .cl-section-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted-fg);
+    margin-bottom: 32px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cl-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .cl-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cl-label {
+    font-size: 11px;
+    color: var(--muted-fg);
+    margin-top: 6px;
+    font-family: monospace;
+    line-height: 1.4;
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .theme-btn {
+    padding: 6px 14px;
+    border-radius: var(--radius-lg);
+    font-size: 13px;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--secondary);
+    color: var(--foreground);
+    transition: background var(--duration-default) var(--ease-out),
+                color var(--duration-default) var(--ease-out);
+  }
+
+  .theme-btn.active {
+    background: var(--primary);
+    color: var(--primary-fg);
+    border-color: var(--primary);
+  }
+
+  /* ============================================================
+     COLOR PALETTE
+     ============================================================ */
+  .swatch {
+    width: 80px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(128,128,128,0.15);
+    position: relative;
+  }
+
+  .swatch-lg {
+    width: 120px;
+    height: 72px;
+  }
+
+  .swatch-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* ============================================================
+     TYPOGRAPHY SCALE
+     ============================================================ */
+  .type-specimen {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 32px;
+    background: var(--secondary);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+  }
+
+  .type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .type-row:last-child { border-bottom: none; }
+
+  .type-meta {
+    width: 140px;
+    flex-shrink: 0;
+    font-size: 11px;
+    font-family: monospace;
+    color: var(--muted-fg);
+    line-height: 1.4;
+  }
+
+  /* ============================================================
+     BUTTONS
+     ============================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background var(--duration-default) var(--ease-out),
+                color var(--duration-default) var(--ease-out),
+                box-shadow var(--duration-default) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out);
+    outline: none;
+    text-decoration: none;
+  }
+
+  .btn:focus-visible {
+    box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
+  }
+
+  .btn:active { transform: scale(0.98); }
+
+  /* Primary */
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-fg);
+    padding: 10px 20px;
+  }
+
+  .btn-primary:hover {
+    background: var(--primary);
+    opacity: 0.9;
+  }
+
+  /* Secondary */
+  .btn-secondary {
+    background: var(--secondary);
+    color: var(--secondary-fg);
+    padding: 10px 20px;
+  }
+
+  .btn-secondary:hover { background: var(--muted); }
+
+  /* Ghost */
+  .btn-ghost {
+    background: transparent;
+    color: var(--foreground);
+    padding: 10px 20px;
+  }
+
+  .btn-ghost:hover { background: var(--accent); }
+
+  /* Outline */
+  .btn-outline {
+    background: transparent;
+    color: var(--foreground);
+    border: 1px solid var(--border);
+    padding: 9px 19px;
+  }
+
+  .btn-outline:hover { background: var(--accent); }
+
+  /* Destructive */
+  .btn-destructive {
+    background: var(--destructive);
+    color: #fff;
+    padding: 10px 20px;
+  }
+
+  /* Sizes */
+  .btn-sm { padding: 6px 12px; font-size: 13px; border-radius: var(--radius-sm); }
+  .btn-lg { padding: 12px 28px; font-size: 16px; }
+
+  /* Disabled */
+  .btn[disabled], .btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* ============================================================
+     CARDS
+     ============================================================ */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--duration-default) var(--ease-out),
+                transform var(--duration-default) var(--ease-out);
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .card-body {
+    font-size: 14px;
+    color: var(--muted-fg);
+    line-height: 1.6;
+  }
+
+  .card-footer {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  /* Experience card */
+  .exp-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 16px;
+  }
+
+  .exp-role {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  .exp-company {
+    font-size: 14px;
+    color: var(--muted-fg);
+    margin-top: 2px;
+  }
+
+  .exp-date {
+    font-size: 12px;
+    color: var(--muted-fg);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* ============================================================
+     SPOTLIGHT CARD DEMO
+     ============================================================ */
+  .spotlight-demo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .spotlight-inner {
+    padding: 24px;
+  }
+
+  .spotlight-inner .card-title { font-size: 15px; }
+  .spotlight-inner .card-body  { font-size: 13px; }
+
+  /* ============================================================
+     SKILL BADGES / TAGS
+     ============================================================ */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: var(--radius-full, 9999px);
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: opacity var(--duration-default) var(--ease-out);
+  }
+
+  .badge-default {
+    background: var(--secondary);
+    color: var(--secondary-fg);
+    border: 1px solid var(--border);
+  }
+
+  .badge-gradient-blue {
+    background: linear-gradient(to right, #3b82f6, #06b6d4);
+    color: #fff;
+  }
+
+  .badge-gradient-purple {
+    background: linear-gradient(to right, #a855f7, #ec4899);
+    color: #fff;
+  }
+
+  .badge-gradient-green {
+    background: linear-gradient(to right, #22c55e, #14b8a6);
+    color: #fff;
+  }
+
+  .badge-gradient-indigo {
+    background: linear-gradient(to right, #6366f1, #3b82f6);
+    color: #fff;
+  }
+
+  .badge-gradient-orange {
+    background: linear-gradient(to right, #fb923c, #facc15);
+    color: #fff;
+  }
+
+  .badge-gradient-sky {
+    background: linear-gradient(to right, #38bdf8, #6366f1);
+    color: #fff;
+  }
+
+  .badge-gradient-pink {
+    background: linear-gradient(to right, #f472b6, #a855f7);
+    color: #fff;
+  }
+
+  .badge-gradient-teal {
+    background: linear-gradient(to right, #2dd4bf, #0d9488);
+    color: #fff;
+  }
+
+  /* ============================================================
+     SKILLS MARQUEE
+     ============================================================ */
+  @keyframes scroll {
+    0%  { transform: translateX(0); }
+    100%{ transform: translateX(-50%); }
+  }
+
+  .marquee-outer {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    padding: 16px 0;
+    position: relative;
+  }
+
+  .marquee-outer::before,
+  .marquee-outer::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 80px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .marquee-outer::before {
+    left: 0;
+    background: linear-gradient(to right, var(--background), transparent);
+  }
+
+  .marquee-outer::after {
+    right: 0;
+    background: linear-gradient(to left, var(--background), transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    animation: scroll 20s linear infinite;
+  }
+
+  .marquee-track:hover { animation-play-state: paused; }
+
+  /* ============================================================
+     NAVIGATION
+     ============================================================ */
+  .nav-demo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: rgba(2, 8, 23, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  html:not(.dark) .nav-demo {
+    background: rgba(255,255,255,0.8);
+  }
+
+  .nav-logo {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--foreground);
+    letter-spacing: -0.01em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+  }
+
+  .nav-link {
+    padding: 6px 12px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted-fg);
+    cursor: pointer;
+    transition: color var(--duration-default) var(--ease-out),
+                background var(--duration-default) var(--ease-out);
+    text-decoration: none;
+  }
+
+  .nav-link:hover {
+    color: var(--foreground);
+    background: var(--accent);
+  }
+
+  .nav-link.active {
+    color: var(--foreground);
+    background: var(--secondary);
+  }
+
+  /* ============================================================
+     INPUTS
+     ============================================================ */
+  .input {
+    width: 100%;
+    padding: 9px 12px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    background: var(--background);
+    border: 1px solid var(--input);
+    border-radius: var(--radius-md);
+    color: var(--foreground);
+    outline: none;
+    transition: border-color var(--duration-default) var(--ease-out),
+                box-shadow var(--duration-default) var(--ease-out);
+  }
+
+  .input::placeholder { color: var(--muted-fg); }
+
+  .input:focus {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 2px rgba(2, 8, 23, 0.12);
+  }
+
+  .dark .input:focus {
+    box-shadow: 0 0 0 2px rgba(203, 213, 225, 0.12);
+  }
+
+  .input-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--foreground);
+    margin-bottom: 6px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 280px;
+  }
+
+  /* ============================================================
+     SPACING SCALE
+     ============================================================ */
+  .spacing-demo {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .spacing-block {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  /* ============================================================
+     SHADOW SCALE
+     ============================================================ */
+  .shadow-demo-item {
+    width: 120px;
+    height: 80px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--muted-fg);
+    font-family: monospace;
+  }
+
+  /* ============================================================
+     BORDER RADIUS SCALE
+     ============================================================ */
+  .radius-demo-item {
+    width: 80px;
+    height: 80px;
+    background: var(--secondary);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--muted-fg);
+    font-family: monospace;
+    text-align: center;
+  }
+
+  /* ============================================================
+     PROFILE / HERO PREVIEW
+     ============================================================ */
+  .hero-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 48px 40px;
+    background: var(--secondary);
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border);
+    gap: 16px;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .hero-name {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--foreground);
+  }
+
+  .hero-title {
+    font-size: 15px;
+    color: var(--muted-fg);
+    font-weight: 400;
+  }
+
+  .hero-focus {
+    font-size: 13px;
+    color: var(--muted-fg);
+    max-width: 360px;
+    line-height: 1.6;
+  }
+
+  .hero-location {
+    font-size: 13px;
+    color: var(--muted-fg);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  /* Social link buttons */
+  .btn-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--secondary);
+    color: var(--foreground);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background var(--duration-default) var(--ease-out),
+                border-color var(--duration-default) var(--ease-out);
+  }
+
+  .btn-social:hover { background: var(--accent); }
+
+  /* ============================================================
+     INTEREST TAG
+     ============================================================ */
+  .interest-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--secondary);
+    color: var(--muted-fg);
+    border: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="cl-page">
+
+  <!-- HEADER -->
+  <div class="cl-header">
+    <div>
+      <div class="cl-page-title">yuryprimakov.com</div>
+      <div class="cl-page-subtitle">
+        Component Library — extracted from <a href="https://yuryprimakov.com" target="_blank">yuryprimakov.com</a><br>
+        Framework: Next.js · Tailwind CSS v3.4.13 · shadcn/ui default theme
+      </div>
+    </div>
+    <div class="theme-toggle">
+      <button class="theme-btn" onclick="setTheme('light')">Light</button>
+      <button class="theme-btn active" onclick="setTheme('dark')">Dark</button>
+    </div>
+  </div>
+
+  <!-- ─── HERO PREVIEW ─────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Hero / Profile</div>
+    <div class="hero-preview">
+      <div class="avatar">YP</div>
+      <div>
+        <div class="hero-name">Yury Primakov</div>
+        <div class="hero-title">Principal Full Stack Engineer</div>
+      </div>
+      <div class="hero-focus">AI Automations using Personalized Autonomous Agent Swarms · Holmdel, NJ</div>
+      <div class="hero-actions">
+        <button class="btn btn-primary">Resume</button>
+        <button class="btn-social">GitHub</button>
+        <button class="btn-social">LinkedIn</button>
+        <button class="btn-social">CodePen</button>
+        <button class="btn-social">Contact</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── NAVIGATION ───────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Navigation</div>
+    <nav class="nav-demo">
+      <div class="nav-logo">Yury Primakov</div>
+      <ul class="nav-links">
+        <li><a class="nav-link active" href="#">About</a></li>
+        <li><a class="nav-link" href="#">Skills</a></li>
+        <li><a class="nav-link" href="#">Portfolio</a></li>
+        <li><a class="nav-link" href="#">Login</a></li>
+      </ul>
+    </nav>
+    <div class="cl-label">sticky · backdrop-blur-md · bg-background/80 · border-b border-border</div>
+  </div>
+
+  <!-- ─── SPOTLIGHT EFFECT ─────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Spotlight Glow Effect — move your cursor over the cards</div>
+    <div class="spotlight-demo-grid" id="spotlight-grid">
+
+      <div class="spotlight-wrapper">
+        <div class="spotlight-card spotlight-inner">
+          <div class="card-title">Lead Developer</div>
+          <div class="card-body">Prime Solutions · 2021–2025<br>
+          Full-stack development with React, Node.js, and cloud infrastructure.</div>
+          <div class="card-footer">
+            <span class="badge badge-gradient-blue">React</span>
+            <span class="badge badge-gradient-indigo">Node.js</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spotlight-wrapper">
+        <div class="spotlight-card spotlight-inner">
+          <div class="card-title">CTO / Founding Partner</div>
+          <div class="card-body">10,000 Hours / Tennis Learning Machine · 2023–2025<br>
+          Built AI-powered coaching platform from the ground up.</div>
+          <div class="card-footer">
+            <span class="badge badge-gradient-purple">AI/ML</span>
+            <span class="badge badge-gradient-sky">TypeScript</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spotlight-wrapper">
+        <div class="spotlight-card spotlight-inner">
+          <div class="card-title">Lead UX Developer</div>
+          <div class="card-body">Design systems, component libraries, and interaction design at scale across multiple organizations.</div>
+          <div class="card-footer">
+            <span class="badge badge-gradient-pink">Design</span>
+            <span class="badge badge-gradient-teal">UX</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="cl-label" style="margin-top:12px;">
+      spotlight-wrapper: rounded-3xl p-px · ::before 320px blur-[100px] slate-50 opacity-20 · ::after 384px blur-[100px] violet-500 (dark) / violet-100 (light) opacity-20 (10% dark hover)<br>
+      spotlight-card: bg-card backdrop-blur-md overflow-hidden · inset 0px 1px 0px rgba(255,255,255,0.1)<br>
+      JS: window mousemove → getBoundingClientRect() per card → setProperty(--mouse-x, --mouse-y) throttled 100ms
+    </div>
+  </div>
+
+  <!-- ─── BUTTONS ──────────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Buttons</div>
+
+    <div class="cl-row" style="margin-bottom:8px;">
+      <div class="cl-col">
+        <button class="btn btn-primary">Primary</button>
+        <div class="cl-label">bg-primary · text-primary-fg</div>
+      </div>
+      <div class="cl-col">
+        <button class="btn btn-secondary">Secondary</button>
+        <div class="cl-label">bg-secondary · text-secondary-fg</div>
+      </div>
+      <div class="cl-col">
+        <button class="btn btn-outline">Outline</button>
+        <div class="cl-label">border-border · transparent bg</div>
+      </div>
+      <div class="cl-col">
+        <button class="btn btn-ghost">Ghost</button>
+        <div class="cl-label">transparent · hover:bg-accent</div>
+      </div>
+      <div class="cl-col">
+        <button class="btn btn-destructive">Destructive</button>
+        <div class="cl-label">bg-destructive · text-white</div>
+      </div>
+    </div>
+
+    <div class="cl-row" style="margin-bottom:8px;">
+      <div class="cl-col">
+        <button class="btn btn-primary btn-sm">Small</button>
+        <div class="cl-label">btn-sm · h-8 px-3 text-xs</div>
+      </div>
+      <div class="cl-col">
+        <button class="btn btn-primary">Default</button>
+        <div class="cl-label">h-10 px-4 text-sm</div>
+      </div>
+      <div class="cl-col">
+        <button class="btn btn-primary btn-lg">Large</button>
+        <div class="cl-label">btn-lg · h-12 px-6 text-base</div>
+      </div>
+    </div>
+
+    <div class="cl-row">
+      <div class="cl-col">
+        <button class="btn btn-primary disabled" disabled>Disabled</button>
+        <div class="cl-label">opacity-50 · cursor-not-allowed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── EXPERIENCE CARDS ─────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Experience Cards</div>
+    <div style="display:flex; flex-direction:column; gap:12px; max-width:640px;">
+
+      <div class="exp-card">
+        <div>
+          <div class="exp-role">Lead Developer</div>
+          <div class="exp-company">Prime Solutions</div>
+        </div>
+        <div class="exp-date">2021 – 2025</div>
+      </div>
+
+      <div class="exp-card">
+        <div>
+          <div class="exp-role">CTO / Founding Partner</div>
+          <div class="exp-company">10,000 Hours / Tennis Learning Machine</div>
+        </div>
+        <div class="exp-date">2023 – 2025</div>
+      </div>
+
+      <div class="exp-card">
+        <div>
+          <div class="exp-role">Lead UX Developer</div>
+          <div class="exp-company">Various organizations</div>
+        </div>
+        <div class="exp-date">2003 – 2021</div>
+      </div>
+
+    </div>
+    <div class="cl-label" style="margin-top:8px;">rounded-xl · shadow-md · border border-border · grid 2-col</div>
+  </div>
+
+  <!-- ─── SKILL BADGES ─────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Skill Badges</div>
+    <div class="cl-row">
+      <div class="cl-col">
+        <span class="badge badge-gradient-blue">React</span>
+        <div class="cl-label">from-blue-500 to-cyan-500</div>
+      </div>
+      <div class="cl-col">
+        <span class="badge badge-gradient-indigo">Node.js</span>
+        <div class="cl-label">from-indigo-500 to-blue-600</div>
+      </div>
+      <div class="cl-col">
+        <span class="badge badge-gradient-purple">AI/ML</span>
+        <div class="cl-label">from-purple-500 to-pink-500</div>
+      </div>
+      <div class="cl-col">
+        <span class="badge badge-gradient-sky">TypeScript</span>
+        <div class="cl-label">from-sky-400 to-indigo-500</div>
+      </div>
+      <div class="cl-col">
+        <span class="badge badge-gradient-green">Next.js</span>
+        <div class="cl-label">from-green-500 to-teal-500</div>
+      </div>
+      <div class="cl-col">
+        <span class="badge badge-gradient-orange">Cloud</span>
+        <div class="cl-label">from-orange-400 to-yellow-400</div>
+      </div>
+      <div class="cl-col">
+        <span class="badge badge-gradient-pink">Design</span>
+        <div class="cl-label">from-pink-400 to-purple-400</div>
+      </div>
+      <div class="cl-col">
+        <span class="badge badge-gradient-teal">PostgreSQL</span>
+        <div class="cl-label">from-teal-400 to-teal-600</div>
+      </div>
+      <div class="cl-col">
+        <span class="badge badge-default">Other</span>
+        <div class="cl-label">bg-secondary · border-border</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SKILLS MARQUEE ───────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Skills Marquee — animate-scroll 20s linear infinite</div>
+    <div class="marquee-outer">
+      <div class="marquee-track">
+        <!-- First set -->
+        <span class="badge badge-gradient-blue">React</span>
+        <span class="badge badge-gradient-indigo">Node.js</span>
+        <span class="badge badge-gradient-purple">AI/ML</span>
+        <span class="badge badge-gradient-sky">TypeScript</span>
+        <span class="badge badge-gradient-green">Next.js</span>
+        <span class="badge badge-gradient-orange">AWS</span>
+        <span class="badge badge-gradient-pink">Figma</span>
+        <span class="badge badge-gradient-teal">PostgreSQL</span>
+        <span class="badge badge-gradient-blue">GraphQL</span>
+        <span class="badge badge-gradient-indigo">Docker</span>
+        <span class="badge badge-gradient-purple">Python</span>
+        <span class="badge badge-gradient-sky">Tailwind</span>
+        <span class="badge badge-gradient-green">Prisma</span>
+        <span class="badge badge-gradient-orange">Redis</span>
+        <span class="badge badge-gradient-pink">Framer</span>
+        <span class="badge badge-gradient-teal">Supabase</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="badge badge-gradient-blue">React</span>
+        <span class="badge badge-gradient-indigo">Node.js</span>
+        <span class="badge badge-gradient-purple">AI/ML</span>
+        <span class="badge badge-gradient-sky">TypeScript</span>
+        <span class="badge badge-gradient-green">Next.js</span>
+        <span class="badge badge-gradient-orange">AWS</span>
+        <span class="badge badge-gradient-pink">Figma</span>
+        <span class="badge badge-gradient-teal">PostgreSQL</span>
+        <span class="badge badge-gradient-blue">GraphQL</span>
+        <span class="badge badge-gradient-indigo">Docker</span>
+        <span class="badge badge-gradient-purple">Python</span>
+        <span class="badge badge-gradient-sky">Tailwind</span>
+        <span class="badge badge-gradient-green">Prisma</span>
+        <span class="badge badge-gradient-orange">Redis</span>
+        <span class="badge badge-gradient-pink">Framer</span>
+        <span class="badge badge-gradient-teal">Supabase</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── INTEREST TAGS ────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Interest Tags</div>
+    <div class="cl-row">
+      <span class="interest-tag">⛷ Skiing</span>
+      <span class="interest-tag">🎾 Tennis</span>
+      <span class="interest-tag">🏐 Volleyball</span>
+      <span class="interest-tag">🚗 Cars</span>
+      <span class="interest-tag">🤖 AI</span>
+      <span class="interest-tag">📈 Investing</span>
+      <span class="interest-tag">🎵 Music</span>
+      <span class="interest-tag">🎮 Gaming</span>
+      <span class="interest-tag">📷 Photography</span>
+    </div>
+    <div class="cl-label">bg-secondary · border-border · font-medium text-muted-fg</div>
+  </div>
+
+  <!-- ─── INPUTS ───────────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Form Inputs</div>
+    <div class="cl-row">
+      <div class="input-group">
+        <label class="input-label">Default</label>
+        <input class="input" type="text" placeholder="Enter text…" />
+      </div>
+      <div class="input-group">
+        <label class="input-label">Focus state</label>
+        <input class="input" type="text" placeholder="Click to focus" autofocus />
+      </div>
+      <div class="input-group">
+        <label class="input-label">Disabled</label>
+        <input class="input" type="text" placeholder="Disabled input" disabled style="opacity:0.5;cursor:not-allowed;" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── COLOR PALETTE ────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Color Palette — Slate Family (shadcn/ui default)</div>
+
+    <div style="margin-bottom:24px;">
+      <div style="font-size:12px;color:var(--muted-fg);margin-bottom:12px;font-family:monospace;">Light mode</div>
+      <div class="cl-row">
+        <div class="cl-col"><div class="swatch" style="background:#ffffff; border:1px solid #e2e8f0;"></div><div class="cl-label">background<br>#ffffff</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#020817;"></div><div class="cl-label">foreground<br>#020817</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#0f172a;"></div><div class="cl-label">primary<br>#0f172a</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#f1f5f9; border:1px solid #e2e8f0;"></div><div class="cl-label">secondary<br>#f1f5f9</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#64748b;"></div><div class="cl-label">muted-fg<br>#64748b</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#e2e8f0; border:1px solid #cbd5e1;"></div><div class="cl-label">border<br>#e2e8f0</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#ef4444;"></div><div class="cl-label">destructive<br>#ef4444</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:12px;color:var(--muted-fg);margin-bottom:12px;font-family:monospace;">Dark mode</div>
+      <div class="cl-row">
+        <div class="cl-col"><div class="swatch" style="background:#020817;"></div><div class="cl-label">background<br>#020817</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#f8fafc; border:1px solid #e2e8f0;"></div><div class="cl-label">foreground<br>#f8fafc</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#f8fafc; border:1px solid #e2e8f0;"></div><div class="cl-label">primary<br>#f8fafc</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#1e293b;"></div><div class="cl-label">secondary<br>#1e293b</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#94a3b8;"></div><div class="cl-label">muted-fg<br>#94a3b8</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#1e293b;"></div><div class="cl-label">border<br>#1e293b</div></div>
+        <div class="cl-col"><div class="swatch" style="background:#8b5cf6;"></div><div class="cl-label">spotlight-orb2<br>#8b5cf6</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── GRADIENT PALETTE ─────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Gradient Accent Palette</div>
+    <div class="cl-row">
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);"></div>
+        <div class="cl-label">blue-500 → cyan-500</div>
+      </div>
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#38bdf8,#4f46e5);"></div>
+        <div class="cl-label">sky-400 → indigo-600</div>
+      </div>
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#a855f7,#ec4899);"></div>
+        <div class="cl-label">purple-500 → pink-500</div>
+      </div>
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#f472b6,#a855f7);"></div>
+        <div class="cl-label">pink-400 → purple-500</div>
+      </div>
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#22c55e,#14b8a6);"></div>
+        <div class="cl-label">green-500 → teal-500</div>
+      </div>
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#fb923c,#facc15);"></div>
+        <div class="cl-label">orange-400 → yellow-400</div>
+      </div>
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#6366f1,#3b82f6);"></div>
+        <div class="cl-label">indigo-500 → blue-500</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TYPOGRAPHY ───────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Typography — System UI Stack</div>
+    <div class="type-specimen">
+      <div class="type-row">
+        <div class="type-meta">text-6xl<br>3.75rem / lh:1<br>font-bold</div>
+        <div style="font-size:3.75rem;line-height:1;font-weight:700;letter-spacing:-0.025em;">Display</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">text-4xl<br>2.25rem / lh:2.5rem<br>font-bold</div>
+        <div style="font-size:2.25rem;line-height:2.5rem;font-weight:700;letter-spacing:-0.025em;">Hero Heading</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">text-3xl<br>1.875rem / lh:2.25rem<br>font-semibold</div>
+        <div style="font-size:1.875rem;line-height:2.25rem;font-weight:600;letter-spacing:-0.02em;">Section Title</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">text-2xl<br>1.5rem / lh:2rem<br>font-semibold</div>
+        <div style="font-size:1.5rem;line-height:2rem;font-weight:600;">Section Heading</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">text-xl<br>1.25rem / lh:1.75rem<br>font-semibold</div>
+        <div style="font-size:1.25rem;line-height:1.75rem;font-weight:600;">Subheading</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">text-lg<br>1.125rem / lh:1.75rem<br>font-medium</div>
+        <div style="font-size:1.125rem;line-height:1.75rem;font-weight:500;">Large Body</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">text-base<br>1rem / lh:1.5rem<br>font-normal</div>
+        <div style="font-size:1rem;line-height:1.5rem;font-weight:400;">Body text — the quick brown fox jumps over the lazy dog</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">text-sm<br>0.875rem / lh:1.25rem<br>font-normal</div>
+        <div style="font-size:0.875rem;line-height:1.25rem;font-weight:400;color:var(--muted-fg);">Secondary text, metadata, descriptions</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">text-xs<br>0.75rem / lh:1rem<br>font-medium</div>
+        <div style="font-size:0.75rem;line-height:1rem;font-weight:500;color:var(--muted-fg);">LABELS · CAPTIONS · UPPERCASE TRACKING</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SPACING ──────────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Spacing Scale — 4px base unit</div>
+    <div class="spacing-demo">
+      <div class="cl-col"><div class="spacing-block" style="width:4px;height:4px;"></div><div class="cl-label">p-1<br>4px</div></div>
+      <div class="cl-col"><div class="spacing-block" style="width:8px;height:8px;"></div><div class="cl-label">p-2<br>8px</div></div>
+      <div class="cl-col"><div class="spacing-block" style="width:12px;height:12px;"></div><div class="cl-label">p-3<br>12px</div></div>
+      <div class="cl-col"><div class="spacing-block" style="width:16px;height:16px;"></div><div class="cl-label">p-4<br>16px</div></div>
+      <div class="cl-col"><div class="spacing-block" style="width:24px;height:24px;"></div><div class="cl-label">p-6<br>24px</div></div>
+      <div class="cl-col"><div class="spacing-block" style="width:32px;height:32px;"></div><div class="cl-label">p-8<br>32px</div></div>
+      <div class="cl-col"><div class="spacing-block" style="width:48px;height:48px;"></div><div class="cl-label">p-12<br>48px</div></div>
+      <div class="cl-col"><div class="spacing-block" style="width:80px;height:80px;"></div><div class="cl-label">p-20<br>80px</div></div>
+      <div class="cl-col"><div class="spacing-block" style="width:96px;height:96px;"></div><div class="cl-label">p-24<br>96px</div></div>
+    </div>
+  </div>
+
+  <!-- ─── BORDER RADIUS ────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Border Radius — --radius: 0.5rem</div>
+    <div class="cl-row">
+      <div class="cl-col"><div class="radius-demo-item" style="border-radius:0;">none</div><div class="cl-label">0</div></div>
+      <div class="cl-col"><div class="radius-demo-item" style="border-radius:4px;">sm</div><div class="cl-label">4px</div></div>
+      <div class="cl-col"><div class="radius-demo-item" style="border-radius:6px;">md</div><div class="cl-label">6px</div></div>
+      <div class="cl-col"><div class="radius-demo-item" style="border-radius:8px;">lg</div><div class="cl-label">8px</div></div>
+      <div class="cl-col"><div class="radius-demo-item" style="border-radius:12px;">xl</div><div class="cl-label">12px</div></div>
+      <div class="cl-col"><div class="radius-demo-item" style="border-radius:16px;">2xl</div><div class="cl-label">16px</div></div>
+      <div class="cl-col"><div class="radius-demo-item" style="border-radius:24px;">3xl</div><div class="cl-label">24px<br>cards</div></div>
+      <div class="cl-col"><div class="radius-demo-item" style="border-radius:9999px;">full</div><div class="cl-label">pill<br>avatar</div></div>
+    </div>
+  </div>
+
+  <!-- ─── SHADOWS ──────────────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Shadow Scale</div>
+    <div class="cl-row">
+      <div class="cl-col"><div class="shadow-demo-item" style="box-shadow:var(--shadow-sm);">shadow-sm</div></div>
+      <div class="cl-col"><div class="shadow-demo-item" style="box-shadow:var(--shadow);">shadow</div></div>
+      <div class="cl-col"><div class="shadow-demo-item" style="box-shadow:var(--shadow-md);">shadow-md</div></div>
+      <div class="cl-col"><div class="shadow-demo-item" style="box-shadow:var(--shadow-lg);">shadow-lg</div></div>
+      <div class="cl-col"><div class="shadow-demo-item" style="box-shadow:var(--shadow-xl);">shadow-xl</div></div>
+    </div>
+  </div>
+
+</div><!-- /cl-page -->
+
+<script>
+  /* ── Theme toggle ─────────────────────────────────────────── */
+  function setTheme(mode) {
+    const html = document.documentElement;
+    html.classList.toggle('dark', mode === 'dark');
+    document.querySelectorAll('.theme-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent.toLowerCase() === mode);
+    });
+  }
+
+  /* ── Spotlight effect ─────────────────────────────────────── */
+  // Exact implementation from source: per-card getBoundingClientRect
+  // throttled to ~100ms via requestAnimationFrame
+
+  let mouseX = 0, mouseY = 0;
+  let rafPending = false;
+
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(updateSpotlights);
+    }
+  });
+
+  function updateSpotlights() {
+    rafPending = false;
+    document.querySelectorAll('.spotlight-wrapper').forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const x = mouseX - rect.left;
+      const y = mouseY - rect.top;
+      card.style.setProperty('--mouse-x', x + 'px');
+      card.style.setProperty('--mouse-y', y + 'px');
+    });
+  }
+</script>
+
+</body>
+</html>

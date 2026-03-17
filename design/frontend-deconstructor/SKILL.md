@@ -47,7 +47,7 @@ Navigate to the target URL and extract:
 
 ### Phase 2: Synthesis
 
-Organize everything you extracted into two output files:
+Organize everything you extracted into **three output files**:
 
 **`design_reference.md`** — Human-readable design reference containing:
 - Site overview (what it is, overall aesthetic impression)
@@ -97,6 +97,26 @@ Organize everything you extracted into two output files:
 }
 ```
 
+**`component_library.html`** — A self-contained, single-file HTML component showcase that:
+- Loads in any browser with no build step or server
+- Defines all design tokens as CSS custom properties in `:root` (and `.dark` if the site has dark mode)
+- Includes a working light/dark mode toggle (if applicable) using a JS class toggle on `<html>`
+- Renders every major component category found on the site:
+  - Color palette swatches (with hex labels)
+  - Typography scale (all heading levels + body + label sizes, rendered live)
+  - Spacing scale visualization
+  - Border radius scale
+  - Shadow scale
+  - All button variants (primary, secondary, ghost, outline, destructive) with hover/focus/disabled states
+  - Card components (all variants found)
+  - Navigation bar demo
+  - Form inputs (default, focus, disabled)
+  - Any site-specific components (badges, tags, marquees, avatars, etc.)
+  - Interactive effects — if the site has JS-driven effects (e.g., spotlight/glow, parallax, scroll animations), implement them with vanilla JS so they work in the HTML file
+- Uses a `cl-section` / `cl-section-title` pattern to separate each component group
+- Includes a `cl-label` under each component showing the CSS classes or token values used
+- Is fully self-contained — no external dependencies except Google Fonts if the site uses them
+
 ### Phase 3: Quality Check
 
 Before presenting results:
@@ -105,6 +125,7 @@ Before presenting results:
 - Verify font families are correctly identified (check `font-family` computed values, not just what's visible)
 - Double-check that the JSONC is valid (no syntax errors, no trailing commas before closing braces)
 - Note any dynamic/JS-driven styles that could not be captured through static analysis
+- Verify the component_library.html opens correctly in a browser with no console errors
 
 ## Failure Conditions
 
