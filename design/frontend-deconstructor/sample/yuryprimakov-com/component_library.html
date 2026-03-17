@@ -1,83 +1,79 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" id="root">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>yuryprimakov.com — Component Library</title>
 <style>
   /* ============================================================
-     DESIGN TOKENS — from theme_architecture.jsonc
-     shadcn/ui default theme mapped to Tailwind slate palette
+     DESIGN TOKENS — extracted via Playwright computed styles
+     Framework: Tailwind CSS v3.4.13 + shadcn/ui + custom JSX styles
      ============================================================ */
   :root {
-    /* Light mode */
-    --background:        #ffffff;
-    --foreground:        #020817;
-    --primary:           #0f172a;
-    --primary-fg:        #f8fafc;
-    --secondary:         #f1f5f9;
-    --secondary-fg:      #0f172a;
-    --muted:             #f1f5f9;
-    --muted-fg:          #64748b;
-    --accent:            #f1f5f9;
-    --border:            #e2e8f0;
-    --input:             #e2e8f0;
-    --ring:              #020817;
-    --destructive:       #ef4444;
-    --card:              #ffffff;
-    --card-fg:           #020817;
+    /* Core palette */
+    --background:     #ffffff;
+    --foreground:     #020817;
+    --primary:        #0f172a;
+    --primary-fg:     #f8fafc;
+    --muted-fg:       #64748b;
+    --border:         #e2e8f0;
+    --ring:           #020817;
 
-    /* Spotlight glow colors */
-    --spotlight-orb1:    rgba(248, 250, 252, 1);   /* slate-50 */
-    --spotlight-orb2:    rgb(237, 233, 254);        /* violet-100 */
+    /* Card glass */
+    --card-bg:        rgba(241, 245, 249, 0.6);   /* slate-100 @ 60% */
+    --card-shadow:    rgba(107, 33, 168, 0.15) 0px 25px 50px -12px;
+    --card-inset:     inset 0px 1px 0px rgba(255,255,255,0.8);
 
-    /* Radius */
-    --radius:            0.5rem;    /* 8px base */
-    --radius-sm:         0.25rem;
-    --radius-md:         0.375rem;
-    --radius-lg:         0.5rem;
-    --radius-xl:         0.75rem;
-    --radius-2xl:        1rem;
-    --radius-3xl:        1.5rem;    /* card wrapper */
+    /* Name accent */
+    --accent-blue:    #3b82f6;   /* blue-500 */
 
-    /* Typography */
-    --font-sans:         system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    /* Primary button */
+    --btn-primary-bg: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb);
+
+    /* Background orbs — light mode */
+    --orb1-gradient:  linear-gradient(to right bottom, rgb(147,197,253), rgba(186,230,253,0.6));
+    --orb2-gradient:  linear-gradient(to right bottom, rgba(254,214,169,0.8), rgb(252,211,77));
+    --orb3-gradient:  linear-gradient(to right bottom, rgb(216,180,254), rgb(147,197,253));
+
+    /* Marquee fade */
+    --marquee-fade:   #e2e8f0;   /* slate-200 */
 
     /* Motion */
-    --ease-out:          cubic-bezier(0, 0, 0.2, 1);
-    --ease-in-out:       cubic-bezier(0.4, 0, 0.2, 1);
-    --duration-fast:     0.15s;
-    --duration-default:  0.2s;
-    --duration-slow:     0.5s;
+    --ease-out:       cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+    --dur-fast:       0.15s;
+    --dur-default:    0.3s;
+    --dur-slow:       0.5s;
 
-    /* Shadows */
-    --shadow-sm:         0 1px 2px 0 rgba(0,0,0,0.05);
-    --shadow:            0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
-    --shadow-md:         0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-    --shadow-lg:         0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
-    --shadow-xl:         0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+    /* Radius */
+    --radius:         0.5rem;
+    --radius-3xl:     1.5rem;
+    --radius-full:    9999px;
+
+    /* Grid overlay */
+    --grid-line:      rgba(0,0,0,0.03);
   }
 
   .dark {
-    /* Dark mode overrides */
-    --background:        #020817;
-    --foreground:        #f8fafc;
-    --primary:           #f8fafc;
-    --primary-fg:        #0f172a;
-    --secondary:         #1e293b;
-    --secondary-fg:      #f8fafc;
-    --muted:             #1e293b;
-    --muted-fg:          #94a3b8;
-    --accent:            #1e293b;
-    --border:            #1e293b;
-    --input:             #1e293b;
-    --ring:              #cbd5e1;
-    --destructive:       #7f1d1d;
-    --card:              #020817;
-    --card-fg:           #f8fafc;
+    --background:     #020617;
+    --foreground:     #f8fafc;
+    --primary:        #f8fafc;
+    --primary-fg:     #0f172a;
+    --muted-fg:       #94a3b8;
+    --border:         #1e293b;
+    --ring:           #cbd5e1;
 
-    --spotlight-orb1:    rgba(248, 250, 252, 1);   /* slate-50 */
-    --spotlight-orb2:    rgb(139, 92, 246);         /* violet-500 */
+    --card-bg:        rgba(2, 6, 23, 0.7);         /* slate-950 @ 70% */
+    --card-shadow:    rgba(107, 33, 168, 0.3) 0px 25px 50px -12px;
+    --card-inset:     inset 0px 1px 0px rgba(255,255,255,0.1);
+
+    /* Background orbs — dark mode */
+    --orb1-gradient:  linear-gradient(to right bottom, rgb(168,85,247), rgba(15,23,42,0.4));
+    --orb2-gradient:  linear-gradient(to right bottom, rgba(245,158,11,0.8), rgb(217,119,6));
+    --orb3-gradient:  linear-gradient(to right bottom, rgb(109,40,217), rgb(99,102,241));
+
+    --marquee-fade:   #020617;
+    --grid-line:      rgba(255,255,255,0.03);
   }
 
   /* ============================================================
@@ -86,110 +82,109 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
+    font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    background: var(--background);
+    color: var(--foreground);
   }
 
   /* ============================================================
-     SPOTLIGHT EFFECT (exact implementation from source)
+     AMBIENT BACKGROUND — three blurred orbs (exact from source)
      ============================================================ */
-  .spotlight-wrapper {
-    position: relative;
-    border-radius: var(--radius-3xl);   /* 24px */
-    padding: 1px;                        /* hairline gap for rim light */
-    background: var(--border);
+  .bg-orbs {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
   }
 
-  .spotlight-wrapper::before,
-  .spotlight-wrapper::after {
+  /* Grid overlay — repeating subtle lines */
+  .bg-orbs::before {
     content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image:
+      repeating-linear-gradient(90deg,  var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 96px),
+      repeating-linear-gradient(0deg,   var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 96px);
+  }
+
+  .orb {
     position: absolute;
     border-radius: 9999px;
     pointer-events: none;
-    transition: opacity var(--duration-slow) var(--ease-out);
   }
 
-  /* Orb 1 — white/slate bloom */
-  .spotlight-wrapper::before {
-    width: 320px; height: 320px;
-    left: -160px; top: -160px;
-    background: var(--spotlight-orb1);
-    opacity: 0.2;
-    z-index: 10;
-    filter: blur(100px);
-    transform: translate(var(--mouse-x, 0px), var(--mouse-y, 0px));
+  /* Orb 1 — blue/sky — top-left */
+  .orb-1 {
+    width: 40vw; height: 40vw;
+    top: -10vw; left: -5vw;
+    background: var(--orb1-gradient);
+    filter: blur(80px);
+    opacity: 0.92;
   }
 
-  /* Orb 2 — violet tint */
-  .spotlight-wrapper::after {
-    width: 384px; height: 384px;
-    left: -192px; top: -192px;
-    background: var(--spotlight-orb2);
-    opacity: 0.2;
-    z-index: 30;
-    filter: blur(100px);
-    transform: translate(var(--mouse-x, 0px), var(--mouse-y, 0px));
+  /* Orb 2 — orange/yellow — right */
+  .orb-2 {
+    width: 45vw; height: 45vw;
+    top: 5vw; right: -15vw;
+    background: var(--orb2-gradient);
+    filter: blur(60px);
+    opacity: 0.75;
   }
 
-  .dark .spotlight-wrapper::after {
-    opacity: 0.1;
-  }
-
-  .spotlight-card {
-    position: relative;
-    z-index: 20;
-    border-radius: calc(var(--radius-3xl) - 1px);
-    background: var(--card);
-    backdrop-filter: blur(12px);
-    overflow: hidden;
-    box-shadow: inset 0px 1px 0px rgba(255,255,255,0.1);
+  /* Orb 3 — purple/indigo — center-left */
+  .orb-3 {
+    width: 30vw; height: 30vw;
+    top: 30vw; left: 5vw;
+    background: var(--orb3-gradient);
+    filter: blur(60px);
+    opacity: 0.8;
   }
 
   /* ============================================================
-     COMPONENT LIBRARY SHELL
+     PAGE SHELL
      ============================================================ */
   .cl-page {
-    min-height: 100vh;
-    padding: 80px 40px;
+    position: relative;
+    z-index: 1;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 60px 40px 100px;
   }
 
   .cl-header {
-    margin-bottom: 72px;
+    margin-bottom: 64px;
     border-bottom: 1px solid var(--border);
-    padding-bottom: 40px;
+    padding-bottom: 32px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
   }
 
   .cl-page-title {
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 700;
     color: var(--foreground);
-    margin-bottom: 8px;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
   }
+
+  .cl-page-title span { color: var(--accent-blue); }
 
   .cl-page-subtitle {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--muted-fg);
-    line-height: 1.5;
-  }
-
-  .cl-page-subtitle a {
-    color: var(--foreground);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    font-family: monospace;
   }
 
   .cl-section {
-    margin-bottom: 80px;
+    margin-bottom: 72px;
   }
 
   .cl-section-title {
@@ -198,8 +193,8 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--muted-fg);
-    margin-bottom: 32px;
-    padding-bottom: 12px;
+    margin-bottom: 28px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
   }
 
@@ -208,101 +203,168 @@
     flex-wrap: wrap;
     gap: 16px;
     align-items: flex-start;
-    margin-bottom: 24px;
   }
 
   .cl-col {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
 
   .cl-label {
     font-size: 11px;
     color: var(--muted-fg);
-    margin-top: 6px;
     font-family: monospace;
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   /* Theme toggle */
   .theme-toggle {
     display: flex;
-    gap: 8px;
-    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: 3px;
+    gap: 2px;
+    backdrop-filter: blur(12px);
   }
 
   .theme-btn {
-    padding: 6px 14px;
-    border-radius: var(--radius-lg);
+    padding: 5px 16px;
+    border-radius: var(--radius-full);
     font-size: 13px;
-    font-family: var(--font-sans);
+    font-family: system-ui, sans-serif;
     cursor: pointer;
-    border: 1px solid var(--border);
-    background: var(--secondary);
-    color: var(--foreground);
-    transition: background var(--duration-default) var(--ease-out),
-                color var(--duration-default) var(--ease-out);
+    border: none;
+    background: transparent;
+    color: var(--muted-fg);
+    transition: background var(--dur-default) var(--ease-out),
+                color var(--dur-default) var(--ease-out);
   }
 
   .theme-btn.active {
-    background: var(--primary);
-    color: var(--primary-fg);
-    border-color: var(--primary);
+    background: var(--background);
+    color: var(--foreground);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
 
   /* ============================================================
-     COLOR PALETTE
+     GLASS CARD SYSTEM — exact from source
      ============================================================ */
-  .swatch {
-    width: 80px;
-    height: 56px;
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(128,128,128,0.15);
+
+  /* Outer wrapper: transparent background, 1px gap = rim light channel */
+  .glass-outer {
     position: relative;
+    border-radius: var(--radius-3xl);
+    padding: 1px;
+    backdrop-filter: blur(12px);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    /* The border is the 1px gap filled by orb light or spotlight */
+    background: var(--border);
   }
 
-  .swatch-lg {
-    width: 120px;
-    height: 72px;
+  /* Spotlight pseudo-elements — orb 1: white/slate bloom */
+  .glass-outer::before {
+    content: '';
+    position: absolute;
+    width: 320px; height: 320px;
+    left: -160px; top: -160px;
+    background: rgba(248, 250, 252, 1);
+    border-radius: 9999px;
+    pointer-events: none;
+    opacity: 0.2;
+    z-index: 10;
+    filter: blur(100px);
+    transform: translate(var(--mx, 50%), var(--my, 50%));
+    transition: opacity var(--dur-slow) var(--ease-out);
   }
 
-  .swatch-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  /* Spotlight pseudo-elements — orb 2: violet tint */
+  .glass-outer::after {
+    content: '';
+    position: absolute;
+    width: 384px; height: 384px;
+    left: -192px; top: -192px;
+    border-radius: 9999px;
+    pointer-events: none;
+    z-index: 30;
+    filter: blur(100px);
+    transform: translate(var(--mx, 50%), var(--my, 50%));
+    transition: opacity var(--dur-slow) var(--ease-out);
+  }
+
+  /* Light mode: orb2 = violet-100, subtle */
+  :root .glass-outer::after {
+    background: rgb(237, 233, 254);
+    opacity: 0.2;
+  }
+
+  /* Dark mode: orb2 = violet-500, dramatic */
+  .dark .glass-outer::after {
+    background: rgb(139, 92, 246);
+    opacity: 0.1;
+  }
+
+  /* Inner card: actual glass surface */
+  .glass-inner {
+    position: relative;
+    z-index: 20;
+    border-radius: calc(var(--radius-3xl) - 1px);
+    background: var(--card-bg);
+    box-shadow: var(--card-inset);
+    padding: 24px;
+    transition: background var(--dur-default) var(--ease-out);
   }
 
   /* ============================================================
-     TYPOGRAPHY SCALE
+     ANIMATED CARD BORDER — blue edge glow (from source)
+     Vertical and horizontal gradient lines, shown on hover
      ============================================================ */
-  .type-specimen {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    padding: 32px;
-    background: var(--secondary);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--border);
+  .card-edge-v {
+    position: absolute;
+    width: 1px;
+    inset-y: 0;
+    background: linear-gradient(0deg, transparent 0%, rgba(59,130,246,0.7) 50%, transparent 100%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+    transition: opacity 0.3s var(--ease-out);
   }
 
-  .type-row {
-    display: flex;
-    align-items: baseline;
-    gap: 24px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border);
+  .card-edge-h {
+    position: absolute;
+    height: 1px;
+    inset-x: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(59,130,246,0.7) 50%, transparent 100%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+    transition: opacity 0.3s var(--ease-out);
   }
 
-  .type-row:last-child { border-bottom: none; }
+  .glass-outer:hover .card-edge-v,
+  .glass-outer:hover .card-edge-h { opacity: 1; }
 
-  .type-meta {
-    width: 140px;
-    flex-shrink: 0;
+  /* ============================================================
+     TYPOGRAPHY
+     ============================================================ */
+  .name-primary {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--foreground);
+  }
+
+  .name-primary .accent { color: var(--accent-blue); }
+
+  .title-badge {
     font-size: 11px;
-    font-family: monospace;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--muted-fg);
-    line-height: 1.4;
+    margin-top: 2px;
   }
 
   /* ============================================================
@@ -313,270 +375,191 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    border-radius: var(--radius-md);
-    font-family: var(--font-sans);
+    border-radius: var(--radius-3xl);
+    font-family: system-ui, sans-serif;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     border: none;
-    transition: background var(--duration-default) var(--ease-out),
-                color var(--duration-default) var(--ease-out),
-                box-shadow var(--duration-default) var(--ease-out),
-                transform var(--duration-fast) var(--ease-out);
+    transition: opacity var(--dur-default) var(--ease-out),
+                transform var(--dur-fast) var(--ease-out),
+                box-shadow var(--dur-default) var(--ease-out);
     outline: none;
     text-decoration: none;
+    white-space: nowrap;
   }
+
+  .btn:active { transform: scale(0.97); }
 
   .btn:focus-visible {
     box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
   }
 
-  .btn:active { transform: scale(0.98); }
-
-  /* Primary */
+  /* Primary — blue gradient (exact from source) */
   .btn-primary {
-    background: var(--primary);
-    color: var(--primary-fg);
-    padding: 10px 20px;
+    background: var(--btn-primary-bg);
+    color: #ffffff;
+    padding: 10px 24px;
+    box-shadow: 0 1px 3px rgba(59,130,246,0.3);
   }
 
-  .btn-primary:hover {
-    background: var(--primary);
-    opacity: 0.9;
-  }
+  .btn-primary:hover { opacity: 0.9; box-shadow: 0 4px 14px rgba(59,130,246,0.4); }
 
-  /* Secondary */
+  /* Secondary / ghost */
   .btn-secondary {
-    background: var(--secondary);
-    color: var(--secondary-fg);
-    padding: 10px 20px;
-  }
-
-  .btn-secondary:hover { background: var(--muted); }
-
-  /* Ghost */
-  .btn-ghost {
-    background: transparent;
-    color: var(--foreground);
-    padding: 10px 20px;
-  }
-
-  .btn-ghost:hover { background: var(--accent); }
-
-  /* Outline */
-  .btn-outline {
-    background: transparent;
+    background: var(--card-bg);
     color: var(--foreground);
     border: 1px solid var(--border);
-    padding: 9px 19px;
+    padding: 9px 20px;
+    backdrop-filter: blur(8px);
   }
 
-  .btn-outline:hover { background: var(--accent); }
+  .btn-secondary:hover { border-color: var(--accent-blue); }
 
-  /* Destructive */
-  .btn-destructive {
-    background: var(--destructive);
-    color: #fff;
-    padding: 10px 20px;
-  }
-
-  /* Sizes */
-  .btn-sm { padding: 6px 12px; font-size: 13px; border-radius: var(--radius-sm); }
-  .btn-lg { padding: 12px 28px; font-size: 16px; }
-
-  /* Disabled */
-  .btn[disabled], .btn.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-
-  /* ============================================================
-     CARDS
-     ============================================================ */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow var(--duration-default) var(--ease-out),
-                transform var(--duration-default) var(--ease-out);
-  }
-
-  .card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
-  }
-
-  .card-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--foreground);
-    margin-bottom: 8px;
-    letter-spacing: -0.01em;
-  }
-
-  .card-body {
-    font-size: 14px;
-    color: var(--muted-fg);
-    line-height: 1.6;
-  }
-
-  .card-footer {
-    margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 8px;
+  /* Icon + label */
+  .btn-icon {
+    display: inline-flex;
+    flex-direction: column;
     align-items: center;
-  }
-
-  /* Experience card */
-  .exp-card {
-    background: var(--card);
+    gap: 6px;
+    padding: 16px 20px;
+    background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius-xl);
-    padding: 24px;
-    box-shadow: var(--shadow-md);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 8px 16px;
+    border-radius: var(--radius-3xl);
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: background var(--dur-default) var(--ease-out),
+                border-color var(--dur-default) var(--ease-out);
+    min-width: 80px;
   }
 
-  .exp-role {
-    font-size: 15px;
-    font-weight: 600;
+  .btn-icon:hover { border-color: var(--accent-blue); }
+
+  .btn-icon .icon-glyph {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
     color: var(--foreground);
   }
 
-  .exp-company {
-    font-size: 14px;
+  .btn-icon .icon-label {
+    font-size: 11px;
     color: var(--muted-fg);
-    margin-top: 2px;
-  }
-
-  .exp-date {
-    font-size: 12px;
-    color: var(--muted-fg);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
+    font-weight: 500;
   }
 
   /* ============================================================
-     SPOTLIGHT CARD DEMO
+     SKILL TECHNOLOGY ICONS (colored)
      ============================================================ */
-  .spotlight-demo-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+  .tech-grid {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
-  .spotlight-inner {
-    padding: 24px;
+  .tech-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    min-width: 72px;
+    transition: transform var(--dur-default) var(--ease-out),
+                box-shadow var(--dur-default) var(--ease-out);
   }
 
-  .spotlight-inner .card-title { font-size: 15px; }
-  .spotlight-inner .card-body  { font-size: 13px; }
+  .tech-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+
+  .tech-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .tech-label {
+    font-size: 11px;
+    color: var(--muted-fg);
+    font-weight: 500;
+    text-align: center;
+  }
 
   /* ============================================================
-     SKILL BADGES / TAGS
+     SKILL BADGES — pill shaped with gradient fills
      ============================================================ */
   .badge {
     display: inline-flex;
     align-items: center;
-    padding: 4px 12px;
-    border-radius: var(--radius-full, 9999px);
+    padding: 5px 14px;
+    border-radius: var(--radius-full);
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     white-space: nowrap;
-    transition: opacity var(--duration-default) var(--ease-out);
   }
 
-  .badge-default {
-    background: var(--secondary);
-    color: var(--secondary-fg);
+  .badge-plain {
+    background: var(--card-bg);
+    color: var(--foreground);
     border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
   }
 
-  .badge-gradient-blue {
-    background: linear-gradient(to right, #3b82f6, #06b6d4);
-    color: #fff;
-  }
-
-  .badge-gradient-purple {
-    background: linear-gradient(to right, #a855f7, #ec4899);
-    color: #fff;
-  }
-
-  .badge-gradient-green {
-    background: linear-gradient(to right, #22c55e, #14b8a6);
-    color: #fff;
-  }
-
-  .badge-gradient-indigo {
-    background: linear-gradient(to right, #6366f1, #3b82f6);
-    color: #fff;
-  }
-
-  .badge-gradient-orange {
-    background: linear-gradient(to right, #fb923c, #facc15);
-    color: #fff;
-  }
-
-  .badge-gradient-sky {
-    background: linear-gradient(to right, #38bdf8, #6366f1);
-    color: #fff;
-  }
-
-  .badge-gradient-pink {
-    background: linear-gradient(to right, #f472b6, #a855f7);
-    color: #fff;
-  }
-
-  .badge-gradient-teal {
-    background: linear-gradient(to right, #2dd4bf, #0d9488);
-    color: #fff;
-  }
+  .badge-blue    { background: linear-gradient(to right, #3b82f6, #06b6d4); color: #fff; }
+  .badge-indigo  { background: linear-gradient(to right, #6366f1, #3b82f6); color: #fff; }
+  .badge-purple  { background: linear-gradient(to right, #a855f7, #ec4899); color: #fff; }
+  .badge-sky     { background: linear-gradient(to right, #38bdf8, #6366f1); color: #fff; }
+  .badge-green   { background: linear-gradient(to right, #22c55e, #14b8a6); color: #fff; }
+  .badge-orange  { background: linear-gradient(to right, #fb923c, #facc15); color: #fff; }
+  .badge-pink    { background: linear-gradient(to right, #f472b6, #a855f7); color: #fff; }
+  .badge-teal    { background: linear-gradient(to right, #2dd4bf, #0d9488); color: #fff; }
+  .badge-red     { background: linear-gradient(to right, #f87171, #dc2626); color: #fff; }
 
   /* ============================================================
-     SKILLS MARQUEE
+     SKILLS MARQUEE — animate-scroll 20s linear infinite
      ============================================================ */
   @keyframes scroll {
-    0%  { transform: translateX(0); }
-    100%{ transform: translateX(-50%); }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
-  .marquee-outer {
-    overflow: hidden;
-    border-radius: var(--radius-lg);
-    padding: 16px 0;
+  .marquee-wrap {
     position: relative;
+    overflow: hidden;
+    padding: 12px 0;
   }
 
-  .marquee-outer::before,
-  .marquee-outer::after {
+  /* Fade masks using slate-200 (exact from source: mix-blend-luminosity) */
+  .marquee-wrap::before,
+  .marquee-wrap::after {
     content: '';
     position: absolute;
     top: 0; bottom: 0;
-    width: 80px;
+    width: 112px;   /* w-28 */
     z-index: 2;
     pointer-events: none;
+    mix-blend-mode: luminosity;
   }
 
-  .marquee-outer::before {
+  .marquee-wrap::before {
     left: 0;
-    background: linear-gradient(to right, var(--background), transparent);
+    background: linear-gradient(to right, var(--marquee-fade), transparent);
   }
 
-  .marquee-outer::after {
+  .marquee-wrap::after {
     right: 0;
-    background: linear-gradient(to left, var(--background), transparent);
+    background: linear-gradient(to left, var(--marquee-fade), transparent);
   }
 
   .marquee-track {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     width: max-content;
     animation: scroll 20s linear infinite;
   }
@@ -584,142 +567,164 @@
   .marquee-track:hover { animation-play-state: paused; }
 
   /* ============================================================
-     NAVIGATION
+     EXPERIENCE LIST
      ============================================================ */
-  .nav-demo {
+  .exp-list {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .exp-row {
+    display: flex;
     justify-content: space-between;
-    padding: 16px 24px;
-    background: rgba(2, 8, 23, 0.8);
-    backdrop-filter: blur(12px);
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 0;
     border-bottom: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    transition: opacity var(--dur-default) var(--ease-out);
   }
 
-  html:not(.dark) .nav-demo {
-    background: rgba(255,255,255,0.8);
-  }
+  .exp-row:last-child { border-bottom: none; }
 
-  .nav-logo {
-    font-size: 15px;
+  .exp-row.dimmed { opacity: 0.45; }
+
+  .exp-role {
+    font-size: 14px;
     font-weight: 600;
     color: var(--foreground);
-    letter-spacing: -0.01em;
+    margin-bottom: 2px;
   }
 
-  .nav-links {
+  .exp-company {
+    font-size: 12px;
+    color: var(--muted-fg);
+  }
+
+  .exp-dates {
+    font-size: 11px;
+    color: var(--muted-fg);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  /* ============================================================
+     NAVIGATION BAR
+     ============================================================ */
+  .nav-bar {
     display: flex;
-    gap: 4px;
-    list-style: none;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    gap: 2px;
+    width: fit-content;
+    margin: 0 auto;
   }
 
-  .nav-link {
-    padding: 6px 12px;
-    border-radius: var(--radius-md);
+  .nav-item {
+    padding: 7px 18px;
+    border-radius: var(--radius-full);
     font-size: 14px;
     font-weight: 500;
     color: var(--muted-fg);
     cursor: pointer;
-    transition: color var(--duration-default) var(--ease-out),
-                background var(--duration-default) var(--ease-out);
-    text-decoration: none;
+    transition: color var(--dur-default) var(--ease-out),
+                background var(--dur-default) var(--ease-out);
+    border: none;
+    background: none;
+    font-family: system-ui, sans-serif;
   }
 
-  .nav-link:hover {
-    color: var(--foreground);
-    background: var(--accent);
-  }
-
-  .nav-link.active {
-    color: var(--foreground);
-    background: var(--secondary);
-  }
-
-  /* ============================================================
-     INPUTS
-     ============================================================ */
-  .input {
-    width: 100%;
-    padding: 9px 12px;
-    font-family: var(--font-sans);
-    font-size: 14px;
+  .nav-item.active {
     background: var(--background);
-    border: 1px solid var(--input);
-    border-radius: var(--radius-md);
     color: var(--foreground);
-    outline: none;
-    transition: border-color var(--duration-default) var(--ease-out),
-                box-shadow var(--duration-default) var(--ease-out);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   }
 
-  .input::placeholder { color: var(--muted-fg); }
-
-  .input:focus {
-    border-color: var(--ring);
-    box-shadow: 0 0 0 2px rgba(2, 8, 23, 0.12);
-  }
-
-  .dark .input:focus {
-    box-shadow: 0 0 0 2px rgba(203, 213, 225, 0.12);
-  }
-
-  .input-label {
-    display: block;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--foreground);
-    margin-bottom: 6px;
-  }
-
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    width: 280px;
-  }
+  .nav-item:hover:not(.active) { color: var(--foreground); }
 
   /* ============================================================
-     SPACING SCALE
+     COLOR SWATCH
      ============================================================ */
-  .spacing-demo {
-    display: flex;
-    gap: 12px;
-    align-items: flex-end;
-    flex-wrap: wrap;
+  .swatch {
+    border-radius: 10px;
+    border: 1px solid rgba(128,128,128,0.15);
   }
 
-  .spacing-block {
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    border-radius: 2px;
-    opacity: 0.7;
-  }
+  .swatch-md { width: 80px; height: 56px; }
+  .swatch-lg { width: 120px; height: 72px; }
 
   /* ============================================================
-     SHADOW SCALE
+     TYPE SPECIMEN
      ============================================================ */
-  .shadow-demo-item {
-    width: 120px;
-    height: 80px;
-    background: var(--card);
+  .type-specimen {
+    background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-3xl);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+  }
+
+  .type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .type-row:last-child { border-bottom: none; }
+
+  .type-meta {
+    width: 150px;
+    flex-shrink: 0;
+    font-size: 11px;
+    font-family: monospace;
+    color: var(--muted-fg);
+    line-height: 1.5;
+  }
+
+  /* ============================================================
+     SPACING BLOCKS
+     ============================================================ */
+  .spacing-demo { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+
+  .sp-block {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 3px;
+    opacity: 0.6;
+  }
+
+  /* ============================================================
+     SHADOW DEMO
+     ============================================================ */
+  .shadow-item {
+    width: 120px; height: 80px;
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 11px;
     color: var(--muted-fg);
     font-family: monospace;
   }
 
   /* ============================================================
-     BORDER RADIUS SCALE
+     RADIUS DEMO
      ============================================================ */
-  .radius-demo-item {
-    width: 80px;
-    height: 80px;
-    background: var(--secondary);
-    border: 2px solid var(--border);
+  .radius-item {
+    width: 72px; height: 72px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -730,119 +735,83 @@
   }
 
   /* ============================================================
-     PROFILE / HERO PREVIEW
+     PROFILE HERO PREVIEW
      ============================================================ */
   .hero-preview {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 48px 40px;
-    background: var(--secondary);
-    border-radius: var(--radius-2xl);
-    border: 1px solid var(--border);
+    align-items: flex-start;
     gap: 16px;
+    padding: 24px;
   }
 
   .avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 9999px;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-full);
     background: linear-gradient(135deg, #3b82f6, #8b5cf6);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
     color: #fff;
     flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.3);
   }
 
-  .hero-name {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    color: var(--foreground);
-  }
-
-  .hero-title {
-    font-size: 15px;
-    color: var(--muted-fg);
-    font-weight: 400;
-  }
-
-  .hero-focus {
+  .hero-bio {
     font-size: 13px;
     color: var(--muted-fg);
-    max-width: 360px;
-    line-height: 1.6;
+    line-height: 1.65;
+    max-width: 340px;
+    margin-top: 12px;
   }
 
-  .hero-location {
-    font-size: 13px;
-    color: var(--muted-fg);
+  /* Section header with "all" link */
+  .section-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 4px;
+    margin-bottom: 16px;
   }
 
-  .hero-actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 8px;
+  .section-header-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-fg);
   }
 
-  /* Social link buttons */
-  .btn-social {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    border-radius: var(--radius-md);
-    font-size: 13px;
-    font-weight: 500;
-    background: var(--secondary);
-    color: var(--foreground);
-    border: 1px solid var(--border);
-    cursor: pointer;
+  .section-header-link {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
     text-decoration: none;
-    transition: background var(--duration-default) var(--ease-out),
-                border-color var(--duration-default) var(--ease-out);
-  }
-
-  .btn-social:hover { background: var(--accent); }
-
-  /* ============================================================
-     INTEREST TAG
-     ============================================================ */
-  .interest-tag {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    border-radius: var(--radius-md);
-    font-size: 13px;
-    font-weight: 500;
-    background: var(--secondary);
-    color: var(--muted-fg);
-    border: 1px solid var(--border);
+    gap: 3px;
   }
 </style>
 </head>
+
 <body>
+<!-- Ambient background orbs -->
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
 
 <div class="cl-page">
 
   <!-- HEADER -->
   <div class="cl-header">
     <div>
-      <div class="cl-page-title">yuryprimakov.com</div>
-      <div class="cl-page-subtitle">
-        Component Library — extracted from <a href="https://yuryprimakov.com" target="_blank">yuryprimakov.com</a><br>
-        Framework: Next.js · Tailwind CSS v3.4.13 · shadcn/ui default theme
-      </div>
+      <div class="cl-page-title">Yury <span>Primakov</span></div>
+      <div class="cl-page-subtitle">yuryprimakov.com · Component Library · Tailwind CSS v3.4.13 + shadcn/ui</div>
     </div>
     <div class="theme-toggle">
       <button class="theme-btn" onclick="setTheme('light')">Light</button>
@@ -850,485 +819,481 @@
     </div>
   </div>
 
-  <!-- ─── HERO PREVIEW ─────────────────────────────────────── -->
-  <div class="cl-section">
-    <div class="cl-section-title">Hero / Profile</div>
-    <div class="hero-preview">
-      <div class="avatar">YP</div>
-      <div>
-        <div class="hero-name">Yury Primakov</div>
-        <div class="hero-title">Principal Full Stack Engineer</div>
-      </div>
-      <div class="hero-focus">AI Automations using Personalized Autonomous Agent Swarms · Holmdel, NJ</div>
-      <div class="hero-actions">
-        <button class="btn btn-primary">Resume</button>
-        <button class="btn-social">GitHub</button>
-        <button class="btn-social">LinkedIn</button>
-        <button class="btn-social">CodePen</button>
-        <button class="btn-social">Contact</button>
-      </div>
-    </div>
-  </div>
-
   <!-- ─── NAVIGATION ───────────────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Navigation</div>
-    <nav class="nav-demo">
-      <div class="nav-logo">Yury Primakov</div>
-      <ul class="nav-links">
-        <li><a class="nav-link active" href="#">About</a></li>
-        <li><a class="nav-link" href="#">Skills</a></li>
-        <li><a class="nav-link" href="#">Portfolio</a></li>
-        <li><a class="nav-link" href="#">Login</a></li>
-      </ul>
+    <div class="cl-section-title">Navigation — Pill nav, frosted glass, centered</div>
+    <nav class="nav-bar">
+      <button class="nav-item active">About</button>
+      <button class="nav-item">Skills</button>
+      <button class="nav-item">Portfolio</button>
     </nav>
-    <div class="cl-label">sticky · backdrop-blur-md · bg-background/80 · border-b border-border</div>
+    <div class="cl-label" style="margin-top:10px;text-align:center;">
+      rounded-full · bg-card/60 backdrop-blur-md · p-px inside · active item: bg-background shadow-sm
+    </div>
   </div>
 
-  <!-- ─── SPOTLIGHT EFFECT ─────────────────────────────────── -->
+  <!-- ─── PROFILE HERO CARD ────────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Spotlight Glow Effect — move your cursor over the cards</div>
-    <div class="spotlight-demo-grid" id="spotlight-grid">
+    <div class="cl-section-title">Profile / Hero — Bento card, glass, spotlight</div>
+    <div style="max-width:560px;">
+      <div class="glass-outer" data-spotlight>
+        <div class="card-edge-v" style="left:0;"></div>
+        <div class="card-edge-v" style="right:0;"></div>
+        <div class="card-edge-h" style="top:0;"></div>
+        <div class="card-edge-h" style="bottom:0;"></div>
+        <div class="glass-inner hero-preview">
+          <div class="avatar">YP</div>
+          <div>
+            <div class="name-primary">Yury <span class="accent">Primakov</span></div>
+            <div class="title-badge">Principal Full Stack Engineer</div>
+            <p class="hero-bio">I'm an engineer and creator who loves turning ideas into lasting, functional solutions. Guided by curiosity and first-principles thinking, I focus on elegant design, smart automation, and building systems that add real value.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cl-label" style="margin-top:10px;">
+      Outer: rounded-3xl p-px backdrop-blur-md · shadow: rgba(107,33,168,0.3) 0px 25px 50px -12px<br>
+      Inner: bg-slate-100/60 (light) / bg-slate-950/70 (dark) · inset 0px 1px 0px rgba(255,255,255,0.1)<br>
+      Spotlight: ::before 320px slate-50 blur-100 · ::after 384px violet-100/violet-500 blur-100 · JS setProperty(--mx/--my)
+    </div>
+  </div>
 
-      <div class="spotlight-wrapper">
-        <div class="spotlight-card spotlight-inner">
-          <div class="card-title">Lead Developer</div>
-          <div class="card-body">Prime Solutions · 2021–2025<br>
-          Full-stack development with React, Node.js, and cloud infrastructure.</div>
-          <div class="card-footer">
-            <span class="badge badge-gradient-blue">React</span>
-            <span class="badge badge-gradient-indigo">Node.js</span>
+  <!-- ─── SPOTLIGHT GRID ───────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Spotlight Effect — move cursor over cards</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" id="spotlight-grid">
+
+      <div class="glass-outer" data-spotlight>
+        <div class="card-edge-v" style="left:0;"></div>
+        <div class="card-edge-v" style="right:0;"></div>
+        <div class="glass-inner">
+          <div style="font-size:15px;font-weight:600;color:var(--foreground);margin-bottom:8px;">Lead Developer</div>
+          <div style="font-size:13px;color:var(--muted-fg);line-height:1.6;">Prime Solutions · 2021–2025</div>
+          <div style="margin-top:14px;display:flex;gap:6px;">
+            <span class="badge badge-blue">React</span>
+            <span class="badge badge-indigo">Node.js</span>
           </div>
         </div>
       </div>
 
-      <div class="spotlight-wrapper">
-        <div class="spotlight-card spotlight-inner">
-          <div class="card-title">CTO / Founding Partner</div>
-          <div class="card-body">10,000 Hours / Tennis Learning Machine · 2023–2025<br>
-          Built AI-powered coaching platform from the ground up.</div>
-          <div class="card-footer">
-            <span class="badge badge-gradient-purple">AI/ML</span>
-            <span class="badge badge-gradient-sky">TypeScript</span>
+      <div class="glass-outer" data-spotlight>
+        <div class="card-edge-v" style="left:0;"></div>
+        <div class="card-edge-v" style="right:0;"></div>
+        <div class="glass-inner">
+          <div style="font-size:15px;font-weight:600;color:var(--foreground);margin-bottom:8px;">CTO / Founding Partner</div>
+          <div style="font-size:13px;color:var(--muted-fg);line-height:1.6;">10,000 Hours · 2023–2025</div>
+          <div style="margin-top:14px;display:flex;gap:6px;">
+            <span class="badge badge-purple">AI/ML</span>
+            <span class="badge badge-sky">TypeScript</span>
           </div>
         </div>
       </div>
 
-      <div class="spotlight-wrapper">
-        <div class="spotlight-card spotlight-inner">
-          <div class="card-title">Lead UX Developer</div>
-          <div class="card-body">Design systems, component libraries, and interaction design at scale across multiple organizations.</div>
-          <div class="card-footer">
-            <span class="badge badge-gradient-pink">Design</span>
-            <span class="badge badge-gradient-teal">UX</span>
+      <div class="glass-outer" data-spotlight>
+        <div class="card-edge-v" style="left:0;"></div>
+        <div class="card-edge-v" style="right:0;"></div>
+        <div class="glass-inner">
+          <div style="font-size:15px;font-weight:600;color:var(--foreground);margin-bottom:8px;">Lead UX Developer</div>
+          <div style="font-size:13px;color:var(--muted-fg);line-height:1.6;">Multiple orgs · 2003–2021</div>
+          <div style="margin-top:14px;display:flex;gap:6px;">
+            <span class="badge badge-pink">Design</span>
+            <span class="badge badge-teal">UX</span>
           </div>
         </div>
       </div>
 
     </div>
-    <div class="cl-label" style="margin-top:12px;">
-      spotlight-wrapper: rounded-3xl p-px · ::before 320px blur-[100px] slate-50 opacity-20 · ::after 384px blur-[100px] violet-500 (dark) / violet-100 (light) opacity-20 (10% dark hover)<br>
-      spotlight-card: bg-card backdrop-blur-md overflow-hidden · inset 0px 1px 0px rgba(255,255,255,0.1)<br>
-      JS: window mousemove → getBoundingClientRect() per card → setProperty(--mouse-x, --mouse-y) throttled 100ms
+  </div>
+
+  <!-- ─── SOCIAL ICON BUTTONS ──────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Social Links — Icon + label, glass pill</div>
+    <div class="cl-row">
+      <button class="btn-icon">
+        <div class="icon-glyph">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        <span class="icon-label">LinkedIn</span>
+      </button>
+      <button class="btn-icon">
+        <div class="icon-glyph">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        </div>
+        <span class="icon-label">Github</span>
+      </button>
+      <button class="btn-icon">
+        <div class="icon-glyph">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <span class="icon-label">CodePen</span>
+      </button>
+      <button class="btn-icon">
+        <div class="icon-glyph">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <span class="icon-label">Contact</span>
+      </button>
+    </div>
+    <div class="cl-label" style="margin-top:8px;">
+      glass-card backdrop-blur · rounded-3xl · flex-col · icon 32px + label 11px muted · hover:border-blue-500
     </div>
   </div>
 
   <!-- ─── BUTTONS ──────────────────────────────────────────── -->
   <div class="cl-section">
     <div class="cl-section-title">Buttons</div>
-
-    <div class="cl-row" style="margin-bottom:8px;">
+    <div class="cl-row" style="margin-bottom:16px;">
       <div class="cl-col">
-        <button class="btn btn-primary">Primary</button>
-        <div class="cl-label">bg-primary · text-primary-fg</div>
+        <button class="btn btn-primary">Resume</button>
+        <div class="cl-label">from-blue-400 via-blue-500 to-blue-600<br>font-semibold · rounded-3xl</div>
       </div>
       <div class="cl-col">
-        <button class="btn btn-secondary">Secondary</button>
-        <div class="cl-label">bg-secondary · text-secondary-fg</div>
+        <button class="btn btn-secondary">View all projects</button>
+        <div class="cl-label">glass bg · border-border · hover:border-blue-500</div>
       </div>
       <div class="cl-col">
-        <button class="btn btn-outline">Outline</button>
-        <div class="cl-label">border-border · transparent bg</div>
-      </div>
-      <div class="cl-col">
-        <button class="btn btn-ghost">Ghost</button>
-        <div class="cl-label">transparent · hover:bg-accent</div>
-      </div>
-      <div class="cl-col">
-        <button class="btn btn-destructive">Destructive</button>
-        <div class="cl-label">bg-destructive · text-white</div>
-      </div>
-    </div>
-
-    <div class="cl-row" style="margin-bottom:8px;">
-      <div class="cl-col">
-        <button class="btn btn-primary btn-sm">Small</button>
-        <div class="cl-label">btn-sm · h-8 px-3 text-xs</div>
-      </div>
-      <div class="cl-col">
-        <button class="btn btn-primary">Default</button>
-        <div class="cl-label">h-10 px-4 text-sm</div>
-      </div>
-      <div class="cl-col">
-        <button class="btn btn-primary btn-lg">Large</button>
-        <div class="cl-label">btn-lg · h-12 px-6 text-base</div>
-      </div>
-    </div>
-
-    <div class="cl-row">
-      <div class="cl-col">
-        <button class="btn btn-primary disabled" disabled>Disabled</button>
+        <button class="btn btn-primary" style="opacity:0.5;cursor:not-allowed;" disabled>Disabled</button>
         <div class="cl-label">opacity-50 · cursor-not-allowed</div>
       </div>
     </div>
   </div>
 
-  <!-- ─── EXPERIENCE CARDS ─────────────────────────────────── -->
+  <!-- ─── TECH STACK ICONS ─────────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Experience Cards</div>
-    <div style="display:flex; flex-direction:column; gap:12px; max-width:640px;">
-
-      <div class="exp-card">
-        <div>
-          <div class="exp-role">Lead Developer</div>
-          <div class="exp-company">Prime Solutions</div>
-        </div>
-        <div class="exp-date">2021 – 2025</div>
-      </div>
-
-      <div class="exp-card">
-        <div>
-          <div class="exp-role">CTO / Founding Partner</div>
-          <div class="exp-company">10,000 Hours / Tennis Learning Machine</div>
-        </div>
-        <div class="exp-date">2023 – 2025</div>
-      </div>
-
-      <div class="exp-card">
-        <div>
-          <div class="exp-role">Lead UX Developer</div>
-          <div class="exp-company">Various organizations</div>
-        </div>
-        <div class="exp-date">2003 – 2021</div>
-      </div>
-
+    <div class="cl-section-title">Skills / Tech — Colored icons, white glass cards</div>
+    <div class="section-header">
+      <span class="section-header-title">Skills/Tech</span>
+      <a href="#" class="section-header-link">All Skills ↗</a>
     </div>
-    <div class="cl-label" style="margin-top:8px;">rounded-xl · shadow-md · border border-border · grid 2-col</div>
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-icon" style="background:#f7df1e;color:#000;">JS</div>
+        <span class="tech-label">JavaScript</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon" style="background:#3178c6;color:#fff;">TS</div>
+        <span class="tech-label">TypeScript</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon" style="background:#512bd4;color:#fff;">C#</div>
+        <span class="tech-label">C#</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon" style="background:#3776ab;color:#fff;">🐍</div>
+        <span class="tech-label">Python</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon" style="background:#cc2927;color:#fff;">SQL</div>
+        <span class="tech-label">T-SQL</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon" style="background:#264de4;color:#fff;">CSS</div>
+        <span class="tech-label">CSS/SCSS</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon" style="background:#68a063;color:#fff;">⬡</div>
+        <span class="tech-label">AppScript</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon" style="background:#41b883;color:#fff;">◆</div>
+        <span class="tech-label">Svelte</span>
+      </div>
+    </div>
+    <div class="cl-label" style="margin-top:10px;">
+      glass bg · rounded-2xl · 72px min-width · tech-icon 40px w/ brand color bg · hover:translateY(-2px)
+    </div>
+  </div>
+
+  <!-- ─── EXPERIENCE LIST ───────────────────────────────────── -->
+  <div class="cl-section">
+    <div class="cl-section-title">Experience — Timeline list in glass card</div>
+    <div style="max-width:600px;">
+      <div class="glass-outer" data-spotlight>
+        <div class="glass-inner" style="padding:24px 28px;">
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted-fg);margin-bottom:16px;">Experience</div>
+          <div class="exp-list">
+            <div class="exp-row">
+              <div>
+                <div class="exp-role">Lead Developer</div>
+                <div class="exp-company">Prime Solutions</div>
+              </div>
+              <div class="exp-dates">2021 – 2025</div>
+            </div>
+            <div class="exp-row dimmed">
+              <div>
+                <div class="exp-role">Chief Technology Officer / Founding Partner</div>
+                <div class="exp-company">10,000 Hours / Tennis Learning Machine</div>
+              </div>
+              <div class="exp-dates">2023 – 2025</div>
+            </div>
+            <div class="exp-row dimmed">
+              <div>
+                <div class="exp-role">Lead UX Developer / Full-Stack Development Lead</div>
+                <div class="exp-company">Like Minded Software / PruTech</div>
+              </div>
+              <div class="exp-dates">2018 – 2021</div>
+            </div>
+            <div class="exp-row dimmed">
+              <div>
+                <div class="exp-role">Managing Partner</div>
+                <div class="exp-company">Coign Investment Group</div>
+              </div>
+              <div class="exp-dates">2012 – 2018</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cl-label" style="margin-top:10px;">
+      Current role: full opacity · Past roles: opacity-45 · border-b border-border between items
+    </div>
   </div>
 
   <!-- ─── SKILL BADGES ─────────────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Skill Badges</div>
+    <div class="cl-section-title">Skill Badge Gradients</div>
     <div class="cl-row">
-      <div class="cl-col">
-        <span class="badge badge-gradient-blue">React</span>
-        <div class="cl-label">from-blue-500 to-cyan-500</div>
-      </div>
-      <div class="cl-col">
-        <span class="badge badge-gradient-indigo">Node.js</span>
-        <div class="cl-label">from-indigo-500 to-blue-600</div>
-      </div>
-      <div class="cl-col">
-        <span class="badge badge-gradient-purple">AI/ML</span>
-        <div class="cl-label">from-purple-500 to-pink-500</div>
-      </div>
-      <div class="cl-col">
-        <span class="badge badge-gradient-sky">TypeScript</span>
-        <div class="cl-label">from-sky-400 to-indigo-500</div>
-      </div>
-      <div class="cl-col">
-        <span class="badge badge-gradient-green">Next.js</span>
-        <div class="cl-label">from-green-500 to-teal-500</div>
-      </div>
-      <div class="cl-col">
-        <span class="badge badge-gradient-orange">Cloud</span>
-        <div class="cl-label">from-orange-400 to-yellow-400</div>
-      </div>
-      <div class="cl-col">
-        <span class="badge badge-gradient-pink">Design</span>
-        <div class="cl-label">from-pink-400 to-purple-400</div>
-      </div>
-      <div class="cl-col">
-        <span class="badge badge-gradient-teal">PostgreSQL</span>
-        <div class="cl-label">from-teal-400 to-teal-600</div>
-      </div>
-      <div class="cl-col">
-        <span class="badge badge-default">Other</span>
-        <div class="cl-label">bg-secondary · border-border</div>
-      </div>
+      <div class="cl-col"><span class="badge badge-blue">React</span><div class="cl-label">blue-500→cyan-500</div></div>
+      <div class="cl-col"><span class="badge badge-indigo">Node.js</span><div class="cl-label">indigo-500→blue-500</div></div>
+      <div class="cl-col"><span class="badge badge-purple">AI/ML</span><div class="cl-label">purple-500→pink-500</div></div>
+      <div class="cl-col"><span class="badge badge-sky">TypeScript</span><div class="cl-label">sky-400→indigo-500</div></div>
+      <div class="cl-col"><span class="badge badge-green">Next.js</span><div class="cl-label">green-500→teal-500</div></div>
+      <div class="cl-col"><span class="badge badge-orange">Cloud/AWS</span><div class="cl-label">orange-400→yellow-400</div></div>
+      <div class="cl-col"><span class="badge badge-pink">Design</span><div class="cl-label">pink-400→purple-400</div></div>
+      <div class="cl-col"><span class="badge badge-teal">PostgreSQL</span><div class="cl-label">teal-400→teal-600</div></div>
+      <div class="cl-col"><span class="badge badge-plain">Other</span><div class="cl-label">glass · plain</div></div>
     </div>
   </div>
 
   <!-- ─── SKILLS MARQUEE ───────────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Skills Marquee — animate-scroll 20s linear infinite</div>
-    <div class="marquee-outer">
+    <div class="cl-section-title">Skills Marquee — 20s linear infinite · w-28 luminosity fade masks</div>
+    <div class="marquee-wrap">
       <div class="marquee-track">
-        <!-- First set -->
-        <span class="badge badge-gradient-blue">React</span>
-        <span class="badge badge-gradient-indigo">Node.js</span>
-        <span class="badge badge-gradient-purple">AI/ML</span>
-        <span class="badge badge-gradient-sky">TypeScript</span>
-        <span class="badge badge-gradient-green">Next.js</span>
-        <span class="badge badge-gradient-orange">AWS</span>
-        <span class="badge badge-gradient-pink">Figma</span>
-        <span class="badge badge-gradient-teal">PostgreSQL</span>
-        <span class="badge badge-gradient-blue">GraphQL</span>
-        <span class="badge badge-gradient-indigo">Docker</span>
-        <span class="badge badge-gradient-purple">Python</span>
-        <span class="badge badge-gradient-sky">Tailwind</span>
-        <span class="badge badge-gradient-green">Prisma</span>
-        <span class="badge badge-gradient-orange">Redis</span>
-        <span class="badge badge-gradient-pink">Framer</span>
-        <span class="badge badge-gradient-teal">Supabase</span>
+        <span class="badge badge-blue">React</span>
+        <span class="badge badge-indigo">Node.js</span>
+        <span class="badge badge-purple">AI/ML</span>
+        <span class="badge badge-sky">TypeScript</span>
+        <span class="badge badge-green">Next.js</span>
+        <span class="badge badge-orange">AWS</span>
+        <span class="badge badge-pink">Figma</span>
+        <span class="badge badge-teal">PostgreSQL</span>
+        <span class="badge badge-blue">GraphQL</span>
+        <span class="badge badge-indigo">Docker</span>
+        <span class="badge badge-purple">Python</span>
+        <span class="badge badge-sky">Tailwind</span>
+        <span class="badge badge-green">Prisma</span>
+        <span class="badge badge-orange">Redis</span>
+        <span class="badge badge-pink">Framer</span>
+        <span class="badge badge-teal">Supabase</span>
         <!-- Duplicate for seamless loop -->
-        <span class="badge badge-gradient-blue">React</span>
-        <span class="badge badge-gradient-indigo">Node.js</span>
-        <span class="badge badge-gradient-purple">AI/ML</span>
-        <span class="badge badge-gradient-sky">TypeScript</span>
-        <span class="badge badge-gradient-green">Next.js</span>
-        <span class="badge badge-gradient-orange">AWS</span>
-        <span class="badge badge-gradient-pink">Figma</span>
-        <span class="badge badge-gradient-teal">PostgreSQL</span>
-        <span class="badge badge-gradient-blue">GraphQL</span>
-        <span class="badge badge-gradient-indigo">Docker</span>
-        <span class="badge badge-gradient-purple">Python</span>
-        <span class="badge badge-gradient-sky">Tailwind</span>
-        <span class="badge badge-gradient-green">Prisma</span>
-        <span class="badge badge-gradient-orange">Redis</span>
-        <span class="badge badge-gradient-pink">Framer</span>
-        <span class="badge badge-gradient-teal">Supabase</span>
+        <span class="badge badge-blue">React</span>
+        <span class="badge badge-indigo">Node.js</span>
+        <span class="badge badge-purple">AI/ML</span>
+        <span class="badge badge-sky">TypeScript</span>
+        <span class="badge badge-green">Next.js</span>
+        <span class="badge badge-orange">AWS</span>
+        <span class="badge badge-pink">Figma</span>
+        <span class="badge badge-teal">PostgreSQL</span>
+        <span class="badge badge-blue">GraphQL</span>
+        <span class="badge badge-indigo">Docker</span>
+        <span class="badge badge-purple">Python</span>
+        <span class="badge badge-sky">Tailwind</span>
+        <span class="badge badge-green">Prisma</span>
+        <span class="badge badge-orange">Redis</span>
+        <span class="badge badge-pink">Framer</span>
+        <span class="badge badge-teal">Supabase</span>
       </div>
     </div>
   </div>
 
-  <!-- ─── INTEREST TAGS ────────────────────────────────────── -->
+  <!-- ─── AMBIENT BACKGROUND ───────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Interest Tags</div>
+    <div class="cl-section-title">Ambient Background Orbs — Light mode</div>
     <div class="cl-row">
-      <span class="interest-tag">⛷ Skiing</span>
-      <span class="interest-tag">🎾 Tennis</span>
-      <span class="interest-tag">🏐 Volleyball</span>
-      <span class="interest-tag">🚗 Cars</span>
-      <span class="interest-tag">🤖 AI</span>
-      <span class="interest-tag">📈 Investing</span>
-      <span class="interest-tag">🎵 Music</span>
-      <span class="interest-tag">🎮 Gaming</span>
-      <span class="interest-tag">📷 Photography</span>
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(to right bottom,rgb(147,197,253),rgba(186,230,253,0.6));filter:blur(2px);"></div>
+        <div class="cl-label">Orb 1 — blue-300→sky-200<br>w-[40vw] blur-[80px] top-left</div>
+      </div>
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(to right bottom,rgba(254,214,169,0.8),rgb(252,211,77));filter:blur(2px);"></div>
+        <div class="cl-label">Orb 2 — orange-200→yellow-400<br>w-[45vw] blur-[60px] right</div>
+      </div>
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(to right bottom,rgb(216,180,254),rgb(147,197,253));filter:blur(2px);"></div>
+        <div class="cl-label">Orb 3 — purple-300→blue-300<br>w-[30vw] blur-[60px] center-left</div>
+      </div>
     </div>
-    <div class="cl-label">bg-secondary · border-border · font-medium text-muted-fg</div>
-  </div>
 
-  <!-- ─── INPUTS ───────────────────────────────────────────── -->
-  <div class="cl-section">
-    <div class="cl-section-title">Form Inputs</div>
+    <div style="margin-top:32px;" class="cl-section-title">Ambient Background Orbs — Dark mode</div>
     <div class="cl-row">
-      <div class="input-group">
-        <label class="input-label">Default</label>
-        <input class="input" type="text" placeholder="Enter text…" />
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(to right bottom,rgb(168,85,247),rgba(15,23,42,0.4));border-color:#1e293b;"></div>
+        <div class="cl-label">Orb 1 — purple-500→slate-900<br>dark:from-purple-500</div>
       </div>
-      <div class="input-group">
-        <label class="input-label">Focus state</label>
-        <input class="input" type="text" placeholder="Click to focus" autofocus />
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(to right bottom,rgba(245,158,11,0.8),rgb(217,119,6));border-color:#1e293b;"></div>
+        <div class="cl-label">Orb 2 — amber-500→amber-600<br>dark:from-orange-500</div>
       </div>
-      <div class="input-group">
-        <label class="input-label">Disabled</label>
-        <input class="input" type="text" placeholder="Disabled input" disabled style="opacity:0.5;cursor:not-allowed;" />
+      <div class="cl-col">
+        <div class="swatch swatch-lg" style="background:linear-gradient(to right bottom,rgb(109,40,217),rgb(99,102,241));border-color:#1e293b;"></div>
+        <div class="cl-label">Orb 3 — violet-700→indigo-500<br>dark:from-violet-800</div>
       </div>
     </div>
   </div>
 
   <!-- ─── COLOR PALETTE ────────────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Color Palette — Slate Family (shadcn/ui default)</div>
+    <div class="cl-section-title">Color Palette — shadcn/ui default · Slate family</div>
 
-    <div style="margin-bottom:24px;">
-      <div style="font-size:12px;color:var(--muted-fg);margin-bottom:12px;font-family:monospace;">Light mode</div>
-      <div class="cl-row">
-        <div class="cl-col"><div class="swatch" style="background:#ffffff; border:1px solid #e2e8f0;"></div><div class="cl-label">background<br>#ffffff</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#020817;"></div><div class="cl-label">foreground<br>#020817</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#0f172a;"></div><div class="cl-label">primary<br>#0f172a</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#f1f5f9; border:1px solid #e2e8f0;"></div><div class="cl-label">secondary<br>#f1f5f9</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#64748b;"></div><div class="cl-label">muted-fg<br>#64748b</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#e2e8f0; border:1px solid #cbd5e1;"></div><div class="cl-label">border<br>#e2e8f0</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#ef4444;"></div><div class="cl-label">destructive<br>#ef4444</div></div>
-      </div>
+    <div style="margin-bottom:20px;font-size:12px;color:var(--muted-fg);">Light mode</div>
+    <div class="cl-row" style="margin-bottom:28px;">
+      <div class="cl-col"><div class="swatch swatch-md" style="background:#ffffff;border-color:#e2e8f0;"></div><div class="cl-label">background<br>#ffffff</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:#020817;"></div><div class="cl-label">foreground<br>#020817</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:#3b82f6;"></div><div class="cl-label">accent-blue<br>#3b82f6</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:rgba(241,245,249,0.6);border-color:#e2e8f0;"></div><div class="cl-label">card-bg<br>slate-100/60%</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:#64748b;"></div><div class="cl-label">muted-fg<br>#64748b</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:#e2e8f0;border-color:#cbd5e1;"></div><div class="cl-label">border<br>#e2e8f0</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:linear-gradient(to right,#60a5fa,#3b82f6,#2563eb);"></div><div class="cl-label">btn-primary<br>blue gradient</div></div>
     </div>
 
-    <div>
-      <div style="font-size:12px;color:var(--muted-fg);margin-bottom:12px;font-family:monospace;">Dark mode</div>
-      <div class="cl-row">
-        <div class="cl-col"><div class="swatch" style="background:#020817;"></div><div class="cl-label">background<br>#020817</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#f8fafc; border:1px solid #e2e8f0;"></div><div class="cl-label">foreground<br>#f8fafc</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#f8fafc; border:1px solid #e2e8f0;"></div><div class="cl-label">primary<br>#f8fafc</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#1e293b;"></div><div class="cl-label">secondary<br>#1e293b</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#94a3b8;"></div><div class="cl-label">muted-fg<br>#94a3b8</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#1e293b;"></div><div class="cl-label">border<br>#1e293b</div></div>
-        <div class="cl-col"><div class="swatch" style="background:#8b5cf6;"></div><div class="cl-label">spotlight-orb2<br>#8b5cf6</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ─── GRADIENT PALETTE ─────────────────────────────────── -->
-  <div class="cl-section">
-    <div class="cl-section-title">Gradient Accent Palette</div>
+    <div style="margin-bottom:20px;font-size:12px;color:var(--muted-fg);">Dark mode</div>
     <div class="cl-row">
-      <div class="cl-col">
-        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);"></div>
-        <div class="cl-label">blue-500 → cyan-500</div>
-      </div>
-      <div class="cl-col">
-        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#38bdf8,#4f46e5);"></div>
-        <div class="cl-label">sky-400 → indigo-600</div>
-      </div>
-      <div class="cl-col">
-        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#a855f7,#ec4899);"></div>
-        <div class="cl-label">purple-500 → pink-500</div>
-      </div>
-      <div class="cl-col">
-        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#f472b6,#a855f7);"></div>
-        <div class="cl-label">pink-400 → purple-500</div>
-      </div>
-      <div class="cl-col">
-        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#22c55e,#14b8a6);"></div>
-        <div class="cl-label">green-500 → teal-500</div>
-      </div>
-      <div class="cl-col">
-        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#fb923c,#facc15);"></div>
-        <div class="cl-label">orange-400 → yellow-400</div>
-      </div>
-      <div class="cl-col">
-        <div class="swatch swatch-lg" style="background:linear-gradient(135deg,#6366f1,#3b82f6);"></div>
-        <div class="cl-label">indigo-500 → blue-500</div>
-      </div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:#020617;border-color:#1e293b;"></div><div class="cl-label">background<br>#020617</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:#f8fafc;border-color:#1e293b;"></div><div class="cl-label">foreground<br>#f8fafc</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:#3b82f6;border-color:#1e293b;"></div><div class="cl-label">accent-blue<br>#3b82f6</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:rgba(2,6,23,0.7);border-color:#1e293b;"></div><div class="cl-label">card-bg<br>slate-950/70%</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:#94a3b8;border-color:#1e293b;"></div><div class="cl-label">muted-fg<br>#94a3b8</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:#1e293b;border-color:#334155;"></div><div class="cl-label">border<br>#1e293b</div></div>
+      <div class="cl-col"><div class="swatch swatch-md" style="background:rgba(107,33,168,0.3);border-color:#1e293b;"></div><div class="cl-label">card-shadow<br>purple-900/30%</div></div>
     </div>
   </div>
 
   <!-- ─── TYPOGRAPHY ───────────────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Typography — System UI Stack</div>
+    <div class="cl-section-title">Typography — System UI (SF Pro / Segoe UI / Roboto)</div>
     <div class="type-specimen">
       <div class="type-row">
-        <div class="type-meta">text-6xl<br>3.75rem / lh:1<br>font-bold</div>
-        <div style="font-size:3.75rem;line-height:1;font-weight:700;letter-spacing:-0.025em;">Display</div>
+        <div class="type-meta">text-4xl · 2.25rem<br>font-bold · tracking-tight</div>
+        <div style="font-size:2.25rem;font-weight:700;letter-spacing:-0.025em;line-height:2.5rem;">Yury <span style="color:var(--accent-blue);">Primakov</span></div>
       </div>
       <div class="type-row">
-        <div class="type-meta">text-4xl<br>2.25rem / lh:2.5rem<br>font-bold</div>
-        <div style="font-size:2.25rem;line-height:2.5rem;font-weight:700;letter-spacing:-0.025em;">Hero Heading</div>
+        <div class="type-meta">text-3xl · 1.875rem<br>font-bold</div>
+        <div style="font-size:1.875rem;font-weight:700;letter-spacing:-0.02em;">Section Title</div>
       </div>
       <div class="type-row">
-        <div class="type-meta">text-3xl<br>1.875rem / lh:2.25rem<br>font-semibold</div>
-        <div style="font-size:1.875rem;line-height:2.25rem;font-weight:600;letter-spacing:-0.02em;">Section Title</div>
+        <div class="type-meta">text-xl · 1.25rem<br>font-semibold</div>
+        <div style="font-size:1.25rem;font-weight:600;">Lead Developer</div>
       </div>
       <div class="type-row">
-        <div class="type-meta">text-2xl<br>1.5rem / lh:2rem<br>font-semibold</div>
-        <div style="font-size:1.5rem;line-height:2rem;font-weight:600;">Section Heading</div>
+        <div class="type-meta">text-base · 1rem<br>font-normal</div>
+        <div style="font-size:1rem;font-weight:400;line-height:1.65;">I'm an engineer and creator who loves turning ideas into lasting, functional solutions guided by curiosity and first-principles thinking.</div>
       </div>
       <div class="type-row">
-        <div class="type-meta">text-xl<br>1.25rem / lh:1.75rem<br>font-semibold</div>
-        <div style="font-size:1.25rem;line-height:1.75rem;font-weight:600;">Subheading</div>
+        <div class="type-meta">text-sm · 0.875rem<br>text-muted-fg</div>
+        <div style="font-size:0.875rem;color:var(--muted-fg);">Prime Solutions · 2021 – 2025</div>
       </div>
       <div class="type-row">
-        <div class="type-meta">text-lg<br>1.125rem / lh:1.75rem<br>font-medium</div>
-        <div style="font-size:1.125rem;line-height:1.75rem;font-weight:500;">Large Body</div>
+        <div class="type-meta">text-xs · 0.75rem<br>uppercase tracking-wide</div>
+        <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;color:var(--muted-fg);">Principal Full Stack Engineer</div>
       </div>
       <div class="type-row">
-        <div class="type-meta">text-base<br>1rem / lh:1.5rem<br>font-normal</div>
-        <div style="font-size:1rem;line-height:1.5rem;font-weight:400;">Body text — the quick brown fox jumps over the lazy dog</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">text-sm<br>0.875rem / lh:1.25rem<br>font-normal</div>
-        <div style="font-size:0.875rem;line-height:1.25rem;font-weight:400;color:var(--muted-fg);">Secondary text, metadata, descriptions</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">text-xs<br>0.75rem / lh:1rem<br>font-medium</div>
-        <div style="font-size:0.75rem;line-height:1rem;font-weight:500;color:var(--muted-fg);">LABELS · CAPTIONS · UPPERCASE TRACKING</div>
+        <div class="type-meta">text-xs · 11px<br>monospace label</div>
+        <div style="font-size:11px;font-family:monospace;color:var(--muted-fg);">bg-slate-100/60 · rounded-3xl · blur-[100px]</div>
       </div>
     </div>
   </div>
 
   <!-- ─── SPACING ──────────────────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Spacing Scale — 4px base unit</div>
+    <div class="cl-section-title">Spacing — 4px base unit</div>
     <div class="spacing-demo">
-      <div class="cl-col"><div class="spacing-block" style="width:4px;height:4px;"></div><div class="cl-label">p-1<br>4px</div></div>
-      <div class="cl-col"><div class="spacing-block" style="width:8px;height:8px;"></div><div class="cl-label">p-2<br>8px</div></div>
-      <div class="cl-col"><div class="spacing-block" style="width:12px;height:12px;"></div><div class="cl-label">p-3<br>12px</div></div>
-      <div class="cl-col"><div class="spacing-block" style="width:16px;height:16px;"></div><div class="cl-label">p-4<br>16px</div></div>
-      <div class="cl-col"><div class="spacing-block" style="width:24px;height:24px;"></div><div class="cl-label">p-6<br>24px</div></div>
-      <div class="cl-col"><div class="spacing-block" style="width:32px;height:32px;"></div><div class="cl-label">p-8<br>32px</div></div>
-      <div class="cl-col"><div class="spacing-block" style="width:48px;height:48px;"></div><div class="cl-label">p-12<br>48px</div></div>
-      <div class="cl-col"><div class="spacing-block" style="width:80px;height:80px;"></div><div class="cl-label">p-20<br>80px</div></div>
-      <div class="cl-col"><div class="spacing-block" style="width:96px;height:96px;"></div><div class="cl-label">p-24<br>96px</div></div>
+      <div class="cl-col"><div class="sp-block" style="width:4px;height:4px;"></div><div class="cl-label">4px</div></div>
+      <div class="cl-col"><div class="sp-block" style="width:8px;height:8px;"></div><div class="cl-label">8px</div></div>
+      <div class="cl-col"><div class="sp-block" style="width:12px;height:12px;"></div><div class="cl-label">12px</div></div>
+      <div class="cl-col"><div class="sp-block" style="width:16px;height:16px;"></div><div class="cl-label">16px</div></div>
+      <div class="cl-col"><div class="sp-block" style="width:24px;height:24px;"></div><div class="cl-label">24px</div></div>
+      <div class="cl-col"><div class="sp-block" style="width:32px;height:32px;"></div><div class="cl-label">32px</div></div>
+      <div class="cl-col"><div class="sp-block" style="width:48px;height:48px;"></div><div class="cl-label">48px</div></div>
+      <div class="cl-col"><div class="sp-block" style="width:64px;height:64px;"></div><div class="cl-label">64px</div></div>
+      <div class="cl-col"><div class="sp-block" style="width:96px;height:96px;"></div><div class="cl-label">96px</div></div>
     </div>
   </div>
 
   <!-- ─── BORDER RADIUS ────────────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Border Radius — --radius: 0.5rem</div>
+    <div class="cl-section-title">Border Radius</div>
     <div class="cl-row">
-      <div class="cl-col"><div class="radius-demo-item" style="border-radius:0;">none</div><div class="cl-label">0</div></div>
-      <div class="cl-col"><div class="radius-demo-item" style="border-radius:4px;">sm</div><div class="cl-label">4px</div></div>
-      <div class="cl-col"><div class="radius-demo-item" style="border-radius:6px;">md</div><div class="cl-label">6px</div></div>
-      <div class="cl-col"><div class="radius-demo-item" style="border-radius:8px;">lg</div><div class="cl-label">8px</div></div>
-      <div class="cl-col"><div class="radius-demo-item" style="border-radius:12px;">xl</div><div class="cl-label">12px</div></div>
-      <div class="cl-col"><div class="radius-demo-item" style="border-radius:16px;">2xl</div><div class="cl-label">16px</div></div>
-      <div class="cl-col"><div class="radius-demo-item" style="border-radius:24px;">3xl</div><div class="cl-label">24px<br>cards</div></div>
-      <div class="cl-col"><div class="radius-demo-item" style="border-radius:9999px;">full</div><div class="cl-label">pill<br>avatar</div></div>
+      <div class="cl-col"><div class="radius-item" style="border-radius:4px;">sm<br>4px</div></div>
+      <div class="cl-col"><div class="radius-item" style="border-radius:8px;">lg<br>8px</div></div>
+      <div class="cl-col"><div class="radius-item" style="border-radius:12px;">xl<br>12px</div></div>
+      <div class="cl-col"><div class="radius-item" style="border-radius:16px;">2xl<br>16px</div></div>
+      <div class="cl-col"><div class="radius-item" style="border-radius:24px;">3xl<br>24px<br>cards</div></div>
+      <div class="cl-col"><div class="radius-item" style="border-radius:9999px;width:72px;">full<br>nav·pills<br>avatar</div></div>
     </div>
   </div>
 
   <!-- ─── SHADOWS ──────────────────────────────────────────── -->
   <div class="cl-section">
-    <div class="cl-section-title">Shadow Scale</div>
+    <div class="cl-section-title">Shadows</div>
     <div class="cl-row">
-      <div class="cl-col"><div class="shadow-demo-item" style="box-shadow:var(--shadow-sm);">shadow-sm</div></div>
-      <div class="cl-col"><div class="shadow-demo-item" style="box-shadow:var(--shadow);">shadow</div></div>
-      <div class="cl-col"><div class="shadow-demo-item" style="box-shadow:var(--shadow-md);">shadow-md</div></div>
-      <div class="cl-col"><div class="shadow-demo-item" style="box-shadow:var(--shadow-lg);">shadow-lg</div></div>
-      <div class="cl-col"><div class="shadow-demo-item" style="box-shadow:var(--shadow-xl);">shadow-xl</div></div>
+      <div class="cl-col">
+        <div class="shadow-item" style="box-shadow:0 1px 2px rgba(0,0,0,0.05);">shadow-sm</div>
+      </div>
+      <div class="cl-col">
+        <div class="shadow-item" style="box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);">shadow-md</div>
+      </div>
+      <div class="cl-col">
+        <div class="shadow-item" style="box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">shadow-lg</div>
+      </div>
+      <div class="cl-col">
+        <div class="shadow-item" style="box-shadow:rgba(107,33,168,0.3) 0px 25px 50px -12px;">purple glow<br>(cards)</div>
+      </div>
+      <div class="cl-col">
+        <div class="shadow-item" style="box-shadow:0 4px 14px rgba(59,130,246,0.4);">blue glow<br>(btn hover)</div>
+      </div>
     </div>
   </div>
 
 </div><!-- /cl-page -->
 
 <script>
-  /* ── Theme toggle ─────────────────────────────────────────── */
+  /* ── Theme Toggle ─────────────────────────────────────────── */
   function setTheme(mode) {
-    const html = document.documentElement;
-    html.classList.toggle('dark', mode === 'dark');
+    const isDark = mode === 'dark';
+    document.getElementById('root').classList.toggle('dark', isDark);
     document.querySelectorAll('.theme-btn').forEach(b => {
       b.classList.toggle('active', b.textContent.toLowerCase() === mode);
     });
   }
 
-  /* ── Spotlight effect ─────────────────────────────────────── */
-  // Exact implementation from source: per-card getBoundingClientRect
-  // throttled to ~100ms via requestAnimationFrame
+  /* ── Spotlight Effect ─────────────────────────────────────── */
+  // Exact source implementation:
+  // 1. Global mousemove → stores clientX/clientY
+  // 2. RAF-throttled: per-card getBoundingClientRect → relative coords
+  // 3. setProperty(--mx, --my) on each .glass-outer
+  // The ::before (white) and ::after (violet) pseudo-elements
+  // translate to (--mx, --my) with blur-100px
 
-  let mouseX = 0, mouseY = 0;
-  let rafPending = false;
+  let mouseX = 0, mouseY = 0, rafQueued = false;
 
   window.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    if (!rafPending) {
-      rafPending = true;
-      requestAnimationFrame(updateSpotlights);
+    if (!rafQueued) {
+      rafQueued = true;
+      requestAnimationFrame(tick);
     }
   });
 
-  function updateSpotlights() {
-    rafPending = false;
-    document.querySelectorAll('.spotlight-wrapper').forEach(card => {
+  function tick() {
+    rafQueued = false;
+    document.querySelectorAll('[data-spotlight]').forEach(card => {
       const rect = card.getBoundingClientRect();
-      const x = mouseX - rect.left;
-      const y = mouseY - rect.top;
-      card.style.setProperty('--mouse-x', x + 'px');
-      card.style.setProperty('--mouse-y', y + 'px');
+      card.style.setProperty('--mx', (mouseX - rect.left) + 'px');
+      card.style.setProperty('--my', (mouseY - rect.top)  + 'px');
     });
   }
 </script>
-
 </body>
 </html>

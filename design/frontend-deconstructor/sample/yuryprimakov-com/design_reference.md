@@ -7,13 +7,19 @@
 
 ## Site Overview
 
-A Next.js 13+ App Router portfolio with a clean, professional aesthetic built on Tailwind CSS v3.4.13 and the shadcn/ui component system. The design is intentionally neutral — no custom brand color, leaning on a slate-family monochrome palette with colorful gradients reserved for accent elements (skill badges, section highlights). Supports light and dark mode via localStorage with system preference fallback.
+A Next.js 13+ App Router portfolio built on Tailwind CSS v3.4.13, shadcn/ui, and custom JSX-styled components. The defining visual feature is an **ambient gradient background system** — three large blurred orbs positioned behind all content create a soft, diffused light environment that shifts dramatically between light and dark modes. Cards are glassmorphic (semi-transparent with `backdrop-filter: blur`), allowing the ambient light to bleed through.
 
-**Overall aesthetic:** Modern, technical, minimal. System fonts reinforce a developer-native feel. Colorful gradient accents (blue → cyan → purple → pink ranges) add visual energy without committing to a single brand color.
+**Overall aesthetic:** Warm and atmospheric. The background orbs (blue/sky + orange/yellow + purple/indigo) make the page feel like it's lit from multiple soft sources. Cards float above this gradient as frosted glass panels. The accent color — `blue-500` (#3b82f6) — appears on the name "Primakov", the primary CTA button gradient, and badge gradients, providing a clear brand throughline without overwhelming the layout.
+
+**Bento grid layout:** Content is arranged in a resizable dashboard grid (React Grid Layout) rather than a linear scroll. Cards snap to a grid with rounded-3xl (24px) corners throughout.
 
 ---
 
 ## Color Palette
+
+### Brand Accent
+
+`blue-500` — `#3b82f6` — used on: name "Primakov", primary button, skill badge gradients, card edge hover glow, "ALL SKILLS ↗" link.
 
 ### Design Token System (shadcn/ui default → Tailwind Slate)
 
@@ -57,14 +63,44 @@ All colors are CSS custom properties at `:root` and `.dark`, expressed in HSL ch
 | `--ring` | 212.7 26.8% 83.9% | `#cbd5e1` | slate-300 | Focus rings |
 | `--destructive` | 0 62.8% 30.6% | `#7f1d1d` | red-900 | Error/destructive dark |
 
-### Gradient Accent Colors
+### Ambient Background Orbs (verified via Playwright computed styles)
 
-The stylesheet includes a rich set of gradient utilities suggesting colorful accent elements (skill badges, tags, section decorations):
+Three absolutely-positioned `rounded-full blur-[60-80px]` divs are fixed behind all content. They shift color between light and dark mode.
 
-**Cool/Tech gradients:** `from-blue-500 (#3b82f6)` → `via-cyan-500 (#06b6d4)` → `to-teal-500 (#14b8a6)`
-**Creative gradients:** `from-purple-500 (#a855f7)` → `via-pink-500 (#ec4899)` → `to-red-500 (#ef4444)`
-**Warm gradients:** `from-orange-400 (#fb923c)` → `via-yellow-400 (#facc15)` → `to-lime-400 (#a3e635)`
-**Sky gradients:** `from-sky-400 (#38bdf8)` → `via-blue-500 (#3b82f6)` → `to-indigo-500/600`
+#### Light Mode Orbs
+
+| Orb | Size | Position | Gradient | Opacity |
+|---|---|---|---|---|
+| 1 — Blue/Sky | `40vw × 40vw` | Top-left | `rgb(147,197,253) → rgba(186,230,253,0.6)` (blue-300 → sky-200) | ~0.92 |
+| 2 — Orange/Yellow | `45vw × 45vw` | Right | `rgba(254,214,169,0.8) → rgb(252,211,77)` (orange-200 → yellow-400) | ~0.75 |
+| 3 — Purple/Blue | `30vw × 30vw` | Center-left | `rgb(216,180,254) → rgb(147,197,253)` (purple-300 → blue-300) | ~0.80 |
+
+#### Dark Mode Orbs
+
+| Orb | Size | Gradient | Opacity |
+|---|---|---|---|
+| 1 — Purple/Slate | `40vw × 40vw` | `rgb(168,85,247) → rgba(15,23,42,0.4)` (purple-500 → slate-900) | ~0.95 |
+| 2 — Amber/Orange | `45vw × 45vw` | `rgba(245,158,11,0.8) → rgb(217,119,6)` (amber-500 → amber-600) | ~0.76 |
+| 3 — Violet/Indigo | `30vw × 30vw` | `rgb(109,40,217) → rgb(99,102,241)` (violet-700 → indigo-500) | ~0.80 |
+
+**Grid overlay** on top of orbs: `repeating-linear-gradient` 96px grid, `rgba(0,0,0,0.03)` lines — barely perceptible texture.
+
+### Primary Button Gradient
+
+`linear-gradient(to right, #60a5fa, #3b82f6, #2563eb)` — `from-blue-400 via-blue-500 to-blue-600`
+
+### Skill Badge Gradients
+
+Used on pill-shaped tags throughout the skills marquee and tech section:
+
+**Cool/Tech:** `blue-500 (#3b82f6)` → `cyan-500 (#06b6d4)`
+**Indigo:** `indigo-500 (#6366f1)` → `blue-500 (#3b82f6)`
+**Creative/AI:** `purple-500 (#a855f7)` → `pink-500 (#ec4899)`
+**Sky/Indigo:** `sky-400 (#38bdf8)` → `indigo-500 (#6366f1)`
+**Green/Teal:** `green-500 (#22c55e)` → `teal-500 (#14b8a6)`
+**Warm:** `orange-400 (#fb923c)` → `yellow-400 (#facc15)`
+**Pink/Purple:** `pink-400 (#f472b6)` → `purple-400 (#c084fc)`
+**Teal:** `teal-400 (#2dd4bf)` → `teal-600 (#0d9488)`
 
 ---
 
@@ -259,39 +295,65 @@ Available for frosted-glass effects (likely nav bar on scroll):
 ## Component Inventory
 
 ### Navigation
-- Fixed/sticky header (implied by portfolio conventions)
-- Nav items: About, Skills, Portfolio, Login
-- Likely uses `backdrop-blur` + semi-transparent background on scroll
-- Light/dark theme toggle
-- System font, `font-medium` weight for nav links
+- Centered **pill nav** — `rounded-full` container with `backdrop-blur-md` + `bg-card/60`
+- Active tab has `bg-background shadow-sm` inside the pill
+- Items: About, Skills, Portfolio
+- Top-right: theme toggle (sun/moon icons) + login icon
 
-### Hero Section
-- Profile image (256×256px, circular via `rounded-full`)
-- Title: "Principal Full Stack Engineer"
-- Subtitle/focus: "AI Automations using Personalized Autonomous Agent Swarms"
-- Location text: Holmdel, NJ
-- Resume link (Google Drive) — primary CTA button
-- Social links: GitHub, CodePen, LinkedIn, Contact form
+### Glass Card System (verified)
+
+Every content panel uses a two-layer wrapper:
+
+**Outer wrapper** (`SpotlightCard`):
+```
+rounded-3xl  p-px  backdrop-blur-md
+box-shadow: rgba(107,33,168,0.3) 0px 25px 50px -12px   ← purple outer glow
+background: border-color (1px gap = rim light channel)
+```
+
+**Inner surface**:
+```
+rounded-[inherit]  z-20
+background (light): rgba(241,245,249,0.6)   ← slate-100 @ 60%
+background (dark):  rgba(2,6,23,0.7)         ← slate-950 @ 70%
+box-shadow: inset 0px 1px 0px rgba(255,255,255,0.1)   ← top-edge highlight
+```
+
+### Animated Card Border (hover)
+Blue gradient lines appear on card edges on hover:
+- Vertical: `linear-gradient(0deg, transparent, rgba(59,130,246,0.7), transparent)`
+- Horizontal: `linear-gradient(90deg, transparent, rgba(59,130,246,0.7), transparent)`
+- Default: `opacity-0` → Hover: `opacity-1` with `transition: opacity 0.3s`
+
+### Profile / Hero Card
+- Avatar: circular photo, `rounded-full`, `64-80px`
+- Name: `font-bold tracking-tight` — "Yury" in foreground, **"Primakov" in `blue-500`**
+- Title: `uppercase tracking-wide text-xs font-semibold text-muted-fg` — "PRINCIPAL FULL STACK ENGINEER"
+- Bio: `text-sm text-muted-fg leading-relaxed`
+- Primary CTA: blue gradient button — `from-blue-400 via-blue-500 to-blue-600`
+- Social links: icon + label in glass pill buttons (`rounded-3xl backdrop-blur`)
+
+### Tech Stack Icons
+- Icon cards: `rounded-2xl backdrop-blur`, 72px min-width
+- Each has a brand-colored 40px icon `(e.g. #f7df1e JS, #3178c6 TypeScript)`
+- Section header: "SKILLS/TECH" left, "ALL SKILLS ↗" right in `blue-500`
+- Hover: `translateY(-2px)` + `shadow-lg`
+
+### Experience List
+- Inside a glass card
+- Most-recent role: **full opacity**
+- All prior roles: **`opacity-45`** (dimmed) — communicates recency hierarchy
+- Row format: role + company left, date range right (`tabular-nums`)
+- Dividers: `border-b border-border`
 
 ### Skills Marquee
-- Horizontal scrolling strip using `animate-scroll` (20s linear infinite)
-- Likely contains colorful gradient skill badges
-- Overflow hidden container with duplicated content for seamless loop
-
-### Experience Timeline
-- 5 positions from 2003–2025
-- Card-based or timeline layout
-- Likely uses `shadow-md` or `shadow-lg` for card elevation
-- `rounded-lg` (8px) borders
-
-### Interests Section
-- Grid of interest categories (9 items)
-- Icons + labels pattern
-- Skiing, Tennis, Volleyball, Cars, AI, Investing, Music, Gaming, Photography
+- `animate-scroll` 20s linear infinite
+- Fade masks: `w-28 mix-blend-luminosity` using `from-slate-200 (light) / from-slate-950 (dark)` → transparent
+- Hover: `animation-play-state: paused`
 
 ### Theme System
 - Toggle: light / dark / system
-- Persisted in localStorage key `'theme'`
+- Persisted in `localStorage` key `'theme'`
 - System preference: `window.matchMedia('(prefers-color-scheme: dark)')`
 - Applied via `.dark` class on `<html>` element
 
@@ -318,12 +380,14 @@ Available for frosted-glass effects (likely nav bar on scroll):
 
 ## Design Personality
 
-**Technical minimalism:** The choice of system fonts and a slate monochrome palette signals "built by a developer for developers" — no decorative typefaces, no brand mascot, no heavy imagery.
+**Atmospheric depth over flat minimalism:** The three-orb ambient background is the first impression — the page feels *lit*, not just styled. Light mode is warm and airy (blue dawn light + amber afternoon warmth); dark mode is cinematic (deep purple twilight + amber glow at the edge). This isn't an afterthought — it's the dominant visual statement.
 
-**Restrained with purposeful pops:** The base palette is nearly grayscale (slate family), but the gradient utilities confirm colorful accent moments — likely gradient skill badge pills that make the skills section visually dynamic while keeping the overall layout quiet.
+**Glassmorphism as structure:** Every content panel is frosted glass. The `1px` outer wrapper gap creates a rim light where background orbs bleed through as a subtle colored border — the detail most visitors feel but can't identify. The `rgba(107,33,168,0.3)` purple drop shadow ties all cards to the ambient palette.
 
-**Smooth and modern:** shadcn/ui components bring consistent radius (8px), clean shadows, and reliable interactive states without custom styling overhead.
+**Blue as the single brand color:** `blue-500` (#3b82f6) appears exactly where attention should land — the surname "Primakov", the primary CTA, the card edge hover glow, and skill badge gradients. Everything else is neutral slate. This restraint makes every blue hit land hard.
 
-**Dual-mode first:** The theme system is deeply integrated (localStorage + system pref), suggesting dark mode isn't an afterthought — the dark palette (#020817 background with slate-50 text) is a first-class design state.
+**Opacity hierarchy in the experience list:** Active/current role at full opacity; all past roles dimmed to 45%. A single CSS rule communicates seniority, recency, and focus simultaneously — no badges, no labels needed.
 
-**Subtle motion:** The skills marquee is the only structural animation; other motion is limited to hover transitions (150–200ms). This keeps the portfolio feeling polished rather than distracting.
+**Motion that earns its place:** The marquee scrolls on a 20s loop (slow enough to be ambient, not distracting). Card edge hover glow (blue gradient lines) and spotlight orb tracking are the only other animations. The page never feels gratuitously animated.
+
+**Bento grid flexibility:** React Grid Layout lets cards be rearranged/resized — the design system is built for this. `rounded-3xl` (24px) on every card and the ambient background mean any layout reconfiguration still looks cohesive.
