@@ -118,9 +118,10 @@ body {
 }
 
 /* ── NAV ────────────────────────────────────────────────── */
+/* Sits directly below the announcement bar (~40px tall) */
 .nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 40px; left: 0; right: 0;
   height: 72px;
   z-index: 1000;
   display: flex;
@@ -147,10 +148,10 @@ body {
   color: var(--text-primary);
   text-decoration: none;
   opacity: 0.85;
-  transition: opacity 0.2s;
+  transition: color 0.2s;
   cursor: pointer;
 }
-.nav-links a:hover { opacity: 1; }
+.nav-links a:hover { opacity: 1; color: #fff; }
 .nav-ctas {
   display: flex;
   gap: 10px;
@@ -167,7 +168,8 @@ body {
   display: flex;
   align-items: center;
   gap: 4px;
-  transition: opacity 0.2s;
+  /* Verified: nav uses background-color 0.2s, border-radius 0.2s */
+  transition: opacity 0.2s, background-color 0.2s, border-radius 0.2s;
 }
 .nav-dropdown-trigger:hover { opacity: 1; }
 .nav-dropdown-trigger:hover + .nav-dropdown { display: block; }
@@ -183,6 +185,8 @@ body {
   border-radius: 10px;
   padding: 12px 0;
   border: 1px solid var(--border-default);
+  /* Verified: visibility, opacity 0.2s linear, transform 0.2s linear */
+  transition: visibility 0.2s, opacity 0.2s linear, transform 0.2s linear;
 }
 .nav-dropdown a {
   display: block;
@@ -274,12 +278,27 @@ body {
 }
 .btn-outline:hover { border-color: rgba(255,255,255,0.3); }
 
+/* "Let's connect" nav CTA — discovered via extraction */
+/* More complex gradient than the simple ghost, used for nav secondary CTA */
+.btn-connect {
+  background: transparent;
+  background-image:
+    radial-gradient(223% 105.53% at 6.05% 199.17%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(31.68% 130.91% at 100% 0%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(43.14% 139.47% at 0% 136.21%, rgba(227,235,255,0.3) 0%, rgba(255,255,255,0) 100%);
+  color: var(--text-primary);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.btn-connect:hover { border-color: rgba(255,255,255,0.3); }
+
 .btn-sm {
   padding: 8px 24px;
   font-size: 13px;
 }
 
 /* ── HERO SECTION ────────────────────────────────────────── */
+/* Video: cdn.auth0.com/website/homepage/background.mp4 — autoplay loop muted — 1440×692px */
+/* Nav + announcement bar = ~112px total fixed height */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -289,7 +308,7 @@ body {
   text-align: center;
   overflow: hidden;
   margin: -120px -32px 72px;
-  padding: 160px 64px 120px;
+  padding: 200px 64px 120px; /* extra top pad for announcement bar */
 }
 .hero-cursor-glow {
   position: absolute;
@@ -324,10 +343,9 @@ body {
   margin-bottom: 28px;
 }
 .hero-tag-label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   background: var(--grad-label-lav);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -357,12 +375,23 @@ body {
 }
 
 /* ── TYPOGRAPHY ──────────────────────────────────────────── */
-.type-scale h1 { font-size: 64px; font-weight: 400; line-height: 1.08; color: var(--text-primary); margin-bottom: 12px; }
-.type-scale h2 { font-size: 48px; font-weight: 400; line-height: 1.12; color: var(--text-primary); margin-bottom: 12px; }
-.type-scale h3 { font-size: 36px; font-weight: 400; color: var(--text-primary); margin-bottom: 12px; }
-.type-scale h4 { font-size: 20px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
+/* Extracted via Playwright getComputedStyle() — verified px values */
+.type-scale h1 { font-size: 64px; font-weight: 400; line-height: 72px; letter-spacing: -0.2px; color: var(--text-primary); margin-bottom: 12px; }
+.type-scale h2 { font-size: 48px; font-weight: 400; line-height: 56px; letter-spacing: -0.2px; color: var(--text-primary); margin-bottom: 12px; }
+/* Feature section h2 (tab-controlled panels) */
+.type-scale h2.sm { font-size: 40px; font-weight: 400; line-height: 48px; letter-spacing: -0.2px; color: var(--text-primary); margin-bottom: 12px; }
+/* Case study h3 */
+.type-scale h3 { font-size: 32px; font-weight: 400; line-height: 44px; letter-spacing: -0.1px; color: var(--text-primary); margin-bottom: 12px; }
+/* Card / resource h3 */
+.type-scale h3.sm { font-size: 20px; font-weight: 500; line-height: 28px; color: var(--text-primary); margin-bottom: 12px; }
+.type-scale h4 { font-size: 14px; font-weight: 700; color: rgb(30,33,42); margin-bottom: 12px; } /* on-light only */
 .type-scale .body { font-size: 16px; font-weight: 400; color: var(--text-primary); margin-bottom: 12px; }
-.type-scale .caption { font-size: 14px; font-weight: 400; color: var(--text-muted-1); margin-bottom: 12px; }
+.type-scale .body-sm { font-size: 14px; font-weight: 500; line-height: 20px; color: var(--text-primary); margin-bottom: 12px; }
+.type-scale .caption { font-size: 14px; font-weight: 400; line-height: 20px; letter-spacing: 0.15px; color: rgb(229,229,229); margin-bottom: 12px; }
+/* Blue accent labels — used inside feature cards */
+.type-scale .caption-blue { font-size: 14px; font-weight: 500; line-height: 20px; letter-spacing: 1px; color: rgb(182,202,255); margin-bottom: 12px; }
+/* Uppercase section labels in nav dropdowns */
+.type-scale .nav-label { font-size: 14px; font-weight: 500; line-height: 20px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--text-muted-2); margin-bottom: 12px; }
 .type-scale .label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted-2); }
 
 /* Gradient text */
@@ -567,9 +596,12 @@ body {
 }
 
 /* ── ANNOUNCEMENT BAR ────────────────────────────────────── */
+/* Auth0 uses a purple-gradient announcement strip above the nav */
 .announcement {
-  background: var(--bg-surface-1);
-  border-bottom: 1px solid var(--border-default);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1001; /* above nav */
+  background: linear-gradient(90deg, rgb(64,22,160) 0%, rgb(63,89,228) 40%, rgb(76,183,163) 80%, rgb(64,22,160) 100%);
   padding: 10px 32px;
   text-align: center;
   font-size: 13px;
@@ -578,9 +610,9 @@ body {
   justify-content: center;
   gap: 8px;
 }
-.announcement-text { color: var(--text-muted-1); }
-.announcement-link { color: var(--text-link); text-decoration: none; font-weight: 500; }
-.announcement-link:hover { text-decoration: underline; }
+.announcement-text { color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 500; }
+.announcement-link { color: #fff; text-decoration: underline; font-weight: 500; text-underline-offset: 2px; }
+.announcement-link:hover { opacity: 0.85; }
 
 /* ── FORM INPUTS ─────────────────────────────────────────── */
 .input-group { display: flex; flex-direction: column; gap: 6px; }
@@ -686,9 +718,10 @@ body {
 </nav>
 
 <!-- ANNOUNCEMENT BAR -->
+<!-- Sits above the nav; purple gradient strip; verified text: "Ship with SCIM, Self-Service SSO..." -->
 <div class="announcement">
-  <span class="announcement-text">🎉 New: AI Agent Authentication is here —</span>
-  <a href="#" class="announcement-link">Learn more →</a>
+  <span class="announcement-text">Ship with SCIM, Self-Service SSO, and 1 Enterprise Connection. Now free.</span>
+  <a href="#" class="announcement-link">Start building today →</a>
 </div>
 
 <!-- HERO -->
@@ -699,8 +732,9 @@ body {
   <div class="hero-cursor-glow" id="hero-cursor-glow"></div>
   <div class="hero-content">
     <div class="hero-tag">
-      <span class="badge badge-white">New</span>
-      <span class="hero-tag-label">AI Agent Authentication</span>
+      <!-- "NEW" white pill badge + gradient link text — verified from DOM -->
+      <span class="badge badge-white">NEW</span>
+      <span class="hero-tag-label">Auth0 for AI Agents →</span>
     </div>
     <h1>Secure AI agents, humans, and whatever comes next</h1>
     <p class="hero-subtitle">Auth0 is an easy to implement, adaptable authentication and authorization platform. Stop worrying about auth and focus on your product.</p>
@@ -737,6 +771,10 @@ body {
         <div class="cl-label">btn-outline · border only</div>
       </div>
       <div class="cl-item">
+        <a href="#" class="btn btn-connect">Let's connect</a>
+        <div class="cl-label">btn-connect · nav secondary CTA · multi-radial gradient + border</div>
+      </div>
+      <div class="cl-item">
         <a href="#" class="btn btn-primary btn-sm">Start building for free</a>
         <div class="cl-label">btn-primary · sm variant · padding: 8px 24px</div>
       </div>
@@ -748,17 +786,27 @@ body {
     <div class="cl-section-title">Typography — Aeonik (Inter substitute)</div>
     <div class="type-scale">
       <h1>Secure AI agents, humans, and whatever comes next</h1>
-      <div class="cl-label" style="margin-bottom:20px;">h1 · 64px / weight 400 · letter-spacing -0.02em</div>
-      <h2>Authentication for everyone</h2>
-      <div class="cl-label" style="margin-bottom:20px;">h2 · 48px / weight 400</div>
-      <h3>Start building today</h3>
-      <div class="cl-label" style="margin-bottom:20px;">h3 · 36px / weight 400</div>
-      <h4>Identity Platform</h4>
-      <div class="cl-label" style="margin-bottom:20px;">h4 · 20px / weight 600</div>
+      <div class="cl-label" style="margin-bottom:20px;">h1 · 64px / weight 400 / lh 72px / ls -0.2px — hero headline (Aeonik, Inter substitute)</div>
+      <h2>Built for what you're building</h2>
+      <div class="cl-label" style="margin-bottom:20px;">h2 · 48px / weight 400 / lh 56px / ls -0.2px — main section headings</div>
+      <h2 class="sm">Secure your AI Agents</h2>
+      <div class="cl-label" style="margin-bottom:20px;">h2.sm · 40px / weight 400 / lh 48px / ls -0.2px — tab-panel feature headings</div>
+      <h3>Auth0 lets Philips Hue focus on R&amp;D, not IAM</h3>
+      <div class="cl-label" style="margin-bottom:20px;">h3 · 32px / weight 400 / lh 44px / ls -0.1px — case study cards</div>
+      <h3 class="sm">Customer Identity Trends Report 2025</h3>
+      <div class="cl-label" style="margin-bottom:20px;">h3.sm · 20px / weight 500 / lh 28px — resource/blog cards</div>
+      <h4 style="background:#ddd;padding:8px 12px;border-radius:4px;display:inline-block;">Identity Platform</h4>
+      <div class="cl-label" style="margin-bottom:20px;">h4 · 14px / weight 700 — on-light surfaces only (bg: rgb(211,211,211) case study cards)</div>
       <div class="body">Auth0 is an easy to implement, adaptable authentication and authorization platform. Stop worrying about auth and focus on building great products.</div>
-      <div class="cl-label" style="margin-bottom:20px;">body · 16px / weight 400 · color: text-primary</div>
+      <div class="cl-label" style="margin-bottom:20px;">body · 16px / weight 400 / lh 22px / ls 0.125px · color: text-primary</div>
+      <div class="body-sm">Stop worrying about auth and focus on building great products.</div>
+      <div class="cl-label" style="margin-bottom:20px;">body-sm · 14px / weight 500 / lh 20px · color: text-primary — nav & feature copy</div>
       <div class="caption">Secured by Okta · 150,000+ customers · 30 languages supported</div>
-      <div class="cl-label" style="margin-bottom:20px;">caption · 14px / weight 400 · color: text-muted-1</div>
+      <div class="cl-label" style="margin-bottom:20px;">caption · 14px / weight 400 / lh 20px / ls 0.15px · color: rgb(229,229,229)</div>
+      <div class="caption-blue">Authenticate the user</div>
+      <div class="cl-label" style="margin-bottom:20px;">caption-blue · 14px / weight 500 / lh 20px / ls 1px · color: rgb(182,202,255) — feature card accent labels</div>
+      <div class="nav-label">Developers</div>
+      <div class="cl-label" style="margin-bottom:20px;">nav-label · 14px / weight 500 / lh 20px / ls 1.4px / uppercase · color: text-muted-2 — nav dropdown section headers</div>
       <div class="label">Authentication Platform</div>
       <div class="cl-label">label · 12px / weight 600 / uppercase / letter-spacing 0.08em</div>
     </div>

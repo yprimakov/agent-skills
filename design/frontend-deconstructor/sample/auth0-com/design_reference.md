@@ -64,16 +64,23 @@ Auth0 (by Okta) is an identity and authentication platform. The current homepage
 **Secondary Font:** `fakt-web` (CSS variable `--font-main`) — older/fallback reference in CSS vars.
 
 ### Type Scale
-| Element | Size | Weight | Color | Notes |
-|---------|------|--------|-------|-------|
-| `h1` | 64px | 400 (light) | `rgb(255, 254, 250)` | Very large, regular weight — Aeonik's rounded geometry at display size |
-| `h2` | 48px | 400 | `rgb(255, 254, 250)` | Section headings |
-| `h3` | 48px | 400 | `rgb(255, 254, 250)` | Same scale as h2 |
-| `h4` | 14px | 700 | `rgb(30, 33, 42)` | Small label weight, used on light cards |
-| `p` | 14px | 500 | `rgb(255, 255, 255)` | Body copy |
-| `a` | 14px | 400 | `rgb(10, 132, 174)` | Links |
-| `button` | 14px | 400 | varies | CTA text |
-| `label` | 16px | 500 | `rgb(255, 254, 250)` | Form labels |
+All values verified via Playwright `getComputedStyle()` on live DOM.
+
+| Element | Size | Weight | Line Height | Letter Spacing | Color | Context |
+|---------|------|--------|-------------|----------------|-------|---------|
+| `h1` | 64px | 400 | 72px | **-0.2px** | `rgb(255, 254, 250)` | Hero headline |
+| `h2` (main) | 48px | 400 | 56px | **-0.2px** | `rgb(255, 254, 250)` | Section headings |
+| `h2` (feature) | 40px | 400 | 48px | **-0.2px** | `rgb(255, 254, 250)` | Tab-panel feature headings |
+| `h3` (case study) | 32px | 400 | 44px | **-0.1px** | `rgb(255, 254, 250)` | Case study cards |
+| `h3` (card) | 20px | 500 | 28px | normal | `rgb(255, 254, 250)` | Resource / blog cards |
+| `h4` | 14px | 700 | 24px | normal | `rgb(30, 33, 42)` | On light surfaces only |
+| `p` (body) | 16px | 400 | 22px | 0.125px | `rgb(255, 254, 250)` | Main body copy |
+| `p` (body-sm) | 14px | 500 | 20px | normal | `rgb(255, 254, 250)` | Nav & feature copy |
+| `p` (caption) | 14px | 400 | 20px | 0.15px | `rgb(229, 229, 229)` | Testimonial captions |
+| `p` (accent label) | 14px | 500 | 20px | 1px | `rgb(182, 202, 255)` | Feature card blue labels |
+| `p` (nav label) | 14px | 500 | 20px | 1.4px + uppercase | `rgb(140, 146, 156)` | Nav dropdown section headers |
+| `a` | 14px | 400 | — | — | `rgb(10, 132, 174)` | Hyperlinks |
+| `button` | 14px | 400 | — | — | varies | CTA text |
 
 ### Gradient Text (distinctive feature)
 Key stats and accent labels use `background-clip: text` with gradient fills:
@@ -96,12 +103,78 @@ Key stats and accent labels use `background-clip: text` with gradient fills:
 
 ## Component Inventory
 
+### Announcement Bar
+Sits **above the nav** — fixed, `z-index: 1001`. Purple-to-teal gradient strip:
+```
+background: linear-gradient(90deg, rgb(64,22,160) 0%, rgb(63,89,228) 40%, rgb(76,183,163) 80%, rgb(64,22,160) 100%)
+padding: 10px 32px
+font-size: 14px / weight 500 / color: rgba(255,255,255,0.9)
+link color: rgb(255,255,255) with underline
+```
+Actual text (as of March 2026): "Ship with SCIM, Self-Service SSO, and 1 Enterprise Connection. Now free. [Start building today →]"
+
 ### Navigation
-- **Position:** Fixed, `z-index: 1000`, full-width
+- **Position:** Fixed, `z-index: 1000`, sits below announcement bar (~40px offset)
 - **Background:** Fully transparent (`rgba(0,0,0,0)`) — floats over the video hero
-- **Height:** 106px
-- **Structure:** Logo left, horizontal nav links center/right, CTA buttons right
-- **Dropdowns:** Glass panels `rgba(23,23,23,0.96)` + `backdrop-filter: blur(14px)` + `border-radius: 10px`
+- **Height:** ~72px rendered; 106px total with announcement bar
+- **Structure:** Logo left, horizontal nav links center, CTA right ("Sign up" + "Let's connect")
+- **Nav link transitions:** `color 0.2s` — color shift on hover
+- **Nav background transition:** `background-color 0.2s, border-radius 0.2s` — animated on scroll state change
+- **Dropdowns:** Glass panels with `visibility, opacity 0.2s linear, transform 0.2s linear` entrance animation
+  - `background: rgba(23,23,23,0.96)` + `backdrop-filter: blur(14px)` + `border-radius: 10px`
+
+### Hero Section (detailed)
+```
+Video background: https://cdn.auth0.com/website/homepage/background.mp4
+  — autoplay, loop, muted, playsinline
+  — object-fit: cover, 1440×692px, position: static (fills hero container)
+  — z-index: 0 (behind everything)
+
+Cursor glow overlay:
+  — DIV: position absolute, inset 0, z-index 3, pointer-events: none
+  — background: radial-gradient(160px at 0px 0px, rgb(180,155,252), rgba(158,76,183,0.13), rgba(1,1,1,0))
+  — Starts at 0,0; JS updates at [x] [y] on mousemove
+  — rgba(1,1,1,0) confirmed — near-black transparent (not rgba(0,0,0,0))
+
+Hero badge:
+  — "NEW" pill: background rgb(255,254,250), border-radius 30px, padding 4px 14px, font-size 11px/weight 600
+  — "Auth0 for AI Agents →" text: gradient fill (grad-label-lav), font-size 13px/weight 500
+
+Hero h1:
+  — "Secure AI agents, humans, and whatever comes next"
+  — 64px / weight 400 / lh 72px / ls -0.2px / color rgb(255,254,250)
+  — webkitTextFillColor: rgb(255,254,250) — no gradient on h1
+
+Hero subtitle (p):
+  — font-size 14px / weight 500 / lh 20px / color rgb(189,196,207) (muted-1)
+
+Hero CTAs:
+  — Primary: "Start building for free" — btn-primary style
+  — Ghost: "Talk to sales" — btn-ghost style
+```
+
+### "Let's connect" Button (nav secondary CTA — discovered via extraction)
+A distinct third button style used only in the nav, different from ghost:
+```
+background-image:
+  radial-gradient(223% 105.53% at 6.05% 199.17%, rgba(255,255,255,0.14) 0%, transparent 100%),
+  radial-gradient(31.68% 130.91% at 100% 0%, rgba(255,255,255,0.2) 0%, transparent 100%),
+  radial-gradient(43.14% 139.47% at 0% 136.21%, rgba(227,235,255,0.3) 0%, transparent 100%)
+border: 1px solid rgba(255,255,255,0.18)
+color: rgb(255,254,250)
+```
+Effect: Very subtle blue-tinted radial glow corners, barely visible border — reads as secondary CTA.
+
+### Code Snippet Card (discovered — "Integrate Auth0 in just 5 minutes" section)
+```
+background-image:
+  linear-gradient(rgb(0,0,0), rgb(0,0,0)),
+  linear-gradient(241deg, rgb(246,241,231) 0%, rgb(76,183,163) 23%, rgb(63,89,228) 64%, rgb(64,22,160) 95%)
+background-origin: border-box
+background-clip: padding-box, border-box
+border: 1px solid transparent
+```
+Effect: Black card with a gradient border technique — the rainbow gradient shows only in the 1px border.
 
 ### Primary Button ("Sign up", "Start building for free")
 ```
@@ -166,32 +239,59 @@ Animated via keyframe `jOVXA`: `translateX(0) → translateX(-256rem)` — the l
 
 ## Motion & Animation
 
-| Name | Effect | Notes |
-|------|--------|-------|
-| `jBcSpD` | Fade in (`opacity: 0 → 1`) | Enter animations for sections |
-| `jOVXA` | `translateX(0) → translateX(-256rem)` | Logo marquee scroll strip |
-| `kbRkAL` | `scale(1) → scale(0.93)` | Button press / click shrink |
-| `kPIRny` | `width: 0 → 100%` | Progress/underline expand — tab indicator or loading |
-| `slide-down-custom` | `bottom: 0px` (from offscreen) | Cookie/consent banner entrance |
-| `onetrust-fade-in` | `opacity: 0 → 1` | OneTrust banner fade |
+### CSS Keyframes (all verified)
+| Name | Keyframe | Effect | Applied to |
+|------|----------|--------|-----------|
+| `jBcSpD` | `0%{opacity:0} 100%{opacity:1}` | Fade in | Section/element entrances (scroll-triggered) |
+| `jOVXA` | `0%{transform:translateX(0px)} 100%{transform:translateX(calc(-256rem))}` | Scroll left | Logo marquee strip |
+| `kbRkAL` | `0%{transform:scale(1)} 100%{transform:scale(0.93)}` | Press shrink | Primary button click |
+| `kPIRny` | `0%{width:0px} 100%{width:100%}` | Expand | Tab indicator / progress underline |
+| `onetrust-fade-in` | `0%{opacity:0} 100%{opacity:1}` | Fade in | OneTrust cookie banner |
+| `slide-down-custom` | `0%{} 100%{bottom:0px}` | Slide up from bottom | Cookie/consent bar entrance |
+
+### CSS Transitions (verified)
+| Element | Transition | Effect |
+|---------|-----------|--------|
+| Nav links (`a`) | `color 0.2s` | Color shift on hover |
+| Nav bar | `background-color 0.2s, border-radius 0.2s` | Animates when nav gains scroll state |
+| Nav dropdown | `visibility, opacity 0.2s linear, transform 0.2s linear` | Fade + slide entrance |
+| Buttons | `transform 0.15s ease` | Catches the `scale(0.93)` press animation |
+| Dropdown links | `background 0.15s` | Hover highlight on dropdown items |
+
+### Cursor Glow (JS-driven)
+```js
+// Pseudocode — JS tracks mousemove in hero section
+hero.addEventListener('mousemove', (e) => {
+  const x = e.clientX - heroRect.left;
+  const y = e.clientY - heroRect.top;
+  glowDiv.style.background =
+    `radial-gradient(160px at ${x}px ${y}px, rgb(180,155,252), rgba(158,76,183,0.13), rgba(1,1,1,0))`;
+});
+```
+Note: Initial state at `at 0px 0px` — glow starts at top-left until first mousemove.
 
 ---
 
 ## Interactive States
 
 ### Primary Button
-- **Default:** Multi-layer white radial gradient + inset top glow
-- **Press:** `scale(0.93)` via `kbRkAL` animation — satisfying physical click feel
-- **Hover:** Likely slight brightness increase (not captured via Playwright hover state without explicit trigger)
+- **Default:** Multi-layer white radial gradient + inset top glow `rgba(255,255,255,0.48) 0px -16px 24px 0px inset`
+- **Press:** `scale(0.93)` via `kbRkAL` — 7% shrink gives tactile physical feel
+- **Hover:** Enhanced inset glow `rgba(255,255,255,0.6)` + larger drop shadow
+
+### "Let's connect" Button (nav CTA)
+- **Default:** Multi-radial blue-white corner gradients + `border: 1px solid rgba(255,255,255,0.18)`
+- **Hover:** Border brightens to `rgba(255,255,255,0.3)`
 
 ### Tab / Filter Pill
-- **Active:** White bg pill `rgb(255,254,250)`, dark text
-- **Inactive:** Transparent, muted gray text `rgb(174,174,174)`
-- **Hover:** Subtle transition to active-like state (transition not captured)
+- **Active:** `background: rgb(255,254,250)` white pill, `color: rgb(25,25,25)`, `border: 1px solid rgb(244,244,244)`
+- **Inactive:** Transparent, `color: rgb(174,174,174)` muted gray
+- **Padding:** `14px 28px` on both states
 
 ### Nav Links
-- **Default:** `rgb(255,255,255)` / `rgb(255,254,250)`
-- **Hover:** Dropdown opens for expandable items; color shift inferred
+- **Default:** `color: rgb(255,254,250)`, opacity 0.85
+- **Hover:** `color: rgb(255,255,255)`, opacity 1.0 — pure white, slightly brighter
+- **Dropdown trigger:** `background-color 0.2s, border-radius 0.2s` — can gain pill shape on active state
 
 ---
 
