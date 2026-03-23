@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auth0 — Component Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   AUTH0 DESIGN SYSTEM — Component Library
+   Extracted via Playwright · March 2026
+   Note: Aeonik is a commercial font; Inter used as substitute
+   ===================================================== */
+
+:root {
+  /* Backgrounds */
+  --bg-void:       #000000;
+  --bg-surface-1:  #111111;
+  --bg-surface-2:  #191919;
+  --bg-surface-3:  #242424;
+  --bg-glass:      rgba(23, 23, 23, 0.96);
+  --bg-glass-light:rgba(23, 23, 23, 0.30);
+
+  /* Text */
+  --text-primary:  rgb(255, 254, 250);  /* warm off-white */
+  --text-white:    #ffffff;
+  --text-muted-1:  rgb(189, 196, 207);
+  --text-muted-2:  rgb(140, 146, 156);
+  --text-muted-3:  rgb(171, 171, 171);
+  --text-on-light: rgb(30, 33, 42);
+  --text-link:     rgb(10, 132, 174);
+
+  /* Brand accent palette */
+  --accent-purple:     rgb(140, 103, 246);
+  --accent-lavender:   rgb(180, 155, 252);
+  --accent-lav-light:  rgb(199, 179, 255);
+  --accent-blue-deep:  rgb(63, 89, 228);
+  --accent-blue-mid:   rgb(66, 89, 191);
+  --accent-blue-light: rgb(182, 202, 255);
+  --accent-teal:       rgb(76, 183, 163);
+  --accent-teal-light: rgb(177, 228, 222);
+
+  /* Borders */
+  --border-default:  rgb(42, 42, 42);
+  --border-rim:      rgba(255, 255, 255, 0.12);
+  --border-tag:      rgb(244, 244, 244);
+
+  /* Gradients */
+  --grad-stat-purple: linear-gradient(87deg, rgb(140,103,246) 0.92%, rgb(199,179,255) 82.42%);
+  --grad-stat-blue:   linear-gradient(76deg, rgb(182,202,255) 4.21%, rgb(66,89,191) 92.43%);
+  --grad-stat-teal:   linear-gradient(91deg, rgb(63,89,228) -15.54%, rgb(76,183,163) 52.43%, rgb(177,228,222) 98.25%);
+  --grad-label-lav:   linear-gradient(88deg, rgb(180,155,252) 0.71%, rgb(182,202,255) 85.75%, rgb(246,241,231) 168.38%);
+
+  /* Button Primary gradient */
+  --btn-primary-grad:
+    linear-gradient(0deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.4) 100%),
+    radial-gradient(123.72% 71.29% at 7.15% 100%, rgb(255,255,255) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(234.4% 144.94% at 84.62% 0%, rgb(255,255,255) 0%, rgba(255,255,255,0) 100%),
+    linear-gradient(26deg, rgba(255,255,255,0.17) -32.04%, rgba(255,255,255,0) 133.43%);
+
+  /* Font */
+  --font: 'Inter', sans-serif; /* Aeonik substitute */
+
+  /* Spacing */
+  --content-width: 1200px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HERO VIDEO BACKGROUND SIMULATION ──────────────────── */
+.video-bg-container {
+  position: fixed;
+  inset: 0;
+  z-index: -20;
+  overflow: hidden;
+}
+.video-bg-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+.video-bg-fallback {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(63,89,228,0.15), transparent),
+    radial-gradient(ellipse 60% 80% at 80% 60%, rgba(140,103,246,0.12), transparent),
+    var(--bg-void);
+}
+
+/* ── CURSOR GLOW ────────────────────────────────────────── */
+#cursor-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+/* ── PAGE LAYOUT ────────────────────────────────────────── */
+.page {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 120px 32px 64px;
+}
+
+/* ── NAV ────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 72px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  background: rgba(0,0,0,0); /* transparent — floats over hero */
+  justify-content: space-between;
+}
+.nav-logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--accent-lavender); }
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 14px;
+  color: var(--text-primary);
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+.nav-links a:hover { opacity: 1; }
+.nav-ctas {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Nav dropdown demo */
+.nav-dropdown-wrapper { position: relative; }
+.nav-dropdown-trigger {
+  font-size: 14px;
+  color: var(--text-primary);
+  opacity: 0.85;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: opacity 0.2s;
+}
+.nav-dropdown-trigger:hover { opacity: 1; }
+.nav-dropdown-trigger:hover + .nav-dropdown { display: block; }
+.nav-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 12px);
+  left: -16px;
+  min-width: 220px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 10px;
+  padding: 12px 0;
+  border: 1px solid var(--border-default);
+}
+.nav-dropdown a {
+  display: block;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.nav-dropdown a:hover { background: rgba(255,255,255,0.04); }
+
+/* ── SECTION WRAPPER ─────────────────────────────────────── */
+.cl-section {
+  margin-bottom: 72px;
+}
+.cl-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted-2);
+  margin-bottom: 28px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-default);
+}
+.cl-label {
+  font-size: 11px;
+  color: var(--text-muted-2);
+  margin-top: 8px;
+  font-family: 'Courier New', monospace;
+}
+.cl-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.cl-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── BUTTONS ─────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 6px;
+  padding: 12px 32px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.93); }
+
+.btn-primary {
+  background: transparent;
+  background-image: var(--btn-primary-grad);
+  color: rgb(0,0,0);
+  box-shadow:
+    rgba(255,255,255,0.48) 0px -16px 24px 0px inset,
+    rgba(0,0,0,0.25) 0px 4px 4px 0px;
+}
+.btn-primary:hover {
+  box-shadow:
+    rgba(255,255,255,0.6) 0px -16px 28px 0px inset,
+    rgba(0,0,0,0.35) 0px 6px 8px 0px;
+}
+
+.btn-ghost {
+  background: transparent;
+  background-image: linear-gradient(26deg, rgba(255,255,255,0.15) -32.04%, rgba(255,255,255,0) 133.43%);
+  color: var(--text-primary);
+}
+.btn-ghost:hover {
+  background-image: linear-gradient(26deg, rgba(255,255,255,0.22) -32.04%, rgba(255,255,255,0.04) 133.43%);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+.btn-outline:hover { border-color: rgba(255,255,255,0.3); }
+
+.btn-sm {
+  padding: 8px 24px;
+  font-size: 13px;
+}
+
+/* ── HERO SECTION ────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  margin: -120px -32px 72px;
+  padding: 160px 64px 120px;
+}
+.hero-cursor-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.hero-video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-video-bg-fallback {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 110%, rgba(63,89,228,0.35), transparent 70%),
+    radial-gradient(ellipse 90% 90% at 15% 10%, rgba(140,103,246,0.28), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(76,183,163,0.10), transparent 55%),
+    var(--bg-void);
+}
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 880px;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.hero-tag-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--grad-label-lav);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero h1 {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+.hero-subtitle {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-muted-1);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────── */
+.type-scale h1 { font-size: 64px; font-weight: 400; line-height: 1.08; color: var(--text-primary); margin-bottom: 12px; }
+.type-scale h2 { font-size: 48px; font-weight: 400; line-height: 1.12; color: var(--text-primary); margin-bottom: 12px; }
+.type-scale h3 { font-size: 36px; font-weight: 400; color: var(--text-primary); margin-bottom: 12px; }
+.type-scale h4 { font-size: 20px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
+.type-scale .body { font-size: 16px; font-weight: 400; color: var(--text-primary); margin-bottom: 12px; }
+.type-scale .caption { font-size: 14px; font-weight: 400; color: var(--text-muted-1); margin-bottom: 12px; }
+.type-scale .label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted-2); }
+
+/* Gradient text */
+.grad-text-purple {
+  background: var(--grad-stat-purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-text-blue {
+  background: var(--grad-stat-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-text-teal {
+  background: var(--grad-stat-teal);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-text-lav {
+  background: var(--grad-label-lav);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── COLOR SWATCHES ──────────────────────────────────────── */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+.swatch {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+}
+.swatch-block {
+  height: 56px;
+  width: 100%;
+}
+.swatch-info {
+  background: var(--bg-surface-1);
+  padding: 8px 10px;
+}
+.swatch-name { font-size: 11px; font-weight: 600; color: var(--text-primary); }
+.swatch-hex { font-size: 10px; color: var(--text-muted-2); font-family: monospace; }
+
+/* ── STATS / NUMBERS ─────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  padding: 48px;
+  background: var(--bg-surface-1);
+  border-radius: 16px;
+  border: 1px solid var(--border-default);
+  text-align: center;
+}
+.stat-number {
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  font-size: 14px;
+  color: var(--text-muted-1);
+}
+
+/* ── TAB PILLS ───────────────────────────────────────────── */
+.tab-group {
+  display: flex;
+  gap: 0;
+  background: var(--bg-surface-1);
+  border-radius: 34px;
+  padding: 4px;
+  border: 1px solid var(--border-default);
+  width: fit-content;
+}
+.tab {
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  color: var(--text-muted-3);
+  transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  font-family: var(--font);
+}
+.tab.active {
+  background: var(--text-primary);
+  color: var(--bg-surface-2);
+  border: 1px solid var(--border-tag);
+}
+.tab:not(.active):hover { color: var(--text-primary); }
+
+/* ── CARDS ───────────────────────────────────────────────── */
+/* Dark surface card */
+.card-surface {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+/* Glass card */
+.card-glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+/* Case study card style (light) */
+.card-case-study {
+  background: rgb(211, 211, 211);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow:
+    rgba(255,255,255,0.12) -1px 0px 0px 0px inset,
+    rgb(255,255,255) -2px -2px 2px 0px inset;
+  color: var(--text-on-light);
+}
+.card-case-study .company { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+.card-case-study .stat { font-size: 36px; font-weight: 400; margin-bottom: 4px; }
+.card-case-study .desc { font-size: 14px; color: rgb(80, 80, 80); }
+
+/* Feature card */
+.card-feature {
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  padding: 32px;
+}
+.card-feature-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+.card-feature h3 { font-size: 20px; font-weight: 500; margin-bottom: 12px; color: var(--text-primary); }
+.card-feature p { font-size: 14px; color: var(--text-muted-1); line-height: 1.6; }
+
+/* ── MARQUEE ─────────────────────────────────────────────── */
+.marquee-container {
+  overflow: hidden;
+  padding: 20px 0;
+  position: relative;
+  background: var(--bg-surface-1);
+  border-radius: 12px;
+  border: 1px solid var(--border-default);
+}
+.marquee-container::before,
+.marquee-container::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-surface-1), transparent);
+}
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-surface-1), transparent);
+}
+.marquee-track {
+  display: flex;
+  gap: 56px;
+  animation: marqueeScroll 22s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted-2);
+  white-space: nowrap;
+  padding: 6px 16px;
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  background: var(--bg-surface-2);
+}
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── ANNOUNCEMENT BAR ────────────────────────────────────── */
+.announcement {
+  background: var(--bg-surface-1);
+  border-bottom: 1px solid var(--border-default);
+  padding: 10px 32px;
+  text-align: center;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.announcement-text { color: var(--text-muted-1); }
+.announcement-link { color: var(--text-link); text-decoration: none; font-weight: 500; }
+.announcement-link:hover { text-decoration: underline; }
+
+/* ── FORM INPUTS ─────────────────────────────────────────── */
+.input-group { display: flex; flex-direction: column; gap: 6px; }
+.input-label { font-size: 13px; font-weight: 500; color: var(--text-muted-1); }
+.input {
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-family: var(--font);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 280px;
+}
+.input:focus { border-color: var(--accent-lavender); }
+.input::placeholder { color: var(--text-muted-2); }
+.input:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── BADGE / LABEL CHIPS ─────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 30px;
+  padding: 4px 14px;
+}
+.badge-white {
+  background: var(--text-primary);
+  color: var(--bg-surface-2);
+  border: 1px solid var(--border-tag);
+}
+.badge-outline {
+  background: transparent;
+  color: var(--text-muted-3);
+  border: 1px solid var(--border-default);
+}
+.badge-gradient {
+  background: transparent;
+  border: 1px solid rgba(180,155,252,0.3);
+  color: transparent;
+  background-image: var(--grad-label-lav);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── NAV SECTION LABEL ───────────────────────────────────── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-default);
+}
+
+/* ── GRID HELPERS ────────────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+@media (max-width: 768px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .hero { padding: 120px 24px 80px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor Glow -->
+<div id="cursor-glow"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo">auth<span>0</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Why Auth0</a></li>
+    <li>
+      <div class="nav-dropdown-wrapper">
+        <span class="nav-dropdown-trigger">Products ▾</span>
+        <div class="nav-dropdown">
+          <a href="#">Authentication</a>
+          <a href="#">Authorization</a>
+          <a href="#">User Management</a>
+          <a href="#">AI Agents Security</a>
+          <a href="#">Actions</a>
+        </div>
+      </div>
+    </li>
+    <li><a href="#">Developers</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+  <div class="nav-ctas">
+    <a href="#" class="btn btn-ghost btn-sm">Login</a>
+    <a href="#" class="btn btn-primary btn-sm">Sign up</a>
+  </div>
+</nav>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement">
+  <span class="announcement-text">🎉 New: AI Agent Authentication is here —</span>
+  <a href="#" class="announcement-link">Learn more →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-video-bg">
+    <div class="hero-video-bg-fallback"></div>
+  </div>
+  <div class="hero-cursor-glow" id="hero-cursor-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="badge badge-white">New</span>
+      <span class="hero-tag-label">AI Agent Authentication</span>
+    </div>
+    <h1>Secure AI agents, humans, and whatever comes next</h1>
+    <p class="hero-subtitle">Auth0 is an easy to implement, adaptable authentication and authorization platform. Stop worrying about auth and focus on your product.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary">Start building for free</a>
+      <a href="#" class="btn btn-ghost">Talk to sales</a>
+    </div>
+  </div>
+</section>
+
+<div class="page">
+
+  <!-- COMPONENT LIBRARY HEADING -->
+  <div style="text-align:center; margin-bottom: 64px;">
+    <p style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted-2); margin-bottom:12px;">Component Library</p>
+    <h2 style="font-size:40px; font-weight:400; color:var(--text-primary);">Auth0 Design System</h2>
+    <p style="font-size:15px; color:var(--text-muted-1); margin-top:12px;">Extracted March 2026 · Playwright computed styles · Dark-only</p>
+  </div>
+
+  <!-- ── BUTTONS ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Buttons</div>
+    <div class="cl-row">
+      <div class="cl-item">
+        <a href="#" class="btn btn-primary">Sign up</a>
+        <div class="cl-label">btn-primary · multi-layer radial gradient · inset glow shadow · scale(0.93) on press</div>
+      </div>
+      <div class="cl-item">
+        <a href="#" class="btn btn-ghost">Login</a>
+        <div class="cl-label">btn-ghost · subtle white shimmer gradient · transparent bg</div>
+      </div>
+      <div class="cl-item">
+        <a href="#" class="btn btn-outline">Read Customer Stories</a>
+        <div class="cl-label">btn-outline · border only</div>
+      </div>
+      <div class="cl-item">
+        <a href="#" class="btn btn-primary btn-sm">Start building for free</a>
+        <div class="cl-label">btn-primary · sm variant · padding: 8px 24px</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TYPOGRAPHY ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Typography — Aeonik (Inter substitute)</div>
+    <div class="type-scale">
+      <h1>Secure AI agents, humans, and whatever comes next</h1>
+      <div class="cl-label" style="margin-bottom:20px;">h1 · 64px / weight 400 · letter-spacing -0.02em</div>
+      <h2>Authentication for everyone</h2>
+      <div class="cl-label" style="margin-bottom:20px;">h2 · 48px / weight 400</div>
+      <h3>Start building today</h3>
+      <div class="cl-label" style="margin-bottom:20px;">h3 · 36px / weight 400</div>
+      <h4>Identity Platform</h4>
+      <div class="cl-label" style="margin-bottom:20px;">h4 · 20px / weight 600</div>
+      <div class="body">Auth0 is an easy to implement, adaptable authentication and authorization platform. Stop worrying about auth and focus on building great products.</div>
+      <div class="cl-label" style="margin-bottom:20px;">body · 16px / weight 400 · color: text-primary</div>
+      <div class="caption">Secured by Okta · 150,000+ customers · 30 languages supported</div>
+      <div class="cl-label" style="margin-bottom:20px;">caption · 14px / weight 400 · color: text-muted-1</div>
+      <div class="label">Authentication Platform</div>
+      <div class="cl-label">label · 12px / weight 600 / uppercase / letter-spacing 0.08em</div>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <div class="divider"><div class="divider-line"></div><span style="font-size:11px;color:var(--text-muted-2);letter-spacing:0.1em;">GRADIENT TEXT</span><div class="divider-line"></div></div>
+      <div class="cl-row" style="align-items: baseline;">
+        <div class="cl-item">
+          <span style="font-size:52px; font-weight:400;" class="grad-text-purple">3 billion+</span>
+          <div class="cl-label">grad-stat-purple · "3 billion+" logins/year</div>
+        </div>
+        <div class="cl-item">
+          <span style="font-size:52px; font-weight:400;" class="grad-text-blue">99.99%</span>
+          <div class="cl-label">grad-stat-blue · uptime SLA</div>
+        </div>
+        <div class="cl-item">
+          <span style="font-size:52px; font-weight:400;" class="grad-text-teal">10 billion+</span>
+          <div class="cl-label">grad-stat-teal · monthly API calls</div>
+        </div>
+      </div>
+      <div class="cl-row" style="margin-top:16px;">
+        <span style="font-size:13px; font-weight:700; letter-spacing:0.12em;" class="grad-text-lav">AI AGENTS</span>
+        <span style="font-size:13px; font-weight:700; letter-spacing:0.12em;" class="grad-text-purple">AUTHENTICATION</span>
+        <span style="font-size:13px; font-weight:700; letter-spacing:0.12em;" class="grad-text-teal">AUTHORIZATION</span>
+      </div>
+      <div class="cl-label" style="margin-top:8px;">Gradient label text · -webkit-background-clip: text · -webkit-text-fill-color: transparent</div>
+    </div>
+  </section>
+
+  <!-- ── COLOR PALETTE ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Color Palette</div>
+    <div style="margin-bottom:12px; font-size:11px; color:var(--text-muted-2); letter-spacing:0.05em;">BACKGROUNDS</div>
+    <div class="swatch-grid" style="margin-bottom:32px;">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#000000; border-bottom:1px solid #222;"></div>
+        <div class="swatch-info"><div class="swatch-name">bg-void</div><div class="swatch-hex">#000000</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#111111;"></div>
+        <div class="swatch-info"><div class="swatch-name">bg-surface-1</div><div class="swatch-hex">#111111</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#191919;"></div>
+        <div class="swatch-info"><div class="swatch-name">bg-surface-2</div><div class="swatch-hex">#191919</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#242424;"></div>
+        <div class="swatch-info"><div class="swatch-name">bg-surface-3</div><div class="swatch-hex">#242424</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:rgba(23,23,23,0.96); backdrop-filter:blur(8px);"></div>
+        <div class="swatch-info"><div class="swatch-name">bg-glass</div><div class="swatch-hex">rgba(23,23,23,0.96)</div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:12px; font-size:11px; color:var(--text-muted-2); letter-spacing:0.05em;">ACCENT COLORS</div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-block" style="background:rgb(140,103,246);"></div>
+        <div class="swatch-info"><div class="swatch-name">accent-purple</div><div class="swatch-hex">rgb(140,103,246)</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:rgb(180,155,252);"></div>
+        <div class="swatch-info"><div class="swatch-name">accent-lavender</div><div class="swatch-hex">rgb(180,155,252)</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:rgb(63,89,228);"></div>
+        <div class="swatch-info"><div class="swatch-name">accent-blue-deep</div><div class="swatch-hex">rgb(63,89,228)</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:rgb(182,202,255);"></div>
+        <div class="swatch-info"><div class="swatch-name">accent-blue-light</div><div class="swatch-hex">rgb(182,202,255)</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:rgb(76,183,163);"></div>
+        <div class="swatch-info"><div class="swatch-name">accent-teal</div><div class="swatch-hex">rgb(76,183,163)</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:rgb(10,132,174);"></div>
+        <div class="swatch-info"><div class="swatch-name">text-link</div><div class="swatch-hex">rgb(10,132,174)</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TABS ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Tab Pills / Filter Navigation</div>
+    <div class="tab-group">
+      <button class="tab active" onclick="switchTab(this)">AI Agents</button>
+      <button class="tab" onclick="switchTab(this)">AI Tools</button>
+      <button class="tab" onclick="switchTab(this)">B2B</button>
+      <button class="tab" onclick="switchTab(this)">B2C</button>
+    </div>
+    <div class="cl-label" style="margin-top:12px;">Active: bg white, color dark, radius 30px, border 1px. Inactive: transparent, muted text.</div>
+  </section>
+
+  <!-- ── STATS ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Stats — Gradient Numbers</div>
+    <div class="stats-grid">
+      <div>
+        <div class="stat-number grad-text-purple">3 billion+</div>
+        <div class="stat-label">Logins per year</div>
+      </div>
+      <div>
+        <div class="stat-number grad-text-blue">99.99%</div>
+        <div class="stat-label">Uptime SLA</div>
+      </div>
+      <div>
+        <div class="stat-number grad-text-teal">10 billion+</div>
+        <div class="stat-label">Monthly API calls</div>
+      </div>
+    </div>
+    <div class="cl-label">Gradient text with background-clip: text. Each stat uses a unique gradient angle and color palette.</div>
+  </section>
+
+  <!-- ── CARDS ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Cards</div>
+    <div class="grid-3">
+      <div class="cl-item">
+        <div class="card-surface">
+          <div style="font-size:12px; letter-spacing:0.1em; color:var(--text-muted-2); margin-bottom:12px;">AUTHENTICATION</div>
+          <h3 style="font-size:20px; font-weight:400; margin-bottom:10px;">Universal Login</h3>
+          <p style="font-size:14px; color:var(--text-muted-1);">A centralized login page that you can customize to match your brand.</p>
+        </div>
+        <div class="cl-label">card-surface · bg #111111 · border 1px rgb(42,42,42)</div>
+      </div>
+      <div class="cl-item">
+        <div class="card-glass">
+          <div style="font-size:12px; letter-spacing:0.1em; color:var(--text-muted-2); margin-bottom:12px;">MACHINE TO MACHINE</div>
+          <h3 style="font-size:20px; font-weight:400; margin-bottom:10px;">AI Agent Auth</h3>
+          <p style="font-size:14px; color:var(--text-muted-1);">Secure authentication for AI agents and service-to-service communication.</p>
+        </div>
+        <div class="cl-label">card-glass · bg rgba(23,23,23,0.96) · backdrop-filter blur(14px)</div>
+      </div>
+      <div class="cl-item">
+        <div class="card-case-study">
+          <div class="company">Siemens</div>
+          <div class="stat">300k+</div>
+          <div class="desc">Users onboarded in a single enterprise deployment</div>
+        </div>
+        <div class="cl-label">card-case-study · bg rgb(211,211,211) · multi-layer inset rim shadows · r: 24px</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;" class="grid-3">
+      <div class="cl-item">
+        <div class="card-feature">
+          <div class="card-feature-icon">🔐</div>
+          <h3>Multi-Factor Authentication</h3>
+          <p>Add an extra layer of security to any application with MFA in minutes, not days.</p>
+        </div>
+        <div class="cl-label">card-feature · bg #191919 · surface-2</div>
+      </div>
+      <div class="cl-item">
+        <div class="card-feature">
+          <div class="card-feature-icon">⚡</div>
+          <h3>Actions</h3>
+          <p>Extend and customize Auth0 with code that executes at key points in the pipeline.</p>
+        </div>
+        <div class="cl-label">card-feature · bg #191919 · surface-2</div>
+      </div>
+      <div class="cl-item">
+        <div class="card-feature">
+          <div class="card-feature-icon">🌐</div>
+          <h3>Social Connections</h3>
+          <p>Let users log in with Google, GitHub, Microsoft, Apple, and 50+ social providers.</p>
+        </div>
+        <div class="cl-label">card-feature · bg #191919 · surface-2</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NAV DROPDOWN ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Navigation Dropdown (Glass Panel)</div>
+    <div style="background: var(--bg-surface-1); padding: 32px; border-radius: 12px; border: 1px solid var(--border-default); position: relative;">
+      <div style="font-size:13px; color:var(--text-muted-2); margin-bottom:16px;">Hover over "Products" in the nav above, or see this static example:</div>
+      <div style="display:inline-block; background:var(--bg-glass); backdrop-filter:blur(14px); border-radius:10px; padding:12px 0; border:1px solid var(--border-default); min-width:220px;">
+        <a href="#" style="display:block; padding:10px 20px; font-size:14px; color:var(--text-primary); text-decoration:none;">Authentication</a>
+        <a href="#" style="display:block; padding:10px 20px; font-size:14px; color:var(--text-primary); text-decoration:none;">Authorization</a>
+        <a href="#" style="display:block; padding:10px 20px; font-size:14px; color:var(--text-primary); text-decoration:none;">User Management</a>
+        <a href="#" style="display:block; padding:10px 20px; font-size:14px; color:var(--accent-lavender); text-decoration:none; font-weight:500;">✦ AI Agent Security</a>
+        <hr style="border:none; border-top:1px solid var(--border-default); margin: 4px 0;">
+        <a href="#" style="display:block; padding:10px 20px; font-size:14px; color:var(--text-muted-1); text-decoration:none;">View all products →</a>
+      </div>
+    </div>
+    <div class="cl-label">Nav dropdown · bg rgba(23,23,23,0.96) · backdrop-filter blur(14px) · border-radius 10px</div>
+  </section>
+
+  <!-- ── BADGES ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Badges & Labels</div>
+    <div class="cl-row" style="align-items:center;">
+      <div class="cl-item">
+        <span class="badge badge-white">AI Agents</span>
+        <div class="cl-label">badge-white · active pill</div>
+      </div>
+      <div class="cl-item">
+        <span class="badge badge-outline">B2B</span>
+        <div class="cl-label">badge-outline · inactive</div>
+      </div>
+      <div class="cl-item">
+        <span class="badge badge-gradient">AI TOOLS</span>
+        <div class="cl-label">badge-gradient · gradient text + border</div>
+      </div>
+      <div class="cl-item">
+        <span class="badge" style="background:rgba(180,155,252,0.12); color:var(--accent-lavender); border:1px solid rgba(180,155,252,0.3);">New</span>
+        <div class="cl-label">badge-lavender · tinted bg</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MARQUEE ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Marquee — Partner / Technology Strip</div>
+    <div class="marquee-container">
+      <div class="marquee-track">
+        <div class="marquee-item">Google</div>
+        <div class="marquee-item">Microsoft Azure</div>
+        <div class="marquee-item">AWS</div>
+        <div class="marquee-item">Salesforce</div>
+        <div class="marquee-item">GitHub</div>
+        <div class="marquee-item">Stripe</div>
+        <div class="marquee-item">Twilio</div>
+        <div class="marquee-item">Vercel</div>
+        <div class="marquee-item">Cloudflare</div>
+        <div class="marquee-item">OpenAI</div>
+        <!-- Duplicate for seamless loop -->
+        <div class="marquee-item">Google</div>
+        <div class="marquee-item">Microsoft Azure</div>
+        <div class="marquee-item">AWS</div>
+        <div class="marquee-item">Salesforce</div>
+        <div class="marquee-item">GitHub</div>
+        <div class="marquee-item">Stripe</div>
+        <div class="marquee-item">Twilio</div>
+        <div class="marquee-item">Vercel</div>
+        <div class="marquee-item">Cloudflare</div>
+        <div class="marquee-item">OpenAI</div>
+      </div>
+    </div>
+    <div class="cl-label">Marquee · translateX animation · gradient fade masks on edges · content duplicated for seamless loop</div>
+  </section>
+
+  <!-- ── FORM INPUTS ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Form Inputs</div>
+    <div class="cl-row">
+      <div class="cl-item">
+        <div class="input-group">
+          <label class="input-label">Email address</label>
+          <input class="input" type="email" placeholder="you@company.com">
+        </div>
+        <div class="cl-label">input · default · focus: border var(--accent-lavender)</div>
+      </div>
+      <div class="cl-item">
+        <div class="input-group">
+          <label class="input-label">Password</label>
+          <input class="input" type="password" placeholder="••••••••" disabled>
+        </div>
+        <div class="cl-label">input · disabled · opacity 0.4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ANIMATIONS ── -->
+  <section class="cl-section">
+    <div class="cl-section-title">Animations & Motion</div>
+    <div class="grid-3">
+      <div style="background:var(--bg-surface-1); border:1px solid var(--border-default); border-radius:12px; padding:24px;">
+        <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:var(--text-primary);">Button Press</div>
+        <div style="font-size:12px; color:var(--text-muted-2); margin-bottom:16px; font-family:monospace;">kbRkAL: scale(1)→scale(0.93)</div>
+        <button class="btn btn-primary btn-sm" onclick="this.style.transform='scale(0.93)'; setTimeout(()=>this.style.transform='',150)">Click me</button>
+      </div>
+      <div style="background:var(--bg-surface-1); border:1px solid var(--border-default); border-radius:12px; padding:24px;">
+        <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:var(--text-primary);">Fade In</div>
+        <div style="font-size:12px; color:var(--text-muted-2); margin-bottom:16px; font-family:monospace;">jBcSpD: opacity 0→1</div>
+        <div id="fade-demo" style="background:var(--bg-surface-3); border-radius:8px; padding:12px; font-size:13px; text-align:center; opacity:0; animation:fadeInDemo 1s ease forwards;">Element fades in</div>
+      </div>
+      <div style="background:var(--bg-surface-1); border:1px solid var(--border-default); border-radius:12px; padding:24px;">
+        <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:var(--text-primary);">Cursor Glow</div>
+        <div style="font-size:12px; color:var(--text-muted-2); margin-bottom:16px; font-family:monospace;">radial-gradient tracks mouse</div>
+        <div style="position:relative; height:60px; border-radius:8px; background:var(--bg-surface-3); overflow:hidden; cursor:none;" id="glow-demo">
+          <div id="glow-demo-orb" style="position:absolute; pointer-events:none; width:100%; height:100%; background:radial-gradient(80px at 50% 50%, rgba(180,155,252,0.6), transparent);"></div>
+          <span style="position:relative; z-index:1; display:flex; align-items:center; justify-content:center; height:100%; font-size:13px; color:var(--text-muted-1);">Move mouse here</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// ── CURSOR GLOW (hero) ────────────────────────────────────────
+const heroCursorGlow = document.getElementById('hero-cursor-glow');
+document.addEventListener('mousemove', function(e) {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  const rect = hero.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  if (x >= 0 && y >= 0 && x <= rect.width && y <= rect.height) {
+    heroCursorGlow.style.background =
+      'radial-gradient(160px at ' + x + 'px ' + y + 'px, rgb(180,155,252), rgba(158,76,183,0.13), transparent)';
+  }
+});
+
+// ── DEMO GLOW ─────────────────────────────────────────────────
+const glowDemo = document.getElementById('glow-demo');
+const glowOrb = document.getElementById('glow-demo-orb');
+if (glowDemo) {
+  glowDemo.addEventListener('mousemove', function(e) {
+    const rect = glowDemo.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    glowOrb.style.background =
+      'radial-gradient(80px at ' + x + 'px ' + y + 'px, rgba(180,155,252,0.7), rgba(158,76,183,0.2), transparent)';
+  });
+}
+
+// ── TAB SWITCHER ──────────────────────────────────────────────
+function switchTab(el) {
+  el.closest('.tab-group').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── FADE IN ANIMATION ─────────────────────────────────────────
+const style = document.createElement('style');
+style.textContent = '@keyframes fadeInDemo { from { opacity:0; } to { opacity:1; } }';
+document.head.appendChild(style);
+</script>
+</body>
+</html>

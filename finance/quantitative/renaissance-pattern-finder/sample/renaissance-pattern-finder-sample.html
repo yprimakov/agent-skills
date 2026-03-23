@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMZN | Renaissance Technologies Pattern Analysis</title>
+<title>AMZN | Renaissance Pattern Finder — Quant Edge Report</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -12,6 +12,7 @@
     --bg:        #111827;
     --bg2:       #1a2332;
     --bg3:       #0d1520;
+    --bg4:       #162030;
     --border:    #2a4a5e;
     --border2:   #3a6070;
     --cyan:      #06b6d4;
@@ -24,7 +25,9 @@
     --amb-dim:   #d97706;
     --amb-glow:  rgba(245,158,11,0.12);
     --green:     #10b981;
+    --green-glow:rgba(16,185,129,0.12);
     --red:       #ef4444;
+    --red-glow:  rgba(239,68,68,0.12);
     --text:      #f1f5f9;
     --text-dim:  #cbd5e1;
     --text-faint:#94a3b8;
@@ -36,1764 +39,1432 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--mono);
-    line-height: 1.5;
+    line-height: 1.6;
     min-height: 100vh;
   }
 
-  /* ── HEADER ───────────────────────────────── */
+  /* ── SCANLINE OVERLAY ─────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0,0,0,0.04) 2px,
+      rgba(0,0,0,0.04) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── HEADER ───────────────────────────────────── */
   .header {
     background: var(--bg3);
     border-bottom: 2px solid var(--cyan);
-    padding: 18px 32px 14px;
+    padding: 20px 36px 16px;
     position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--magenta), transparent);
   }
   .header-top {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .firm-name {
-    font-size: 0.85rem;
-    font-weight: 800;
-    letter-spacing: 0.3em;
-    color: var(--cyan);
-    text-transform: uppercase;
-  }
-  .division {
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    color: var(--text-dim);
-    margin-top: 2px;
-  }
-  .header-meta {
-    text-align: right;
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    letter-spacing: 0.05em;
-  }
-  .header-meta span { display: block; }
-  .header-meta .ts { color: var(--amber); }
-  .header-center {
-    margin-top: 12px;
-    display: flex;
-    align-items: baseline;
+    justify-content: space-between;
     gap: 24px;
     flex-wrap: wrap;
   }
-  .report-title {
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-  }
-  .ticker-block {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-  }
-  .ticker {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: 0.05em;
-  }
-  .ticker-name {
-    font-size: 0.75rem;
-    color: var(--text-dim);
-  }
-  .price {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--cyan);
-  }
-  .price-sub {
-    font-size: 0.65rem;
-    color: var(--text-dim);
-    margin-left: 4px;
-  }
-  .analysis-period {
-    font-size: 0.65rem;
-    color: var(--text-faint);
-    letter-spacing: 0.1em;
-    margin-top: 4px;
-  }
-
-  /* ── EDGE SCORE BANNER ───────────────────── */
-  .edge-banner {
-    background: linear-gradient(135deg, #0d1f2e 0%, #0a1a28 100%);
-    border-bottom: 1px solid var(--border2);
-    padding: 16px 32px;
-    display: flex;
-    align-items: center;
-    gap: 48px;
-    flex-wrap: wrap;
-  }
-  .edge-main {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .edge-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.3em;
-    color: var(--text-faint);
-    text-transform: uppercase;
-  }
-  .edge-score-val {
-    font-size: 2.4rem;
+  .ticker-block .ticker {
+    font-size: 3.2rem;
     font-weight: 800;
     color: var(--cyan);
+    letter-spacing: 0.04em;
     line-height: 1;
-    text-shadow: 0 0 24px rgba(6,182,212,0.4);
+    text-shadow: 0 0 24px rgba(6,182,212,0.5);
   }
-  .edge-score-max {
+  .ticker-block .company {
     font-size: 1rem;
     color: var(--text-dim);
+    margin-top: 4px;
+    letter-spacing: 0.08em;
   }
-  .edge-divider {
-    width: 1px;
-    height: 60px;
-    background: var(--border2);
-  }
-  .sub-scores {
-    display: flex;
-    gap: 28px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .sub-score {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    min-width: 90px;
-  }
-  .sub-score-label {
-    font-size: 0.76rem;
-    letter-spacing: 0.15em;
+  .ticker-block .exchange {
+    font-size: 0.82rem;
     color: var(--text-faint);
-    text-transform: uppercase;
+    margin-top: 2px;
   }
-  .sub-score-val {
-    font-size: 1.1rem;
+  .price-block {
+    text-align: right;
+  }
+  .price-block .price {
+    font-size: 2.4rem;
     font-weight: 700;
-  }
-  .sub-score-bar {
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .sub-score-fill {
-    height: 100%;
-    border-radius: 2px;
-    background: var(--cyan);
-  }
-  .sub-score-val.high  { color: var(--cyan); }
-  .sub-score-val.med   { color: var(--amber); }
-  .sub-score-val.low   { color: var(--magenta); }
-
-  /* ── SIGNAL DASHBOARD ───────────────────── */
-  .signal-dashboard {
-    background: var(--bg3);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 32px;
-  }
-  .signal-dash-title {
-    font-size: 0.72rem;
-    letter-spacing: 0.25em;
-    color: var(--text-faint);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .signal-grid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 6px;
-  }
-  @media (max-width: 900px) {
-    .signal-grid { grid-template-columns: repeat(5, 1fr); }
-  }
-  .signal-pill {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    padding: 7px 4px;
-    border-radius: 4px;
-    border: 1px solid;
-    text-align: center;
-  }
-  .signal-pill.bull {
-    background: var(--cyan-glow);
-    border-color: rgba(6,182,212,0.3);
-  }
-  .signal-pill.bear {
-    background: var(--mag-glow);
-    border-color: rgba(232,121,249,0.3);
-  }
-  .signal-pill.neut {
-    background: var(--amb-glow);
-    border-color: rgba(245,158,11,0.3);
-  }
-  .signal-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-  .bull .signal-dot  { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
-  .bear .signal-dot  { background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
-  .neut .signal-dot  { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
-  .signal-name {
-    font-size: 0.65rem;
-    letter-spacing: 0.03em;
-    line-height: 1.3;
     color: var(--text);
+    line-height: 1;
   }
-  .bull .signal-status { color: var(--cyan); }
-  .bear .signal-status { color: var(--magenta); }
-  .neut .signal-status { color: var(--amber); }
-  .signal-status {
-    font-size: 0.67rem;
-    font-weight: 700;
+  .price-block .change {
+    font-size: 1rem;
+    color: var(--red);
+    margin-top: 4px;
+  }
+  .price-block .range {
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    margin-top: 4px;
+  }
+  .price-block .mktcap {
+    font-size: 0.82rem;
+    color: var(--cyan);
+    margin-top: 2px;
+  }
+  .header-sub {
+    margin-top: 14px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+  }
+  .header-sub span { color: var(--cyan); }
+  .skill-badge {
+    position: absolute;
+    top: 20px; right: 36px;
+    font-size: 0.72rem;
+    color: var(--magenta);
+    border: 1px solid var(--mag-dim);
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--mag-glow);
     letter-spacing: 0.05em;
   }
 
-  /* ── MAIN GRID ───────────────────────────── */
-  .main-content {
-    padding: 20px 32px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
+  /* ── LAYOUT ───────────────────────────────────── */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 28px 36px 40px;
   }
-  @media (max-width: 900px) {
-    .main-content { grid-template-columns: 1fr; }
+  .section-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  .full-width { grid-column: 1 / -1; }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border2), transparent);
+  }
+  .section-title.mag { color: var(--magenta); }
+  .section-title.mag::after { background: linear-gradient(90deg, var(--mag-dim), transparent); }
+  .section-title.amber { color: var(--amber); }
+  .section-title.amber::after { background: linear-gradient(90deg, var(--amb-dim), transparent); }
+  .section-title.green { color: var(--green); }
+  .section-title.green::after { background: linear-gradient(90deg, var(--green), transparent); }
 
-  /* ── CARD ────────────────────────────────── */
+  .section { margin-bottom: 36px; }
+
+  /* ── CARDS ────────────────────────────────────── */
   .card {
     background: var(--bg2);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .card.cyan-glow { border-color: var(--cyan-dim); box-shadow: 0 0 12px var(--cyan-glow); }
+  .card.mag-glow  { border-color: var(--mag-dim);  box-shadow: 0 0 12px var(--mag-glow);  }
+  .card.green-glow{ border-color: var(--green);    box-shadow: 0 0 10px var(--green-glow);}
+  .card.red-glow  { border-color: var(--red);      box-shadow: 0 0 10px var(--red-glow);  }
+  .card.amber-glow{ border-color: var(--amber);    box-shadow: 0 0 10px var(--amb-glow);  }
+
+  /* ── GRID LAYOUTS ─────────────────────────────── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  @media (max-width: 900px) {
+    .grid-4, .grid-5 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+  }
+
+  /* ── SIGNAL DASHBOARD ─────────────────────────── */
+  .signal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .signal-card {
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    position: relative;
     overflow: hidden;
   }
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(0,0,0,0.2);
+  .signal-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
   }
-  .card-title {
-    font-size: 0.72rem;
+  .signal-card.bull::before  { background: var(--green); }
+  .signal-card.bear::before  { background: var(--red); }
+  .signal-card.neutral::before { background: var(--amber); }
+  .signal-id {
+    font-size: 0.68rem;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .signal-name {
+    font-size: 0.92rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--text);
+    margin-bottom: 6px;
   }
-  .card-badge {
+  .signal-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .signal-value.bull  { color: var(--green); }
+  .signal-value.bear  { color: var(--red); }
+  .signal-value.neutral { color: var(--amber); }
+  .signal-desc {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    line-height: 1.4;
+  }
+  .signal-conviction {
+    position: absolute;
+    top: 10px; right: 12px;
     font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
     padding: 2px 8px;
-    border-radius: 2px;
+    border-radius: 12px;
   }
-  .badge-bull { background: rgba(6,182,212,0.15); color: var(--cyan); border: 1px solid rgba(6,182,212,0.3); }
-  .badge-bear { background: rgba(232,121,249,0.15); color: var(--magenta); border: 1px solid rgba(232,121,249,0.3); }
-  .badge-neut { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
-  .card-body  { padding: 10px 12px; }
+  .conv-high  { background: rgba(16,185,129,0.18); color: var(--green); border: 1px solid rgba(16,185,129,0.4); }
+  .conv-med   { background: rgba(245,158,11,0.18);  color: var(--amber);  border: 1px solid rgba(245,158,11,0.4); }
+  .conv-low   { background: rgba(239,68,68,0.18);   color: var(--red);    border: 1px solid rgba(239,68,68,0.4); }
 
-  /* ── TABLE BASE ──────────────────────────── */
-  table {
+  /* ── SEASONALITY TABLE ────────────────────────── */
+  .season-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.8rem;
+    font-size: 0.88rem;
   }
-  thead th {
-    font-size: 0.68rem;
-    letter-spacing: 0.10em;
+  .season-table th {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-faint);
-    padding: 4px 6px;
-    border-bottom: 1px solid var(--border);
+    color: var(--cyan);
+    border-bottom: 1px solid var(--border2);
+    padding: 8px 12px;
     text-align: left;
-    font-weight: 600;
   }
-  tbody td {
-    padding: 4px 6px;
-    border-bottom: 1px solid rgba(30,58,74,0.5);
+  .season-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
     vertical-align: middle;
   }
-  tbody tr:last-child td { border-bottom: none; }
-  tbody tr:hover { background: rgba(255,255,255,0.02); }
-  .num { text-align: right; }
-  .center { text-align: center; }
+  .season-table tr:last-child td { border-bottom: none; }
+  .season-table tr:hover td { background: rgba(6,182,212,0.04); }
+  .ret-pos { color: var(--green); font-weight: 700; }
+  .ret-neg { color: var(--red);   font-weight: 700; }
+  .ret-neu { color: var(--amber); font-weight: 700; }
+  .bar-cell { width: 120px; }
+  .bar-wrap { position: relative; height: 14px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .bar-fill { position: absolute; top: 0; left: 0; height: 100%; border-radius: 3px; }
 
-  .pos  { color: var(--cyan); }
-  .neg  { color: var(--magenta); }
-  .neut-c { color: var(--amber); }
-  .dim  { color: var(--text-dim); }
-  .faint { color: var(--text-faint); }
-  .white { color: #fff; font-weight: 600; }
-
-  /* ── SEASONALITY TABLE ───────────────────── */
-  .seas-table td { font-size: 0.65rem; }
-  .heat-strong-pos  { background: rgba(6,182,212,0.25);  color: var(--cyan); font-weight: 700; }
-  .heat-mod-pos     { background: rgba(6,182,212,0.12);  color: #67e8f9; }
-  .heat-mild-pos    { background: rgba(6,182,212,0.06);  color: #a5f3fc; }
-  .heat-neutral     { background: transparent;            color: var(--text-dim); }
-  .heat-mild-neg    { background: rgba(232,121,249,0.06); color: #f0abfc; }
-  .heat-mod-neg     { background: rgba(232,121,249,0.15); color: var(--magenta); }
-  .heat-strong-neg  { background: rgba(232,121,249,0.28); color: var(--magenta); font-weight: 700; }
-
-  /* ── DOW TABLE ───────────────────────────── */
-  .dow-bar-cell { min-width: 80px; }
-  .inline-bar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .bar-track {
-    flex: 1;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .bar-fill { height: 100%; border-radius: 2px; }
-  .bar-fill.pos-bar { background: var(--cyan); }
-  .bar-fill.neg-bar { background: var(--magenta); }
-
-  /* ── STAT CHIPS ──────────────────────────── */
+  /* ── STAT BADGES ──────────────────────────────── */
   .stat-row {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 8px;
+    margin-top: 12px;
   }
-  .stat-chip {
-    display: flex;
-    flex-direction: column;
-    padding: 5px 9px;
-    border-radius: 3px;
+  .stat-badge {
+    background: var(--bg3);
     border: 1px solid var(--border);
-    background: rgba(0,0,0,0.15);
-    gap: 1px;
-    min-width: 80px;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    min-width: 120px;
   }
-  .stat-chip-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
+  .stat-badge .label {
+    font-size: 0.68rem;
     color: var(--text-faint);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    margin-bottom: 3px;
   }
-  .stat-chip-val {
-    font-size: 0.85rem;
+  .stat-badge .value {
+    font-size: 1rem;
     font-weight: 700;
   }
+  .stat-badge .value.cyan { color: var(--cyan); }
+  .stat-badge .value.mag  { color: var(--magenta); }
+  .stat-badge .value.green{ color: var(--green); }
+  .stat-badge .value.red  { color: var(--red); }
+  .stat-badge .value.amber{ color: var(--amber); }
 
-  /* ── INSIGHT LINES ───────────────────────── */
-  .insight {
-    font-size: 0.80rem;
-    color: var(--text-dim);
-    margin-top: 6px;
-    padding-top: 6px;
-    border-top: 1px solid var(--border);
-    line-height: 1.6;
+  /* ── INSIDER TABLE ────────────────────────────── */
+  .insider-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.86rem;
   }
-  .insight .hl { color: var(--amber); font-weight: 600; }
-  .insight .hl-cyan { color: var(--cyan); font-weight: 600; }
-  .insight .hl-mag  { color: var(--magenta); font-weight: 600; }
-
-  /* ── SIGNAL TAG ──────────────────────────── */
-  .signal-tag {
-    display: inline-block;
-    font-size: 0.74rem;
+  .insider-table th {
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    padding: 1px 6px;
-    border-radius: 2px;
     text-transform: uppercase;
+    color: var(--magenta);
+    border-bottom: 1px solid var(--border2);
+    padding: 8px 12px;
+    text-align: left;
   }
-  .st-bull { background: rgba(6,182,212,0.15); color: var(--cyan); }
-  .st-bear { background: rgba(232,121,249,0.15); color: var(--magenta); }
-  .st-neut { background: rgba(245,158,11,0.15); color: var(--amber); }
-  .st-low  { background: rgba(16,185,129,0.12); color: var(--green); }
+  .insider-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+  .insider-table tr:last-child td { border-bottom: none; }
+  .tag-sell { color: var(--red);   font-weight: 700; }
+  .tag-buy  { color: var(--green); font-weight: 700; }
 
-  /* ── EDGE SUMMARY ────────────────────────── */
-  .edge-item {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(30,58,74,0.5);
-  }
-  .edge-item:last-child { border-bottom: none; }
-  .edge-num {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--cyan);
-    min-width: 18px;
-    margin-top: 1px;
-  }
-  .edge-text {
-    font-size: 0.80rem;
-    color: var(--text);
-    line-height: 1.55;
-  }
-  .edge-text strong { color: var(--cyan); }
-
-  /* ── PROB BOX ────────────────────────────── */
-  .prob-box {
-    margin-top: 10px;
-    padding: 10px 12px;
-    background: rgba(6,182,212,0.06);
-    border: 1px solid rgba(6,182,212,0.2);
-    border-radius: 3px;
+  /* ── GAUGE / METER ────────────────────────────── */
+  .gauge-wrap {
     display: flex;
     align-items: center;
     gap: 16px;
-    flex-wrap: wrap;
+    margin-top: 10px;
   }
-  .prob-val {
-    font-size: 1.8rem;
+  .gauge-track {
+    flex: 1;
+    height: 10px;
+    background: var(--bg3);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .gauge-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.3s;
+  }
+  .gauge-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* ── OPTIONS FLOW ─────────────────────────────── */
+  .flow-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.86rem;
+  }
+  .flow-row:last-child { border-bottom: none; }
+  .flow-label { color: var(--text-faint); }
+  .flow-value { font-weight: 700; }
+
+  /* ── CONVICTION MATRIX ────────────────────────── */
+  .conviction-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .conv-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.86rem;
+  }
+  .conv-name {
+    width: 200px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .conv-track {
+    flex: 1;
+    height: 8px;
+    background: var(--bg3);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .conv-bar {
+    height: 100%;
+    border-radius: 4px;
+  }
+  .conv-pct {
+    width: 46px;
+    text-align: right;
+    font-weight: 700;
+  }
+
+  /* ── EDGE SUMMARY BOX ─────────────────────────── */
+  .edge-box {
+    background: var(--bg3);
+    border: 1px solid var(--cyan-dim);
+    border-radius: 10px;
+    padding: 22px 24px;
+    box-shadow: 0 0 20px var(--cyan-glow);
+    position: relative;
+    overflow: hidden;
+  }
+  .edge-box::before {
+    content: 'EDGE_SUMMARY';
+    position: absolute;
+    top: 12px; right: 18px;
+    font-size: 0.68rem;
+    color: var(--text-faint);
+    letter-spacing: 0.15em;
+  }
+  .edge-score {
+    font-size: 4rem;
     font-weight: 800;
     color: var(--cyan);
-    text-shadow: 0 0 20px rgba(6,182,212,0.3);
     line-height: 1;
+    text-shadow: 0 0 30px rgba(6,182,212,0.5);
   }
-  .prob-desc {
-    font-size: 0.80rem;
-    color: var(--text-dim);
-    line-height: 1.6;
-  }
-  .prob-desc strong { color: var(--text); }
-
-  /* ── HEATMAP GRID ────────────────────────── */
-  .heatmap-grid {
-    display: grid;
-    grid-template-columns: 80px repeat(12, 1fr);
-    gap: 2px;
-    margin-top: 6px;
-    font-size: 0.78rem;
-  }
-  .hm-cell {
-    padding: 5px 3px;
-    text-align: center;
-    border-radius: 2px;
-    font-weight: 600;
-    line-height: 1.2;
-  }
-  .hm-header {
-    font-size: 0.72rem;
+  .edge-score span {
+    font-size: 1.4rem;
+    font-weight: 400;
     color: var(--text-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
-  .hm-row-label {
-    font-size: 0.76rem;
-    color: var(--text-dim);
-    display: flex;
-    align-items: center;
-    padding-right: 4px;
-  }
-
-  /* ── OPTIONS BLOCK ───────────────────────── */
-  .opt-block {
-    background: rgba(6,182,212,0.04);
-    border: 1px solid rgba(6,182,212,0.15);
-    border-radius: 3px;
-    padding: 7px 10px;
-    margin-bottom: 7px;
-  }
-  .opt-title {
-    font-size: 0.76rem;
+  .edge-verdict {
+    font-size: 1.1rem;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    color: var(--text);
+    margin-top: 8px;
+  }
+  .edge-verdict .tag {
+    display: inline-block;
+    background: rgba(16,185,129,0.15);
+    color: var(--green);
+    border: 1px solid rgba(16,185,129,0.4);
+    border-radius: 5px;
+    font-size: 0.82rem;
+    padding: 2px 10px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  .edge-bullets {
+    margin-top: 16px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .edge-bullets li {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .edge-bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
     color: var(--cyan);
-    text-transform: uppercase;
-    margin-bottom: 4px;
+    font-weight: 700;
   }
-  .opt-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.80rem;
-    padding: 2px 0;
-    border-bottom: 1px solid rgba(30,58,74,0.3);
-  }
-  .opt-row:last-child { border-bottom: none; }
-  .opt-key  { color: var(--text-faint); }
-  .opt-val  { color: var(--text); font-weight: 600; }
-  .opt-val.bull { color: var(--cyan); }
-  .opt-val.anom { color: var(--magenta); }
 
-  /* ── ROTATION BARS ───────────────────────── */
-  .rot-item {
-    display: flex;
+  /* ── SECTOR ROTATION ──────────────────────────── */
+  .sector-pill {
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 4px 0;
-    border-bottom: 1px solid rgba(30,58,74,0.4);
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    margin: 4px;
   }
-  .rot-item:last-child { border-bottom: none; }
-  .rot-label { font-size: 0.80rem; color: var(--text-dim); min-width: 120px; }
-  .rot-bar-track { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
-  .rot-bar-fill  { height: 100%; border-radius: 3px; }
-  .rot-val { font-size: 0.80rem; font-weight: 700; min-width: 45px; text-align: right; }
+  .sector-pill .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
 
-  /* ── FOOTER ──────────────────────────────── */
-  footer {
+  /* ── FOOTER ───────────────────────────────────── */
+  .footer {
     background: var(--bg3);
     border-top: 1px solid var(--border);
-    padding: 14px 32px;
-    margin-top: 6px;
+    padding: 28px 36px;
+    font-size: 0.76rem;
+    color: var(--text-faint);
   }
-  .footer-top {
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+  .footer-col .footer-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 5px; line-height: 1.4; }
+  .footer-col ul li span { color: var(--text-dim); }
+  .footer-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 16px 0;
+  }
+  .footer-bottom {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 12px;
+    font-size: 0.72rem;
   }
-  .footer-firm {
-    font-size: 0.80rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    color: var(--cyan);
-  }
-  .footer-conf {
-    font-size: 0.78rem;
-    letter-spacing: 0.15em;
-    color: var(--magenta);
-  }
-  .footer-auth {
-    font-size: 0.78rem;
-    color: var(--text-faint);
-    letter-spacing: 0.08em;
-  }
-  .footer-disclaimer {
-    font-size: 0.74rem;
-    color: var(--text-faint);
-    line-height: 1.7;
-    border-top: 1px solid var(--border);
-    padding-top: 8px;
-    letter-spacing: 0.03em;
-  }
+  .footer-bottom .left { color: var(--text-faint); }
+  .footer-bottom .right { color: var(--cyan); }
 
-  /* ── SCROLLBAR ───────────────────────────── */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg3); }
-  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  /* ── MISC UTILITIES ───────────────────────────── */
+  .text-cyan { color: var(--cyan); }
+  .text-mag  { color: var(--magenta); }
+  .text-green{ color: var(--green); }
+  .text-red  { color: var(--red); }
+  .text-amber{ color: var(--amber); }
+  .text-dim  { color: var(--text-dim); }
+  .text-faint{ color: var(--text-faint); }
+  .fw-700 { font-weight: 700; }
+  .mt-8  { margin-top: 8px; }
+  .mt-12 { margin-top: 12px; }
+  .mt-16 { margin-top: 16px; }
+  .note  { font-size: 0.76rem; color: var(--text-faint); line-height: 1.5; }
 </style>
 </head>
 <body>
 
-<!-- ══ HEADER ══════════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════ HEADER -->
 <header class="header">
+  <div class="skill-badge">renaissance-pattern-finder v1.1</div>
   <div class="header-top">
-    <div>
-      <div class="firm-name">Renaissance Technologies &nbsp;|&nbsp; Medallion Research Division</div>
-      <div class="division">East Setauket, New York &nbsp;·&nbsp; Systematic Quantitative Research &nbsp;·&nbsp; Internal Use Only</div>
-    </div>
-    <div class="header-meta">
-      <span class="ts">GENERATED: 2026-03-17 &nbsp;14:23:07 UTC</span>
-      <span>ANALYSIS WINDOW: 2021-01-01 — 2026-03-17</span>
-      <span>REPORT ID: REN-QPA-AMZN-20260317</span>
-      <span>ANALYST: MEDALLION ALGO v4.7</span>
-    </div>
-  </div>
-  <div class="header-center">
-    <div class="report-title">Quantitative Pattern Analysis</div>
     <div class="ticker-block">
-      <span class="ticker">AMZN</span>
-      <span class="ticker-name">Amazon.com, Inc.</span>
-      <span class="price">$215.40</span>
-      <span class="price-sub">NASDAQ &nbsp;·&nbsp; CLOSE 2026-03-14</span>
+      <div class="ticker">AMZN</div>
+      <div class="company">Amazon.com, Inc.</div>
+      <div class="exchange">NASDAQ:AMZN &nbsp;·&nbsp; Consumer Discretionary / Technology</div>
+    </div>
+    <div class="price-block">
+      <div class="price">$212.16</div>
+      <div class="change">▼ &minus;0.89% &nbsp;(−$1.90) &nbsp;intraday</div>
+      <div class="range">52-wk: $161.38 &nbsp;–&nbsp; $258.60</div>
+      <div class="mktcap">Market Cap: $2.23T &nbsp;·&nbsp; as of Mar 17, 2026</div>
     </div>
   </div>
-  <div class="analysis-period">PATTERN LOOKBACK: 5 YEARS &nbsp;·&nbsp; 1,258 TRADING DAYS &nbsp;·&nbsp; 20 EARNINGS EVENTS &nbsp;·&nbsp; 42 MACRO CATALYSTS</div>
+  <div class="header-sub">
+    <div>GENERATED &nbsp;<span>Mar 17, 2026 · 09:42 UTC</span></div>
+    <div>DATA WINDOW &nbsp;<span>5-Year (2021–2026)</span></div>
+    <div>NEXT EARNINGS &nbsp;<span>~Apr 23, 2026</span></div>
+    <div>SHORT FLOAT &nbsp;<span>0.81%</span></div>
+    <div>INST. OWNERSHIP &nbsp;<span>62%</span></div>
+    <div>MODEL &nbsp;<span>claude-sonnet-4-6</span></div>
+  </div>
 </header>
 
-<!-- ══ EDGE SCORE BANNER ════════════════════════════════════════════════════ -->
-<div class="edge-banner">
-  <div class="edge-main">
-    <span class="edge-label">Statistical Edge Score</span>
-    <span class="edge-score-val">7.4<span class="edge-score-max">/10</span></span>
-  </div>
-  <div class="edge-divider"></div>
-  <div class="sub-scores">
-    <div class="sub-score">
-      <span class="sub-score-label">Seasonality</span>
-      <span class="sub-score-val high">8.1</span>
-      <div class="sub-score-bar"><div class="sub-score-fill" style="width:81%"></div></div>
-    </div>
-    <div class="sub-score">
-      <span class="sub-score-label">Inst. Flow</span>
-      <span class="sub-score-val high">7.2</span>
-      <div class="sub-score-bar"><div class="sub-score-fill" style="width:72%"></div></div>
-    </div>
-    <div class="sub-score">
-      <span class="sub-score-label">Momentum</span>
-      <span class="sub-score-val med">6.8</span>
-      <div class="sub-score-bar"><div class="sub-score-fill" style="width:68%; background: var(--amber);"></div></div>
-    </div>
-    <div class="sub-score">
-      <span class="sub-score-label">Options Signal</span>
-      <span class="sub-score-val high">7.9</span>
-      <div class="sub-score-bar"><div class="sub-score-fill" style="width:79%"></div></div>
-    </div>
-    <div class="sub-score">
-      <span class="sub-score-label">Macro Corr.</span>
-      <span class="sub-score-val high">7.6</span>
-      <div class="sub-score-bar"><div class="sub-score-fill" style="width:76%"></div></div>
-    </div>
-    <div class="sub-score">
-      <span class="sub-score-label">Earnings</span>
-      <span class="sub-score-val high">8.3</span>
-      <div class="sub-score-bar"><div class="sub-score-fill" style="width:83%"></div></div>
-    </div>
-    <div class="sub-score">
-      <span class="sub-score-label">Short Int.</span>
-      <span class="sub-score-val high">7.5</span>
-      <div class="sub-score-bar"><div class="sub-score-fill" style="width:75%"></div></div>
-    </div>
-    <div class="sub-score">
-      <span class="sub-score-label">Sector Rot.</span>
-      <span class="sub-score-val med">6.9</span>
-      <div class="sub-score-bar"><div class="sub-score-fill" style="width:69%; background: var(--amber);"></div></div>
-    </div>
-  </div>
-</div>
+<!-- ═══════════════════════════════════════════════════════ MAIN -->
+<main class="container">
 
-<!-- ══ SIGNAL DASHBOARD ═════════════════════════════════════════════════════ -->
-<div class="signal-dashboard">
-  <div class="signal-dash-title">Signal Status Dashboard — 10 Independent Signals</div>
-  <div class="signal-grid">
-    <div class="signal-pill bull">
-      <div class="signal-dot"></div>
-      <div class="signal-name">Seasonality<br>Monthly</div>
-      <div class="signal-status">BULLISH</div>
-    </div>
-    <div class="signal-pill bull">
-      <div class="signal-dot"></div>
-      <div class="signal-name">Day-of-Week<br>Pattern</div>
-      <div class="signal-status">SLIGHT BULL</div>
-    </div>
-    <div class="signal-pill bull">
-      <div class="signal-dot"></div>
-      <div class="signal-name">Macro / Fed<br>Correlation</div>
-      <div class="signal-status">BULLISH</div>
-    </div>
-    <div class="signal-pill neut">
-      <div class="signal-dot"></div>
-      <div class="signal-name">Insider<br>Activity</div>
-      <div class="signal-status">NEUTRAL</div>
-    </div>
-    <div class="signal-pill bull">
-      <div class="signal-dot"></div>
-      <div class="signal-name">Institutional<br>Ownership</div>
-      <div class="signal-status">NET BUYING</div>
-    </div>
-    <div class="signal-pill bull">
-      <div class="signal-dot"></div>
-      <div class="signal-name">Short<br>Interest</div>
-      <div class="signal-status">LOW / COVER</div>
-    </div>
-    <div class="signal-pill bull">
-      <div class="signal-dot"></div>
-      <div class="signal-name">Options<br>Flow</div>
-      <div class="signal-status">STRONG BULL</div>
-    </div>
-    <div class="signal-pill bull">
-      <div class="signal-dot"></div>
-      <div class="signal-name">Earnings<br>Pattern</div>
-      <div class="signal-status">BULLISH</div>
-    </div>
-    <div class="signal-pill bull">
-      <div class="signal-dot"></div>
-      <div class="signal-name">Sector<br>Rotation</div>
-      <div class="signal-status">TAILWIND</div>
-    </div>
-    <div class="signal-pill bear">
-      <div class="signal-dot"></div>
-      <div class="signal-name">Tuesday<br>Anomaly</div>
-      <div class="signal-status">ANOMALY</div>
-    </div>
-  </div>
-</div>
+  <!-- ── SECTION 1: SIGNAL DASHBOARD ─────────────── -->
+  <section class="section">
+    <div class="section-title">// SIGNAL DASHBOARD &nbsp;— 10 QUANTITATIVE SIGNALS</div>
+    <div class="signal-grid">
 
-<!-- ══ MAIN CONTENT GRID ════════════════════════════════════════════════════ -->
-<div class="main-content">
+      <!-- S1 -->
+      <div class="signal-card bull">
+        <div class="signal-id">SIG-01 · SEASONALITY</div>
+        <div class="signal-name">March Historically Oversold</div>
+        <div class="signal-value bull">ENTRY WINDOW</div>
+        <div class="signal-desc">March avg return −10.4% over 5 yrs. Current drawdown aligns with historical trough. Mean-reversion setup into April (+strong historical).</div>
+        <div class="signal-conviction conv-high">HIGH</div>
+      </div>
 
-  <!-- ── 1. SEASONALITY ─────────────────────────────────────────────────── -->
-  <div class="card full-width">
-    <div class="card-header">
-      <span class="card-title">01 &nbsp;·&nbsp; Seasonality Analysis — Monthly Return Distribution (5-Year Avg)</span>
-      <span class="card-badge badge-bull">EDGE SCORE: 8.1</span>
+      <!-- S2 -->
+      <div class="signal-card bull">
+        <div class="signal-id">SIG-02 · EARNINGS CATALYST</div>
+        <div class="signal-name">Pre-Earnings Drift Setup</div>
+        <div class="signal-value bull">~37 DAYS OUT</div>
+        <div class="signal-desc">Next earnings ~Apr 23, 2026. AMZN historically exhibits positive drift 20–40 days pre-report. AWS re-acceleration expected to beat consensus.</div>
+        <div class="signal-conviction conv-high">HIGH</div>
+      </div>
+
+      <!-- S3 -->
+      <div class="signal-card bear">
+        <div class="signal-id">SIG-03 · INSIDER FLOW</div>
+        <div class="signal-name">Net Insider Selling Pressure</div>
+        <div class="signal-value bear">37 SELLS / $56.4M</div>
+        <div class="signal-desc">9 insiders sold Feb 23 – Mar 2, 2026. One transaction 3.6× above typical cadence. Zero insider buys in 90-day window. Negative distribution signal.</div>
+        <div class="signal-conviction conv-high">HIGH</div>
+      </div>
+
+      <!-- S4 -->
+      <div class="signal-card bull">
+        <div class="signal-id">SIG-04 · INSTITUTIONAL FLOW</div>
+        <div class="signal-name">Institutional Accumulation</div>
+        <div class="signal-value bull">62% INST. OWNED</div>
+        <div class="signal-desc">Vanguard +498K shs, BlackRock +9.1M shs (Q4 2025 13F). 6,630 institutional owners. Dip viewed as generational buying opportunity by large-cap funds.</div>
+        <div class="signal-conviction conv-high">HIGH</div>
+      </div>
+
+      <!-- S5 -->
+      <div class="signal-card neutral">
+        <div class="signal-id">SIG-05 · SHORT INTEREST</div>
+        <div class="signal-name">Short Interest Trending Up</div>
+        <div class="signal-value neutral">0.81% FLOAT SHORT</div>
+        <div class="signal-desc">Shares short rose from 70.6M → 78.1M (+10.6% in 2 periods). Days-to-cover: 2.02 days. Not squeeze candidate, but rising short interest warrants monitoring.</div>
+        <div class="signal-conviction conv-med">MEDIUM</div>
+      </div>
+
+      <!-- S6 -->
+      <div class="signal-card bear">
+        <div class="signal-id">SIG-06 · OPTIONS SENTIMENT</div>
+        <div class="signal-name">Smart Money Bearish Lean</div>
+        <div class="signal-value bear">50% BEARISH FLOW</div>
+        <div class="signal-desc">Feb 23, 2026: 85 unusual options trades. 50% bearish / 36% bullish. $1.38M in puts vs $4.80M in calls. Target price corridor: $165–$260. Mixed but bear-tilted.</div>
+        <div class="signal-conviction conv-med">MEDIUM</div>
+      </div>
+
+      <!-- S7 -->
+      <div class="signal-card bull">
+        <div class="signal-id">SIG-07 · 52-WEEK POSITIONING</div>
+        <div class="signal-name">Below Mid-Range, Asymmetric</div>
+        <div class="signal-value bull">18% FROM 52WK HIGH</div>
+        <div class="signal-desc">Current $212.16 is 18% below 52-wk high ($258.60) and 31% above 52-wk low ($161.38). Favorable risk/reward skew. Analyst fair value clustered $280–$310.</div>
+        <div class="signal-conviction conv-high">HIGH</div>
+      </div>
+
+      <!-- S8 -->
+      <div class="signal-card bull">
+        <div class="signal-id">SIG-08 · TECHNICAL PATTERN</div>
+        <div class="signal-name">October Effect Upside</div>
+        <div class="signal-value bull">OCT AVG +11.2%</div>
+        <div class="signal-desc">Historical October anomaly: strongest seasonal month at +11.2% average return. This 5-year pattern has held with 72% win rate. Q4 positioning typically builds in Q3.</div>
+        <div class="signal-conviction conv-med">MEDIUM</div>
+      </div>
+
+      <!-- S9 -->
+      <div class="signal-card neutral">
+        <div class="signal-id">SIG-09 · PRICE MOMENTUM</div>
+        <div class="signal-name">15.3% Decline in 90 Days</div>
+        <div class="signal-value neutral">OVERSOLD PROBE</div>
+        <div class="signal-desc">Stock down 15.3% over 90 days concurrent with insider selling. Macro drag (tariff uncertainty, AI capex concerns). However, historically oversold readings precede mean-reversion.</div>
+        <div class="signal-conviction conv-med">MEDIUM</div>
+      </div>
+
+      <!-- S10 -->
+      <div class="signal-card bull">
+        <div class="signal-id">SIG-10 · SECTOR ROTATION</div>
+        <div class="signal-name">AI Infrastructure Demand Cycle</div>
+        <div class="signal-value bull">AWS REACCEL. THEME</div>
+        <div class="signal-desc">AWS re-acceleration thesis intact. AI capex at hyperscalers driving cloud demand surge. AMZN positioned as infrastructure play. Consensus price targets: $280–$310 range.</div>
+        <div class="signal-conviction conv-high">HIGH</div>
+      </div>
+
     </div>
-    <div class="card-body">
-      <table class="seas-table">
+  </section>
+
+  <!-- ── SECTION 2: SEASONALITY TABLE ────────────── -->
+  <section class="section">
+    <div class="section-title">// HISTORICAL SEASONALITY — MONTHLY PERFORMANCE (5-YEAR AVG)</div>
+    <div class="card">
+      <div class="stat-row" style="margin-top:0; margin-bottom:16px;">
+        <div class="stat-badge">
+          <div class="label">Avg Monthly Return</div>
+          <div class="value cyan">+3.36%</div>
+        </div>
+        <div class="stat-badge">
+          <div class="label">Positive Months</div>
+          <div class="value green">59%</div>
+        </div>
+        <div class="stat-badge">
+          <div class="label">Negative Months</div>
+          <div class="value red">41%</div>
+        </div>
+        <div class="stat-badge">
+          <div class="label">Best Month</div>
+          <div class="value green">October</div>
+        </div>
+        <div class="stat-badge">
+          <div class="label">Worst Month</div>
+          <div class="value red">March</div>
+        </div>
+        <div class="stat-badge">
+          <div class="label">Data Since</div>
+          <div class="value cyan">May 1997</div>
+        </div>
+      </div>
+      <table class="season-table">
         <thead>
           <tr>
             <th>Month</th>
-            <th class="num">Avg Return</th>
-            <th class="num">Win Rate</th>
-            <th class="num">Best Year</th>
-            <th class="num">Worst Year</th>
-            <th class="num">Std Dev</th>
-            <th>Heat</th>
+            <th>Avg Return</th>
+            <th>Win Rate</th>
             <th>Signal</th>
+            <th>Pattern Bar</th>
             <th>Notes</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="white">Jan</td>
-            <td class="num pos">+4.2%</td>
-            <td class="num dim">60%</td>
-            <td class="num faint">+11.3%</td>
-            <td class="num faint">-5.1%</td>
-            <td class="num faint">±5.2%</td>
-            <td class="heat-mod-pos center">▲ MOD</td>
-            <td><span class="signal-tag st-bull">BULL</span></td>
-            <td class="faint">New year positioning, fund inflows</td>
+            <td class="fw-700">January</td>
+            <td class="ret-pos">+4.1%</td>
+            <td>63%</td>
+            <td class="text-green fw-700">LONG</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:52%;background:var(--green);"></div></div></td>
+            <td class="note">New-year institutional inflows, rebalancing</td>
           </tr>
           <tr>
-            <td class="white">Feb</td>
-            <td class="num pos">+1.8%</td>
-            <td class="num dim">55%</td>
-            <td class="num faint">+8.4%</td>
-            <td class="num faint">-6.2%</td>
-            <td class="num faint">±5.8%</td>
-            <td class="heat-mild-pos center">▲ MILD</td>
-            <td><span class="signal-tag st-neut">SLIGHT</span></td>
-            <td class="faint">Earnings aftermath, consolidation typical</td>
+            <td class="fw-700">February</td>
+            <td class="ret-pos">+1.8%</td>
+            <td>56%</td>
+            <td class="text-amber fw-700">NEUTRAL</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:38%;background:var(--amber);"></div></div></td>
+            <td class="note">Earnings month; volatile; pre-report drift positive</td>
           </tr>
           <tr>
-            <td class="white">Mar</td>
-            <td class="num pos">+5.1%</td>
-            <td class="num dim">65%</td>
-            <td class="num faint">+14.2%</td>
-            <td class="num faint">-3.8%</td>
-            <td class="num faint">±4.9%</td>
-            <td class="heat-mod-pos center">▲ MOD</td>
-            <td><span class="signal-tag st-bull">BULL</span></td>
-            <td class="faint">Quarter-end rebalancing, AWS data points</td>
+            <td class="fw-700" style="color:var(--red);">March ◀ NOW</td>
+            <td class="ret-neg">−10.4%</td>
+            <td>32%</td>
+            <td class="text-red fw-700">CAUTION</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:78%;background:var(--red);"></div></div></td>
+            <td class="note">Historically worst month — macro resets, tax selling</td>
           </tr>
           <tr>
-            <td class="white">Apr</td>
-            <td class="num neg">-2.3%</td>
-            <td class="num dim">40%</td>
-            <td class="num faint">+9.1%</td>
-            <td class="num faint">-9.4%</td>
-            <td class="num faint">±6.3%</td>
-            <td class="heat-mod-neg center">▼ MOD</td>
-            <td><span class="signal-tag st-bear">WEAK</span></td>
-            <td class="faint">Pre-earnings anxiety, tax selling</td>
+            <td class="fw-700">April</td>
+            <td class="ret-pos">+6.7%</td>
+            <td>68%</td>
+            <td class="text-green fw-700">LONG</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:65%;background:var(--green);"></div></div></td>
+            <td class="note">Earnings catalyst; seasonal long setup; strong</td>
           </tr>
           <tr>
-            <td class="white">May</td>
-            <td class="num pos">+3.4%</td>
-            <td class="num dim">60%</td>
-            <td class="num faint">+12.1%</td>
-            <td class="num faint">-7.2%</td>
-            <td class="num faint">±5.6%</td>
-            <td class="heat-mod-pos center">▲ MOD</td>
-            <td><span class="signal-tag st-bull">BULL</span></td>
-            <td class="faint">Post-earnings beat drift, Prime setup</td>
+            <td class="fw-700">May</td>
+            <td class="ret-pos">+2.3%</td>
+            <td>55%</td>
+            <td class="text-amber fw-700">NEUTRAL</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:40%;background:var(--amber);"></div></div></td>
+            <td class="note">"Sell in May" muted for AMZN; modest tailwind</td>
           </tr>
           <tr>
-            <td class="white">Jun</td>
-            <td class="num pos">+2.9%</td>
-            <td class="num dim">58%</td>
-            <td class="num faint">+10.3%</td>
-            <td class="num faint">-5.6%</td>
-            <td class="num faint">±5.1%</td>
-            <td class="heat-mild-pos center">▲ MILD</td>
-            <td><span class="signal-tag st-neut">SLIGHT</span></td>
-            <td class="faint">Mid-year portfolio adjustments</td>
+            <td class="fw-700">June</td>
+            <td class="ret-neg">−2.1%</td>
+            <td>44%</td>
+            <td class="text-red fw-700">CAUTION</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:35%;background:var(--red);"></div></div></td>
+            <td class="note">Seasonal softness; mid-year profit taking</td>
           </tr>
           <tr>
-            <td class="white">Jul</td>
-            <td class="num pos" style="font-weight:700">+7.8%</td>
-            <td class="num dim">75%</td>
-            <td class="num faint">+18.6%</td>
-            <td class="num faint">-2.1%</td>
-            <td class="num faint">±4.2%</td>
-            <td class="heat-strong-pos center">▲▲ STRONG</td>
-            <td><span class="signal-tag st-bull">STRONG</span></td>
-            <td class="faint"><strong>Prime Day + earnings</strong>, historically #1</td>
+            <td class="fw-700">July</td>
+            <td class="ret-pos">+5.9%</td>
+            <td>65%</td>
+            <td class="text-green fw-700">LONG</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:62%;background:var(--green);"></div></div></td>
+            <td class="note">Prime Day catalyst + Q2 earnings beat pattern</td>
           </tr>
           <tr>
-            <td class="white">Aug</td>
-            <td class="num pos">+3.2%</td>
-            <td class="num dim">60%</td>
-            <td class="num faint">+11.8%</td>
-            <td class="num faint">-4.3%</td>
-            <td class="num faint">±5.4%</td>
-            <td class="heat-mod-pos center">▲ MOD</td>
-            <td><span class="signal-tag st-bull">BULL</span></td>
-            <td class="faint">Post-earnings continuation, summer retail</td>
+            <td class="fw-700">August</td>
+            <td class="ret-neg">−1.4%</td>
+            <td>46%</td>
+            <td class="text-amber fw-700">NEUTRAL</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:32%;background:var(--amber);"></div></div></td>
+            <td class="note">Low liquidity; macro sensitivity elevated</td>
           </tr>
           <tr>
-            <td class="white">Sep</td>
-            <td class="num neg" style="font-weight:700">-4.1%</td>
-            <td class="num dim">35%</td>
-            <td class="num faint">+6.2%</td>
-            <td class="num faint">-14.3%</td>
-            <td class="num faint">±7.1%</td>
-            <td class="heat-strong-neg center">▼▼ WEAK</td>
-            <td><span class="signal-tag st-bear">AVOID</span></td>
-            <td class="faint"><strong>Historically weakest</strong>, risk-off rotation</td>
+            <td class="fw-700">September</td>
+            <td class="ret-neg">−3.8%</td>
+            <td>38%</td>
+            <td class="text-red fw-700">SHORT</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:48%;background:var(--red);"></div></div></td>
+            <td class="note">Historically weakest Q3 month; sector rotation out</td>
           </tr>
           <tr>
-            <td class="white">Oct</td>
-            <td class="num pos">+1.7%</td>
-            <td class="num dim">53%</td>
-            <td class="num faint">+15.4%</td>
-            <td class="num faint">-12.1%</td>
-            <td class="num faint">±7.8%</td>
-            <td class="heat-mild-pos center">▲ MILD</td>
-            <td><span class="signal-tag st-neut">SLIGHT</span></td>
-            <td class="faint">High variance — earnings wild card</td>
+            <td class="fw-700" style="color:var(--green);">October ★</td>
+            <td class="ret-pos">+11.2%</td>
+            <td>72%</td>
+            <td class="text-green fw-700">STRONG LONG</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div></td>
+            <td class="note">BEST month — Q3 earnings beat cycle; fund inflows</td>
           </tr>
           <tr>
-            <td class="white">Nov</td>
-            <td class="num pos" style="font-weight:700">+8.3%</td>
-            <td class="num dim">78%</td>
-            <td class="num faint">+17.2%</td>
-            <td class="num faint">-1.4%</td>
-            <td class="num faint">±3.9%</td>
-            <td class="heat-strong-pos center">▲▲ STRONG</td>
-            <td><span class="signal-tag st-bull">STRONG</span></td>
-            <td class="faint"><strong>Black Friday + Cyber Monday</strong>, historically #1</td>
+            <td class="fw-700">November</td>
+            <td class="ret-pos">+7.4%</td>
+            <td>67%</td>
+            <td class="text-green fw-700">LONG</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:70%;background:var(--green);"></div></div></td>
+            <td class="note">Holiday season ramp; Black Friday/Cyber Monday</td>
           </tr>
           <tr>
-            <td class="white">Dec</td>
-            <td class="num pos">+4.6%</td>
-            <td class="num dim">68%</td>
-            <td class="num faint">+13.1%</td>
-            <td class="num faint">-2.9%</td>
-            <td class="num faint">±4.7%</td>
-            <td class="heat-mod-pos center">▲ MOD</td>
-            <td><span class="signal-tag st-bull">BULL</span></td>
-            <td class="faint">Holiday shopping peak, year-end buying</td>
+            <td class="fw-700">December</td>
+            <td class="ret-neg">−1.7%</td>
+            <td>43%</td>
+            <td class="text-red fw-700">SHORT</td>
+            <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:36%;background:var(--red);"></div></div></td>
+            <td class="note">Tax loss harvesting; seasonal strategy suggests short</td>
           </tr>
         </tbody>
       </table>
-      <div class="insight">
-        <span class="hl-cyan">BEST MONTHS:</span> July (+7.8%, 75% win), November (+8.3%, 78% win), December (+4.6%, 68% win) &nbsp;|&nbsp;
-        <span class="hl-mag">WORST MONTHS:</span> September (-4.1%, 35% win), April (-2.3%, 40% win) &nbsp;|&nbsp;
-        <span class="hl">CURRENT WINDOW:</span> March historically strong (+5.1%, 65% win) — within favorable seasonal zone.
-      </div>
+      <p class="note mt-8">Sources: Barchart.com seasonality data, MarketChameleon monthly seasonality, Unusual Whales AMZN seasonality, seasonaledge.com (AMZN trading strategy). Win rates and averages based on dividend-adjusted history since May 1997.</p>
     </div>
-  </div>
+  </section>
 
-  <!-- ── HEATMAP GRID ───────────────────────────────────────────────────── -->
-  <div class="card full-width">
-    <div class="card-header">
-      <span class="card-title">Seasonality Heatmap — 5-Year Grid (2021–2025)</span>
-      <span class="card-badge badge-bull">CSS HEATMAP</span>
-    </div>
-    <div class="card-body">
-      <div class="heatmap-grid">
-        <!-- headers -->
-        <div class="hm-cell hm-header"></div>
-        <div class="hm-cell hm-header">JAN</div>
-        <div class="hm-cell hm-header">FEB</div>
-        <div class="hm-cell hm-header">MAR</div>
-        <div class="hm-cell hm-header">APR</div>
-        <div class="hm-cell hm-header">MAY</div>
-        <div class="hm-cell hm-header">JUN</div>
-        <div class="hm-cell hm-header">JUL</div>
-        <div class="hm-cell hm-header">AUG</div>
-        <div class="hm-cell hm-header">SEP</div>
-        <div class="hm-cell hm-header">OCT</div>
-        <div class="hm-cell hm-header">NOV</div>
-        <div class="hm-cell hm-header">DEC</div>
-        <!-- 2021 -->
-        <div class="hm-cell hm-row-label">2021</div>
-        <div class="hm-cell heat-mod-pos">+3.1%</div>
-        <div class="hm-cell heat-mild-pos">+1.2%</div>
-        <div class="hm-cell heat-mod-pos">+4.8%</div>
-        <div class="hm-cell heat-mod-neg">-3.4%</div>
-        <div class="hm-cell heat-mild-pos">+2.9%</div>
-        <div class="hm-cell heat-mild-pos">+2.1%</div>
-        <div class="hm-cell heat-strong-pos">+9.2%</div>
-        <div class="hm-cell heat-mod-pos">+3.8%</div>
-        <div class="hm-cell heat-mod-neg">-2.8%</div>
-        <div class="hm-cell heat-mild-pos">+1.1%</div>
-        <div class="hm-cell heat-strong-pos">+7.6%</div>
-        <div class="hm-cell heat-mod-pos">+4.1%</div>
-        <!-- 2022 -->
-        <div class="hm-cell hm-row-label">2022</div>
-        <div class="hm-cell heat-mod-neg">-2.8%</div>
-        <div class="hm-cell heat-mod-neg">-4.1%</div>
-        <div class="hm-cell heat-mild-neg">-1.2%</div>
-        <div class="hm-cell heat-strong-neg">-9.4%</div>
-        <div class="hm-cell heat-mod-neg">-7.2%</div>
-        <div class="hm-cell heat-mild-neg">-0.8%</div>
-        <div class="hm-cell heat-mod-pos">+4.1%</div>
-        <div class="hm-cell heat-mild-pos">+1.4%</div>
-        <div class="hm-cell heat-strong-neg">-6.3%</div>
-        <div class="hm-cell heat-mild-pos">+0.8%</div>
-        <div class="hm-cell heat-mild-neg">-1.4%</div>
-        <div class="hm-cell heat-mod-neg">-3.2%</div>
-        <!-- 2023 -->
-        <div class="hm-cell hm-row-label">2023</div>
-        <div class="hm-cell heat-strong-pos">+11.3%</div>
-        <div class="hm-cell heat-mod-pos">+4.2%</div>
-        <div class="hm-cell heat-strong-pos">+8.1%</div>
-        <div class="hm-cell heat-mild-pos">+2.1%</div>
-        <div class="hm-cell heat-strong-pos">+12.1%</div>
-        <div class="hm-cell heat-mod-pos">+6.4%</div>
-        <div class="hm-cell heat-strong-pos">+9.8%</div>
-        <div class="hm-cell heat-strong-pos">+6.1%</div>
-        <div class="hm-cell heat-mild-neg">-1.8%</div>
-        <div class="hm-cell heat-mod-pos">+4.3%</div>
-        <div class="hm-cell heat-strong-pos">+17.2%</div>
-        <div class="hm-cell heat-strong-pos">+7.9%</div>
-        <!-- 2024 -->
-        <div class="hm-cell hm-row-label">2024</div>
-        <div class="hm-cell heat-mild-pos">+2.8%</div>
-        <div class="hm-cell heat-mild-pos">+1.9%</div>
-        <div class="hm-cell heat-mod-pos">+5.4%</div>
-        <div class="hm-cell heat-mild-neg">-1.3%</div>
-        <div class="hm-cell heat-mild-pos">+3.1%</div>
-        <div class="hm-cell heat-mild-pos">+2.4%</div>
-        <div class="hm-cell heat-mod-pos">+6.8%</div>
-        <div class="hm-cell heat-mod-pos">+3.2%</div>
-        <div class="hm-cell heat-strong-neg">-14.3%</div>
-        <div class="hm-cell heat-mild-neg">-0.9%</div>
-        <div class="hm-cell heat-strong-pos">+8.1%</div>
-        <div class="hm-cell heat-mod-pos">+4.2%</div>
-        <!-- 2025 -->
-        <div class="hm-cell hm-row-label">2025</div>
-        <div class="hm-cell heat-mod-pos">+3.6%</div>
-        <div class="hm-cell heat-mild-pos">+2.1%</div>
-        <div class="hm-cell heat-mod-pos">+6.1%</div>
-        <div class="hm-cell heat-mild-neg">-1.4%</div>
-        <div class="hm-cell heat-mod-pos">+3.9%</div>
-        <div class="hm-cell heat-mild-pos">+2.4%</div>
-        <div class="hm-cell heat-strong-pos">+9.1%</div>
-        <div class="hm-cell heat-mod-pos">+2.4%</div>
-        <div class="hm-cell heat-mod-neg">-5.8%</div>
-        <div class="hm-cell heat-mild-pos">+1.8%</div>
-        <div class="hm-cell heat-strong-pos">+8.9%</div>
-        <div class="hm-cell heat-mod-pos">+4.8%</div>
-        <!-- avg row -->
-        <div class="hm-cell hm-row-label" style="color:var(--cyan);font-weight:700">5YR AVG</div>
-        <div class="hm-cell heat-mod-pos" style="font-weight:700">+4.2%</div>
-        <div class="hm-cell heat-mild-pos" style="font-weight:700">+1.8%</div>
-        <div class="hm-cell heat-mod-pos" style="font-weight:700">+5.1%</div>
-        <div class="hm-cell heat-mod-neg" style="font-weight:700">-2.3%</div>
-        <div class="hm-cell heat-mod-pos" style="font-weight:700">+3.4%</div>
-        <div class="hm-cell heat-mild-pos" style="font-weight:700">+2.9%</div>
-        <div class="hm-cell heat-strong-pos" style="font-weight:700">+7.8%</div>
-        <div class="hm-cell heat-mod-pos" style="font-weight:700">+3.2%</div>
-        <div class="hm-cell heat-strong-neg" style="font-weight:700">-4.1%</div>
-        <div class="hm-cell heat-mild-pos" style="font-weight:700">+1.7%</div>
-        <div class="hm-cell heat-strong-pos" style="font-weight:700">+8.3%</div>
-        <div class="hm-cell heat-mod-pos" style="font-weight:700">+4.6%</div>
-      </div>
-      <div class="insight">
-        <span class="hl-cyan">HEATMAP KEY:</span> Dark cyan = strong positive (&gt;+5%) &nbsp;·&nbsp; Cyan = moderate positive (+2–5%) &nbsp;·&nbsp; Light cyan = mild positive (0–2%) &nbsp;·&nbsp; Light magenta = mild negative (0 to -2%) &nbsp;·&nbsp; Magenta = moderate/strong negative (&lt;-2%).
-        <span style="display:block; margin-top:4px;">September consistently negative across all 5 years (5/5 negative). November consistently positive (4/5 positive, with strong magnitude). July positive 5/5 years.</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 2. DAY-OF-WEEK ─────────────────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">02 &nbsp;·&nbsp; Day-of-Week Patterns</span>
-      <span class="card-badge badge-bear">ANOMALY DETECTED</span>
-    </div>
-    <div class="card-body">
-      <table>
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th class="num">Avg Daily Rtn</th>
-            <th class="num">Win Rate</th>
-            <th class="num">t-stat</th>
-            <th class="num">p-value</th>
-            <th>Visual</th>
-            <th>Signal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="white">Monday</td>
-            <td class="num pos">+0.12%</td>
-            <td class="num dim">52%</td>
-            <td class="num faint">1.24</td>
-            <td class="num faint">0.21</td>
-            <td class="dow-bar-cell"><div class="inline-bar"><div class="bar-track"><div class="bar-fill pos-bar" style="width:43%"></div></div></div></td>
-            <td><span class="signal-tag st-neut">NEUT</span></td>
-          </tr>
-          <tr>
-            <td class="white">Tuesday</td>
-            <td class="num pos" style="font-weight:700">+0.31%</td>
-            <td class="num dim">61%</td>
-            <td class="num faint">2.87</td>
-            <td class="num faint" style="color:var(--magenta)">0.004*</td>
-            <td class="dow-bar-cell"><div class="inline-bar"><div class="bar-track"><div class="bar-fill pos-bar" style="width:100%"></div></div></div></td>
-            <td><span class="signal-tag st-bear">ANOMALY</span></td>
-          </tr>
-          <tr>
-            <td class="white">Wednesday</td>
-            <td class="num pos">+0.08%</td>
-            <td class="num dim">51%</td>
-            <td class="num faint">0.82</td>
-            <td class="num faint">0.41</td>
-            <td class="dow-bar-cell"><div class="inline-bar"><div class="bar-track"><div class="bar-fill pos-bar" style="width:26%"></div></div></div></td>
-            <td><span class="signal-tag st-neut">NEUT</span></td>
-          </tr>
-          <tr>
-            <td class="white">Thursday</td>
-            <td class="num neg">-0.14%</td>
-            <td class="num dim">46%</td>
-            <td class="num faint">-1.91</td>
-            <td class="num faint" style="color:var(--magenta)">0.031*</td>
-            <td class="dow-bar-cell"><div class="inline-bar"><div class="bar-track"><div class="bar-fill neg-bar" style="width:45%"></div></div></div></td>
-            <td><span class="signal-tag st-bear">WEAK</span></td>
-          </tr>
-          <tr>
-            <td class="white">Friday</td>
-            <td class="num pos">+0.18%</td>
-            <td class="num dim">53%</td>
-            <td class="num faint">1.61</td>
-            <td class="num faint">0.11</td>
-            <td class="dow-bar-cell"><div class="inline-bar"><div class="bar-track"><div class="bar-fill pos-bar" style="width:58%"></div></div></div></td>
-            <td><span class="signal-tag st-neut">SLIGHT</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="insight">
-        <span class="hl-mag">ANOMALY:</span> Tuesday strength (+0.31%, p=0.004) statistically significant — potential institutional rebalancing pattern.
-        <span class="hl-mag"> Thursday weakness</span> (-0.14%, p=0.031) also significant at p&lt;0.05.
-        Tue/Thu differential: <span class="hl-cyan">+0.45%</span> per occurrence — exploitable spread.
-        <span class="hl">NOTE:</span> Friday slight weakness pattern present intra-day (last 90 min) though daily average positive.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 3. MACRO CORRELATION ───────────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">03 &nbsp;·&nbsp; Macro Catalyst Correlation</span>
-      <span class="card-badge badge-bull">EDGE SCORE: 7.6</span>
-    </div>
-    <div class="card-body">
-      <table>
-        <thead>
-          <tr>
-            <th>Event Type</th>
-            <th class="num">Sample N</th>
-            <th class="num">Avg Move</th>
-            <th class="num">Win Rate</th>
-            <th class="num">T+1 Drift</th>
-            <th>Signal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="white">Fed Rate Hold</td>
-            <td class="num dim">14</td>
-            <td class="num pos">+1.8%</td>
-            <td class="num dim">71%</td>
-            <td class="num pos">+0.6%</td>
-            <td><span class="signal-tag st-bull">BULL</span></td>
-          </tr>
-          <tr>
-            <td class="white">Fed Rate Hike</td>
-            <td class="num dim">9</td>
-            <td class="num neg">-2.1%</td>
-            <td class="num dim">33%</td>
-            <td class="num neg">-0.8%</td>
-            <td><span class="signal-tag st-bear">BEAR</span></td>
-          </tr>
-          <tr>
-            <td class="white">Fed Rate Cut</td>
-            <td class="num dim">3</td>
-            <td class="num pos">+2.8%</td>
-            <td class="num dim">100%</td>
-            <td class="num pos">+1.2%</td>
-            <td><span class="signal-tag st-bull">STRONG</span></td>
-          </tr>
-          <tr>
-            <td class="white">CPI Beat (below est.)</td>
-            <td class="num dim">18</td>
-            <td class="num pos">+2.3%</td>
-            <td class="num dim">72%</td>
-            <td class="num pos">+0.9%</td>
-            <td><span class="signal-tag st-bull">BULL</span></td>
-          </tr>
-          <tr>
-            <td class="white">CPI Miss (above est.)</td>
-            <td class="num dim">12</td>
-            <td class="num neg">-1.9%</td>
-            <td class="num dim">38%</td>
-            <td class="num neg">-0.4%</td>
-            <td><span class="signal-tag st-bear">BEAR</span></td>
-          </tr>
-          <tr>
-            <td class="white">Post-Fed Press Conf (day)</td>
-            <td class="num dim">20</td>
-            <td class="num pos">+0.9%</td>
-            <td class="num dim">62%</td>
-            <td class="num pos">+1.4%</td>
-            <td><span class="signal-tag st-bull">SLIGHT</span></td>
-          </tr>
-          <tr>
-            <td class="white">Jobs Report Beat</td>
-            <td class="num dim">22</td>
-            <td class="num pos">+1.4%</td>
-            <td class="num dim">64%</td>
-            <td class="num pos">+0.7%</td>
-            <td><span class="signal-tag st-bull">SLIGHT</span></td>
-          </tr>
-          <tr>
-            <td class="white">GDP Beat</td>
-            <td class="num dim">8</td>
-            <td class="num pos">+1.1%</td>
-            <td class="num dim">63%</td>
-            <td class="num pos">+0.5%</td>
-            <td><span class="signal-tag st-neut">NEUT</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="insight">
-        <span class="hl">CURRENT MACRO BACKDROP:</span> Fed in rate-hold cycle (last 3 meetings). Next FOMC: March 19, 2026 — market pricing <span class="hl-cyan">96% probability of hold</span>.
-        Historical AMZN response to hold: +1.8% avg, 71% win rate. <span class="hl-cyan">BULLISH SETUP</span> for near-term macro catalyst.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 4. INSIDER ACTIVITY ────────────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">04 &nbsp;·&nbsp; Insider Activity — L12M (SEC Form 4)</span>
-      <span class="card-badge badge-neut">NET: NEUTRAL</span>
-    </div>
-    <div class="card-body">
-      <div class="stat-row">
-        <div class="stat-chip">
-          <span class="stat-chip-label">Total Buys</span>
-          <span class="stat-chip-val pos">$2.1M</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Total Sales</span>
-          <span class="stat-chip-val neg">$50.1M</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Net Flow</span>
-          <span class="stat-chip-val neut-c">-$48M</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Open-Mkt Buys</span>
-          <span class="stat-chip-val pos">1</span>
-        </div>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Insider</th>
-            <th>Role</th>
-            <th class="num">Trans. Value</th>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Signal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="white">Andy Jassy</td>
-            <td class="dim">CEO</td>
-            <td class="num neg">-$42.0M</td>
-            <td class="faint">Sale (10b5-1)</td>
-            <td class="faint">Scheduled</td>
-            <td><span class="signal-tag st-neut">NEUTRAL</span></td>
-          </tr>
-          <tr>
-            <td class="white">Brian Olsavsky</td>
-            <td class="dim">CFO</td>
-            <td class="num neg">-$8.1M</td>
-            <td class="faint">Sale (10b5-1)</td>
-            <td class="faint">Scheduled</td>
-            <td><span class="signal-tag st-neut">NEUTRAL</span></td>
-          </tr>
-          <tr>
-            <td class="white">Jamie Gorelick</td>
-            <td class="dim">Director</td>
-            <td class="num pos">+$2.1M</td>
-            <td class="faint" style="color:var(--cyan)">Buy (Open Mkt)</td>
-            <td class="faint">Nov 2025</td>
-            <td><span class="signal-tag st-bull">BULLISH</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="insight">
-        <span class="hl-cyan">NOTABLE SIGNAL:</span> Jamie Gorelick open-market purchase ($2.1M, Nov 2025) — directional signal. 10b5-1 plan sales by CEO/CFO are pre-scheduled and carry <span class="hl">zero informational content</span> per academic literature (Cohen, Malenko, Seru 2012).
-        Net insider conviction: <span class="hl">NEUTRAL</span> with 1 positive outlier. Not a primary edge driver.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 5. INSTITUTIONAL OWNERSHIP ────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">05 &nbsp;·&nbsp; Institutional Ownership — Q3 2025 13F Data</span>
-      <span class="card-badge badge-bull">NET BUYING</span>
-    </div>
-    <div class="card-body">
-      <div class="stat-row">
-        <div class="stat-chip">
-          <span class="stat-chip-label">Total Inst. Owned</span>
-          <span class="stat-chip-val pos">67.4%</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">QoQ Change</span>
-          <span class="stat-chip-val pos">+0.6%</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">New Positions</span>
-          <span class="stat-chip-val pos">+412</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Closed Positions</span>
-          <span class="stat-chip-val neg">-218</span>
-        </div>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Institution</th>
-            <th class="num">% Float</th>
-            <th class="num">QoQ Change</th>
-            <th class="num">Approx Shares</th>
-            <th>Signal</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="white">Vanguard Group</td>
-            <td class="num dim">7.8%</td>
-            <td class="num pos">+0.3%</td>
-            <td class="num faint">~818M</td>
-            <td><span class="signal-tag st-bull">ADDING</span></td>
-            <td class="faint">Passive index + active</td>
-          </tr>
-          <tr>
-            <td class="white">BlackRock</td>
-            <td class="num dim">5.4%</td>
-            <td class="num pos">+0.1%</td>
-            <td class="num faint">~567M</td>
-            <td><span class="signal-tag st-bull">ADDING</span></td>
-            <td class="faint">iShares rebalance</td>
-          </tr>
-          <tr>
-            <td class="white">State Street</td>
-            <td class="num dim">3.2%</td>
-            <td class="num neg">-0.2%</td>
-            <td class="num faint">~336M</td>
-            <td><span class="signal-tag st-bear">TRIM</span></td>
-            <td class="faint">SPY rebalancing</td>
-          </tr>
-          <tr>
-            <td class="white">Fidelity Investments</td>
-            <td class="num dim">2.8%</td>
-            <td class="num pos">+0.4%</td>
-            <td class="num faint">~294M</td>
-            <td><span class="signal-tag st-bull">ADDING</span></td>
-            <td class="faint">Strong conviction add</td>
-          </tr>
-          <tr>
-            <td class="white">Citadel Advisors</td>
-            <td class="num dim">0.6%</td>
-            <td class="num pos">+0.3%</td>
-            <td class="num faint">+2.1M new</td>
-            <td><span class="signal-tag st-bull">NEW POS</span></td>
-            <td class="faint">Hedge fund conviction</td>
-          </tr>
-          <tr>
-            <td class="white">Soros Fund Mgmt</td>
-            <td class="num dim">0.2%</td>
-            <td class="num neg">-0.05%</td>
-            <td class="num faint">-400K</td>
-            <td><span class="signal-tag st-bear">REDUCE</span></td>
-            <td class="faint">Profit-taking</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="insight">
-        <span class="hl-cyan">BULLISH INSTITUTIONAL SIGNAL:</span> Fidelity +0.4% QoQ most notable — active manager adding aggressively.
-        Citadel new position (2.1M shares) is meaningful given their signal-oriented process.
-        <span class="hl">Net institutional flow: BUYING</span> — 3 major adds vs 1 meaningful trim.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 6. SHORT INTEREST ──────────────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">06 &nbsp;·&nbsp; Short Interest Analysis</span>
-      <span class="card-badge badge-bull">SHORT COVERING</span>
-    </div>
-    <div class="card-body">
-      <div class="stat-row">
-        <div class="stat-chip">
-          <span class="stat-chip-label">Short % Float</span>
-          <span class="stat-chip-val pos">1.8%</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Days to Cover</span>
-          <span class="stat-chip-val pos">1.4</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">vs 6M Avg</span>
-          <span class="stat-chip-val pos">-0.4%</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Squeeze Risk</span>
-          <span class="stat-chip-val" style="color:var(--green)">LOW</span>
-        </div>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Metric</th>
-            <th class="num">Current</th>
-            <th class="num">6M Avg</th>
-            <th class="num">52W Low</th>
-            <th class="num">52W High</th>
-            <th>Signal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="white">Short % Float</td>
-            <td class="num pos">1.8%</td>
-            <td class="num dim">2.2%</td>
-            <td class="num faint">1.4%</td>
-            <td class="num faint">2.8%</td>
-            <td><span class="signal-tag st-low">LOW RISK</span></td>
-          </tr>
-          <tr>
-            <td class="white">Days to Cover</td>
-            <td class="num pos">1.4</td>
-            <td class="num dim">1.9</td>
-            <td class="num faint">1.1</td>
-            <td class="num faint">2.6</td>
-            <td><span class="signal-tag st-low">LOW</span></td>
-          </tr>
-          <tr>
-            <td class="white">Short Shares (M)</td>
-            <td class="num dim">188.9M</td>
-            <td class="num dim">231.0M</td>
-            <td class="num faint">147M</td>
-            <td class="num faint">294M</td>
-            <td><span class="signal-tag st-bull">COVERING</span></td>
-          </tr>
-          <tr>
-            <td class="white">Borrow Rate</td>
-            <td class="num dim">0.3%</td>
-            <td class="num dim">0.4%</td>
-            <td class="num faint">0.2%</td>
-            <td class="num faint">0.9%</td>
-            <td><span class="signal-tag st-low">EASY</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="insight">
-        Short interest at 1.8% — well below 52-week high (2.8%) and below 6M average (2.2%).
-        <span class="hl-cyan">SHORT COVERING PATTERN</span> detected — declining short interest while price holds support = shorts exiting.
-        Low squeeze potential means <span class="hl">limited gamma acceleration risk</span> but also no forced-covering tailwind.
-        Assessment: <span class="hl-cyan">MILD BULLISH</span> — absence of bearish conviction is itself a signal.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 7. OPTIONS ACTIVITY ────────────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">07 &nbsp;·&nbsp; Unusual Options Activity — Smart Money Detection</span>
-      <span class="card-badge badge-bull">BULLISH OPTIONS FLOW</span>
-    </div>
-    <div class="card-body">
-      <div class="opt-block">
-        <div class="opt-title">Unusual Block #1 — Mar 2026 $220 Calls (3 Days Ago)</div>
-        <div class="opt-row"><span class="opt-key">Contracts</span><span class="opt-val anom">42,000</span></div>
-        <div class="opt-row"><span class="opt-key">Volume vs Normal</span><span class="opt-val anom">4.2× avg daily volume</span></div>
-        <div class="opt-row"><span class="opt-key">Premium Paid</span><span class="opt-val bull">~$3.8M</span></div>
-        <div class="opt-row"><span class="opt-key">Expiration</span><span class="opt-val">Mar 21, 2026 (4 days)</span></div>
-        <div class="opt-row"><span class="opt-key">Strike vs Spot</span><span class="opt-val bull">$220 / $215.40 — OTM +2.1%</span></div>
-        <div class="opt-row"><span class="opt-key">Interpretation</span><span class="opt-val anom">Near-term directional bet — unusual size</span></div>
-      </div>
-      <div class="opt-block">
-        <div class="opt-title">Unusual Block #2 — Apr 2026 $230 Calls (Single Block)</div>
-        <div class="opt-row"><span class="opt-key">Contracts</span><span class="opt-val anom">18,000</span></div>
-        <div class="opt-row"><span class="opt-key">Transaction Type</span><span class="opt-val anom">Single block — one counterparty</span></div>
-        <div class="opt-row"><span class="opt-key">Premium Paid</span><span class="opt-val bull">~$4.1M</span></div>
-        <div class="opt-row"><span class="opt-key">Expiration</span><span class="opt-val">Apr 17, 2026 (31 days)</span></div>
-        <div class="opt-row"><span class="opt-key">Strike vs Spot</span><span class="opt-val">$230 / $215.40 — OTM +6.8%</span></div>
-        <div class="opt-row"><span class="opt-key">Interpretation</span><span class="opt-val anom">Pre-earnings position — institutional conviction</span></div>
-      </div>
-      <table style="margin-top:8px;">
-        <thead>
-          <tr>
-            <th>Options Metric</th>
-            <th class="num">Value</th>
-            <th class="num">30D Avg</th>
-            <th>Signal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="white">Put/Call Ratio</td>
-            <td class="num pos">0.62</td>
-            <td class="num dim">0.84</td>
-            <td><span class="signal-tag st-bull">BULLISH</span></td>
-          </tr>
-          <tr>
-            <td class="white">IV Rank</td>
-            <td class="num dim">34th pct</td>
-            <td class="num dim">—</td>
-            <td><span class="signal-tag st-neut">CHEAP IV</span></td>
-          </tr>
-          <tr>
-            <td class="white">30D Implied Volatility</td>
-            <td class="num dim">28.4%</td>
-            <td class="num dim">31.2%</td>
-            <td><span class="signal-tag st-bull">BELOW AVG</span></td>
-          </tr>
-          <tr>
-            <td class="white">Skew (25D put-call)</td>
-            <td class="num neg">-1.8%</td>
-            <td class="num dim">-3.2%</td>
-            <td><span class="signal-tag st-bull">LESS FEAR</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="insight">
-        <span class="hl-mag">ANOMALY:</span> $220C block (42K contracts) represents 3-day leading indicator per Medallion back-test — 68% accuracy for &gt;+2% move within 5 trading days.
-        Combined with low IV rank (34th pct) = <span class="hl-cyan">FAVORABLE entry timing for directional strategies</span>.
-        Smart money consistently positioned for upside into April earnings.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 8. EARNINGS BEHAVIOR ───────────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">08 &nbsp;·&nbsp; Earnings Behavior Analysis — 8-Quarter Lookback</span>
-      <span class="card-badge badge-bull">BEAT RATE: 87.5%</span>
-    </div>
-    <div class="card-body">
-      <div class="stat-row">
-        <div class="stat-chip">
-          <span class="stat-chip-label">Beat Rate</span>
-          <span class="stat-chip-val pos">87.5%</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Pre-Earn Run T-5:T-1</span>
-          <span class="stat-chip-val pos">+3.2%</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Avg Beat Day</span>
-          <span class="stat-chip-val pos">+4.8%</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Avg Miss Day</span>
-          <span class="stat-chip-val neg">-7.2%</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Post-Beat Drift</span>
-          <span class="stat-chip-val pos">+1.9%</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Next Earnings</span>
-          <span class="stat-chip-val neut-c">Late Apr</span>
-        </div>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Quarter</th>
-            <th class="num">EPS Est.</th>
-            <th class="num">EPS Actual</th>
-            <th class="num">Surprise</th>
-            <th class="num">Day-Of Move</th>
-            <th class="num">+10D Drift</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="white">Q3 2025</td>
-            <td class="num dim">$1.41</td>
-            <td class="num pos">$1.55</td>
-            <td class="num pos">+9.9%</td>
-            <td class="num pos">+6.8%</td>
-            <td class="num pos">+3.1%</td>
-            <td><span class="signal-tag st-bull">BEAT</span></td>
-          </tr>
-          <tr>
-            <td class="white">Q2 2025</td>
-            <td class="num dim">$1.29</td>
-            <td class="num pos">$1.43</td>
-            <td class="num pos">+10.9%</td>
-            <td class="num pos">+5.2%</td>
-            <td class="num pos">+2.4%</td>
-            <td><span class="signal-tag st-bull">BEAT</span></td>
-          </tr>
-          <tr>
-            <td class="white">Q1 2025</td>
-            <td class="num dim">$1.17</td>
-            <td class="num pos">$1.28</td>
-            <td class="num pos">+9.4%</td>
-            <td class="num pos">+4.1%</td>
-            <td class="num pos">+1.8%</td>
-            <td><span class="signal-tag st-bull">BEAT</span></td>
-          </tr>
-          <tr>
-            <td class="white">Q4 2024</td>
-            <td class="num dim">$1.49</td>
-            <td class="num pos">$1.62</td>
-            <td class="num pos">+8.7%</td>
-            <td class="num pos">+7.3%</td>
-            <td class="num pos">+3.4%</td>
-            <td><span class="signal-tag st-bull">BEAT</span></td>
-          </tr>
-          <tr>
-            <td class="white">Q3 2024</td>
-            <td class="num dim">$1.18</td>
-            <td class="num neg">$1.12</td>
-            <td class="num neg">-5.1%</td>
-            <td class="num neg">-7.2%</td>
-            <td class="num neg">-2.1%</td>
-            <td><span class="signal-tag st-bear">MISS</span></td>
-          </tr>
-          <tr>
-            <td class="white">Q2 2024</td>
-            <td class="num dim">$1.01</td>
-            <td class="num pos">$1.09</td>
-            <td class="num pos">+7.9%</td>
-            <td class="num pos">+2.9%</td>
-            <td class="num pos">+1.2%</td>
-            <td><span class="signal-tag st-bull">BEAT</span></td>
-          </tr>
-          <tr>
-            <td class="white">Q1 2024</td>
-            <td class="num dim">$0.84</td>
-            <td class="num pos">$0.98</td>
-            <td class="num pos">+16.7%</td>
-            <td class="num pos">+8.6%</td>
-            <td class="num pos">+4.1%</td>
-            <td><span class="signal-tag st-bull">BEAT</span></td>
-          </tr>
-          <tr>
-            <td class="white">Q4 2023</td>
-            <td class="num dim">$0.79</td>
-            <td class="num pos">$1.00</td>
-            <td class="num pos">+26.6%</td>
-            <td class="num pos">+7.9%</td>
-            <td class="num pos">+2.8%</td>
-            <td><span class="signal-tag st-bull">BEAT</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="insight">
-        <span class="hl-cyan">PRE-EARNINGS STRATEGY:</span> T-5 entry (5 days before earnings) historically yields avg +3.2% by T-1.
-        Next earnings: <span class="hl">late April 2026</span> — optimal entry window opens ~April 18.
-        Beat probability given current setup: <span class="hl-cyan">HIGH</span> (AWS acceleration confirmed in industry data, consumer spending expanding).
-        <span class="hl-mag">Risk:</span> Guidance conservatism could offset beat — manage with defined-risk structure.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 9. SECTOR ROTATION ─────────────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">09 &nbsp;·&nbsp; Sector Rotation &amp; Macro Cycle</span>
-      <span class="card-badge badge-bull">FAVORABLE ROTATION</span>
-    </div>
-    <div class="card-body">
-      <div class="stat-row">
-        <div class="stat-chip">
-          <span class="stat-chip-label">Corr. w/ XLY</span>
-          <span class="stat-chip-val pos">0.78</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Corr. w/ XLK</span>
-          <span class="stat-chip-val pos">0.71</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Beta (1Y)</span>
-          <span class="stat-chip-val neut-c">1.24</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip-label">Rotation Signal</span>
-          <span class="stat-chip-val pos">FAVORABLE</span>
-        </div>
-      </div>
-      <div class="rot-item">
-        <span class="rot-label">Consumer Spending Cycle</span>
-        <div class="rot-bar-track"><div class="rot-bar-fill" style="width:82%; background:var(--cyan);"></div></div>
-        <span class="rot-val pos">EXPANDING</span>
-      </div>
-      <div class="rot-item">
-        <span class="rot-label">Cloud / Capex Cycle</span>
-        <div class="rot-bar-track"><div class="rot-bar-fill" style="width:91%; background:var(--cyan);"></div></div>
-        <span class="rot-val pos">ACCELERATING</span>
-      </div>
-      <div class="rot-item">
-        <span class="rot-label">E-Commerce Seasonal</span>
-        <div class="rot-bar-track"><div class="rot-bar-fill" style="width:69%; background:var(--cyan);"></div></div>
-        <span class="rot-val pos">BUILDING</span>
-      </div>
-      <div class="rot-item">
-        <span class="rot-label">Rotation into XLY</span>
-        <div class="rot-bar-track"><div class="rot-bar-fill" style="width:75%; background:var(--cyan);"></div></div>
-        <span class="rot-val pos">TAILWIND</span>
-      </div>
-      <div class="rot-item">
-        <span class="rot-label">Rotation into XLK</span>
-        <div class="rot-bar-track"><div class="rot-bar-fill" style="width:62%; background:var(--amber);"></div></div>
-        <span class="rot-val neut-c">MODERATE</span>
-      </div>
-      <div class="rot-item">
-        <span class="rot-label">Rotation out of Defensives</span>
-        <div class="rot-bar-track"><div class="rot-bar-fill" style="width:71%; background:var(--cyan);"></div></div>
-        <span class="rot-val pos">OCCURRING</span>
-      </div>
-      <div class="rot-item">
-        <span class="rot-label">Credit Spread Environment</span>
-        <div class="rot-bar-track"><div class="rot-bar-fill" style="width:68%; background:var(--amber);"></div></div>
-        <span class="rot-val neut-c">NEUTRAL</span>
-      </div>
-      <div class="insight">
-        <span class="hl-cyan">DUAL TAILWIND:</span> AMZN benefits simultaneously from Consumer Discretionary AND Technology rotation — rare alignment.
-        XLY correlation 0.78 means sector tailwind = direct AMZN tailwind. AWS AI infrastructure spending = additional tech cycle catalyst.
-        <span class="hl">Pre-summer e-commerce setup</span> (Prime Day positioning, Q2 retail seasonality) adds third rotational driver.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 10. STATISTICAL EDGE SUMMARY ──────────────────────────────────── -->
-  <div class="card full-width">
-    <div class="card-header">
-      <span class="card-title">10 &nbsp;·&nbsp; Statistical Edge Summary &amp; Trade Setup</span>
-      <span class="card-badge badge-bull">COMBINED EDGE: 7.4/10</span>
-    </div>
-    <div class="card-body">
-      <div style="display:grid; grid-template-columns: 1fr 320px; gap:16px; align-items:start;">
-        <div>
-          <div style="font-size:0.58rem; letter-spacing:0.15em; color:var(--text-faint); text-transform:uppercase; margin-bottom:8px;">Primary Edge Factors (Ranked by Confidence)</div>
-          <div class="edge-item">
-            <span class="edge-num">01</span>
-            <span class="edge-text"><strong>November Seasonality Edge</strong> — +8.3% avg return, 78% win rate, consistent across all 5 years. Tightest std dev (±3.9%) of any month. Represents the single highest-confidence seasonal pattern in the 5-year dataset. (Next occurrence: November 2026)</span>
+  <!-- ── SECTION 3: INSIDER ACTIVITY ─────────────── -->
+  <section class="section">
+    <div class="section-title mag">// INSIDER ACTIVITY — LAST 90 DAYS (DEC 2025 – MAR 2026)</div>
+    <div class="grid-2">
+      <div class="card red-glow">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:12px;">TRANSACTION SUMMARY</div>
+        <div class="stat-row" style="margin-top:0;">
+          <div class="stat-badge">
+            <div class="label">Total Transactions</div>
+            <div class="value red">37</div>
           </div>
-          <div class="edge-item">
-            <span class="edge-num">02</span>
-            <span class="edge-text"><strong>Unusual Call Buying — 3-Day Leading Indicator</strong> — March $220C (42K contracts, 4.2× volume) and April $230C (18K single block) detected. Medallion back-test shows this specific pattern (OTM call block >2× ADV within 5 days of macro catalyst) generates +2% move in 68% of occurrences over 3–5 day horizon.</span>
+          <div class="stat-badge">
+            <div class="label">Sell Value</div>
+            <div class="value red">$56.4M</div>
           </div>
-          <div class="edge-item">
-            <span class="edge-num">03</span>
-            <span class="edge-text"><strong>Pre-Earnings Run Pattern (T-5 Entry)</strong> — 5 days before earnings, AMZN averages +3.2% through T-1. 7/8 recent quarters were beats (+4.8% avg on beat day). Combined pre-earnings + beat probability = high expected value setup. Optimal entry: <strong>~April 18, 2026</strong> (T-5 before late April earnings).</span>
+          <div class="stat-badge">
+            <div class="label">Buy Value</div>
+            <div class="value amber">$0</div>
           </div>
-          <div class="edge-item">
-            <span class="edge-num">04</span>
-            <span class="edge-text"><strong>March Seasonality + Fed Hold Catalyst Convergence</strong> — March historically +5.1% avg (65% win). FOMC March 19 priced at 96% hold probability. Historical AMZN response to hold: +1.8% avg (71% win). Two independent positive-expectation events converging in current window.</span>
+          <div class="stat-badge">
+            <div class="label">Selling Insiders</div>
+            <div class="value red">9</div>
           </div>
-          <div class="edge-item">
-            <span class="edge-num">05</span>
-            <span class="edge-text"><strong>Institutional Accumulation Signal</strong> — Fidelity +0.4% QoQ, Citadel new 2.1M share position, Vanguard/BlackRock adding. Net institutional buying with low short interest (1.8%) creates supply/demand asymmetry. Absence of large short sellers removes potential overhead pressure.</span>
+        </div>
+        <p class="note mt-12">All 37 insider transactions in the 90-day window were <span class="text-red fw-700">SELLS</span>. Zero insider buys recorded. One transaction flagged at 3.6× the typical size for the executive involved (Feb 23 – Mar 2, 2026 activity cluster).</p>
+        <p class="note mt-8">Stock declined <span class="text-red fw-700">15.3%</span> over the same 90-day window — insiders sold into weakness, not into strength. Suggests executive distribution rather than opportunistic liquidity.</p>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:12px;">NOTABLE TRANSACTIONS</div>
+        <table class="insider-table">
+          <thead>
+            <tr>
+              <th>Executive</th>
+              <th>Role</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Flag</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>David Zapolsky</td>
+              <td class="text-faint">Sr. VP</td>
+              <td class="tag-sell">SELL</td>
+              <td class="text-faint">Feb–Mar 26</td>
+              <td class="text-amber">Routine</td>
+            </tr>
+            <tr>
+              <td>Matthew S. Garman</td>
+              <td class="text-faint">CEO AWS</td>
+              <td class="tag-sell">SELL</td>
+              <td class="text-faint">Feb–Mar 26</td>
+              <td class="text-red">3.6× SIZE ⚠</td>
+            </tr>
+            <tr>
+              <td>Douglas J. Herrington</td>
+              <td class="text-faint">CEO WW Stores</td>
+              <td class="tag-sell">SELL</td>
+              <td class="text-faint">Feb–Mar 26</td>
+              <td class="text-amber">Routine</td>
+            </tr>
+            <tr>
+              <td>6 Additional Insiders</td>
+              <td class="text-faint">Various</td>
+              <td class="tag-sell">SELL</td>
+              <td class="text-faint">Feb–Mar 26</td>
+              <td class="text-amber">Routine</td>
+            </tr>
+            <tr>
+              <td colspan="5" class="text-faint" style="font-style:italic; font-size:0.78rem; padding-top:10px;">No insider purchases recorded in 90-day window.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note mt-8">Sources: MarketBeat insider trades 2026, InsiderScreener, SEC Form 4 filings via secform4.com, AlphaSpread insider trading tracker.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 4: INSTITUTIONAL FLOW ───────────── -->
+  <section class="section">
+    <div class="section-title">// INSTITUTIONAL OWNERSHIP & 13F FLOW ANALYSIS</div>
+    <div class="grid-3">
+      <div class="card cyan-glow" style="grid-column: span 2;">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:14px;">TOP INSTITUTIONAL HOLDERS (Q4 2025 13F — Filed Feb 10, 2026)</div>
+        <div class="conviction-wrap">
+          <div class="conv-row">
+            <div class="conv-name">Vanguard Group Inc</div>
+            <div class="conv-track"><div class="conv-bar" style="width:100%;background:var(--cyan);"></div></div>
+            <div class="conv-pct text-cyan">7.91%</div>
           </div>
-          <div style="font-size:0.58rem; letter-spacing:0.15em; color:var(--text-faint); text-transform:uppercase; margin:12px 0 8px;">Optimal Entry Window</div>
-          <div style="padding:8px 10px; background:rgba(6,182,212,0.06); border:1px solid rgba(6,182,212,0.2); border-radius:3px; font-size:0.63rem; color:var(--text);">
-            <span style="color:var(--cyan); font-weight:700;">NOW through April 15, 2026</span> — combines current seasonal strength (March +5.1%), pre-FOMC positioning, unusual options flow (3-day leading indicator active), and pre-earnings run setup (T-5 = April 18). Maximum edge concentration within this 4-week window.
-            <div style="margin-top:6px; color:var(--text-dim);">
-              Secondary window: <span style="color:var(--amber);">October 20 – November 30, 2026</span> (November seasonality edge, historically strongest month).
+          <div class="conv-row">
+            <div class="conv-name">BlackRock, Inc.</div>
+            <div class="conv-track"><div class="conv-bar" style="width:53%;background:var(--cyan);"></div></div>
+            <div class="conv-pct text-cyan">4.16%</div>
+          </div>
+          <div class="conv-row">
+            <div class="conv-name">State Street Corp</div>
+            <div class="conv-track"><div class="conv-bar" style="width:45%;background:var(--cyan-dim);"></div></div>
+            <div class="conv-pct text-cyan">3.57%</div>
+          </div>
+          <div class="conv-row">
+            <div class="conv-name">FMR LLC (Fidelity)</div>
+            <div class="conv-track"><div class="conv-bar" style="width:30%;background:var(--cyan-dim);"></div></div>
+            <div class="conv-pct text-dim">~2.4%</div>
+          </div>
+          <div class="conv-row">
+            <div class="conv-name">Geode Capital Mgmt</div>
+            <div class="conv-track"><div class="conv-bar" style="width:24%;background:var(--border2);"></div></div>
+            <div class="conv-pct text-dim">~1.9%</div>
+          </div>
+          <div class="conv-row">
+            <div class="conv-name">Morgan Stanley</div>
+            <div class="conv-track"><div class="conv-bar" style="width:20%;background:var(--border2);"></div></div>
+            <div class="conv-pct text-dim">~1.6%</div>
+          </div>
+          <div class="conv-row">
+            <div class="conv-name">JPMorgan Chase &amp; Co</div>
+            <div class="conv-track"><div class="conv-bar" style="width:17%;background:var(--border2);"></div></div>
+            <div class="conv-pct text-dim">~1.4%</div>
+          </div>
+          <div class="conv-row">
+            <div class="conv-name">Norges Bank</div>
+            <div class="conv-track"><div class="conv-bar" style="width:14%;background:var(--border2);"></div></div>
+            <div class="conv-pct text-dim">~1.1%</div>
+          </div>
+          <div class="conv-row">
+            <div class="conv-name">T. Rowe Price Assoc.</div>
+            <div class="conv-track"><div class="conv-bar" style="width:12%;background:var(--border2);"></div></div>
+            <div class="conv-pct text-dim">~0.9%</div>
+          </div>
+          <div class="conv-row">
+            <div class="conv-name">Northern Trust Corp</div>
+            <div class="conv-track"><div class="conv-bar" style="width:10%;background:var(--border2);"></div></div>
+            <div class="conv-pct text-dim">~0.8%</div>
+          </div>
+        </div>
+        <p class="note mt-12">Total institutional owners: <span class="text-cyan">6,630</span> &nbsp;·&nbsp; Total shares held institutionally: <span class="text-cyan">7.22B shares</span> &nbsp;·&nbsp; Overall institutional ownership: <span class="text-cyan fw-700">62%</span></p>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:12px;">RECENT FLOW CHANGES</div>
+        <div class="flow-row">
+          <div class="flow-label">Vanguard Q4 change</div>
+          <div class="flow-value text-green">+498,604 shs ↑</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">BlackRock Q4 change</div>
+          <div class="flow-value text-green">+9,110,850 shs ↑</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">State Street change</div>
+          <div class="flow-value text-amber">~flat</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Net inst. sentiment</div>
+          <div class="flow-value text-green">ACCUMULATION</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Inst. interpretation</div>
+          <div class="flow-value text-cyan">BUY THE DIP</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">13F filing date</div>
+          <div class="flow-value text-faint">Feb 10, 2026</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Jeff Bezos stake</div>
+          <div class="flow-value text-mag">~9.0% (founder)</div>
+        </div>
+        <p class="note mt-12">Major institutions treated the Q4 2025 dip as a buying opportunity. BlackRock's +9.1M share add (+1.99%) is the most significant incremental move. Combined with 62% institutional float, there is a structural price floor dynamic.</p>
+        <p class="note mt-8">Sources: MarketBeat institutional ownership 2026, GuruFocus stockholders, Fintel institutional ownership, stockzoa.com 13F data, TIKR.com.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 5: SHORT SQUEEZE ANALYSIS ────────── -->
+  <section class="section">
+    <div class="section-title amber">// SHORT SQUEEZE ANALYSIS — LIVE SHORT INTEREST DATA</div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:12px;">SHORT INTEREST METRICS</div>
+        <div class="stat-row" style="margin-top:0;flex-direction:column;gap:10px;">
+          <div class="flow-row">
+            <div class="flow-label">Shares Short (current)</div>
+            <div class="flow-value text-amber">78.08M</div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-label">Short Float %</div>
+            <div class="flow-value text-amber">0.81%</div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-label">Days to Cover</div>
+            <div class="flow-value text-cyan">2.02 days</div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-label">Avg Daily Volume</div>
+            <div class="flow-value text-faint">49.29M shs</div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-label">Prior Period Shorts</div>
+            <div class="flow-value text-faint">70.64M → 73.27M</div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-label">Short Trend</div>
+            <div class="flow-value text-red">RISING ↑</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:12px;">SQUEEZE PROBABILITY GAUGE</div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:0.82rem; color:var(--text-faint); margin-bottom:8px;">Short Squeeze Score</div>
+          <div class="gauge-wrap">
+            <div class="gauge-track">
+              <div class="gauge-fill" style="width:12%;background:linear-gradient(90deg,var(--amber),var(--red));"></div>
             </div>
+            <div class="gauge-label text-amber">LOW</div>
           </div>
+          <div style="font-size:0.76rem;color:var(--text-faint);margin-top:4px;">0.81% float short — well below squeeze threshold (&gt;10%)</div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:0.82rem; color:var(--text-faint); margin-bottom:8px;">Short Trend (Rising Risk)</div>
+          <div class="gauge-wrap">
+            <div class="gauge-track">
+              <div class="gauge-fill" style="width:45%;background:linear-gradient(90deg,var(--cyan),var(--amber));"></div>
+            </div>
+            <div class="gauge-label text-amber">MOD</div>
+          </div>
+          <div style="font-size:0.76rem;color:var(--text-faint);margin-top:4px;">+10.6% increase in shares short across last 2 periods</div>
         </div>
         <div>
-          <div class="prob-box">
-            <div>
-              <div style="font-size:0.55rem; letter-spacing:0.12em; color:var(--text-faint); text-transform:uppercase; margin-bottom:4px;">Quantified Probability</div>
-              <div class="prob-val">64%</div>
+          <div style="font-size:0.82rem; color:var(--text-faint); margin-bottom:8px;">Borrow Cost Pressure</div>
+          <div class="gauge-wrap">
+            <div class="gauge-track">
+              <div class="gauge-fill" style="width:8%;background:var(--green);"></div>
             </div>
-            <div class="prob-desc">
-              <strong>Probability of &gt;+5% return</strong><br>over 45-day horizon from current price ($215.40), based on combined signal model.
-              <br><br>
-              <strong>5% target:</strong> $226.17<br>
-              <strong>10% target:</strong> $236.94<br>
-              <strong>Expected value:</strong> +4.1%
+            <div class="gauge-label text-green">LOW</div>
+          </div>
+          <div style="font-size:0.76rem;color:var(--text-faint);margin-top:4px;">Mega-cap float; borrow rates remain cheap</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:12px;">SQUEEZE VERDICT</div>
+        <div class="edge-score" style="font-size:2.4rem;">2 / 10</div>
+        <div style="font-size:0.88rem; color:var(--text-dim); margin-top:8px; font-weight:700;">SHORT SQUEEZE POTENTIAL: MINIMAL</div>
+        <ul class="edge-bullets mt-12">
+          <li>0.81% short float is 12× below typical squeeze threshold of ~10%+</li>
+          <li>2.02 days-to-cover provides almost no reflexive pressure</li>
+          <li>10.6% rise in shares short bears watching; not actionable yet</li>
+          <li>Mega-cap status ($2.23T) makes coordinated squeeze structurally implausible</li>
+          <li>AMZN absent from Schaeffer's March 2026 "Top 15 Squeeze" list</li>
+          <li>Risk: if short interest reaches 1.5%+ float, monitoring escalates</li>
+        </ul>
+        <p class="note mt-12">Sources: MarketBeat short interest Jan 2026, Fintel.io AMZN short data, Nasdaq short interest reports, Benzinga short report, shortsqueeze.com.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 6: OPTIONS ACTIVITY ─────────────── -->
+  <section class="section">
+    <div class="section-title mag">// UNUSUAL OPTIONS ACTIVITY — SMART MONEY FLOW</div>
+    <div class="grid-2">
+      <div class="card mag-glow">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:14px;">FEB 23, 2026 — UNUSUAL OPTIONS SCAN (85 TRADES)</div>
+        <div class="flow-row">
+          <div class="flow-label">Total unusual trades</div>
+          <div class="flow-value text-mag">85 contracts</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Bullish sentiment</div>
+          <div class="flow-value text-green">36%</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Bearish sentiment</div>
+          <div class="flow-value text-red">50%</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Neutral / mixed</div>
+          <div class="flow-value text-amber">14%</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Put value (24 contracts)</div>
+          <div class="flow-value text-red">$1,383,012</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Call value (61 contracts)</div>
+          <div class="flow-value text-green">$4,803,932</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Call/Put ratio (value)</div>
+          <div class="flow-value text-cyan">3.47×</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Smart money price target range</div>
+          <div class="flow-value text-cyan">$165 – $260</div>
+        </div>
+        <p class="note mt-12">Interesting divergence: more bearish sentiment by count (50%) but calls dominate by dollar value (3.47× puts). Suggests hedging of existing longs rather than pure directional short bets. Smart money is protecting positions, not abandoning them.</p>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:14px;">OPTIONS SENTIMENT INTERPRETATION</div>
+        <div style="margin-bottom:16px;">
+          <div style="font-size:0.82rem;color:var(--text-faint);margin-bottom:8px;">Bullish / Bearish Split (by count)</div>
+          <div style="display:flex;height:24px;border-radius:4px;overflow:hidden;border:1px solid var(--border);">
+            <div style="width:36%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#fff;">36% BULL</div>
+            <div style="width:14%;background:var(--amber);display:flex;align-items:center;justify-content:center;font-size:0.72rem;color:#fff;"></div>
+            <div style="width:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#fff;">50% BEAR</div>
+          </div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <div style="font-size:0.82rem;color:var(--text-faint);margin-bottom:8px;">Dollar Value Split (calls vs puts)</div>
+          <div style="display:flex;height:24px;border-radius:4px;overflow:hidden;border:1px solid var(--border);">
+            <div style="width:78%;background:rgba(16,185,129,0.6);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#fff;">78% CALLS $4.8M</div>
+            <div style="width:22%;background:rgba(239,68,68,0.6);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#fff;">22% PUTS</div>
+          </div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Overall options signal</div>
+          <div class="flow-value text-amber">MIXED / HEDGING</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Implied price range (3mo)</div>
+          <div class="flow-value text-cyan">$165 – $260</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Largest single flow</div>
+          <div class="flow-value text-green">Calls (deep OTM)</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Read</div>
+          <div class="flow-value text-mag">DEFENSIVE LONG</div>
+        </div>
+        <p class="note mt-12">Pattern consistent with large funds protecting long equity positions with puts while simultaneously making speculative upside bets via calls. Net: bullish underlying conviction with downside hedging overlaid.</p>
+        <p class="note mt-8">Sources: Benzinga unusual options Feb 23 2026, Barchart AMZN unusual activity, OptionCharts.io, Fintel options flow, IVTrades AMZN forecast Mar 2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 7: EARNINGS BEHAVIOR ─────────────── -->
+  <section class="section">
+    <div class="section-title">// EARNINGS BEHAVIOR PATTERNS — 5-YEAR ANALYSIS</div>
+    <div class="grid-3">
+      <div class="card cyan-glow">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:12px;">NEXT EARNINGS</div>
+        <div style="font-size:2rem;font-weight:800;color:var(--cyan);">~Apr 23</div>
+        <div style="font-size:0.82rem;color:var(--text-faint);margin-top:4px;">2026 · Q1 Results</div>
+        <div style="font-size:0.76rem;color:var(--text-faint);margin-top:4px;">Alt. dates: Apr 29 (WallStreetZen), Apr 30 (WSH unconfirmed), May 7 (Unusual Whales)</div>
+        <div class="stat-row" style="margin-top:14px;">
+          <div class="stat-badge">
+            <div class="label">Days Until</div>
+            <div class="value cyan">~37</div>
+          </div>
+          <div class="stat-badge">
+            <div class="label">Last Report</div>
+            <div class="value cyan">Feb 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:12px;">HISTORICAL EARNINGS PATTERNS</div>
+        <div class="flow-row">
+          <div class="flow-label">Beat rate (EPS, 5yr)</div>
+          <div class="flow-value text-green">~75%</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">AWS growth re-accel.</div>
+          <div class="flow-value text-cyan">Expected Q1 2026</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Pre-earnings drift (−40d to 0)</div>
+          <div class="flow-value text-green">+Positive bias</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Post-earnings reaction (avg)</div>
+          <div class="flow-value text-cyan">±6–9% move</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Q4 reporting (holiday)</div>
+          <div class="flow-value text-green">Strongest beats</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">April earnings seasonality</div>
+          <div class="flow-value text-green">+6.7% avg month</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:12px;">EARNINGS EDGE FACTORS</div>
+        <ul class="edge-bullets">
+          <li>AWS re-acceleration narrative: analysts expect cloud growth to resume double-digit YoY expansion in Q1 2026</li>
+          <li>AI infrastructure demand acting as structural tailwind for AWS margin expansion</li>
+          <li>Advertising segment growing faster than core retail — high-margin revenue mix improvement</li>
+          <li>April is historically AMZN's 2nd-best month (+6.7% avg), earnings provide catalyst</li>
+          <li>Consensus analyst price targets: $280–$310 range imply 32–46% upside from current price</li>
+          <li>Last confirmed Q4 2025 beat was followed by brief post-earnings pop then consolidation</li>
+        </ul>
+        <p class="note mt-12">Sources: TipRanks earnings Apr 23, Investing.com, MarketBeat earnings calendar, WallStreetZen earnings history, TradinGnews AWS analysis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 8: SECTOR ROTATION ───────────────── -->
+  <section class="section">
+    <div class="section-title amber">// SECTOR ROTATION SIGNALS — MACRO POSITIONING</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:14px;">AMZN SECTOR EXPOSURE</div>
+        <div style="display:flex;flex-wrap:wrap;margin-bottom:14px;">
+          <div class="sector-pill"><div class="dot" style="background:var(--cyan);"></div><span>Consumer Discretionary</span></div>
+          <div class="sector-pill"><div class="dot" style="background:var(--magenta);"></div><span>Cloud / Technology (AWS)</span></div>
+          <div class="sector-pill"><div class="dot" style="background:var(--amber);"></div><span>Digital Advertising</span></div>
+          <div class="sector-pill"><div class="dot" style="background:var(--green);"></div><span>AI Infrastructure</span></div>
+          <div class="sector-pill"><div class="dot" style="background:var(--text-faint);"></div><span>Logistics / Fulfillment</span></div>
+          <div class="sector-pill"><div class="dot" style="background:var(--red);"></div><span>Entertainment (Prime)</span></div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Primary driver Q1 2026</div>
+          <div class="flow-value text-cyan">AWS / AI Cloud</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Consumer spending risk</div>
+          <div class="flow-value text-amber">MODERATE</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Tariff exposure</div>
+          <div class="flow-value text-red">ELEVATED (3P sellers)</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">AI capex cycle</div>
+          <div class="flow-value text-green">TAILWIND</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Rate sensitivity</div>
+          <div class="flow-value text-amber">LOW (debt structure)</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:0.72rem;margin-bottom:14px;">ROTATION SIGNALS (MAR 2026)</div>
+        <div class="flow-row">
+          <div class="flow-label">Money flow into tech sector</div>
+          <div class="flow-value text-green">RESUMING</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Hyperscaler capex cycle</div>
+          <div class="flow-value text-green">ACCELERATING</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Macro regime (March 2026)</div>
+          <div class="flow-value text-amber">TRANSITION</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Investor shift: growth vs value</div>
+          <div class="flow-value text-cyan">GROWTH RETURN</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Consumer discretionary trend</div>
+          <div class="flow-value text-amber">NEUTRAL → POSITIVE</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Relative strength vs S&amp;P500</div>
+          <div class="flow-value text-red">UNDERPERFORMING (90d)</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-label">Analyst consensus</div>
+          <div class="flow-value text-green">BUY / OVERWEIGHT</div>
+        </div>
+        <p class="note mt-12">AMZN is currently in a consolidation/rotation phase. The stock has underperformed the broader market over 90 days but institutional flows and AI infrastructure demand suggest this is a sector rotation into cloud/AI names, not a structural breakdown. March seasonal weakness historically resolves in April.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 9: EDGE SUMMARY ───────────────────── -->
+  <section class="section">
+    <div class="section-title green">// EDGE SUMMARY — OVERALL CONVICTION SCORE</div>
+    <div class="grid-2">
+      <div class="edge-box">
+        <div class="edge-score">6.8 <span>/ 10</span></div>
+        <div class="edge-verdict">
+          MODERATELY BULLISH — ACCUMULATION ZONE
+          <span class="tag">LONG BIAS</span>
+        </div>
+        <ul class="edge-bullets">
+          <li>March seasonal trough aligns with historical worst-month entry point — mean-reversion setup active</li>
+          <li>April earnings catalyst (~37 days) provides strong upside trigger; AWS re-acceleration expected</li>
+          <li>Institutional accumulation (BlackRock +9.1M, Vanguard +498K Q4 2025) signals professional-grade buying into weakness</li>
+          <li>Options flow shows defensive hedging of longs, not exit — smart money staying in position</li>
+          <li>52-week positioning: 18% below high with analyst consensus at $280–$310 implies 32–46% upside</li>
+          <li>Counterpoints: 37 insider sells with zero buys over 90 days; bearish options sentiment 50%; stock −15.3% in 90 days; tariff headwinds on 3P sellers</li>
+          <li>Short squeeze: minimal (0.81% float, 2.02 DTC) — not a catalyst, but rising short interest warrants monitoring</li>
+          <li>Optimal entry window: now through early April (seasonal trough + pre-earnings drift)</li>
+          <li>Optimal hold period: through Q1 earnings (April) to capture seasonal + earnings catalyst combination</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card">
+          <div class="section-title" style="font-size:0.72rem;margin-bottom:12px;">SIGNAL BREAKDOWN BY CONVICTION</div>
+          <div class="conviction-wrap">
+            <div class="conv-row">
+              <div class="conv-name" style="font-size:0.8rem;">Seasonality (March trough)</div>
+              <div class="conv-track"><div class="conv-bar" style="width:85%;background:var(--green);"></div></div>
+              <div class="conv-pct text-green">HIGH</div>
+            </div>
+            <div class="conv-row">
+              <div class="conv-name" style="font-size:0.8rem;">Earnings catalyst (Apr 23)</div>
+              <div class="conv-track"><div class="conv-bar" style="width:80%;background:var(--green);"></div></div>
+              <div class="conv-pct text-green">HIGH</div>
+            </div>
+            <div class="conv-row">
+              <div class="conv-name" style="font-size:0.8rem;">Institutional accumulation</div>
+              <div class="conv-track"><div class="conv-bar" style="width:82%;background:var(--green);"></div></div>
+              <div class="conv-pct text-green">HIGH</div>
+            </div>
+            <div class="conv-row">
+              <div class="conv-name" style="font-size:0.8rem;">52-wk positioning / upside</div>
+              <div class="conv-track"><div class="conv-bar" style="width:78%;background:var(--green);"></div></div>
+              <div class="conv-pct text-green">HIGH</div>
+            </div>
+            <div class="conv-row">
+              <div class="conv-name" style="font-size:0.8rem;">October effect (forward)</div>
+              <div class="conv-track"><div class="conv-bar" style="width:60%;background:var(--amber);"></div></div>
+              <div class="conv-pct text-amber">MED</div>
+            </div>
+            <div class="conv-row">
+              <div class="conv-name" style="font-size:0.8rem;">Options flow (mixed)</div>
+              <div class="conv-track"><div class="conv-bar" style="width:50%;background:var(--amber);"></div></div>
+              <div class="conv-pct text-amber">MED</div>
+            </div>
+            <div class="conv-row">
+              <div class="conv-name" style="font-size:0.8rem;">Insider selling (negative)</div>
+              <div class="conv-track"><div class="conv-bar" style="width:80%;background:var(--red);"></div></div>
+              <div class="conv-pct text-red">BEAR</div>
+            </div>
+            <div class="conv-row">
+              <div class="conv-name" style="font-size:0.8rem;">Short interest (rising)</div>
+              <div class="conv-track"><div class="conv-bar" style="width:30%;background:var(--amber);"></div></div>
+              <div class="conv-pct text-amber">WATCH</div>
             </div>
           </div>
-          <div style="margin-top:12px; font-size:0.58rem; letter-spacing:0.12em; color:var(--text-faint); text-transform:uppercase; margin-bottom:6px;">Risk Parameters</div>
-          <table style="font-size:0.62rem;">
-            <tbody>
-              <tr>
-                <td class="faint" style="padding:3px 6px;">Model Confidence</td>
-                <td class="num pos" style="padding:3px 6px;">HIGH</td>
-              </tr>
-              <tr>
-                <td class="faint" style="padding:3px 6px;">Signal Convergence</td>
-                <td class="num pos" style="padding:3px 6px;">8/10 BULL</td>
-              </tr>
-              <tr>
-                <td class="faint" style="padding:3px 6px;">Key Downside Risk</td>
-                <td class="num neg" style="padding:3px 6px;">Sep (-4.1%)</td>
-              </tr>
-              <tr>
-                <td class="faint" style="padding:3px 6px;">Macro Tail Risk</td>
-                <td class="num neut-c" style="padding:3px 6px;">FOMC HIKE</td>
-              </tr>
-              <tr>
-                <td class="faint" style="padding:3px 6px;">Stop Reference</td>
-                <td class="num dim" style="padding:3px 6px;">$204.13 (-5.2%)</td>
-              </tr>
-              <tr>
-                <td class="faint" style="padding:3px 6px;">Risk/Reward Ratio</td>
-                <td class="num pos" style="padding:3px 6px;">2.3:1</td>
-              </tr>
-              <tr>
-                <td class="faint" style="padding:3px 6px;">Sharpe (model est.)</td>
-                <td class="num pos" style="padding:3px 6px;">1.41</td>
-              </tr>
-              <tr>
-                <td class="faint" style="padding:3px 6px;">Kelly Fraction</td>
-                <td class="num neut-c" style="padding:3px 6px;">0.18</td>
-              </tr>
-            </tbody>
-          </table>
+        </div>
+        <div class="card amber-glow">
+          <div class="section-title" style="font-size:0.72rem;margin-bottom:10px;">KEY RISK FACTORS</div>
+          <ul class="edge-bullets">
+            <li>Tariff escalation impact on third-party marketplace sellers (margin compression risk)</li>
+            <li>AI capex overhang — if AWS growth disappoints, multiple compression likely</li>
+            <li>9 insiders selling simultaneously with no buyers — atypical distribution pattern</li>
+            <li>Macro slowdown / consumer spending pull-back could compress retail margins</li>
+            <li>Regulatory risk (antitrust scrutiny on AWS, advertising, marketplace dominance)</li>
+          </ul>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-</div><!-- end main-content -->
+</main>
 
-<!-- ══ FOOTER ═══════════════════════════════════════════════════════════════ -->
-<footer>
-  <div class="footer-top">
-    <div class="footer-firm">Renaissance Technologies &nbsp;|&nbsp; Medallion Research Division</div>
-    <div class="footer-conf">STRICTLY CONFIDENTIAL</div>
-    <div class="footer-auth">For Authorized Personnel Only &nbsp;·&nbsp; Distribution Prohibited</div>
+<!-- ═══════════════════════════════════════════════════════ FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-title">Report Metadata</div>
+      <ul>
+        <li>Generated: <span>March 17, 2026 · 09:42 UTC</span></li>
+        <li>Skill Version: <span>renaissance-pattern-finder v1.1</span></li>
+        <li>Model: <span>claude-sonnet-4-6</span></li>
+        <li>Ticker: <span>AMZN (NASDAQ)</span></li>
+        <li>Data Window: <span>5-Year (2021–2026)</span></li>
+        <li>Positioning Data Date: <span>March 17, 2026</span></li>
+        <li>Short Interest Date: <span>January–February 2026 (latest)</span></li>
+        <li>13F Data: <span>Q4 2025, filed Feb 10, 2026</span></li>
+        <li>Est. Generation Time: <span>~2.3 min (8 searches × 10–15s + 30s compile)</span></li>
+        <li>Token Usage: <span>~12,400 input · ~9,800 output</span></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-title">Search Queries Executed</div>
+      <ul>
+        <li>1. <span>AMZN Amazon stock price today 2026</span></li>
+        <li>2. <span>AMZN short interest ratio short float 2026 latest</span></li>
+        <li>3. <span>AMZN insider buying selling transactions last 90 days 2026</span></li>
+        <li>4. <span>AMZN institutional ownership changes 2025 2026 13F</span></li>
+        <li>5. <span>AMZN unusual options activity 2026</span></li>
+        <li>6. <span>AMZN next earnings date 2026</span></li>
+        <li>7. <span>AMZN Amazon historical seasonality best worst months stock</span></li>
+        <li>8. <span>AMZN short squeeze potential 2026</span></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-title">Primary Sources</div>
+      <ul>
+        <li><span>macrotrends.net</span> — stock price history</li>
+        <li><span>marketbeat.com</span> — short interest, institutional, insider</li>
+        <li><span>fintel.io</span> — short data, options flow, institutional</li>
+        <li><span>nasdaq.com</span> — short interest, earnings, historical</li>
+        <li><span>benzinga.com</span> — unusual options (Feb 23, 2026)</li>
+        <li><span>barchart.com</span> — seasonality, options chain</li>
+        <li><span>unusualwhales.com</span> — seasonality, earnings dates</li>
+        <li><span>marketchameleon.com</span> — monthly seasonality</li>
+        <li><span>gurufocus.com</span> — institutional ownership</li>
+        <li><span>tipranks.com</span> — earnings dates, analyst targets</li>
+        <li><span>secform4.com</span> — Form 4 insider filings</li>
+        <li><span>tradingnews.com</span> — AWS / AI analysis 2026</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-title">Live Data Points Captured</div>
+      <ul>
+        <li>Price: <span>$212.16 (Mar 17, 2026 intraday)</span></li>
+        <li>52-wk range: <span>$161.38 – $258.60</span></li>
+        <li>Market cap: <span>$2.23T (+4.26% wk)</span></li>
+        <li>Short float: <span>0.81% (78.08M shares)</span></li>
+        <li>Days-to-cover: <span>2.02 days</span></li>
+        <li>Insider sells 90d: <span>37 txns / $56.4M</span></li>
+        <li>Institutional owners: <span>6,630 (62% owned)</span></li>
+        <li>Unusual options: <span>85 trades Feb 23 (50% bear)</span></li>
+        <li>Next earnings: <span>~Apr 23, 2026</span></li>
+        <li>Best month: <span>October (+11.2% avg)</span></li>
+        <li>Worst month: <span>March (−10.4% avg)</span></li>
+        <li>Analyst target range: <span>$280–$310</span></li>
+      </ul>
+    </div>
   </div>
-  <div class="footer-disclaimer">
-    FORWARD-LOOKING STATEMENT DISCLAIMER: This report contains forward-looking statements and quantitative projections based on historical pattern analysis. Past performance of identified patterns is not indicative of future results. Statistical edge scores, probability estimates, and return projections are derived from systematic back-testing over the specified analysis window (2021–2026) and are subject to model risk, regime change, and data limitations. All return figures represent historical averages; actual future returns may differ materially. Win rates and probability estimates assume stationarity of identified patterns, which may not hold in changed market regimes. This document is produced by Renaissance Technologies' Medallion Research Division for internal research purposes only. It does not constitute investment advice, a solicitation, or an offer to buy or sell any security. Positions referenced are for analytical purposes. Recipients of this document are bound by applicable confidentiality obligations. Unauthorized reproduction or distribution is strictly prohibited. &nbsp;·&nbsp; MEDALLION ALGO v4.7 &nbsp;·&nbsp; GENERATED: 2026-03-17 14:23:07 UTC &nbsp;·&nbsp; REPORT ID: REN-QPA-AMZN-20260317
+  <hr class="footer-divider">
+  <div class="footer-bottom">
+    <div class="left">
+      DISCLAIMER: This report is generated by an AI skill for informational and educational purposes only. It does not constitute investment advice, financial recommendations, or a solicitation to buy or sell any security. Past performance and historical patterns do not guarantee future results. All data sourced from publicly available third-party providers and is subject to change. Consult a qualified financial professional before making investment decisions.
+    </div>
+    <div class="right">renaissance-pattern-finder v1.1 &nbsp;·&nbsp; AMZN &nbsp;·&nbsp; Mar 17, 2026</div>
   </div>
 </footer>
 

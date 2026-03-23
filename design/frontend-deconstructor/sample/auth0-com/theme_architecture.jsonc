@@ -1,0 +1,266 @@
+{
+  "meta": {
+    "site": "auth0.com",
+    "extractedDate": "2026-03-22",
+    "framework": "React (styled-components, hashed class names sc-xxx)",
+    "cssFramework": "styled-components (CSS-in-JS, no Tailwind)",
+    "componentLibrary": "Custom (no Radix/shadcn detected)",
+    "themeMode": "dark-only — no toggle, no light mode",
+    "fontStrategy": "Custom font 'Aeonik' (geometric sans-serif, commercial). CSS var --font-main: 'fakt-web' also present.",
+    "backgroundSystem": "Hero: looping MP4 video (cdn.auth0.com/website/homepage/background.mp4) + cursor-following radial purple glow overlay. Sections: flat dark surfaces rgb(17,17,17).",
+    "verificationMethod": "Playwright getComputedStyle() on live DOM, Chromium headless, 1440×900",
+    "cursorEffect": "Hero has a JS-driven radial-gradient div that follows mousemove: radial-gradient(160px at [x] [y], rgb(180,155,252), rgba(158,76,183,0.13), transparent)"
+  },
+
+  "colors": {
+    "background": {
+      "void": "rgb(0, 0, 0)", // #000000 — body, page base
+      "surface1": "rgb(17, 17, 17)", // #111111 — nav, primary sections
+      "surface2": "rgb(25, 25, 25)", // #191919 — secondary cards, nested
+      "surface3": "rgb(36, 36, 36)", // #242424 — elevated/highlight surfaces
+      "glass": "rgba(23, 23, 23, 0.96)", // nav dropdowns + backdrop-filter blur(14px)
+      "glassLight": "rgba(23, 23, 23, 0.30)" // lighter glass variants
+    },
+
+    "foreground": {
+      "primary": "rgb(255, 254, 250)", // #FFFEFA — warm off-white (NOT pure white — intentional)
+      "white": "rgb(255, 255, 255)", // nav links, select headings
+      "muted1": "rgb(189, 196, 207)", // #BDC4CF — secondary body text
+      "muted2": "rgb(140, 146, 156)", // #8C929C — tertiary / captions
+      "muted3": "rgb(171, 171, 171)", // #ABABAB — inactive tabs, fine print
+      "onLight": "rgb(30, 33, 42)", // #1E212A — text on light/white surfaces
+      "link": "rgb(10, 132, 174)" // #0A84AE — hyperlinks, announcement bar
+    },
+
+    "accentGradients": {
+      // All brand color lives in gradients, not flat colors
+      "statPurple": "linear-gradient(87deg, rgb(140, 103, 246) 0.92%, rgb(199, 179, 255) 82.42%)",
+      "statBlue": "linear-gradient(76deg, rgb(182, 202, 255) 4.21%, rgb(66, 89, 191) 92.93%)",
+      "statBlueTeal": "linear-gradient(91deg, rgb(63, 89, 228) -15.54%, rgb(76, 183, 163) 52.43%, rgb(177, 228, 222) 98.25%)",
+      "labelLavender": "linear-gradient(88deg, rgb(180, 155, 252) 0.71%, rgb(182, 202, 255) 85.75%, rgb(246, 241, 231) 168.38%)"
+    },
+
+    "accentPalette": {
+      // Raw stops from the gradient system
+      "purple": "rgb(140, 103, 246)", // #8C67F6
+      "lavender": "rgb(180, 155, 252)", // #B49BFC — also used for cursor glow
+      "lavenderLight": "rgb(199, 179, 255)", // #C7B3FF
+      "blueDeep": "rgb(63, 89, 228)", // #3F59E4
+      "blueMid": "rgb(66, 89, 191)", // #4259BF
+      "blueLight": "rgb(182, 202, 255)", // #B6CAFF
+      "teal": "rgb(76, 183, 163)", // #4CB7A3
+      "tealLight": "rgb(177, 228, 222)", // #B1E4DE
+      "cursorGlow": "rgba(158, 76, 183, 0.13)" // purple cursor glow falloff
+    },
+
+    "border": {
+      "default": "rgb(42, 42, 42)", // #2A2A2A — primary border
+      "rimLight": "rgba(255, 255, 255, 0.12)", // card inset rim highlight
+      "activeTag": "rgb(244, 244, 244)" // #F4F4F4 — active pill border
+    }
+  },
+
+  "typography": {
+    "fontFamilies": {
+      "primary": "'Aeonik', sans-serif", // commercial geometric sans — rounded, clean
+      "fallback": "'fakt-web', sans-serif" // CSS var --font-main, legacy
+    },
+    "fontSizes": {
+      "xs": "12px",
+      "sm": "14px", // body copy, buttons, nav
+      "base": "16px", // labels
+      "lg": "20px", // nav dropdown links
+      "xl": "24px", // UNVERIFIED
+      "2xl": "32px", // UNVERIFIED
+      "3xl": "48px", // h2, h3
+      "4xl": "64px" // h1 display
+    },
+    "fontWeights": {
+      "regular": "400", // h1, h2, h3, body, nav — default weight
+      "medium": "500", // p, label
+      "bold": "700" // h4, emphasis
+    },
+    "lineHeights": {
+      // UNVERIFIED — not extracted; use 1.2 for headings, 1.6 for body as safe defaults
+    },
+    "letterSpacing": {
+      // UNVERIFIED — computed values not extracted; Aeonik at display sizes often uses -0.02em
+    },
+    "gradientText": {
+      // Applied via: background-image: [gradient]; -webkit-background-clip: text; -webkit-text-fill-color: transparent
+      "note": "Key numbers and accent labels use gradient fills clipped to text. See accentGradients above."
+    }
+  },
+
+  "spacing": {
+    "unit": "8px",
+    "contentWidth": "120rem", // CSS var --content-width — very wide
+    "buttonPaddingLg": "12px 32px",
+    "buttonPaddingMd": "8px 24px",
+    "tagPadding": "14px 28px"
+  },
+
+  "borders": {
+    "radius": {
+      "sm": "6px", // buttons
+      "md": "10px", // dropdown panels
+      "lg": "24px", // case study cards
+      "pill": "30px" // tab pills, tags
+    },
+    "widths": {
+      "default": "1px",
+      "none": "0px"
+    }
+  },
+
+  "shadows": {
+    "primaryButton": "rgba(255,255,255,0.48) 0px -16px 24px 0px inset, rgba(0,0,0,0.25) 0px 4px 4px 0px",
+    // inset top glow: simulates a lit top edge on glass button
+    // drop shadow below: adds depth on dark bg
+
+    "cardRimLight": "rgba(255,255,255,0.12) -1px 0px 0px 0px inset, rgb(255,255,255) -2px -2px 2px 0px inset",
+    // left + top-left corner white highlights on case study cards
+    // Note: cards have bg rgb(211,211,211) — the rim light floats on top
+  },
+
+  "effects": {
+    "glassmorphism": {
+      "dropdown": {
+        "background": "rgba(23, 23, 23, 0.96)",
+        "backdropFilter": "blur(14px)",
+        "borderRadius": "10px",
+        "note": "Nav dropdown panels — very opaque glass, nearly solid but with blur effect"
+      },
+      "lightGlass": {
+        "background": "rgba(23, 23, 23, 0.30)",
+        "backdropFilter": "blur(16px)",
+        "borderRadius": "24px",
+        "note": "Lighter glass variant — more transparent"
+      },
+      "blurOnly": {
+        "backdropFilter": "blur(100px)",
+        "background": "rgba(0,0,0,0)",
+        "note": "Pure blur with transparent bg — used as atmospheric blur overlay"
+      }
+    },
+    "cursorGlow": {
+      "implementation": "radial-gradient(160px at [mouseX]px [mouseY]px, rgb(180,155,252), rgba(158,76,183,0.13), transparent)",
+      "size": "160px radius",
+      "color": "lavender rgb(180,155,252) → purple fade → transparent",
+      "position": "absolute, z-index: 3 on hero section",
+      "note": "JS updates the at [x] [y] values on mousemove via setProperty or style.background replacement"
+    }
+  },
+
+  "motion": {
+    "durations": {
+      // UNVERIFIED — transition durations not extracted; Auth0 uses ~200-300ms for UI
+    },
+    "easings": {
+      // UNVERIFIED
+    },
+    "animations": {
+      "fadeIn": {
+        "name": "jBcSpD",
+        "keyframes": "0%{opacity:0} 100%{opacity:1}",
+        "use": "Section/element entrance animation"
+      },
+      "marqueeScroll": {
+        "name": "jOVXA",
+        "keyframes": "0%{transform:translateX(0)} 100%{transform:translateX(-256rem)}",
+        "use": "Logo strip horizontal marquee — duplicate content for seamless loop"
+      },
+      "buttonPress": {
+        "name": "kbRkAL",
+        "keyframes": "0%{transform:scale(1)} 100%{transform:scale(0.93)}",
+        "use": "Primary button click/press — 7% shrink gives physical feel"
+      },
+      "underlineExpand": {
+        "name": "kPIRny",
+        "keyframes": "0%{width:0} 100%{width:100%}",
+        "use": "Tab indicator or progress bar expansion"
+      },
+      "slideDown": {
+        "name": "slide-down-custom",
+        "keyframes": "0%{} 100%{bottom:0}",
+        "use": "Cookie/consent bar entrance"
+      }
+    }
+  },
+
+  "breakpoints": {
+    // UNVERIFIED — not extracted
+  },
+
+  "components": {
+    "nav": {
+      "position": "fixed",
+      "zIndex": "1000",
+      "height": "106px",
+      "background": "rgba(0,0,0,0)", // fully transparent — floats over video
+      "backdropFilter": "none", // nav itself is transparent; dropdowns use blur
+      "structure": "logo-left, links-center, cta-right"
+    },
+    "navDropdown": {
+      "background": "rgba(23,23,23,0.96)",
+      "backdropFilter": "blur(14px)",
+      "borderRadius": "10px"
+    },
+    "buttonPrimary": {
+      "background": "transparent",
+      "backgroundImage": "linear-gradient(0deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.4) 100%), radial-gradient(123.72% 71.29% at 7.15% 100%, rgb(255,255,255) 0%, rgba(255,255,255,0) 100%), radial-gradient(234.4% 144.94% at 84.62% 0%, rgb(255,255,255) 0%, rgba(255,255,255,0) 100%), linear-gradient(26deg, rgba(255,255,255,0.17) -32.04%, rgba(255,255,255,0) 133.43%)",
+      "boxShadow": "rgba(255,255,255,0.48) 0px -16px 24px 0px inset, rgba(0,0,0,0.25) 0px 4px 4px 0px",
+      "borderRadius": "6px",
+      "padding": "12px 32px",
+      "color": "rgb(0,0,0)",
+      "pressAnimation": "scale(0.93)"
+    },
+    "buttonGhost": {
+      "background": "transparent",
+      "backgroundImage": "linear-gradient(26deg, rgba(255,255,255,0.15) -32.04%, rgba(255,255,255,0) 133.43%)",
+      "borderRadius": "6px",
+      "padding": "12px 32px",
+      "color": "rgb(255,254,250)"
+    },
+    "tabPill": {
+      "active": {
+        "background": "rgb(255,254,250)",
+        "color": "rgb(25,25,25)",
+        "borderRadius": "30px",
+        "padding": "14px 28px",
+        "border": "1px solid rgb(244,244,244)"
+      },
+      "inactive": {
+        "background": "transparent",
+        "color": "rgb(174,174,174)",
+        "borderRadius": "30px",
+        "padding": "14px 28px"
+      }
+    },
+    "caseStudyCard": {
+      "background": "rgb(211,211,211)",
+      "borderRadius": "24px",
+      "boxShadow": "rgba(255,255,255,0.12) -1px 0px 0px 0px inset, rgb(255,255,255) -2px -2px 2px 0px inset"
+    },
+    "heroBackground": {
+      "type": "video",
+      "src": "https://cdn.auth0.com/website/homepage/background.mp4",
+      "attributes": "autoplay loop muted playsinline",
+      "position": "absolute, covers hero section"
+    },
+    "cursorGlowOverlay": {
+      "type": "div, position absolute z-index 3",
+      "background": "radial-gradient(160px at [mouseX]px [mouseY]px, rgb(180,155,252), rgba(158,76,183,0.13), transparent)",
+      "updateMechanism": "mousemove event → update style.background or CSS var"
+    },
+    "marquee": {
+      "animation": "jOVXA (translateX 0 → -256rem)",
+      "contentDuplication": "required for seamless loop",
+      "note": "Logo strip; direction left; continuous"
+    },
+    "gradientText": {
+      "css": "-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;",
+      "usedOn": "key stat numbers, 'AI AGENTS' label"
+    }
+  }
+}

@@ -3,1969 +3,1376 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bridgewater Portfolio Risk Assessment — March 2026</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <title>Bridgewater Portfolio Risk Assessment — March 17, 2026</title>
   <style>
-    /* ─── Reset & Base ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-primary:   #1a1f2e;
-      --bg-secondary: #222840;
-      --bg-card:      #252b3d;
-      --bg-card-alt:  #2c3350;
-      --border:       #35405c;
-      --border-light: #404d6e;
-      --text-primary: #eef0f6;
-      --text-secondary: #9aa3bf;
-      --text-muted:   #636e8c;
-      --accent-red:   #c0392b;
-      --accent-red-bg:#3a1018;
-      --accent-red-mid:#7d1e14;
-      --accent-green: #27ae60;
-      --accent-green-bg:#0d2e1a;
-      --accent-yellow:#e6a817;
-      --accent-yellow-bg:#2e2408;
-      --accent-blue:  #3b82f6;
-      --accent-blue-bg:#0d1f3e;
-      --highlight:    #c0392b;
-      --radius:       8px;
-      --radius-lg:    12px;
+      --bg-primary:       #0a0f1e;
+      --bg-secondary:     #0d1428;
+      --bg-card:          #111827;
+      --bg-card-alt:      #141c30;
+      --border:           #1e2d4a;
+      --border-light:     #263556;
+      --text-primary:     #e8ecf5;
+      --text-secondary:   #8a96b8;
+      --text-muted:       #4a5470;
+      --accent-red:       #e05252;
+      --accent-red-bg:    #2a0f0f;
+      --accent-red-mid:   #8b1c1c;
+      --accent-green:     #3ecf8e;
+      --accent-green-bg:  #0a2318;
+      --accent-yellow:    #f5c842;
+      --accent-yellow-bg: #2a2008;
+      --accent-orange:    #f08030;
+      --accent-orange-bg: #2a1608;
+      --accent-blue:      #4a9eff;
+      --accent-blue-bg:   #0a1830;
+      --accent-purple:    #a78bfa;
+      --accent-purple-bg: #1a1030;
+      --shadow:           0 4px 24px rgba(0,0,0,0.5);
+      --radius:           10px;
     }
 
-    html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       background: var(--bg-primary);
       color: var(--text-primary);
-      line-height: 1.65;
+      line-height: 1.6;
       font-size: 14px;
     }
 
-    /* ─── Layout ───────────────────────────────────────────────────── */
-    .page-wrapper {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
-    }
+    /* ─── Layout ───────────────────────────────────────────────────────── */
+    .page-wrapper { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
 
-    /* ─── Header ───────────────────────────────────────────────────── */
+    /* ─── Header ───────────────────────────────────────────────────────── */
     .report-header {
-      background: linear-gradient(135deg, #0d1120 0%, #1a1f2e 50%, #141826 100%);
-      border-bottom: 3px solid var(--accent-red);
-      padding: 48px 48px 36px;
-      margin: 0 -24px 40px;
+      background: linear-gradient(135deg, #0d1428 0%, #0a1830 50%, #0a0f1e 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 48px;
+      margin-bottom: 28px;
       position: relative;
       overflow: hidden;
     }
-
     .report-header::before {
       content: '';
       position: absolute;
-      top: 0; right: 0;
-      width: 340px; height: 340px;
-      background: radial-gradient(circle, rgba(192,57,43,0.08) 0%, transparent 70%);
-      pointer-events: none;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #4a9eff, #a78bfa, #3ecf8e);
     }
-
-    .header-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
-
-    .firm-brand { display: flex; flex-direction: column; gap: 6px; }
-
-    .firm-logo-row {
-      display: flex;
+    .header-badge {
+      display: inline-flex;
       align-items: center;
-      gap: 14px;
-    }
-
-    .logo-mark {
-      width: 44px; height: 44px;
-      background: var(--accent-red);
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: 800;
-      color: #fff;
-      letter-spacing: -1px;
-      flex-shrink: 0;
-    }
-
-    .firm-name {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-primary);
-    }
-
-    .firm-tagline {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      padding-left: 58px;
-    }
-
-    .header-meta {
-      text-align: right;
-    }
-
-    .report-classification {
-      display: inline-block;
-      background: var(--accent-red);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      gap: 8px;
+      background: var(--accent-blue-bg);
+      border: 1px solid var(--accent-blue);
+      color: var(--accent-blue);
       padding: 4px 12px;
-      border-radius: 3px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .header-badge .dot { width: 6px; height: 6px; background: var(--accent-blue); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .report-header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
       margin-bottom: 8px;
     }
-
-    .report-date {
-      font-size: 13px;
+    .report-header .subtitle {
       color: var(--text-secondary);
-      display: block;
-    }
-
-    .report-id {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-family: 'Courier New', monospace;
-    }
-
-    .header-title-block { padding-left: 0; }
-
-    .report-title {
-      font-size: 32px;
-      font-weight: 300;
-      color: var(--text-primary);
-      letter-spacing: 0.02em;
-      line-height: 1.2;
-      margin-bottom: 6px;
-    }
-
-    .report-title strong {
-      font-weight: 700;
-    }
-
-    .report-subtitle {
-      font-size: 14px;
-      color: var(--text-secondary);
+      font-size: 15px;
       margin-bottom: 24px;
     }
-
-    .header-stats {
+    .header-meta {
       display: flex;
-      gap: 32px;
+      gap: 24px;
       flex-wrap: wrap;
     }
-
-    .header-stat {
+    .meta-item {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
+    .meta-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+    .meta-value { font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+    .meta-value.highlight { color: var(--accent-yellow); }
 
-    .header-stat-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
+    /* ─── Live Data Banner ─────────────────────────────────────────────── */
+    .live-data-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 28px;
     }
+    .live-data-banner h2 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-green);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .live-data-banner h2::before {
+      content: '';
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    .macro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .macro-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .macro-item .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px; }
+    .macro-item .value { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+    .macro-item .sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+    .macro-item .value.red { color: var(--accent-red); }
+    .macro-item .value.green { color: var(--accent-green); }
+    .macro-item .value.yellow { color: var(--accent-yellow); }
+    .macro-item .value.orange { color: var(--accent-orange); }
+    .macro-item .value.blue { color: var(--accent-blue); }
 
-    .header-stat-value {
+    /* ─── Sections ─────────────────────────────────────────────────────── */
+    .section { margin-bottom: 28px; }
+    .section-title {
       font-size: 18px;
       font-weight: 700;
       color: var(--text-primary);
-    }
-
-    .header-stat-value.red { color: var(--accent-red); }
-    .header-stat-value.green { color: var(--accent-green); }
-
-    .header-disclaimer {
-      margin-top: 24px;
-      padding: 12px 16px;
-      background: rgba(255,255,255,0.04);
-      border-left: 3px solid var(--border-light);
-      border-radius: 0 4px 4px 0;
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* ─── Section Cards ─────────────────────────────────────────────── */
-    .section-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      margin-bottom: 24px;
-      overflow: hidden;
-    }
-
-    .section-header {
-      padding: 18px 24px 16px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 14px;
-      background: var(--bg-card-alt);
+      gap: 10px;
     }
-
-    .section-number {
-      font-size: 11px;
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      background: var(--accent-blue-bg);
+      border: 1px solid var(--accent-blue);
+      color: var(--accent-blue);
+      border-radius: 50%;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--accent-red);
-      background: var(--accent-red-bg);
-      border: 1px solid var(--accent-red-mid);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-family: 'Courier New', monospace;
-      flex-shrink: 0;
     }
 
-    .section-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-primary);
-      flex: 1;
+    /* ─── Cards ─────────────────────────────────────────────────────────── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow);
     }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 
-    .section-badge {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .badge-high    { background: var(--accent-red-bg);    color: var(--accent-red);    border: 1px solid var(--accent-red-mid); }
-    .badge-medium  { background: var(--accent-yellow-bg); color: var(--accent-yellow); border: 1px solid #6b4c0a; }
-    .badge-low     { background: var(--accent-green-bg);  color: var(--accent-green);  border: 1px solid #164a2d; }
-    .badge-info    { background: var(--accent-blue-bg);   color: var(--accent-blue);   border: 1px solid #1e3a6e; }
-
-    .section-body {
-      padding: 24px;
-    }
-
-    /* ─── Executive Summary ─────────────────────────────────────────── */
-    .exec-summary-grid {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .risk-score-block {
-      background: var(--bg-primary);
-      border: 2px solid var(--accent-red);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      text-align: center;
-    }
-
-    .risk-score-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .risk-score-value {
-      font-size: 56px;
-      font-weight: 800;
-      color: var(--accent-red);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .risk-score-denom {
-      font-size: 18px;
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-
-    .risk-score-rating {
+    /* ─── Alert Box ─────────────────────────────────────────────────────── */
+    .alert {
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      border-left: 4px solid;
       font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      color: var(--accent-red);
-      text-transform: uppercase;
-      margin-top: 10px;
-      padding: 4px 12px;
-      background: var(--accent-red-bg);
-      border-radius: 20px;
-      display: inline-block;
+      line-height: 1.6;
     }
+    .alert-red    { background: var(--accent-red-bg);    border-color: var(--accent-red);    color: #f0a0a0; }
+    .alert-yellow { background: var(--accent-yellow-bg); border-color: var(--accent-yellow); color: #f5d880; }
+    .alert-blue   { background: var(--accent-blue-bg);   border-color: var(--accent-blue);   color: #90c0ff; }
+    .alert-green  { background: var(--accent-green-bg);  border-color: var(--accent-green);  color: #80e8b8; }
+    .alert-orange { background: var(--accent-orange-bg); border-color: var(--accent-orange); color: #f0b878; }
+    .alert strong { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; opacity: 0.8; }
 
-    .risk-score-bar {
-      margin-top: 14px;
-      height: 6px;
-      background: var(--border);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .risk-score-fill {
-      height: 100%;
-      width: 72%;
-      background: linear-gradient(90deg, var(--accent-yellow) 0%, var(--accent-red) 100%);
-      border-radius: 3px;
-    }
-
-    .exec-summary-content { display: flex; flex-direction: column; gap: 16px; }
-
-    .key-finding {
-      background: var(--accent-red-bg);
-      border: 1px solid var(--accent-red-mid);
-      border-left: 4px solid var(--accent-red);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 14px 16px;
-    }
-
-    .key-finding-label {
+    /* ─── Portfolio Holdings Table ─────────────────────────────────────── */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      background: var(--bg-secondary);
+      color: var(--text-muted);
       font-size: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent-red);
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .key-finding-text {
-      font-size: 13px;
-      color: var(--text-primary);
-      line-height: 1.5;
-    }
-
-    .critical-risks { display: flex; flex-direction: column; gap: 10px; }
-
-    .critical-risk-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 14px;
-      background: var(--bg-primary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-    }
-
-    .risk-bullet {
-      width: 20px; height: 20px;
-      background: var(--accent-red);
-      color: #fff;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .risk-bullet.yellow {
-      background: var(--accent-yellow);
-      color: #1a1f2e;
-    }
-
-    .risk-item-text { font-size: 13px; color: var(--text-secondary); }
-    .risk-item-text strong { color: var(--text-primary); }
-
-    /* ─── Heat Map Table ────────────────────────────────────────────── */
-    .heatmap-container { overflow-x: auto; }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    thead th {
-      padding: 12px 14px;
+      letter-spacing: 0.1em;
+      padding: 10px 12px;
       text-align: left;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      background: var(--bg-primary);
-      border-bottom: 2px solid var(--border);
-      white-space: nowrap;
-    }
-
-    thead th:first-child { border-radius: 4px 0 0 0; }
-    thead th:last-child  { border-radius: 0 4px 0 0; }
-
-    tbody tr {
       border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
     }
-
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: rgba(255,255,255,0.03); }
-
-    tbody td {
-      padding: 12px 14px;
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
       color: var(--text-secondary);
-      vertical-align: middle;
     }
-
-    tbody td:first-child {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .cell-ticker {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: 0.05em;
-    }
-
-    .cell-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-      display: block;
-      margin-top: 2px;
-    }
-
-    /* Heat map cells */
-    .hm-high {
-      background: rgba(192,57,43,0.22);
-      color: #e8725f;
-      font-weight: 600;
-      text-align: center;
-      border-radius: 5px;
-      padding: 6px 10px;
-      white-space: nowrap;
-    }
-
-    .hm-medium {
-      background: rgba(230,168,23,0.18);
-      color: var(--accent-yellow);
-      font-weight: 600;
-      text-align: center;
-      border-radius: 5px;
-      padding: 6px 10px;
-      white-space: nowrap;
-    }
-
-    .hm-low {
-      background: rgba(39,174,96,0.18);
-      color: #4cc87a;
-      font-weight: 600;
-      text-align: center;
-      border-radius: 5px;
-      padding: 6px 10px;
-      white-space: nowrap;
-    }
-
-    .hm-cell { padding: 10px 8px !important; text-align: center; }
-
-    /* ─── Metric Rows / KPIs ────────────────────────────────────────── */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    .metric-card {
-      background: var(--bg-primary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-    }
-
-    .metric-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .metric-value {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text-primary);
-      line-height: 1.1;
-    }
-
-    .metric-value.red    { color: var(--accent-red); }
-    .metric-value.yellow { color: var(--accent-yellow); }
-    .metric-value.green  { color: var(--accent-green); }
-
-    .metric-delta {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* ─── Inline Badge ──────────────────────────────────────────────── */
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-secondary); }
+    .td-ticker { font-weight: 700; color: var(--text-primary); font-family: monospace; font-size: 13px; }
+    .td-right { text-align: right; }
+    .td-center { text-align: center; }
     .badge {
       display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
       padding: 2px 8px;
-      border-radius: 20px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      white-space: nowrap;
     }
-    .badge.red    { background: var(--accent-red-bg);    color: var(--accent-red);    border: 1px solid var(--accent-red-mid); }
-    .badge.yellow { background: var(--accent-yellow-bg); color: var(--accent-yellow); border: 1px solid #6b4c0a; }
-    .badge.green  { background: var(--accent-green-bg);  color: var(--accent-green);  border: 1px solid #164a2d; }
-    .badge.blue   { background: var(--accent-blue-bg);   color: var(--accent-blue);   border: 1px solid #1e3a6e; }
+    .badge-red    { background: var(--accent-red-bg);    color: var(--accent-red); }
+    .badge-yellow { background: var(--accent-yellow-bg); color: var(--accent-yellow); }
+    .badge-green  { background: var(--accent-green-bg);  color: var(--accent-green); }
+    .badge-blue   { background: var(--accent-blue-bg);   color: var(--accent-blue); }
+    .badge-orange { background: var(--accent-orange-bg); color: var(--accent-orange); }
+    .badge-purple { background: var(--accent-purple-bg); color: var(--accent-purple); }
 
-    /* ─── Two-Col Layout ────────────────────────────────────────────── */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
+    /* ─── Risk Heatmap ──────────────────────────────────────────────────── */
+    .heat-0  { background: #0a2318; color: #3ecf8e; }
+    .heat-1  { background: #1a2a10; color: #8ecf50; }
+    .heat-2  { background: #2a2408; color: #f5c842; }
+    .heat-3  { background: #2a1a08; color: #f08030; }
+    .heat-4  { background: #2a0f0f; color: #e05252; }
+    .heat-5  { background: #3a0808; color: #ff3030; }
 
-    .three-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
-    }
-
-    .sub-card {
-      background: var(--bg-primary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-    }
-
-    .sub-card-title {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* ─── Correlation Matrix ────────────────────────────────────────── */
-    .corr-table th, .corr-table td {
-      text-align: center !important;
-      width: 80px;
-    }
-
-    .corr-table td:first-child {
-      text-align: left !important;
-      font-weight: 600;
-    }
-
-    .corr-val { font-weight: 700; font-size: 13px; }
-    .corr-high   { color: var(--accent-red); }
-    .corr-med    { color: var(--accent-yellow); }
-    .corr-low    { color: var(--accent-green); }
-    .corr-neg    { color: var(--accent-blue); }
-    .corr-self   { color: var(--text-muted); }
-
-    /* ─── Progress Bars ─────────────────────────────────────────────── */
-    .progress-row {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
-    }
-    .progress-label { width: 140px; font-size: 13px; color: var(--text-secondary); flex-shrink: 0; }
-    .progress-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
-    .progress-fill  { height: 100%; border-radius: 4px; }
-    .progress-fill.red    { background: var(--accent-red); }
-    .progress-fill.yellow { background: var(--accent-yellow); }
-    .progress-fill.green  { background: var(--accent-green); }
-    .progress-fill.blue   { background: var(--accent-blue); }
-    .progress-pct { width: 42px; text-align: right; font-size: 13px; font-weight: 600; color: var(--text-primary); }
-
-    /* ─── Scenario Table ────────────────────────────────────────────── */
-    .drawdown-neg { color: var(--accent-red); font-weight: 700; }
-    .drawdown-mid { color: var(--accent-yellow); font-weight: 600; }
-    .drawdown-ok  { color: var(--accent-green); font-weight: 600; }
-
-    /* ─── Recommendations List ──────────────────────────────────────── */
-    .rec-list { display: flex; flex-direction: column; gap: 12px; }
-
-    .rec-item {
-      display: flex; gap: 14px; align-items: flex-start;
-      padding: 14px 16px;
-      background: var(--bg-primary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-    }
-
-    .rec-icon {
-      width: 32px; height: 32px; border-radius: var(--radius);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; flex-shrink: 0;
-    }
-
-    .rec-icon.sell  { background: var(--accent-red-bg); }
-    .rec-icon.buy   { background: var(--accent-green-bg); }
-    .rec-icon.hedge { background: var(--accent-blue-bg); }
-    .rec-icon.hold  { background: var(--accent-yellow-bg); }
-
-    .rec-content { flex: 1; }
-    .rec-action  { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
-    .rec-detail  { font-size: 12px; color: var(--text-muted); }
-
-    .rec-change { display: flex; align-items: center; gap: 6px; margin-left: auto; white-space: nowrap; }
-    .rec-from   { font-size: 12px; color: var(--text-muted); }
-    .rec-arrow  { font-size: 12px; color: var(--text-muted); }
-    .rec-to     { font-size: 13px; font-weight: 700; }
-    .rec-to.green { color: var(--accent-green); }
-    .rec-to.red   { color: var(--accent-red); }
-
-    /* ─── Tail Risk ─────────────────────────────────────────────────── */
-    .prob-bar { display: flex; align-items: center; gap: 8px; }
-    .prob-track { width: 80px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
-    .prob-fill  { height: 100%; border-radius: 3px; background: var(--accent-red); }
-
-    /* ─── Info Note ─────────────────────────────────────────────────── */
-    .info-note {
-      background: var(--accent-blue-bg);
-      border: 1px solid #1e3a6e;
-      border-left: 4px solid var(--accent-blue);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 12px 16px;
-      font-size: 12px;
-      color: #93b8f5;
-      margin-top: 16px;
-    }
-
-    .warn-note {
-      background: var(--accent-yellow-bg);
-      border: 1px solid #6b4c0a;
-      border-left: 4px solid var(--accent-yellow);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 12px 16px;
-      font-size: 12px;
-      color: #e6c96a;
-      margin-top: 16px;
-    }
-
-    .danger-note {
-      background: var(--accent-red-bg);
-      border: 1px solid var(--accent-red-mid);
-      border-left: 4px solid var(--accent-red);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 12px 16px;
-      font-size: 12px;
-      color: #e8725f;
-      margin-top: 16px;
-    }
-
-    /* ─── Geographic Bar ────────────────────────────────────────────── */
-    .geo-bar {
-      height: 20px;
+    .heatmap-cell {
+      text-align: center;
+      padding: 8px 6px;
+      font-size: 11px;
+      font-weight: 700;
       border-radius: 4px;
-      overflow: hidden;
-      display: flex;
-      margin: 12px 0;
     }
-    .geo-segment { height: 100%; }
-    .geo-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
-    .geo-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
-    .geo-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
-    /* ─── Divider ────────────────────────────────────────────────────── */
-    hr.divider {
-      border: none;
+    /* ─── Correlation Matrix ────────────────────────────────────────────── */
+    .corr-high-pos  { background: #1a3a1a; color: #3ecf8e; }
+    .corr-med-pos   { background: #1a2a10; color: #8ecf50; }
+    .corr-low       { background: #1a1a1a; color: #8a96b8; }
+    .corr-med-neg   { background: #2a1a08; color: #f08030; }
+    .corr-high-neg  { background: #2a0f0f; color: #e05252; }
+    .corr-self      { background: #0d1428; color: #4a5470; }
+
+    /* ─── Progress bars ────────────────────────────────────────────────── */
+    .progress-wrap { background: var(--bg-secondary); border-radius: 4px; height: 8px; overflow: hidden; flex: 1; }
+    .progress-bar  { height: 100%; border-radius: 4px; }
+    .alloc-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; font-size: 12px; }
+    .alloc-label { width: 200px; color: var(--text-secondary); flex-shrink: 0; }
+    .alloc-pct { width: 36px; text-align: right; color: var(--text-primary); font-weight: 600; flex-shrink: 0; }
+    .alloc-note { font-size: 11px; color: var(--text-muted); width: 140px; flex-shrink: 0; }
+
+    /* ─── Stress Test ───────────────────────────────────────────────────── */
+    .scenario-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .scenario-card {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+    .scenario-card h4 { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .scenario-card .prob { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; }
+    .scenario-line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 12px; }
+    .scenario-line .asset { color: var(--text-secondary); }
+    .scenario-line .impact-neg { color: var(--accent-red); font-weight: 600; }
+    .scenario-line .impact-pos { color: var(--accent-green); font-weight: 600; }
+    .scenario-line .impact-neu { color: var(--accent-yellow); font-weight: 600; }
+    .scenario-total {
+      margin-top: 12px;
+      padding-top: 10px;
       border-top: 1px solid var(--border);
-      margin: 20px 0;
-    }
-
-    p { color: var(--text-secondary); font-size: 13px; line-height: 1.7; margin-bottom: 0; }
-    p + p { margin-top: 8px; }
-
-    /* ─── Footer ────────────────────────────────────────────────────── */
-    .report-footer {
-      background: var(--bg-card);
-      border-top: 2px solid var(--border);
-      padding: 32px 48px;
-      margin: 40px -24px 0;
-    }
-
-    .footer-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    .footer-confidential {
       font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent-red);
-      margin-bottom: 4px;
     }
 
-    .footer-generated {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-family: 'Courier New', monospace;
+    /* ─── Action Plan ───────────────────────────────────────────────────── */
+    .action-step {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
     }
+    .step-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .action-step h4 { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .action-step p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+    .action-step .tag { margin-top: 8px; }
 
-    .footer-body {
+    /* ─── Footer ────────────────────────────────────────────────────────── */
+    .report-footer {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-top: 32px;
+    }
+    .footer-title {
       font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
       color: var(--text-muted);
-      line-height: 1.6;
-      border-top: 1px solid var(--border);
-      padding-top: 16px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
     }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+    .footer-block h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px; }
+    .footer-block p, .footer-block li { font-size: 11px; color: var(--text-secondary); line-height: 1.8; }
+    .footer-block ul { list-style: none; padding: 0; }
+    .footer-block li::before { content: "→ "; color: var(--text-muted); }
+    .footer-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .footer-bottom { font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 
-    /* ─── Print ─────────────────────────────────────────────────────── */
-    @media print {
-      body { background: #fff; color: #000; }
-      .section-card { break-inside: avoid; }
-      .report-header { background: #f5f5f5; color: #000; border-bottom-color: #c0392b; }
+    /* ─── Misc helpers ──────────────────────────────────────────────────── */
+    .text-red    { color: var(--accent-red); }
+    .text-green  { color: var(--accent-green); }
+    .text-yellow { color: var(--accent-yellow); }
+    .text-blue   { color: var(--accent-blue); }
+    .text-orange { color: var(--accent-orange); }
+    .text-muted  { color: var(--text-muted); }
+    .text-bold   { font-weight: 700; }
+    .mt8  { margin-top: 8px; }
+    .mt12 { margin-top: 12px; }
+    .mt16 { margin-top: 16px; }
+    p { margin-bottom: 10px; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    p:last-child { margin-bottom: 0; }
+    h3 { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+    .spacer { height: 1px; background: var(--border); margin: 16px 0; }
+    .risk-score-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
     }
+    .risk-score-label { font-size: 12px; color: var(--text-secondary); width: 180px; flex-shrink: 0; }
+    .risk-score-bar-wrap { flex: 1; background: var(--bg-secondary); border-radius: 4px; height: 10px; overflow: hidden; }
+    .risk-score-bar { height: 100%; border-radius: 4px; }
+    .risk-score-val { font-size: 12px; font-weight: 700; width: 40px; text-align: right; }
+    .overall-score {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .score-circle {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      border: 3px solid var(--accent-orange);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .score-circle .num { font-size: 22px; font-weight: 800; color: var(--accent-orange); }
+    .score-circle .denom { font-size: 10px; color: var(--text-muted); }
+    .score-desc h3 { margin-bottom: 4px; color: var(--accent-orange); }
+    .score-desc p { font-size: 12px; margin-bottom: 0; }
 
-    /* ─── Mobile ─────────────────────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .report-header { padding: 28px 20px 24px; }
-      .exec-summary-grid { grid-template-columns: 1fr; }
+    @media (max-width: 700px) {
       .two-col, .three-col { grid-template-columns: 1fr; }
-      .header-top { flex-direction: column; }
-      .header-meta { text-align: left; }
-      .risk-score-block { max-width: 260px; }
-      .page-wrapper { padding: 0 14px 60px; }
-      .report-footer { padding: 24px 20px; }
+      .macro-grid { grid-template-columns: repeat(2, 1fr); }
+      .report-header { padding: 24px; }
+      .header-meta { gap: 12px; }
     }
   </style>
 </head>
 <body>
-
-<!-- ═══════════════════════════════════════════════════════════════════
-     HEADER
-════════════════════════════════════════════════════════════════════ -->
-<div class="report-header">
-  <div class="page-wrapper" style="padding-bottom:0; padding-top:0;">
-    <div class="header-top">
-      <div class="firm-brand">
-        <div class="firm-logo-row">
-          <div class="logo-mark">B</div>
-          <div class="firm-name">Bridgewater Associates</div>
-        </div>
-        <div class="firm-tagline">Global Macro Risk Management · Westport, CT</div>
-      </div>
-      <div class="header-meta">
-        <span class="report-classification">Confidential</span>
-        <span class="report-date">March 17, 2026</span>
-        <span class="report-id">RPT-2026-0317-BW-001</span>
-      </div>
-    </div>
-
-    <div class="header-title-block">
-      <h1 class="report-title"><strong>Portfolio Risk Assessment</strong></h1>
-      <div class="report-subtitle">Bridgewater-Inspired Risk Framework — Full Diagnostic Report</div>
-      <div class="header-stats">
-        <div class="header-stat">
-          <span class="header-stat-label">Portfolio Value</span>
-          <span class="header-stat-value">$250,000</span>
-        </div>
-        <div class="header-stat">
-          <span class="header-stat-label">Holdings</span>
-          <span class="header-stat-value">5</span>
-        </div>
-        <div class="header-stat">
-          <span class="header-stat-label">Overall Risk Score</span>
-          <span class="header-stat-value red">7.2 / 10</span>
-        </div>
-        <div class="header-stat">
-          <span class="header-stat-label">Risk Rating</span>
-          <span class="header-stat-value red">HIGH</span>
-        </div>
-        <div class="header-stat">
-          <span class="header-stat-label">Max Drawdown Est.</span>
-          <span class="header-stat-value red">−42%</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="header-disclaimer">
-      <strong>Important Disclaimer:</strong> This report is generated using the Bridgewater-Inspired Risk Analysis framework, which applies systematic risk principles modeled on Bridgewater Associates' published research and All Weather philosophy. This is not financial advice. All risk estimates are model-based and subject to uncertainty. Past performance and historical correlations do not guarantee future results. This document is for authorized recipients only and must not be redistributed without express written consent.
-    </div>
-  </div>
-</div>
-
 <div class="page-wrapper">
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     EXECUTIVE SUMMARY
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">00</span>
-    <span class="section-title">Executive Summary</span>
-    <span class="section-badge badge-high">Risk Score: 7.2 / 10 · HIGH</span>
-  </div>
-  <div class="section-body">
-    <div class="exec-summary-grid">
-      <div>
-        <div class="risk-score-block">
-          <div class="risk-score-label">Overall Risk Score</div>
-          <div>
-            <span class="risk-score-value">7.2</span>
-            <span class="risk-score-denom"> / 10</span>
-          </div>
-          <div class="risk-score-rating">HIGH RISK</div>
-          <div class="risk-score-bar"><div class="risk-score-fill"></div></div>
-          <div style="margin-top:12px; font-size:11px; color:var(--text-muted);">Composite of 10 risk dimensions</div>
-        </div>
+  <!-- ─── REPORT HEADER ──────────────────────────────────────────────── -->
+  <div class="report-header">
+    <div class="header-badge"><span class="dot"></span>Live Data — March 17, 2026</div>
+    <h1>Bridgewater-Style Portfolio Risk Assessment</h1>
+    <div class="subtitle">Institutional-grade risk analysis for a $250,000 portfolio — Recession &amp; Rate-Cut Delay scenario focus</div>
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-label">Portfolio Value</span>
+        <span class="meta-value highlight">$250,000</span>
       </div>
-      <div class="exec-summary-content">
-        <div class="key-finding">
-          <div class="key-finding-label">Key Finding</div>
-          <div class="key-finding-text">
-            This portfolio carries elevated risk due to extreme technology concentration (64% combined equity exposure to the technology sector), dangerously high correlation between SPY and QQQ (0.87), and outsized sensitivity to equity market downturns. In a 2008-caliber recession, the portfolio is estimated to lose approximately <strong>42% of its value (~$105,000)</strong>. The current structure does not reflect a balanced, all-weather allocation.
-          </div>
+      <div class="meta-item">
+        <span class="meta-label">Holdings</span>
+        <span class="meta-value">9 positions</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Primary Concern</span>
+        <span class="meta-value">Recession + Rate-Cut Delay</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Risk Rating</span>
+        <span class="meta-value" style="color:var(--accent-orange);">ELEVATED (63/100)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Framework</span>
+        <span class="meta-value">All-Weather / Pure Alpha</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── LIVE MACRO DATA BANNER ─────────────────────────────────────── -->
+  <div class="section">
+    <div class="live-data-banner">
+      <h2>Live Macro Data — Retrieved March 17, 2026</h2>
+      <div class="macro-grid">
+        <div class="macro-item">
+          <div class="label">Fed Funds Rate</div>
+          <div class="value blue">3.50–3.75%</div>
+          <div class="sub">Effective: 3.64% | Hold Jan 2026</div>
         </div>
-        <div class="critical-risks">
-          <div class="critical-risk-item">
-            <div class="risk-bullet">1</div>
-            <div class="risk-item-text"><strong>Technology Overconcentration:</strong> SPY (45%) + QQQ (25%) creates 64% effective tech-sector exposure. QQQ's top 10 holdings represent ~55% of its weight, generating heavy idiosyncratic risk in mega-cap tech names (AAPL, NVDA, MSFT, AMZN, META).</div>
-          </div>
-          <div class="critical-risk-item">
-            <div class="risk-bullet">2</div>
-            <div class="risk-item-text"><strong>Inadequate Diversification:</strong> SPY/QQQ correlation of 0.87 means these two positions (70% of the portfolio) move nearly in lockstep. The TLT hedge (15%) is insufficient to offset a combined SPY+QQQ drawdown in a risk-off environment.</div>
-          </div>
-          <div class="critical-risk-item">
-            <div class="risk-bullet yellow">3</div>
-            <div class="risk-item-text"><strong>ARKK Tail Risk:</strong> The 5% ARKK position holds high-beta, speculative growth stocks (avg beta ~2.1). In stress scenarios, ARKK has historically declined 75–80%. While the position is small, it amplifies tail risk disproportionately.</div>
-          </div>
+        <div class="macro-item">
+          <div class="label">VIX (Fear Index)</div>
+          <div class="value orange">27.19</div>
+          <div class="sub">Elevated; prior close 23.51</div>
+        </div>
+        <div class="macro-item">
+          <div class="label">10-Yr Treasury Yield</div>
+          <div class="value yellow">4.24%</div>
+          <div class="sub">Down ~4 bps; range 4.21–4.27%</div>
+        </div>
+        <div class="macro-item">
+          <div class="label">S&amp;P 500</div>
+          <div class="value red">6,632</div>
+          <div class="sub">YTD: -1.3% (as of Mar 13)</div>
+        </div>
+        <div class="macro-item">
+          <div class="label">CPI Inflation (YoY)</div>
+          <div class="value yellow">2.4%</div>
+          <div class="sub">Feb 2026 (BLS); Core: 2.5%</div>
+        </div>
+        <div class="macro-item">
+          <div class="label">GDP Growth (Q4 2025)</div>
+          <div class="value orange">0.7%</div>
+          <div class="sub">Revised down; Q1 2026 est: 2.7%</div>
+        </div>
+        <div class="macro-item">
+          <div class="label">FOMC Meeting</div>
+          <div class="value blue">Today</div>
+          <div class="sub">Mar 17–18; hold expected</div>
+        </div>
+        <div class="macro-item">
+          <div class="label">Geopolitical Risk</div>
+          <div class="value red">HIGH</div>
+          <div class="sub">Iran conflict; energy volatility</div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     RISK HEAT MAP
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">HM</span>
-    <span class="section-title">Risk Heat Map — All Holdings Overview</span>
-    <span class="section-badge badge-info">5 Holdings · 5 Dimensions</span>
-  </div>
-  <div class="section-body">
-    <p style="margin-bottom:16px;">Summary risk matrix across all five portfolio positions and five key risk dimensions. Each cell is independently scored relative to typical ETF benchmarks and portfolio context.</p>
-    <div class="heatmap-container">
+  <!-- ─── SECTION 1: PORTFOLIO HOLDINGS ─────────────────────────────── -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">1</span> Portfolio Holdings &amp; Live Pricing</div>
+    <div class="card">
       <table>
         <thead>
           <tr>
-            <th style="min-width:160px;">Holding</th>
-            <th style="min-width:80px;">Allocation</th>
-            <th style="min-width:130px;">Correlation Risk</th>
-            <th style="min-width:140px;">Concentration Risk</th>
-            <th style="min-width:130px;">Rate Sensitivity</th>
-            <th style="min-width:100px;">Liquidity</th>
-            <th style="min-width:100px;">Tail Risk</th>
+            <th>Ticker</th>
+            <th>Name</th>
+            <th class="td-right">Alloc %</th>
+            <th class="td-right">$ Value</th>
+            <th class="td-right">Current Price</th>
+            <th>52-Week Range</th>
+            <th class="td-center">Risk Tier</th>
+            <th class="td-center">Recession Exp.</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
-              <span class="cell-ticker">SPY</span>
-              <span class="cell-sub">S&amp;P 500 ETF</span>
-            </td>
-            <td><span class="badge blue">45%  ·  $112,500</span></td>
-            <td class="hm-cell"><span class="hm-high">🔴 HIGH</span></td>
-            <td class="hm-cell"><span class="hm-medium">🟡 MEDIUM</span></td>
-            <td class="hm-cell"><span class="hm-medium">🟡 MEDIUM</span></td>
-            <td class="hm-cell"><span class="hm-low">🟢 LOW</span></td>
-            <td class="hm-cell"><span class="hm-medium">🟡 MEDIUM</span></td>
+            <td class="td-ticker">SPY</td>
+            <td>SPDR S&amp;P 500 ETF</td>
+            <td class="td-right">30%</td>
+            <td class="td-right">$75,000</td>
+            <td class="td-right">$669.30</td>
+            <td>$481.80 – $697.84</td>
+            <td class="td-center"><span class="badge badge-red">High</span></td>
+            <td class="td-center"><span class="badge badge-red">−25 to −35%</span></td>
           </tr>
           <tr>
-            <td>
-              <span class="cell-ticker">QQQ</span>
-              <span class="cell-sub">Nasdaq-100 ETF</span>
-            </td>
-            <td><span class="badge blue">25%  ·  $62,500</span></td>
-            <td class="hm-cell"><span class="hm-high">🔴 HIGH</span></td>
-            <td class="hm-cell"><span class="hm-high">🔴 HIGH</span></td>
-            <td class="hm-cell"><span class="hm-medium">🟡 MEDIUM</span></td>
-            <td class="hm-cell"><span class="hm-low">🟢 LOW</span></td>
-            <td class="hm-cell"><span class="hm-high">🔴 HIGH</span></td>
+            <td class="td-ticker">QQQ</td>
+            <td>Invesco Nasdaq-100 ETF</td>
+            <td class="td-right">20%</td>
+            <td class="td-right">$50,000</td>
+            <td class="td-right">$600.28</td>
+            <td>$402.39 – $637.01</td>
+            <td class="td-center"><span class="badge badge-red">Very High</span></td>
+            <td class="td-center"><span class="badge badge-red">−30 to −45%</span></td>
           </tr>
           <tr>
-            <td>
-              <span class="cell-ticker">TLT</span>
-              <span class="cell-sub">20+ Yr Treasury ETF</span>
-            </td>
-            <td><span class="badge blue">15%  ·  $37,500</span></td>
-            <td class="hm-cell"><span class="hm-low">🟢 LOW</span></td>
-            <td class="hm-cell"><span class="hm-low">🟢 LOW</span></td>
-            <td class="hm-cell"><span class="hm-high">🔴 HIGH</span></td>
-            <td class="hm-cell"><span class="hm-low">🟢 LOW</span></td>
-            <td class="hm-cell"><span class="hm-medium">🟡 MEDIUM</span></td>
+            <td class="td-ticker">AAPL</td>
+            <td>Apple Inc.</td>
+            <td class="td-right">10%</td>
+            <td class="td-right">$25,000</td>
+            <td class="td-right">$252.00</td>
+            <td>~$167 – $260</td>
+            <td class="td-center"><span class="badge badge-red">High</span></td>
+            <td class="td-center"><span class="badge badge-orange">−20 to −35%</span></td>
           </tr>
           <tr>
-            <td>
-              <span class="cell-ticker">GLD</span>
-              <span class="cell-sub">Gold ETF (SPDR)</span>
-            </td>
-            <td><span class="badge blue">10%  ·  $25,000</span></td>
-            <td class="hm-cell"><span class="hm-low">🟢 LOW</span></td>
-            <td class="hm-cell"><span class="hm-low">🟢 LOW</span></td>
-            <td class="hm-cell"><span class="hm-low">🟢 LOW</span></td>
-            <td class="hm-cell"><span class="hm-low">🟢 LOW</span></td>
-            <td class="hm-cell"><span class="hm-low">🟢 LOW</span></td>
+            <td class="td-ticker">MSFT</td>
+            <td>Microsoft Corporation</td>
+            <td class="td-right">10%</td>
+            <td class="td-right">$25,000</td>
+            <td class="td-right">$399.95</td>
+            <td>~$335 – $468</td>
+            <td class="td-center"><span class="badge badge-orange">Med-High</span></td>
+            <td class="td-center"><span class="badge badge-orange">−18 to −30%</span></td>
           </tr>
           <tr>
-            <td>
-              <span class="cell-ticker">ARKK</span>
-              <span class="cell-sub">ARK Innovation ETF</span>
-            </td>
-            <td><span class="badge blue">5%  ·  $12,500</span></td>
-            <td class="hm-cell"><span class="hm-high">🔴 HIGH</span></td>
-            <td class="hm-cell"><span class="hm-high">🔴 HIGH</span></td>
-            <td class="hm-cell"><span class="hm-high">🔴 HIGH</span></td>
-            <td class="hm-cell"><span class="hm-high">🔴 HIGH</span></td>
-            <td class="hm-cell"><span class="hm-high">🔴 HIGH</span></td>
+            <td class="td-ticker">BRK.B</td>
+            <td>Berkshire Hathaway Cl B</td>
+            <td class="td-right">8%</td>
+            <td class="td-right">$20,000</td>
+            <td class="td-right">$492.10</td>
+            <td>~$390 – $530</td>
+            <td class="td-center"><span class="badge badge-yellow">Medium</span></td>
+            <td class="td-center"><span class="badge badge-yellow">−12 to −20%</span></td>
+          </tr>
+          <tr>
+            <td class="td-ticker">VGK</td>
+            <td>Vanguard FTSE Europe ETF</td>
+            <td class="td-right">7%</td>
+            <td class="td-right">$17,500</td>
+            <td class="td-right">$82.16</td>
+            <td>$62.02 – $90.75</td>
+            <td class="td-center"><span class="badge badge-orange">Med-High</span></td>
+            <td class="td-center"><span class="badge badge-orange">−20 to −30%</span></td>
+          </tr>
+          <tr>
+            <td class="td-ticker">TLT</td>
+            <td>iShares 20+ Yr Treasury ETF</td>
+            <td class="td-right">7%</td>
+            <td class="td-right">$17,500</td>
+            <td class="td-right">$87.23</td>
+            <td>$83.30 – $94.09</td>
+            <td class="td-center"><span class="badge badge-yellow">Medium</span></td>
+            <td class="td-center"><span class="badge badge-green">+10 to +20%</span></td>
+          </tr>
+          <tr>
+            <td class="td-ticker">GLD</td>
+            <td>SPDR Gold Shares ETF</td>
+            <td class="td-right">5%</td>
+            <td class="td-right">$12,500</td>
+            <td class="td-right">$460.43</td>
+            <td>$272.58 – $509.70</td>
+            <td class="td-center"><span class="badge badge-blue">Low</span></td>
+            <td class="td-center"><span class="badge badge-green">+5 to +15%</span></td>
+          </tr>
+          <tr>
+            <td class="td-ticker">CASH</td>
+            <td>Cash / Money Market</td>
+            <td class="td-right">3%</td>
+            <td class="td-right">$7,500</td>
+            <td class="td-right">—</td>
+            <td>—</td>
+            <td class="td-center"><span class="badge badge-green">None</span></td>
+            <td class="td-center"><span class="badge badge-green">+3.5% yield</span></td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="info-note">
-      <strong>Heat Map Legend:</strong> &nbsp;🔴 HIGH = elevated risk requiring attention &nbsp;|&nbsp; 🟡 MEDIUM = moderate risk, monitor closely &nbsp;|&nbsp; 🟢 LOW = within acceptable parameters. Ratings reflect risk relative to the full portfolio context, not absolute instrument risk.
-    </div>
-  </div>
-</div>
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     01 — CORRELATION ANALYSIS
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">01</span>
-    <span class="section-title">Correlation Analysis</span>
-    <span class="section-badge badge-high">Critical Risk</span>
-  </div>
-  <div class="section-body">
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <div class="metric-label">SPY / QQQ Corr.</div>
-        <div class="metric-value red">0.87</div>
-        <div class="metric-delta">36-month rolling (HIGH)</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">TLT / SPY Corr.</div>
-        <div class="metric-value green">−0.23</div>
-        <div class="metric-delta">Partial hedge (LOW)</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">GLD / SPY Corr.</div>
-        <div class="metric-value green">−0.08</div>
-        <div class="metric-delta">Near-zero (EXCELLENT)</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">ARKK / QQQ Corr.</div>
-        <div class="metric-value red">0.82</div>
-        <div class="metric-delta">High linkage (HIGH)</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Effective Diversifiers</div>
-        <div class="metric-value yellow">2 / 5</div>
-        <div class="metric-delta">TLT and GLD only</div>
-      </div>
-    </div>
-
-    <p>The SPY–QQQ correlation of <strong>0.87</strong> is the most significant risk factor in this portfolio. These two positions collectively represent 70% of portfolio capital and move nearly in tandem. During the 2022 rate-hike drawdown, both SPY (−19.4%) and QQQ (−32.6%) fell simultaneously, providing no diversification benefit at precisely the moment it was needed most.</p>
-    <p style="margin-top:10px;">The TLT position provides a moderate negative correlation (−0.23 to SPY) that functions as a partial hedge in traditional risk-off environments, but this correlation breaks down in stagflation scenarios — the exact regime characterized by simultaneous equity and bond declines (as observed in 2022).</p>
-
-    <hr class="divider" />
-
-    <div class="sub-card-title" style="font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:12px;">36-Month Correlation Matrix (Pairwise)</div>
-    <div class="heatmap-container">
-      <table class="corr-table">
-        <thead>
-          <tr>
-            <th style="text-align:left !important;">Asset</th>
-            <th>SPY</th>
-            <th>QQQ</th>
-            <th>TLT</th>
-            <th>GLD</th>
-            <th>ARKK</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>SPY</td>
-            <td class="hm-cell"><span class="corr-val corr-self">1.00</span></td>
-            <td class="hm-cell"><span class="corr-val corr-high">0.87</span></td>
-            <td class="hm-cell"><span class="corr-val corr-neg">−0.23</span></td>
-            <td class="hm-cell"><span class="corr-val corr-neg">−0.08</span></td>
-            <td class="hm-cell"><span class="corr-val corr-high">0.78</span></td>
-          </tr>
-          <tr>
-            <td>QQQ</td>
-            <td class="hm-cell"><span class="corr-val corr-high">0.87</span></td>
-            <td class="hm-cell"><span class="corr-val corr-self">1.00</span></td>
-            <td class="hm-cell"><span class="corr-val corr-neg">−0.18</span></td>
-            <td class="hm-cell"><span class="corr-val corr-neg">−0.12</span></td>
-            <td class="hm-cell"><span class="corr-val corr-high">0.82</span></td>
-          </tr>
-          <tr>
-            <td>TLT</td>
-            <td class="hm-cell"><span class="corr-val corr-neg">−0.23</span></td>
-            <td class="hm-cell"><span class="corr-val corr-neg">−0.18</span></td>
-            <td class="hm-cell"><span class="corr-val corr-self">1.00</span></td>
-            <td class="hm-cell"><span class="corr-val corr-med">0.24</span></td>
-            <td class="hm-cell"><span class="corr-val corr-neg">−0.14</span></td>
-          </tr>
-          <tr>
-            <td>GLD</td>
-            <td class="hm-cell"><span class="corr-val corr-neg">−0.08</span></td>
-            <td class="hm-cell"><span class="corr-val corr-neg">−0.12</span></td>
-            <td class="hm-cell"><span class="corr-val corr-med">0.24</span></td>
-            <td class="hm-cell"><span class="corr-val corr-self">1.00</span></td>
-            <td class="hm-cell"><span class="corr-val corr-low">0.11</span></td>
-          </tr>
-          <tr>
-            <td>ARKK</td>
-            <td class="hm-cell"><span class="corr-val corr-high">0.78</span></td>
-            <td class="hm-cell"><span class="corr-val corr-high">0.82</span></td>
-            <td class="hm-cell"><span class="corr-val corr-neg">−0.14</span></td>
-            <td class="hm-cell"><span class="corr-val corr-low">0.11</span></td>
-            <td class="hm-cell"><span class="corr-val corr-self">1.00</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="danger-note"><strong>Critical Observation:</strong> Three of the five holdings (SPY, QQQ, ARKK) have mutual correlations above 0.78. This means ~72.5% of portfolio capital is highly correlated, severely limiting the portfolio's ability to weather any regime that broadly punishes equities.</div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════════════
-     02 — SECTOR CONCENTRATION
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">02</span>
-    <span class="section-title">Sector Concentration Risk</span>
-    <span class="section-badge badge-high">Technology 64% — Overweight</span>
-  </div>
-  <div class="section-body">
-    <div class="two-col">
-      <div>
-        <div class="sub-card">
-          <div class="sub-card-title">Effective Sector Exposure (Portfolio-Weighted)</div>
-          <div class="progress-row">
-            <div class="progress-label">Technology</div>
-            <div class="progress-track"><div class="progress-fill red" style="width:64%"></div></div>
-            <div class="progress-pct" style="color:var(--accent-red);">64%</div>
-          </div>
-          <div class="progress-row">
-            <div class="progress-label">Healthcare</div>
-            <div class="progress-track"><div class="progress-fill blue" style="width:9%"></div></div>
-            <div class="progress-pct">9%</div>
-          </div>
-          <div class="progress-row">
-            <div class="progress-label">Financials</div>
-            <div class="progress-track"><div class="progress-fill blue" style="width:8%"></div></div>
-            <div class="progress-pct">8%</div>
-          </div>
-          <div class="progress-row">
-            <div class="progress-label">Consumer Disc.</div>
-            <div class="progress-track"><div class="progress-fill yellow" style="width:7%"></div></div>
-            <div class="progress-pct">7%</div>
-          </div>
-          <div class="progress-row">
-            <div class="progress-label">Industrials</div>
-            <div class="progress-track"><div class="progress-fill blue" style="width:5%"></div></div>
-            <div class="progress-pct">5%</div>
-          </div>
-          <div class="progress-row">
-            <div class="progress-label">Other</div>
-            <div class="progress-track"><div class="progress-fill blue" style="width:7%"></div></div>
-            <div class="progress-pct">7%</div>
-          </div>
+      <div class="mt16">
+        <div class="alert alert-orange">
+          <strong>Concentration Risk Alert</strong>
+          Your portfolio carries 70% in US equities (SPY + QQQ + AAPL + MSFT), making it extremely vulnerable to US equity drawdowns. The Nasdaq-heavy tilt (QQQ 20% + AAPL 10% = 30% in tech) compounds this risk significantly. At a VIX of 27.19 with a Q4 2025 GDP print of only 0.7%, the probability of further equity weakness is elevated.
         </div>
-      </div>
-      <div>
-        <div class="sub-card">
-          <div class="sub-card-title">Concentration Breakdown by Holding</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Holding</th>
-                <th>Tech Wt.</th>
-                <th>Contrib.</th>
-                <th>Risk</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>SPY</strong></td>
-                <td>28.5%</td>
-                <td style="color:var(--accent-yellow); font-weight:600;">12.8%</td>
-                <td><span class="badge yellow">MEDIUM</span></td>
-              </tr>
-              <tr>
-                <td><strong>QQQ</strong></td>
-                <td>65.0%</td>
-                <td style="color:var(--accent-red); font-weight:700;">16.3%</td>
-                <td><span class="badge red">HIGH</span></td>
-              </tr>
-              <tr>
-                <td><strong>ARKK</strong></td>
-                <td>82.0%</td>
-                <td style="color:var(--accent-red); font-weight:700;">4.1%</td>
-                <td><span class="badge red">HIGH</span></td>
-              </tr>
-              <tr>
-                <td><strong>TLT</strong></td>
-                <td>0.0%</td>
-                <td style="color:var(--accent-green);">0%</td>
-                <td><span class="badge green">LOW</span></td>
-              </tr>
-              <tr>
-                <td><strong>GLD</strong></td>
-                <td>0.0%</td>
-                <td style="color:var(--accent-green);">0%</td>
-                <td><span class="badge green">LOW</span></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="alert alert-yellow">
+          <strong>Rate Duration Risk</strong>
+          TLT holds the longest interest-rate duration in your portfolio (~18 years). With the Fed holding at 3.50–3.75% and 10-year yields at 4.24%, delayed rate cuts mean TLT faces continued headwinds. It is near the bottom of its 52-week range ($83.30), offering some cushion but limited upside until the cutting cycle resumes.
         </div>
       </div>
     </div>
-    <div class="warn-note"><strong>Concentration Warning:</strong> At 64% technology exposure, this portfolio is more concentrated in tech than the average technology-focused sector fund. Bridgewater's All Weather model recommends maximum single-sector exposure of 20–25% for a balanced risk-parity framework. A sector rotation event of the scale seen in 2000–2002 (NASDAQ −78%) would be catastrophic for this allocation.</div>
   </div>
-</div>
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     03 — GEOGRAPHIC EXPOSURE
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">03</span>
-    <span class="section-title">Geographic Exposure &amp; Currency Risk</span>
-    <span class="section-badge badge-medium">82% US Domestic</span>
+  <!-- ─── SECTION 2: RISK HEATMAP ────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">2</span> Risk Heatmap — Multi-Factor Analysis</div>
+    <div class="card">
+      <p style="margin-bottom:16px;">Each cell represents the estimated risk intensity (1 = minimal, 5 = critical) for each holding across five key risk dimensions, informed by live macro data as of March 17, 2026.</p>
+      <div style="overflow-x:auto;">
+        <table style="min-width:700px;">
+          <thead>
+            <tr>
+              <th style="width:80px;">Ticker</th>
+              <th class="td-center">Recession<br>Risk</th>
+              <th class="td-center">Rate<br>Sensitivity</th>
+              <th class="td-center">Volatility<br>(VIX 27)</th>
+              <th class="td-center">Geopolitical<br>Exposure</th>
+              <th class="td-center">Liquidity<br>Risk</th>
+              <th class="td-center">Composite<br>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-ticker">SPY</td>
+              <td class="td-center"><div class="heatmap-cell heat-4">4 / High</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-3">3 / Mod</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-4">4 / High</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-3">3 / Mod</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-3"><strong>3.0</strong></div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker">QQQ</td>
+              <td class="td-center"><div class="heatmap-cell heat-5">5 / Crit</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-5">5 / Crit</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-5">5 / Crit</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-3">3 / Mod</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-4"><strong>3.8</strong></div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker">AAPL</td>
+              <td class="td-center"><div class="heatmap-cell heat-4">4 / High</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-4">4 / High</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-4">4 / High</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-4">4 / High</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-4"><strong>3.4</strong></div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker">MSFT</td>
+              <td class="td-center"><div class="heatmap-cell heat-3">3 / Mod</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-4">4 / High</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-3">3 / Mod</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-2">2 / Low</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-3"><strong>2.6</strong></div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker">BRK.B</td>
+              <td class="td-center"><div class="heatmap-cell heat-2">2 / Low</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-2">2 / Low</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-2">2 / Low</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-2">2 / Low</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-2"><strong>1.8</strong></div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker">VGK</td>
+              <td class="td-center"><div class="heatmap-cell heat-4">4 / High</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-3">3 / Mod</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-3">3 / Mod</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-5">5 / Crit</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-1">2 / Low</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-3"><strong>3.4</strong></div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker">TLT</td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-5">5 / Crit</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-2">2 / Low</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-2">2 / Low</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-2"><strong>2.2</strong></div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker">GLD</td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-1">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-1">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0"><strong>1.0</strong></div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker">CASH</td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0">1 / Min</div></td>
+              <td class="td-center"><div class="heatmap-cell heat-0"><strong>1.0</strong></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt16">
+        <p style="font-size:12px;color:var(--text-muted);">Scale: 1 = Minimal | 2 = Low | 3 = Moderate | 4 = High | 5 = Critical. Scores are weighted composites based on current macro conditions: Fed funds at 3.50–3.75%, VIX at 27.19, 10-Yr yield at 4.24%, GDP Q4 2025 at 0.7%, CPI at 2.4%.</p>
+      </div>
+
+      <div class="mt16 overall-score">
+        <div class="score-circle">
+          <span class="num">63</span>
+          <span class="denom">/ 100</span>
+        </div>
+        <div class="score-desc">
+          <h3>Overall Portfolio Risk Score: ELEVATED</h3>
+          <p>Your portfolio's risk-weighted score of 63/100 reflects meaningful exposure to the two primary concern scenarios. The 70% US equity concentration, 30% tech/growth tilt, and insufficient long-duration bond and commodity hedges leave the portfolio underprepared for a recession combined with delayed rate cuts. The current VIX of 27.19 and weak Q4 2025 GDP of 0.7% validate these concerns.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <div class="risk-score-wrap">
+          <span class="risk-score-label">Equity Concentration Risk</span>
+          <div class="risk-score-bar-wrap"><div class="risk-score-bar" style="width:85%;background:var(--accent-red);"></div></div>
+          <span class="risk-score-val text-red">85</span>
+        </div>
+        <div class="risk-score-wrap">
+          <span class="risk-score-label">Interest Rate Duration Risk</span>
+          <div class="risk-score-bar-wrap"><div class="risk-score-bar" style="width:55%;background:var(--accent-orange);"></div></div>
+          <span class="risk-score-val text-orange">55</span>
+        </div>
+        <div class="risk-score-wrap">
+          <span class="risk-score-label">Inflation / Stagflation Risk</span>
+          <div class="risk-score-bar-wrap"><div class="risk-score-bar" style="width:60%;background:var(--accent-orange);"></div></div>
+          <span class="risk-score-val text-orange">60</span>
+        </div>
+        <div class="risk-score-wrap">
+          <span class="risk-score-label">Geopolitical / FX Risk</span>
+          <div class="risk-score-bar-wrap"><div class="risk-score-bar" style="width:70%;background:var(--accent-orange);"></div></div>
+          <span class="risk-score-val text-orange">70</span>
+        </div>
+        <div class="risk-score-wrap">
+          <span class="risk-score-label">Liquidity Risk</span>
+          <div class="risk-score-bar-wrap"><div class="risk-score-bar" style="width:15%;background:var(--accent-green);"></div></div>
+          <span class="risk-score-val text-green">15</span>
+        </div>
+        <div class="risk-score-wrap">
+          <span class="risk-score-label">Diversification Score (higher = better)</span>
+          <div class="risk-score-bar-wrap"><div class="risk-score-bar" style="width:35%;background:var(--accent-red);"></div></div>
+          <span class="risk-score-val text-red">35</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="section-body">
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <div class="metric-label">US Domestic</div>
-        <div class="metric-value red">82%</div>
-        <div class="metric-delta">$205,000 equivalent</div>
+
+  <!-- ─── SECTION 3: CORRELATION ANALYSIS ───────────────────────────── -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">3</span> Correlation Analysis</div>
+    <div class="card">
+      <p style="margin-bottom:16px;">Estimated rolling 1-year correlations between portfolio holdings under current market conditions (elevated VIX, rising geopolitical risk, late-cycle macro environment). Values closer to +1.0 indicate holdings move together; values near -1.0 provide genuine diversification benefit.</p>
+      <div style="overflow-x:auto;">
+        <table style="min-width:700px;font-size:11px;">
+          <thead>
+            <tr>
+              <th style="width:60px;"></th>
+              <th class="td-center">SPY</th>
+              <th class="td-center">QQQ</th>
+              <th class="td-center">AAPL</th>
+              <th class="td-center">MSFT</th>
+              <th class="td-center">BRK.B</th>
+              <th class="td-center">VGK</th>
+              <th class="td-center">TLT</th>
+              <th class="td-center">GLD</th>
+              <th class="td-center">CASH</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-ticker" style="font-size:12px;">SPY</td>
+              <td class="td-center"><div class="heatmap-cell corr-self">1.00</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.92</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.80</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.82</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.71</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.68</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.38</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.15</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.00</div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker" style="font-size:12px;">QQQ</td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.92</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-self">1.00</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.87</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.88</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.60</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.62</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.42</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.18</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.00</div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker" style="font-size:12px;">AAPL</td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.80</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.87</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-self">1.00</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.78</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.55</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.55</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.35</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.12</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.00</div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker" style="font-size:12px;">MSFT</td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.82</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.88</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-high-pos">0.78</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-self">1.00</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.58</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.57</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.36</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.14</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.00</div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker" style="font-size:12px;">BRK.B</td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.71</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.60</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.55</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.58</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-self">1.00</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.63</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.22</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.08</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.00</div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker" style="font-size:12px;">VGK</td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.68</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.62</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.55</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.57</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-pos">0.63</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-self">1.00</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">-0.28</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.05</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.00</div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker" style="font-size:12px;">TLT</td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.38</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.42</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.35</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.36</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.22</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">-0.28</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-self">1.00</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.18</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.00</div></td>
+            </tr>
+            <tr>
+              <td class="td-ticker" style="font-size:12px;">GLD</td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.15</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.18</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.12</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-med-neg">-0.14</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.08</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.05</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.18</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-self">1.00</div></td>
+              <td class="td-center"><div class="heatmap-cell corr-low">0.00</div></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="metric-card">
-        <div class="metric-label">International</div>
-        <div class="metric-value yellow">18%</div>
-        <div class="metric-delta">Via SPY/QQQ multinationals</div>
+      <div class="mt12 two-col">
+        <div class="alert alert-red" style="margin-bottom:0;">
+          <strong>Dangerous Clustering</strong>
+          SPY, QQQ, AAPL, and MSFT are highly correlated (0.78–0.92). Together they represent 70% of the portfolio. In a risk-off event driven by recession fears, all four are likely to fall simultaneously and sharply. This is the portfolio's most critical structural weakness.
+        </div>
+        <div class="alert alert-green" style="margin-bottom:0;">
+          <strong>Effective Hedges (Too Small)</strong>
+          TLT (−0.38 to −0.42 vs. equities) and GLD (−0.12 to −0.18) provide genuine diversification. However, at only 7% and 5% of the portfolio respectively, their hedging power is vastly insufficient to offset the 70% equity exposure during a drawdown.
+        </div>
       </div>
-      <div class="metric-card">
-        <div class="metric-label">Currency Risk</div>
-        <div class="metric-value green">LOW</div>
-        <div class="metric-delta">All holdings USD-denominated</div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 4: STRESS TEST SCENARIOS ──────────────────────────── -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">4</span> Stress Test Scenarios</div>
+
+    <div class="alert alert-yellow">
+      <strong>Macro Context for Stress Tests</strong>
+      Based on live data: Fed funds rate 3.50–3.75% (hold), VIX 27.19 (elevated), GDP Q4 2025 = 0.7% (near-stall), CPI 2.4% (above 2% target), Iran conflict ongoing. The FOMC meets today (March 17–18). Scenarios below model the user's primary concern — recession with delayed rate cuts — plus other credible near-term risks.
+    </div>
+
+    <div class="scenario-grid">
+
+      <!-- Scenario 1 -->
+      <div class="scenario-card">
+        <h4>Scenario 1: Mild Recession + Delayed Cuts</h4>
+        <div class="prob">Probability: 35% | Time horizon: 6–12 months</div>
+        <div class="scenario-line"><span class="asset">SPY (-25%): $75,000 →</span><span class="impact-neg">−$18,750</span></div>
+        <div class="scenario-line"><span class="asset">QQQ (-35%): $50,000 →</span><span class="impact-neg">−$17,500</span></div>
+        <div class="scenario-line"><span class="asset">AAPL (-28%): $25,000 →</span><span class="impact-neg">−$7,000</span></div>
+        <div class="scenario-line"><span class="asset">MSFT (-22%): $25,000 →</span><span class="impact-neg">−$5,500</span></div>
+        <div class="scenario-line"><span class="asset">BRK.B (-15%): $20,000 →</span><span class="impact-neg">−$3,000</span></div>
+        <div class="scenario-line"><span class="asset">VGK (-22%): $17,500 →</span><span class="impact-neg">−$3,850</span></div>
+        <div class="scenario-line"><span class="asset">TLT (+5%): $17,500 →</span><span class="impact-pos">+$875</span></div>
+        <div class="scenario-line"><span class="asset">GLD (+8%): $12,500 →</span><span class="impact-pos">+$1,000</span></div>
+        <div class="scenario-line"><span class="asset">CASH: $7,500 →</span><span class="impact-neu">+$263 yield</span></div>
+        <div class="scenario-total">
+          <span>Portfolio Loss</span>
+          <span class="text-red">−$53,462 (−21.4%)</span>
+        </div>
       </div>
-      <div class="metric-card">
-        <div class="metric-label">EM Exposure</div>
-        <div class="metric-value green">&lt;2%</div>
-        <div class="metric-delta">Negligible</div>
+
+      <!-- Scenario 2 -->
+      <div class="scenario-card">
+        <h4>Scenario 2: Deep Recession + Forced Cuts</h4>
+        <div class="prob">Probability: 15% | Time horizon: 12–18 months</div>
+        <div class="scenario-line"><span class="asset">SPY (-40%): $75,000 →</span><span class="impact-neg">−$30,000</span></div>
+        <div class="scenario-line"><span class="asset">QQQ (-52%): $50,000 →</span><span class="impact-neg">−$26,000</span></div>
+        <div class="scenario-line"><span class="asset">AAPL (-45%): $25,000 →</span><span class="impact-neg">−$11,250</span></div>
+        <div class="scenario-line"><span class="asset">MSFT (-38%): $25,000 →</span><span class="impact-neg">−$9,500</span></div>
+        <div class="scenario-line"><span class="asset">BRK.B (-22%): $20,000 →</span><span class="impact-neg">−$4,400</span></div>
+        <div class="scenario-line"><span class="asset">VGK (-35%): $17,500 →</span><span class="impact-neg">−$6,125</span></div>
+        <div class="scenario-line"><span class="asset">TLT (+22%): $17,500 →</span><span class="impact-pos">+$3,850</span></div>
+        <div class="scenario-line"><span class="asset">GLD (+18%): $12,500 →</span><span class="impact-pos">+$2,250</span></div>
+        <div class="scenario-line"><span class="asset">CASH: $7,500 →</span><span class="impact-neu">+$263</span></div>
+        <div class="scenario-total">
+          <span>Portfolio Loss</span>
+          <span class="text-red">−$80,912 (−32.4%)</span>
+        </div>
+      </div>
+
+      <!-- Scenario 3 -->
+      <div class="scenario-card">
+        <h4>Scenario 3: Stagflation — No Cuts + High Inflation</h4>
+        <div class="prob">Probability: 20% | Time horizon: 6–18 months</div>
+        <div class="scenario-line"><span class="asset">SPY (-18%): $75,000 →</span><span class="impact-neg">−$13,500</span></div>
+        <div class="scenario-line"><span class="asset">QQQ (-25%): $50,000 →</span><span class="impact-neg">−$12,500</span></div>
+        <div class="scenario-line"><span class="asset">AAPL (-20%): $25,000 →</span><span class="impact-neg">−$5,000</span></div>
+        <div class="scenario-line"><span class="asset">MSFT (-15%): $25,000 →</span><span class="impact-neg">−$3,750</span></div>
+        <div class="scenario-line"><span class="asset">BRK.B (-8%): $20,000 →</span><span class="impact-neg">−$1,600</span></div>
+        <div class="scenario-line"><span class="asset">VGK (-18%): $17,500 →</span><span class="impact-neg">−$3,150</span></div>
+        <div class="scenario-line"><span class="asset">TLT (-12%): $17,500 →</span><span class="impact-neg">−$2,100</span></div>
+        <div class="scenario-line"><span class="asset">GLD (+20%): $12,500 →</span><span class="impact-pos">+$2,500</span></div>
+        <div class="scenario-line"><span class="asset">CASH: $7,500 →</span><span class="impact-neu">+$263</span></div>
+        <div class="scenario-total">
+          <span>Portfolio Loss</span>
+          <span class="text-red">−$38,837 (−15.5%)</span>
+        </div>
+      </div>
+
+      <!-- Scenario 4 -->
+      <div class="scenario-card">
+        <h4>Scenario 4: Iran Conflict Escalation / Oil Shock</h4>
+        <div class="prob">Probability: 20% | Time horizon: 1–6 months</div>
+        <div class="scenario-line"><span class="asset">SPY (-15%): $75,000 →</span><span class="impact-neg">−$11,250</span></div>
+        <div class="scenario-line"><span class="asset">QQQ (-20%): $50,000 →</span><span class="impact-neg">−$10,000</span></div>
+        <div class="scenario-line"><span class="asset">AAPL (-18%): $25,000 →</span><span class="impact-neg">−$4,500</span></div>
+        <div class="scenario-line"><span class="asset">MSFT (-12%): $25,000 →</span><span class="impact-neg">−$3,000</span></div>
+        <div class="scenario-line"><span class="asset">BRK.B (-8%): $20,000 →</span><span class="impact-neg">−$1,600</span></div>
+        <div class="scenario-line"><span class="asset">VGK (-20%): $17,500 →</span><span class="impact-neg">−$3,500</span></div>
+        <div class="scenario-line"><span class="asset">TLT (+8%): $17,500 →</span><span class="impact-pos">+$1,400</span></div>
+        <div class="scenario-line"><span class="asset">GLD (+25%): $12,500 →</span><span class="impact-pos">+$3,125</span></div>
+        <div class="scenario-line"><span class="asset">CASH: $7,500 →</span><span class="impact-neu">holds</span></div>
+        <div class="scenario-total">
+          <span>Portfolio Loss</span>
+          <span class="text-red">−$29,325 (−11.7%)</span>
+        </div>
+      </div>
+
+      <!-- Scenario 5 -->
+      <div class="scenario-card">
+        <h4>Scenario 5: Soft Landing — Goldilocks</h4>
+        <div class="prob">Probability: 10% | Time horizon: 6–12 months</div>
+        <div class="scenario-line"><span class="asset">SPY (+12%): $75,000 →</span><span class="impact-pos">+$9,000</span></div>
+        <div class="scenario-line"><span class="asset">QQQ (+18%): $50,000 →</span><span class="impact-pos">+$9,000</span></div>
+        <div class="scenario-line"><span class="asset">AAPL (+15%): $25,000 →</span><span class="impact-pos">+$3,750</span></div>
+        <div class="scenario-line"><span class="asset">MSFT (+14%): $25,000 →</span><span class="impact-pos">+$3,500</span></div>
+        <div class="scenario-line"><span class="asset">BRK.B (+10%): $20,000 →</span><span class="impact-pos">+$2,000</span></div>
+        <div class="scenario-line"><span class="asset">VGK (+12%): $17,500 →</span><span class="impact-pos">+$2,100</span></div>
+        <div class="scenario-line"><span class="asset">TLT (+6%): $17,500 →</span><span class="impact-pos">+$1,050</span></div>
+        <div class="scenario-line"><span class="asset">GLD (+2%): $12,500 →</span><span class="impact-pos">+$250</span></div>
+        <div class="scenario-line"><span class="asset">CASH: $7,500 →</span><span class="impact-pos">+$263</span></div>
+        <div class="scenario-total">
+          <span>Portfolio Gain</span>
+          <span class="text-green">+$30,913 (+12.4%)</span>
+        </div>
+      </div>
+
+      <!-- Scenario 6 -->
+      <div class="scenario-card">
+        <h4>Scenario 6: Flash Crash / Liquidity Crisis</h4>
+        <div class="prob">Probability: 10% | Time horizon: days–weeks</div>
+        <div class="scenario-line"><span class="asset">SPY (-22%): $75,000 →</span><span class="impact-neg">−$16,500</span></div>
+        <div class="scenario-line"><span class="asset">QQQ (-28%): $50,000 →</span><span class="impact-neg">−$14,000</span></div>
+        <div class="scenario-line"><span class="asset">AAPL (-25%): $25,000 →</span><span class="impact-neg">−$6,250</span></div>
+        <div class="scenario-line"><span class="asset">MSFT (-22%): $25,000 →</span><span class="impact-neg">−$5,500</span></div>
+        <div class="scenario-line"><span class="asset">BRK.B (-15%): $20,000 →</span><span class="impact-neg">−$3,000</span></div>
+        <div class="scenario-line"><span class="asset">VGK (-22%): $17,500 →</span><span class="impact-neg">−$3,850</span></div>
+        <div class="scenario-line"><span class="asset">TLT (+15%): $17,500 →</span><span class="impact-pos">+$2,625</span></div>
+        <div class="scenario-line"><span class="asset">GLD (+10%): $12,500 →</span><span class="impact-pos">+$1,250</span></div>
+        <div class="scenario-line"><span class="asset">CASH: $7,500 →</span><span class="impact-neu">holds</span></div>
+        <div class="scenario-total">
+          <span>Portfolio Loss</span>
+          <span class="text-red">−$45,225 (−18.1%)</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="alert alert-red mt16">
+      <strong>Key Finding: Recession Scenarios Hit This Portfolio Hard</strong>
+      In the most probable adverse scenario (Mild Recession + Delayed Cuts, 35% probability), the portfolio would lose approximately $53,462 (−21.4%) — roughly $53K of the $250K base. The Deep Recession scenario would be catastrophic at −$80,912 (−32.4%). The portfolio's defensive assets (TLT 7%, GLD 5%, Cash 3%) are far too small to offset the 70% equity exposure. Critically, delayed rate cuts hurt both equities AND TLT simultaneously — the worst combination for this portfolio structure.
+    </div>
+  </div>
+
+  <!-- ─── SECTION 5: ALL-WEATHER COMPARISON ──────────────────────────── -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">5</span> All-Weather Allocation Comparison</div>
+    <div class="card">
+      <p style="margin-bottom:20px;">Ray Dalio's All-Weather portfolio is designed to perform in all four economic environments (growth up/down, inflation up/down) by balancing risk contributions rather than dollar contributions. Below compares your current allocation to both the classic All-Weather model and a recession-optimized variant given today's macro environment (VIX 27.19, GDP 0.7%, CPI 2.4%).</p>
+
+      <div class="two-col">
+        <div>
+          <h3 style="margin-bottom:14px;color:var(--accent-orange);">Your Current Allocation</h3>
+          <div class="alloc-row">
+            <span class="alloc-label">US Equities (SPY+QQQ)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:100%;background:var(--accent-red);"></div></div>
+            <span class="alloc-pct text-red">50%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">US Large-Cap Tech (AAPL+MSFT)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:40%;background:var(--accent-red);"></div></div>
+            <span class="alloc-pct text-red">20%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Value / Insurance (BRK.B)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:16%;background:var(--accent-yellow);"></div></div>
+            <span class="alloc-pct text-yellow">8%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">International Equity (VGK)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:14%;background:var(--accent-orange);"></div></div>
+            <span class="alloc-pct text-orange">7%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Long-Term Bonds (TLT)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:14%;background:var(--accent-yellow);"></div></div>
+            <span class="alloc-pct text-yellow">7%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Gold (GLD)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:10%;background:var(--accent-blue);"></div></div>
+            <span class="alloc-pct text-blue">5%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Cash</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:6%;background:var(--accent-green);"></div></div>
+            <span class="alloc-pct text-green">3%</span>
+          </div>
+          <div class="spacer"></div>
+          <div class="alloc-row">
+            <span class="alloc-label text-bold" style="width:auto;color:var(--text-primary);">Estimated Max Drawdown</span>
+            <span style="color:var(--accent-red);font-weight:700;">−32 to −45%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label text-bold" style="width:auto;color:var(--text-primary);">Risk Parity Score</span>
+            <span style="color:var(--accent-red);font-weight:700;">23/100 (Very Unbalanced)</span>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="margin-bottom:14px;color:var(--accent-green);">Bridgewater All-Weather Model</h3>
+          <div class="alloc-row">
+            <span class="alloc-label">US Equities (broad)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:60%;background:var(--accent-orange);"></div></div>
+            <span class="alloc-pct text-orange">30%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Long-Term US Bonds (20–30yr)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:80%;background:var(--accent-blue);"></div></div>
+            <span class="alloc-pct text-blue">40%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Intermediate Bonds (7–10yr)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:30%;background:var(--accent-blue);"></div></div>
+            <span class="alloc-pct text-blue">15%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Gold</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:25%;background:var(--accent-yellow);"></div></div>
+            <span class="alloc-pct text-yellow">7.5%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Commodities (broad)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:15%;background:var(--accent-yellow);"></div></div>
+            <span class="alloc-pct text-yellow">7.5%</span>
+          </div>
+          <div class="spacer"></div>
+          <div class="alloc-row">
+            <span class="alloc-label text-bold" style="width:auto;color:var(--text-primary);">Estimated Max Drawdown</span>
+            <span style="color:var(--accent-yellow);font-weight:700;">−15 to −22%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label text-bold" style="width:auto;color:var(--text-primary);">Risk Parity Score</span>
+            <span style="color:var(--accent-green);font-weight:700;">78/100 (Well-Balanced)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <h3 style="margin-bottom:14px;color:var(--accent-purple);">Recession-Optimized Rebalance Suggestion (Given March 2026 Macro)</h3>
+      <p style="margin-bottom:14px;">Given the specific concern of recession + delayed rate cuts, with VIX at 27.19, GDP at 0.7%, and the FOMC holding today, this modified allocation tilts more defensively while preserving some equity upside:</p>
+      <div class="three-col" style="gap:12px;">
+        <div>
+          <div class="alloc-row">
+            <span class="alloc-label">US Equities (SPY)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:40%;background:var(--accent-orange);"></div></div>
+            <span class="alloc-pct text-orange">20%</span>
+            <span class="alloc-note text-muted">↓ from 30%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Nasdaq Tech (QQQ)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:20%;background:var(--accent-orange);"></div></div>
+            <span class="alloc-pct text-orange">10%</span>
+            <span class="alloc-note text-muted">↓ from 20%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">AAPL</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:10%;background:var(--accent-yellow);"></div></div>
+            <span class="alloc-pct text-yellow">5%</span>
+            <span class="alloc-note text-muted">↓ from 10%</span>
+          </div>
+        </div>
+        <div>
+          <div class="alloc-row">
+            <span class="alloc-label">MSFT</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:10%;background:var(--accent-yellow);"></div></div>
+            <span class="alloc-pct text-yellow">5%</span>
+            <span class="alloc-note text-muted">↓ from 10%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">BRK.B (value buffer)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:20%;background:var(--accent-yellow);"></div></div>
+            <span class="alloc-pct text-yellow">10%</span>
+            <span class="alloc-note text-muted">↑ from 8%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">VGK (Europe)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:10%;background:var(--accent-yellow);"></div></div>
+            <span class="alloc-pct text-yellow">5%</span>
+            <span class="alloc-note text-muted">↓ from 7%</span>
+          </div>
+        </div>
+        <div>
+          <div class="alloc-row">
+            <span class="alloc-label">Long-Term Bonds (TLT)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:40%;background:var(--accent-blue);"></div></div>
+            <span class="alloc-pct text-blue">20%</span>
+            <span class="alloc-note text-muted">↑ from 7%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Gold (GLD)</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:30%;background:var(--accent-yellow);"></div></div>
+            <span class="alloc-pct text-yellow">15%</span>
+            <span class="alloc-note text-muted">↑ from 5%</span>
+          </div>
+          <div class="alloc-row">
+            <span class="alloc-label">Cash / T-Bills</span>
+            <div class="progress-wrap"><div class="progress-bar" style="width:20%;background:var(--accent-green);"></div></div>
+            <span class="alloc-pct text-green">10%</span>
+            <span class="alloc-note text-muted">↑ from 3%</span>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-blue mt12" style="margin-bottom:0;">
+        <strong>Projected Impact of Rebalance</strong>
+        This recession-optimized allocation would reduce equity exposure from 85% (including tech singles) to ~55%, while tripling bond/gold/cash defensive positions from 15% to 45%. Estimated worst-case drawdown in a mild recession scenario would drop from −21.4% to approximately −12 to −14%, at the cost of reducing upside in the soft-landing scenario from +12.4% to approximately +7–8%.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 6: 5-STEP ACTION PLAN ─────────────────────────────── -->
+  <div class="section">
+    <div class="section-title"><span class="section-num">6</span> Five-Step Action Plan</div>
+
+    <div class="alert alert-orange">
+      <strong>Macro Trigger Context</strong>
+      The FOMC meeting is happening today (March 17–18, 2026). A hold is widely expected. The GDP revision to 0.7% and VIX at 27.19 (elevated) validate recession concerns. Iran conflict risk is unresolved. CPI at 2.4% (core 2.5%) is above target — exactly the delayed-cut environment the user fears. Act decisively.
+    </div>
+
+    <div class="action-step">
+      <div class="step-num" style="background:var(--accent-red-bg);border:2px solid var(--accent-red);color:var(--accent-red);">1</div>
+      <div>
+        <h4>Reduce Equity Concentration — Trim QQQ and Tech Singles</h4>
+        <p><strong>Action:</strong> Sell 50% of QQQ position ($25,000 proceeds) and reduce AAPL and MSFT by 50% each (releasing $12,500 + $12,500 = $25,000). Total proceeds: ~$50,000. QQQ is at $600.28, sitting at 94% of its 52-week high of $637.01 — near-peak valuation in a weakening economy.</p>
+        <p><strong>Rationale:</strong> QQQ carries the highest composite risk score (3.8/5) in this portfolio. With GDP at 0.7% and VIX at 27.19, growth/tech multiples are especially vulnerable. A 35% QQQ correction from current levels would drop it to ~$390, close to its 52-week low. The correlation between QQQ and the equity singles (0.87–0.88) means no diversification benefit is being captured by holding all three.</p>
+        <div class="tag"><span class="badge badge-red">Urgency: High</span> &nbsp; <span class="badge badge-orange">Timeline: This week</span> &nbsp; <span class="badge badge-yellow">Dollar: $50,000 redeployed</span></div>
       </div>
     </div>
 
-    <div class="sub-card" style="margin-top:16px;">
-      <div class="sub-card-title">Geographic Distribution (Effective Portfolio Exposure)</div>
-      <div class="geo-bar">
-        <div class="geo-segment" style="width:82%; background:#3b82f6;"></div>
-        <div class="geo-segment" style="width:10%; background:#f59e0b;"></div>
-        <div class="geo-segment" style="width:5%; background:#8b5cf6;"></div>
-        <div class="geo-segment" style="width:3%; background:#ec4899;"></div>
-      </div>
-      <div class="geo-legend">
-        <div class="geo-legend-item"><div class="geo-dot" style="background:#3b82f6;"></div>United States 82%</div>
-        <div class="geo-legend-item"><div class="geo-dot" style="background:#f59e0b;"></div>Europe 10% (via MNC revenue)</div>
-        <div class="geo-legend-item"><div class="geo-dot" style="background:#8b5cf6;"></div>Asia-Pacific 5%</div>
-        <div class="geo-legend-item"><div class="geo-dot" style="background:#ec4899;"></div>Rest of World 3%</div>
+    <div class="action-step">
+      <div class="step-num" style="background:var(--accent-blue-bg);border:2px solid var(--accent-blue);color:var(--accent-blue);">2</div>
+      <div>
+        <h4>Significantly Increase TLT (Long-Duration Bonds)</h4>
+        <p><strong>Action:</strong> Deploy $20,000 of the proceeds into additional TLT, raising total TLT allocation from $17,500 (7%) to $37,500 (15%). TLT is currently at $87.23, near its 52-week low of $83.30 — a favorable entry point for recession hedging.</p>
+        <p><strong>Rationale:</strong> In a recession scenario where the Fed is ultimately forced to cut (even with delays), TLT is your single best hedge — it has a −0.38 to −0.42 correlation with your equity holdings. The Fed holds today, but the Q4 GDP print of 0.7% and deteriorating sentiment increase the probability of a cutting cycle in H2 2026. Every 100bps rate cut historically translates to ~15–18% TLT price appreciation. At 7%, TLT currently provides insufficient protection for a 70% equity book.</p>
+        <div class="tag"><span class="badge badge-blue">Urgency: High</span> &nbsp; <span class="badge badge-orange">Timeline: This week</span> &nbsp; <span class="badge badge-yellow">Dollar: $20,000 deployed</span></div>
       </div>
     </div>
 
-    <p style="margin-top:16px;">While all holdings are US-listed and USD-denominated (eliminating direct currency risk), significant <em>revenue exposure</em> to international markets exists through SPY and QQQ's multinational constituents (Apple ~57% intl revenue, Microsoft ~49%, Amazon ~30%). A severe USD appreciation event would create a revenue headwind for these holdings.</p>
-    <div class="info-note"><strong>Assessment:</strong> Geographic concentration in the US is elevated but carries LOW direct currency risk. The main risk is US-market systemic exposure — a US-specific recession or policy shock would have outsized impact. Portfolio lacks exposure to international diversifiers (e.g., VXUS, EFA, EEM) that could reduce US home-country bias.</div>
-  </div>
-</div>
+    <div class="action-step">
+      <div class="step-num" style="background:var(--accent-yellow-bg);border:2px solid var(--accent-yellow);color:var(--accent-yellow);">3</div>
+      <div>
+        <h4>Triple Gold Exposure (GLD)</h4>
+        <p><strong>Action:</strong> Deploy $15,000 into GLD, raising total gold position from $12,500 (5%) to $27,500 (11%). GLD is at $460.43, down from its 52-week high of $509.70 — a 10% pullback creating a reasonable entry. Gold's ongoing bull run is supported by the Iran conflict, central bank buying, and stagflation fears.</p>
+        <p><strong>Rationale:</strong> Gold is the portfolio's only true all-weather asset — it benefits in both inflationary and deflationary recessions. With CPI at 2.4% (above Fed target) and Iran conflict persisting, the geopolitical bid under gold remains intact. In the stagflation scenario (no rate cuts + growth slowing), GLD is projected to gain +20% while equities and TLT both fall. Gold at 5% provides negligible hedging; 11% begins to be meaningful. Consider the Bridgewater All-Weather model's 7.5% target as a floor.</p>
+        <div class="tag"><span class="badge badge-yellow">Urgency: Medium-High</span> &nbsp; <span class="badge badge-orange">Timeline: 1–2 weeks</span> &nbsp; <span class="badge badge-yellow">Dollar: $15,000 deployed</span></div>
+      </div>
+    </div>
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     04 — INTEREST RATE SENSITIVITY
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">04</span>
-    <span class="section-title">Interest Rate Sensitivity</span>
-    <span class="section-badge badge-high">TLT Duration: 17.5 Years</span>
-  </div>
-  <div class="section-body">
-    <div class="heatmap-container">
+    <div class="action-step">
+      <div class="step-num" style="background:var(--accent-green-bg);border:2px solid var(--accent-green);color:var(--accent-green);">4</div>
+      <div>
+        <h4>Build Cash Reserves (T-Bills / Money Market)</h4>
+        <p><strong>Action:</strong> Allocate $10,000 to cash/T-Bills, raising cash from $7,500 (3%) to $17,500 (7%). At Fed funds of 3.50–3.75%, money market funds are yielding ~3.5% annualized — this is risk-free income while you wait for clarity on recession odds.</p>
+        <p><strong>Rationale:</strong> With the FOMC meeting today and VIX at 27.19, market conditions may deteriorate sharply in the coming weeks. A 7% cash buffer provides: (a) dry powder to buy equities at a 20–30% discount if recession materializes; (b) psychological stability to avoid panic-selling; (c) genuine yield at current rate levels. Cash is the most underrated asset in an uncertain rate environment — Ray Dalio's Pure Alpha fund famously holds significant cash during inflection points.</p>
+        <div class="tag"><span class="badge badge-green">Urgency: Medium</span> &nbsp; <span class="badge badge-orange">Timeline: 2 weeks</span> &nbsp; <span class="badge badge-yellow">Dollar: $10,000 deployed</span></div>
+      </div>
+    </div>
+
+    <div class="action-step">
+      <div class="step-num" style="background:var(--accent-purple-bg);border:2px solid var(--accent-purple);color:var(--accent-purple);">5</div>
+      <div>
+        <h4>Add Commodities / TIPS Exposure and Trim VGK</h4>
+        <p><strong>Action:</strong> (a) Trim VGK by $5,000 (from $17,500 to $12,500) — VGK has the highest geopolitical risk score (5/5 critical) given Iran conflict proximity to Europe and elevated energy costs. (b) Deploy the $5,000 into either a broad commodities ETF (DJP, GSG) or TIPS (Treasury Inflation-Protected Securities). This addresses the stagflation scenario directly.</p>
+        <p><strong>Rationale:</strong> VGK is the most geopolitically exposed holding given the Iran conflict's impact on European energy prices. European equities are also economically weaker than the US in a global recession (less fiscal firepower, ECB policy constraints). Meanwhile, commodities and TIPS are the only assets that outperform during stagflation — CPI at 2.4% (above target) suggests inflation risks have not been fully tamed. The Bridgewater All-Weather model explicitly allocates 7.5% to commodities as an inflation hedge.</p>
+        <div class="tag"><span class="badge badge-purple">Urgency: Medium</span> &nbsp; <span class="badge badge-orange">Timeline: 2–4 weeks</span> &nbsp; <span class="badge badge-yellow">Dollar: $5,000 reallocated</span></div>
+      </div>
+    </div>
+
+    <div class="card mt16" style="background:var(--bg-secondary);">
+      <h3 style="margin-bottom:12px;">Action Plan Summary — Portfolio Transformation</h3>
       <table>
         <thead>
-          <tr>
-            <th>Holding</th>
-            <th>Weight</th>
-            <th>Effective Duration</th>
-            <th>+1% Rate Shock Impact</th>
-            <th>+2% Rate Shock Impact</th>
-            <th>Rate Risk Rating</th>
-          </tr>
+          <tr><th>Asset</th><th class="td-right">Current $</th><th class="td-right">Current %</th><th class="td-right">After Plan $</th><th class="td-right">After Plan %</th><th class="td-center">Change</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td><strong>TLT</strong><br><span style="font-size:11px; color:var(--text-muted);">20+ Yr Treasury</span></td>
-            <td>15%</td>
-            <td><span style="color:var(--accent-red); font-weight:700;">17.5 years</span></td>
-            <td class="drawdown-neg">−$6,563 (−17.5%)</td>
-            <td class="drawdown-neg">−$13,125 (−35%)</td>
-            <td><span class="badge red">HIGH</span></td>
-          </tr>
-          <tr>
-            <td><strong>ARKK</strong><br><span style="font-size:11px; color:var(--text-muted);">ARK Innovation</span></td>
-            <td>5%</td>
-            <td><span style="color:var(--accent-red); font-weight:700;">~12 yrs equiv.</span></td>
-            <td class="drawdown-neg">−$2,250 (−18%)</td>
-            <td class="drawdown-neg">−$5,000 (−40%)</td>
-            <td><span class="badge red">HIGH</span></td>
-          </tr>
-          <tr>
-            <td><strong>QQQ</strong><br><span style="font-size:11px; color:var(--text-muted);">Nasdaq-100</span></td>
-            <td>25%</td>
-            <td><span style="color:var(--accent-yellow); font-weight:600;">~7 yrs equiv.</span></td>
-            <td class="drawdown-mid">−$4,375 (−7%)</td>
-            <td class="drawdown-neg">−$9,375 (−15%)</td>
-            <td><span class="badge yellow">MEDIUM</span></td>
-          </tr>
-          <tr>
-            <td><strong>SPY</strong><br><span style="font-size:11px; color:var(--text-muted);">S&amp;P 500</span></td>
-            <td>45%</td>
-            <td><span style="color:var(--accent-yellow); font-weight:600;">~4 yrs equiv.</span></td>
-            <td class="drawdown-mid">−$4,500 (−4%)</td>
-            <td class="drawdown-mid">−$9,000 (−8%)</td>
-            <td><span class="badge yellow">MEDIUM</span></td>
-          </tr>
-          <tr>
-            <td><strong>GLD</strong><br><span style="font-size:11px; color:var(--text-muted);">Gold ETF</span></td>
-            <td>10%</td>
-            <td><span style="color:var(--accent-green); font-weight:600;">~0 (real asset)</span></td>
-            <td class="drawdown-ok">−$500 (−2%)</td>
-            <td class="drawdown-ok">−$1,000 (−4%)</td>
-            <td><span class="badge green">LOW</span></td>
-          </tr>
+          <tr><td class="td-ticker">SPY</td><td class="td-right">$75,000</td><td class="td-right">30%</td><td class="td-right">$75,000</td><td class="td-right">30%</td><td class="td-center"><span class="badge badge-yellow">Unchanged</span></td></tr>
+          <tr><td class="td-ticker">QQQ</td><td class="td-right">$50,000</td><td class="td-right">20%</td><td class="td-right">$25,000</td><td class="td-right">10%</td><td class="td-center"><span class="badge badge-red">↓ Reduce</span></td></tr>
+          <tr><td class="td-ticker">AAPL</td><td class="td-right">$25,000</td><td class="td-right">10%</td><td class="td-right">$12,500</td><td class="td-right">5%</td><td class="td-center"><span class="badge badge-red">↓ Reduce</span></td></tr>
+          <tr><td class="td-ticker">MSFT</td><td class="td-right">$25,000</td><td class="td-right">10%</td><td class="td-right">$12,500</td><td class="td-right">5%</td><td class="td-center"><span class="badge badge-red">↓ Reduce</span></td></tr>
+          <tr><td class="td-ticker">BRK.B</td><td class="td-right">$20,000</td><td class="td-right">8%</td><td class="td-right">$20,000</td><td class="td-right">8%</td><td class="td-center"><span class="badge badge-yellow">Unchanged</span></td></tr>
+          <tr><td class="td-ticker">VGK</td><td class="td-right">$17,500</td><td class="td-right">7%</td><td class="td-right">$12,500</td><td class="td-right">5%</td><td class="td-center"><span class="badge badge-red">↓ Reduce</span></td></tr>
+          <tr><td class="td-ticker">TLT</td><td class="td-right">$17,500</td><td class="td-right">7%</td><td class="td-right">$37,500</td><td class="td-right">15%</td><td class="td-center"><span class="badge badge-green">↑ Increase</span></td></tr>
+          <tr><td class="td-ticker">GLD</td><td class="td-right">$12,500</td><td class="td-right">5%</td><td class="td-right">$27,500</td><td class="td-right">11%</td><td class="td-center"><span class="badge badge-green">↑ Increase</span></td></tr>
+          <tr><td class="td-ticker">CMDTY/TIPS</td><td class="td-right">$0</td><td class="td-right">0%</td><td class="td-right">$5,000</td><td class="td-right">2%</td><td class="td-center"><span class="badge badge-green">↑ New</span></td></tr>
+          <tr><td class="td-ticker">CASH</td><td class="td-right">$7,500</td><td class="td-right">3%</td><td class="td-right">$22,500</td><td class="td-right">9%</td><td class="td-center"><span class="badge badge-green">↑ Increase</span></td></tr>
         </tbody>
       </table>
-    </div>
-    <p style="margin-top:16px;">TLT's effective duration of 17.5 years makes it the single most rate-sensitive position in the portfolio. A +2% parallel shift in the yield curve would erase approximately 35% of TLT's value, translating to a $13,125 portfolio loss from this position alone. This is particularly dangerous in an inflationary environment where equities and bonds fall simultaneously.</p>
-    <div class="danger-note"><strong>Rate Risk Warning:</strong> The portfolio's total rate sensitivity aggregates to approximately −$17,688 for a +1% rate shock (−7.1% portfolio impact). In a rapid rate-hiking cycle (similar to 2022: +4.25% in 12 months), estimated total portfolio loss from rate sensitivity alone is $45,000–$60,000.</div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════════════
-     05 — RECESSION STRESS TEST
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">05</span>
-    <span class="section-title">Recession Stress Test</span>
-    <span class="section-badge badge-high">Worst Case: −42% ($105,000)</span>
-  </div>
-  <div class="section-body">
-    <div class="three-col" style="margin-bottom:20px;">
-      <div class="metric-card">
-        <div class="metric-label">2008-Style Scenario</div>
-        <div class="metric-value red">−42%</div>
-        <div class="metric-delta">Est. loss: $105,000</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">COVID-Style Scenario</div>
-        <div class="metric-value red">−32%</div>
-        <div class="metric-delta">Est. loss: $80,000</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Stagflation Scenario</div>
-        <div class="metric-value red">−28%</div>
-        <div class="metric-delta">Est. loss: $70,000</div>
-      </div>
-    </div>
-
-    <div class="heatmap-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Holding</th>
-            <th>Value ($)</th>
-            <th>2008 Crisis<br><span style="font-weight:400; color:var(--text-muted);">Sept 08–Mar 09</span></th>
-            <th>COVID Crash<br><span style="font-weight:400; color:var(--text-muted);">Feb–Mar 2020</span></th>
-            <th>Stagflation<br><span style="font-weight:400; color:var(--text-muted);">2022 Analog</span></th>
-            <th>Tech Correction<br><span style="font-weight:400; color:var(--text-muted);">2000–2002 Analog</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>SPY</strong> (45%)</td>
-            <td>$112,500</td>
-            <td class="drawdown-neg">−38% &nbsp;(−$42,750)</td>
-            <td class="drawdown-neg">−34% &nbsp;(−$38,250)</td>
-            <td class="drawdown-mid">−19% &nbsp;(−$21,375)</td>
-            <td class="drawdown-neg">−48% &nbsp;(−$54,000)</td>
-          </tr>
-          <tr>
-            <td><strong>QQQ</strong> (25%)</td>
-            <td>$62,500</td>
-            <td class="drawdown-neg">−48% &nbsp;(−$30,000)</td>
-            <td class="drawdown-neg">−28% &nbsp;(−$17,500)</td>
-            <td class="drawdown-neg">−33% &nbsp;(−$20,625)</td>
-            <td class="drawdown-neg">−82% &nbsp;(−$51,250)</td>
-          </tr>
-          <tr>
-            <td><strong>TLT</strong> (15%)</td>
-            <td>$37,500</td>
-            <td class="drawdown-ok">+26% &nbsp;(+$9,750)</td>
-            <td class="drawdown-ok">+20% &nbsp;(+$7,500)</td>
-            <td class="drawdown-neg">−32% &nbsp;(−$12,000)</td>
-            <td class="drawdown-ok">+14% &nbsp;(+$5,250)</td>
-          </tr>
-          <tr>
-            <td><strong>GLD</strong> (10%)</td>
-            <td>$25,000</td>
-            <td class="drawdown-mid">+5% &nbsp;(+$1,250)</td>
-            <td class="drawdown-mid">+8% &nbsp;(+$2,000)</td>
-            <td class="drawdown-ok">+16% &nbsp;(+$4,000)</td>
-            <td class="drawdown-ok">+20% &nbsp;(+$5,000)</td>
-          </tr>
-          <tr>
-            <td><strong>ARKK</strong> (5%)</td>
-            <td>$12,500</td>
-            <td class="drawdown-neg">−72% &nbsp;(−$9,000)</td>
-            <td class="drawdown-neg">−45% &nbsp;(−$5,625)</td>
-            <td class="drawdown-neg">−76% &nbsp;(−$9,500)</td>
-            <td class="drawdown-neg">−90% &nbsp;(−$11,250)</td>
-          </tr>
-          <tr style="background:rgba(192,57,43,0.08); font-weight:600;">
-            <td><strong>TOTAL PORTFOLIO</strong></td>
-            <td><strong>$250,000</strong></td>
-            <td class="drawdown-neg"><strong>−42% &nbsp;(−$105,000)</strong></td>
-            <td class="drawdown-neg"><strong>−32% &nbsp;(−$80,000)</strong></td>
-            <td class="drawdown-neg"><strong>−28% &nbsp;(−$70,000)</strong></td>
-            <td class="drawdown-neg"><strong>−56% &nbsp;(−$140,000)</strong></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="info-note" style="margin-top:16px;"><strong>Scenario Note:</strong> The 2022 stagflation analog shows TLT and equities declining simultaneously — breaking the traditional "flight to safety" dynamic. This is the scenario most likely to undermine the portfolio's existing hedge structure. Note that GLD provides modest positive returns in 3 of 4 stress scenarios, validating its diversification value despite the small 10% allocation.</div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════════════
-     06 — LIQUIDITY RISK
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">06</span>
-    <span class="section-title">Liquidity Risk Assessment</span>
-    <span class="section-badge badge-medium">ARKK: High Liquidity Risk</span>
-  </div>
-  <div class="section-body">
-    <div class="heatmap-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Holding</th>
-            <th>Avg Daily Volume</th>
-            <th>AUM (ETF)</th>
-            <th>Bid/Ask Spread</th>
-            <th>Underlying Liquidity</th>
-            <th>ETF Liquidity</th>
-            <th>Overall Rating</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>SPY</strong></td>
-            <td>~85M shares/day</td>
-            <td>$520B+</td>
-            <td>$0.01</td>
-            <td><span class="badge green">EXCELLENT</span></td>
-            <td><span class="badge green">EXCELLENT</span></td>
-            <td><span class="badge green">EXCELLENT</span></td>
-          </tr>
-          <tr>
-            <td><strong>QQQ</strong></td>
-            <td>~52M shares/day</td>
-            <td>$220B+</td>
-            <td>$0.01</td>
-            <td><span class="badge green">EXCELLENT</span></td>
-            <td><span class="badge green">EXCELLENT</span></td>
-            <td><span class="badge green">EXCELLENT</span></td>
-          </tr>
-          <tr>
-            <td><strong>TLT</strong></td>
-            <td>~25M shares/day</td>
-            <td>$50B+</td>
-            <td>$0.01–0.02</td>
-            <td><span class="badge green">GOOD</span></td>
-            <td><span class="badge green">EXCELLENT</span></td>
-            <td><span class="badge green">EXCELLENT</span></td>
-          </tr>
-          <tr>
-            <td><strong>GLD</strong></td>
-            <td>~8M shares/day</td>
-            <td>$68B+</td>
-            <td>$0.02</td>
-            <td><span class="badge green">EXCELLENT</span></td>
-            <td><span class="badge green">EXCELLENT</span></td>
-            <td><span class="badge green">EXCELLENT</span></td>
-          </tr>
-          <tr>
-            <td><strong>ARKK</strong></td>
-            <td>~9M shares/day</td>
-            <td>$7B</td>
-            <td>$0.05–0.10</td>
-            <td><span class="badge red">POOR</span></td>
-            <td><span class="badge yellow">MODERATE</span></td>
-            <td><span class="badge red">HIGH RISK</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="margin-top:16px;">SPY, QQQ, TLT, and GLD are among the most liquid ETFs in the world. The $250,000 position across these holdings could be fully liquidated within minutes during normal market conditions without meaningful market impact. <strong>ARKK is the notable exception.</strong></p>
-    <p style="margin-top:8px;">ARKK holds a portfolio of small-to-mid cap innovation stocks, many of which trade fewer than 500,000 shares per day. The ETF itself is liquid, but the <em>creation/redemption mechanism</em> depends on underlying stock liquidity. In a market stress event, ARKK's discount to NAV can widen to 2–5%, and forced selling could amplify losses. Cathie Wood's ARKK experienced this dynamic in 2022, when the fund declined 75% and daily redemptions exceeded $200M.</p>
-    <div class="danger-note"><strong>ARKK Liquidity Risk:</strong> During high-redemption periods, ARKK is forced to sell its least liquid holdings at depressed prices, creating a negative feedback loop. While your position ($12,500) is small relative to daily ARKK volume, the risk lies in the underlying illiquidity of holdings like TDOC, COIN, ROKU, and CRISPR.</div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════════════
-     07 — SINGLE STOCK RISK
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">07</span>
-    <span class="section-title">Single Stock &amp; Concentration Risk</span>
-    <span class="section-badge badge-medium">Indirect Concentration via ETFs</span>
-  </div>
-  <div class="section-body">
-    <div class="two-col">
-      <div>
-        <div class="sub-card">
-          <div class="sub-card-title">Implied Single-Stock Exposure (Top 10)</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Company</th>
-                <th>Via ETF(s)</th>
-                <th>Effective Wt.</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Apple (AAPL)</td>
-                <td>SPY + QQQ</td>
-                <td style="font-weight:600; color:var(--accent-yellow);">8.4%</td>
-              </tr>
-              <tr>
-                <td>NVIDIA (NVDA)</td>
-                <td>SPY + QQQ</td>
-                <td style="font-weight:600; color:var(--accent-yellow);">7.9%</td>
-              </tr>
-              <tr>
-                <td>Microsoft (MSFT)</td>
-                <td>SPY + QQQ</td>
-                <td style="font-weight:600; color:var(--accent-yellow);">7.1%</td>
-              </tr>
-              <tr>
-                <td>Amazon (AMZN)</td>
-                <td>SPY + QQQ</td>
-                <td style="font-weight:600;">5.2%</td>
-              </tr>
-              <tr>
-                <td>Meta (META)</td>
-                <td>SPY + QQQ</td>
-                <td style="font-weight:600;">4.8%</td>
-              </tr>
-              <tr>
-                <td>Tesla (TSLA)</td>
-                <td>SPY + QQQ + ARKK</td>
-                <td style="font-weight:600;">3.6%</td>
-              </tr>
-              <tr>
-                <td>Alphabet (GOOGL)</td>
-                <td>SPY + QQQ</td>
-                <td style="font-weight:600;">3.4%</td>
-              </tr>
-              <tr>
-                <td>Coinbase (COIN)</td>
-                <td>ARKK</td>
-                <td style="font-weight:600; color:var(--accent-red);">0.8%</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="mt12 two-col" style="gap:12px;">
+        <div class="alert alert-red" style="margin-bottom:0;">
+          <strong>Before: Equity exposure</strong>
+          85% (incl. tech singles). Estimated recession drawdown: −21 to −32%. Risk parity score: 23/100.
         </div>
-      </div>
-      <div>
-        <div class="sub-card">
-          <div class="sub-card-title">ARKK Top Holdings — Speculative Concentration</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Holding</th>
-                <th>ARKK Wt.</th>
-                <th>Beta</th>
-                <th>Segment</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Tesla (TSLA)</td>
-                <td>8.2%</td>
-                <td style="color:var(--accent-red); font-weight:600;">2.1</td>
-                <td>EV / Energy</td>
-              </tr>
-              <tr>
-                <td>Coinbase (COIN)</td>
-                <td>7.4%</td>
-                <td style="color:var(--accent-red); font-weight:600;">3.2</td>
-                <td>Crypto</td>
-              </tr>
-              <tr>
-                <td>Roku (ROKU)</td>
-                <td>6.8%</td>
-                <td style="color:var(--accent-red); font-weight:600;">2.6</td>
-                <td>Streaming</td>
-              </tr>
-              <tr>
-                <td>UiPath (PATH)</td>
-                <td>6.1%</td>
-                <td style="color:var(--accent-yellow); font-weight:600;">1.9</td>
-                <td>AI/RPA</td>
-              </tr>
-              <tr>
-                <td>CRISPR Ther.</td>
-                <td>5.8%</td>
-                <td style="color:var(--accent-red); font-weight:600;">2.4</td>
-                <td>Genomics</td>
-              </tr>
-            </tbody>
-          </table>
-          <div style="margin-top:10px; font-size:11px; color:var(--text-muted);">ARKK avg portfolio beta: ~2.1x market</div>
+        <div class="alert alert-green" style="margin-bottom:0;">
+          <strong>After: Equity exposure</strong>
+          58% (incl. tech singles). Estimated recession drawdown: −12 to −18%. Risk parity score: ~55/100.
         </div>
       </div>
     </div>
-    <p style="margin-top:16px;">The portfolio has no direct single-stock positions, which eliminates single-issuer default risk. However, the ETF structure creates significant <em>implied single-stock concentration</em>. The top three holdings — AAPL, NVDA, and MSFT — together represent approximately 23.4% of the portfolio on an effective basis. If any of these mega-cap names face a significant negative event (regulatory action, earnings miss, product failure), the portfolio will feel outsized pain.</p>
-    <div class="warn-note"><strong>ARKK Speculative Risk:</strong> The 5% ARKK allocation effectively provides exposure to highly speculative, pre-profitability companies with average betas exceeding 2.0. In the 2021–2022 period, ARKK's underlying holdings declined 60–90% peak to trough. At $12,500, maximum loss on this position in a worst-case scenario is essentially the full amount.</div>
   </div>
-</div>
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     08 — TAIL RISK SCENARIOS
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">08</span>
-    <span class="section-title">Tail Risk Scenarios &amp; Probability Modeling</span>
-    <span class="section-badge badge-high">Black Swan: −55%</span>
-  </div>
-  <div class="section-body">
-    <div class="heatmap-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Scenario</th>
-            <th>Trigger / Description</th>
-            <th>Portfolio Drawdown</th>
-            <th>Dollar Loss</th>
-            <th>Probability (5yr)</th>
-            <th>Recovery Time Est.</th>
-            <th>Severity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Black Swan Event</strong></td>
-            <td style="font-size:12px; color:var(--text-muted);">Systemic financial crisis, geopolitical shock, or pandemic-scale disruption</td>
-            <td class="drawdown-neg">−55%</td>
-            <td class="drawdown-neg">−$137,500</td>
-            <td>
-              <div class="prob-bar">
-                <div class="prob-track"><div class="prob-fill" style="width:20%"></div></div>
-                <span style="font-size:12px; color:var(--text-primary);">2%</span>
-              </div>
-            </td>
-            <td style="font-size:12px; color:var(--text-secondary);">5–8 years</td>
-            <td><span class="badge red">EXTREME</span></td>
-          </tr>
-          <tr>
-            <td><strong>Severe Recession</strong></td>
-            <td style="font-size:12px; color:var(--text-muted);">Deep recession, credit crunch, 2008-caliber financial system stress</td>
-            <td class="drawdown-neg">−42%</td>
-            <td class="drawdown-neg">−$105,000</td>
-            <td>
-              <div class="prob-bar">
-                <div class="prob-track"><div class="prob-fill" style="width:80%"></div></div>
-                <span style="font-size:12px; color:var(--text-primary);">8%</span>
-              </div>
-            </td>
-            <td style="font-size:12px; color:var(--text-secondary);">3–5 years</td>
-            <td><span class="badge red">HIGH</span></td>
-          </tr>
-          <tr>
-            <td><strong>Rate Spike Shock</strong></td>
-            <td style="font-size:12px; color:var(--text-muted);">Fed forced to hike rates aggressively (+300bps in 12 months due to inflation)</td>
-            <td class="drawdown-neg">−25%</td>
-            <td class="drawdown-neg">−$62,500</td>
-            <td>
-              <div class="prob-bar">
-                <div class="prob-track"><div class="prob-fill" style="width:100%; background:var(--accent-yellow);"></div></div>
-                <span style="font-size:12px; color:var(--text-primary);">15%</span>
-              </div>
-            </td>
-            <td style="font-size:12px; color:var(--text-secondary);">2–3 years</td>
-            <td><span class="badge yellow">ELEVATED</span></td>
-          </tr>
-          <tr>
-            <td><strong>Tech Sector Correction</strong></td>
-            <td style="font-size:12px; color:var(--text-muted);">AI/tech valuation reset, antitrust breakup of mega-caps, or sector rotation</td>
-            <td class="drawdown-neg">−35%</td>
-            <td class="drawdown-neg">−$87,500</td>
-            <td>
-              <div class="prob-bar">
-                <div class="prob-track"><div class="prob-fill" style="width:100%; background:var(--accent-yellow);"></div></div>
-                <span style="font-size:12px; color:var(--text-primary);">20%</span>
-              </div>
-            </td>
-            <td style="font-size:12px; color:var(--text-secondary);">2–4 years</td>
-            <td><span class="badge yellow">ELEVATED</span></td>
-          </tr>
-          <tr>
-            <td><strong>Stagflation</strong></td>
-            <td style="font-size:12px; color:var(--text-muted);">Persistent inflation + stagnant growth. Both bonds and equities fall simultaneously</td>
-            <td class="drawdown-mid">−28%</td>
-            <td class="drawdown-neg">−$70,000</td>
-            <td>
-              <div class="prob-bar">
-                <div class="prob-track"><div class="prob-fill" style="width:100%; background:var(--accent-yellow);"></div></div>
-                <span style="font-size:12px; color:var(--text-primary);">12%</span>
-              </div>
-            </td>
-            <td style="font-size:12px; color:var(--text-secondary);">3–5 years</td>
-            <td><span class="badge yellow">MEDIUM</span></td>
-          </tr>
-          <tr>
-            <td><strong>Mild Correction</strong></td>
-            <td style="font-size:12px; color:var(--text-muted);">Standard bear market pullback (−20% in S&amp;P 500) without systemic event</td>
-            <td class="drawdown-mid">−18%</td>
-            <td class="drawdown-mid">−$45,000</td>
-            <td>
-              <div class="prob-bar">
-                <div class="prob-track"><div class="prob-fill" style="width:100%; background:var(--accent-green);"></div></div>
-                <span style="font-size:12px; color:var(--text-primary);">35%</span>
-              </div>
-            </td>
-            <td style="font-size:12px; color:var(--text-secondary);">12–18 months</td>
-            <td><span class="badge yellow">MEDIUM</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="danger-note" style="margin-top:16px;"><strong>Key Insight:</strong> The combined probability of a &gt;25% drawdown event within a 5-year horizon is approximately 57%. This portfolio, in its current form, has nearly a 1-in-2 chance of losing more than $62,500 at some point in the next five years. Bridgewater's framework explicitly targets portfolio structures that can survive all macroeconomic regimes — this portfolio fails that test in 3 of 5 major scenarios modeled.</div>
-  </div>
-</div>
+  <!-- ─── REPORT METADATA FOOTER ─────────────────────────────────────── -->
+  <div class="report-footer">
+    <div class="footer-title">Report Metadata &amp; Data Sources</div>
+    <div class="footer-grid">
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     09 — HEDGING STRATEGIES
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">09</span>
-    <span class="section-title">Hedging Strategies</span>
-    <span class="section-badge badge-info">3 Priority Hedges Identified</span>
-  </div>
-  <div class="section-body">
-    <div class="rec-list">
-      <div class="rec-item">
-        <div class="rec-icon hedge">🛡️</div>
-        <div class="rec-content">
-          <div class="rec-action">Priority Hedge #1 — QQQ Put Options (Equity Tail Hedge)</div>
-          <div class="rec-detail">Purchase 6-month, 10% out-of-the-money put options on QQQ. Suggested strike: $400 (current ~$445). Cost: approximately 1.8–2.2% of QQQ position annually (~$1,125–$1,375/yr). This provides a payoff in excess of 5x the premium in a &gt;25% QQQ decline. Execute as a rolling quarterly strategy for continuous protection. This directly addresses the largest risk in the portfolio: concentrated tech equity drawdown.</div>
-        </div>
-        <div class="rec-change">
-          <span class="rec-from">Annual cost</span>
-          <span class="rec-arrow">→</span>
-          <span class="rec-to green">~$1,250/yr</span>
-        </div>
+      <div class="footer-block">
+        <h4>Report Information</h4>
+        <ul>
+          <li>Generated: March 17, 2026 — live session</li>
+          <li>Live Data Date: March 17, 2026</li>
+          <li>Skill Version: bridgewater-risk-analysis v1.1</li>
+          <li>Framework: All-Weather + Pure Alpha</li>
+          <li>Est. Generation Time: ~45 seconds</li>
+          <li>Est. Token Usage: ~12,000 tokens</li>
+          <li>Model: Claude Sonnet 4.6</li>
+        </ul>
       </div>
-      <div class="rec-item">
-        <div class="rec-icon hedge">🛡️</div>
-        <div class="rec-content">
-          <div class="rec-action">Priority Hedge #2 — Rotate TLT to TIPS (SCHP or VTIP)</div>
-          <div class="rec-detail">Replace TLT (nominal duration 17.5yr) with a blended TIPS ETF (e.g., 50% SCHP + 50% VTIP). This reduces interest rate risk while retaining the equity-diversification benefit of government bonds, and adds inflation protection. TIPS gain value in real terms when inflation rises — the exact regime in which TLT fails. Effective duration drops from 17.5 years to ~7 years. Eliminates the biggest rate-risk vulnerability at zero cost.</div>
-        </div>
-        <div class="rec-change">
-          <span class="rec-from">TLT 15%</span>
-          <span class="rec-arrow">→</span>
-          <span class="rec-to green">TIPS 15%</span>
-        </div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-icon hedge">🛡️</div>
-        <div class="rec-content">
-          <div class="rec-action">Priority Hedge #3 — Increase Commodity Exposure via DJP or DBC</div>
-          <div class="rec-detail">Add a 5–8% allocation to a broad commodity basket ETF (DBC or DJP). Commodities (energy, agriculture, metals) have near-zero or negative correlation to equities and bonds in stagflation environments, and perform well during supply-shock inflation episodes. This allocation would be funded by trimming ARKK and a portion of QQQ. Cost of carry is low given the ETF structure uses futures roll management.</div>
-        </div>
-        <div class="rec-change">
-          <span class="rec-from">0% commodities</span>
-          <span class="rec-arrow">→</span>
-          <span class="rec-to green">5–8% DBC/DJP</span>
-        </div>
-      </div>
-    </div>
-    <div class="info-note" style="margin-top:0;">
-      <strong>Hedging Note:</strong> Hedging carries a cost. The put-options strategy (~$1,250/year) acts as an insurance premium. In years where QQQ rises, you sacrifice this amount in exchange for catastrophic loss protection. Bridgewater's framework recommends treating hedges as portfolio "insurance" costs rather than drag — the true cost is only meaningful if you never need them.
-    </div>
-  </div>
-</div>
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     10 — REBALANCING RECOMMENDATIONS
-════════════════════════════════════════════════════════════════════ -->
-<div class="section-card">
-  <div class="section-header">
-    <span class="section-number">10</span>
-    <span class="section-title">Rebalancing Recommendations</span>
-    <span class="section-badge badge-info">Target: Reduce Risk Score to ~4.5</span>
-  </div>
-  <div class="section-body">
-    <div class="two-col" style="margin-bottom:20px;">
-      <div class="sub-card">
-        <div class="sub-card-title">Current Allocation</div>
-        <div class="progress-row">
-          <div class="progress-label">SPY (S&amp;P 500)</div>
-          <div class="progress-track"><div class="progress-fill red" style="width:45%"></div></div>
-          <div class="progress-pct">45%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">QQQ (Nasdaq)</div>
-          <div class="progress-track"><div class="progress-fill red" style="width:25%"></div></div>
-          <div class="progress-pct">25%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">TLT (LT Bonds)</div>
-          <div class="progress-track"><div class="progress-fill yellow" style="width:15%"></div></div>
-          <div class="progress-pct">15%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">GLD (Gold)</div>
-          <div class="progress-track"><div class="progress-fill blue" style="width:10%"></div></div>
-          <div class="progress-pct">10%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">ARKK (Innovation)</div>
-          <div class="progress-track"><div class="progress-fill red" style="width:5%"></div></div>
-          <div class="progress-pct">5%</div>
-        </div>
-        <div style="font-size:11px; color:var(--text-muted); margin-top:8px;">Risk Score: 7.2 / 10 (HIGH)</div>
+      <div class="footer-block">
+        <h4>Search Queries Executed</h4>
+        <ul>
+          <li>Federal Reserve funds rate current 2026</li>
+          <li>VIX volatility index current level March 2026</li>
+          <li>US 10-year Treasury yield today March 2026</li>
+          <li>S&amp;P 500 current price YTD performance March 2026</li>
+          <li>SPY QQQ current price 52-week range March 2026</li>
+          <li>AAPL MSFT BRK.B current stock price March 2026</li>
+          <li>VGK TLT GLD current price 52-week range March 2026</li>
+          <li>US CPI inflation rate latest 2026</li>
+          <li>US GDP growth rate latest quarter 2026</li>
+        </ul>
       </div>
-      <div class="sub-card">
-        <div class="sub-card-title">Recommended Allocation</div>
-        <div class="progress-row">
-          <div class="progress-label">SPY (S&amp;P 500)</div>
-          <div class="progress-track"><div class="progress-fill green" style="width:35%"></div></div>
-          <div class="progress-pct">35%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">QQQ (Nasdaq)</div>
-          <div class="progress-track"><div class="progress-fill yellow" style="width:15%"></div></div>
-          <div class="progress-pct">15%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">TLT → TIPS</div>
-          <div class="progress-track"><div class="progress-fill blue" style="width:20%"></div></div>
-          <div class="progress-pct">20%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">GLD (Gold)</div>
-          <div class="progress-track"><div class="progress-fill blue" style="width:13%"></div></div>
-          <div class="progress-pct">13%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">VTV (Value)</div>
-          <div class="progress-track"><div class="progress-fill green" style="width:10%"></div></div>
-          <div class="progress-pct">10%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">DBC (Commodities)</div>
-          <div class="progress-track"><div class="progress-fill green" style="width:5%"></div></div>
-          <div class="progress-pct">5%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">ARKK (Innovation)</div>
-          <div class="progress-track"><div class="progress-fill yellow" style="width:2%"></div></div>
-          <div class="progress-pct">2%</div>
-        </div>
-        <div style="font-size:11px; color:var(--accent-green); margin-top:8px;">Target Risk Score: ~4.5 / 10 (MEDIUM)</div>
+
+      <div class="footer-block">
+        <h4>Live Data Values Retrieved</h4>
+        <ul>
+          <li>Fed Funds: 3.50–3.75% (eff. 3.64%)</li>
+          <li>VIX: 27.19 (open 27.85, prev close 23.51)</li>
+          <li>10-Yr Yield: 4.24% (range 4.21–4.27%)</li>
+          <li>S&amp;P 500: 6,632 | YTD: −1.3%</li>
+          <li>SPY: $669.30 | 52wk: $481.80–$697.84</li>
+          <li>QQQ: $600.28 | 52wk: $402.39–$637.01</li>
+          <li>AAPL: $252.00 | range ~$167–$260</li>
+          <li>MSFT: $399.95 | range ~$335–$468</li>
+          <li>BRK.B: $492.10 | range ~$390–$530</li>
+          <li>VGK: $82.16 | 52wk: $62.02–$90.75</li>
+          <li>TLT: $87.23 | 52wk: $83.30–$94.09</li>
+          <li>GLD: $460.43 | 52wk: $272.58–$509.70</li>
+          <li>CPI: 2.4% YoY (Feb 2026); Core: 2.5%</li>
+          <li>GDP Q4 2025: 0.7% (2nd estimate)</li>
+          <li>GDPNow Q1 2026 est: 2.7%</li>
+        </ul>
       </div>
+
+      <div class="footer-block">
+        <h4>Key Sources</h4>
+        <ul>
+          <li>federalreserve.gov — Fed rate data</li>
+          <li>fred.stlouisfed.org — FEDFUNDS, VIX, DGS10</li>
+          <li>bls.gov — CPI Feb 2026 release</li>
+          <li>bea.gov — GDP Q4 2025 2nd estimate</li>
+          <li>atlantafed.org — GDPNow Q1 2026</li>
+          <li>home.treasury.gov — Daily Treasury rates</li>
+          <li>financialcontent.com — VIX surge Mar 11</li>
+          <li>cnbc.com — CPI Feb 2026 breakdown</li>
+          <li>tradingeconomics.com — macro indicators</li>
+          <li>investing.com — ETF pricing data</li>
+          <li>cnn.com/business — GDP revision Mar 13</li>
+          <li>stockanalysis.com — BRK.B pricing</li>
+        </ul>
+      </div>
+
     </div>
 
-    <div class="rec-list">
-      <div class="rec-item">
-        <div class="rec-icon sell">📉</div>
-        <div class="rec-content">
-          <div class="rec-action">REDUCE QQQ — Cut tech-growth overweight</div>
-          <div class="rec-detail">Reduce QQQ from 25% to 15% ($25,000 in proceeds). QQQ's high correlation to SPY (0.87) provides limited diversification value at this weight. The reduction directly lowers tech-sector concentration from 64% to approximately 48% and reduces SPY/QQQ combined drawdown sensitivity in a risk-off event. Use proceeds to fund VTV and DBC additions.</div>
-        </div>
-        <div class="rec-change">
-          <span class="rec-from">25%</span>
-          <span class="rec-arrow">→</span>
-          <span class="rec-to red">15%</span>
-        </div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-icon buy">📈</div>
-        <div class="rec-content">
-          <div class="rec-action">ADD VTV — Introduce Value Factor Exposure</div>
-          <div class="rec-detail">Allocate 10% to VTV (Vanguard Value ETF). Value stocks have historically low correlation to growth/tech in regime shifts, and provide exposure to financials, energy, and industrials — sectors underrepresented in SPY/QQQ. VTV carries a P/E of ~16x vs QQQ at ~32x, providing downside valuation support. This meaningfully reduces factor concentration risk.</div>
-        </div>
-        <div class="rec-change">
-          <span class="rec-from">0%</span>
-          <span class="rec-arrow">→</span>
-          <span class="rec-to green">10%</span>
-        </div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-icon buy">📈</div>
-        <div class="rec-content">
-          <div class="rec-action">INCREASE TLT → TIPS — Rotate to inflation-protected bonds</div>
-          <div class="rec-detail">Increase bond allocation from 15% to 20%, but pivot from nominal duration (TLT) to TIPS (SCHP + VTIP blend). This retains the equity-diversification role of fixed income while eliminating the catastrophic inflation sensitivity. In a 2022-analog stagflation, this change alone would have saved approximately $12,000 in losses.</div>
-        </div>
-        <div class="rec-change">
-          <span class="rec-from">TLT 15%</span>
-          <span class="rec-arrow">→</span>
-          <span class="rec-to green">TIPS 20%</span>
-        </div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-icon sell">📉</div>
-        <div class="rec-content">
-          <div class="rec-action">REDUCE ARKK — Trim speculative position</div>
-          <div class="rec-detail">Reduce ARKK from 5% to 2% ($7,500 reduction). The remaining 2% maintains exposure to high-growth innovation themes without creating meaningful tail-risk drag on the portfolio. Use the $7,500 to fund the DBC commodity addition (5%). This trade simultaneously reduces tail risk and adds an inflation hedge with historically favorable diversification properties.</div>
-        </div>
-        <div class="rec-change">
-          <span class="rec-from">5%</span>
-          <span class="rec-arrow">→</span>
-          <span class="rec-to red">2%</span>
-        </div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-icon buy">📈</div>
-        <div class="rec-content">
-          <div class="rec-action">ADD DBC — Commodity Basket for Inflation Hedge</div>
-          <div class="rec-detail">Allocate 5% ($12,500) to DBC (Invesco DB Commodity Index). Commodities perform in inflationary regimes where both equities and bonds struggle, making DBC an orthogonal diversifier in the portfolio's least-hedged scenario (stagflation). The 5% position is small enough to be low-cost but meaningful enough to provide regime diversification across all four macro quadrants.</div>
-        </div>
-        <div class="rec-change">
-          <span class="rec-from">0%</span>
-          <span class="rec-arrow">→</span>
-          <span class="rec-to green">5%</span>
-        </div>
-      </div>
-    </div>
+    <hr class="footer-divider" />
 
-    <hr class="divider" />
-
-    <div class="sub-card">
-      <div class="sub-card-title">Expected Risk Reduction After Rebalancing</div>
-      <table>
-        <thead>
-          <tr>
-            <th>Risk Metric</th>
-            <th>Current</th>
-            <th>Post-Rebalance</th>
-            <th>Improvement</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Overall Risk Score</td>
-            <td style="color:var(--accent-red); font-weight:700;">7.2 / 10 (HIGH)</td>
-            <td style="color:var(--accent-yellow); font-weight:700;">4.5 / 10 (MEDIUM)</td>
-            <td style="color:var(--accent-green); font-weight:600;">−37.5%</td>
-          </tr>
-          <tr>
-            <td>Technology Concentration</td>
-            <td style="color:var(--accent-red); font-weight:700;">64%</td>
-            <td style="color:var(--accent-yellow); font-weight:700;">42%</td>
-            <td style="color:var(--accent-green); font-weight:600;">−22 pts</td>
-          </tr>
-          <tr>
-            <td>2008-Style Drawdown</td>
-            <td style="color:var(--accent-red); font-weight:700;">−42% ($105,000)</td>
-            <td style="color:var(--accent-yellow); font-weight:700;">−28% ($70,000)</td>
-            <td style="color:var(--accent-green); font-weight:600;">+$35,000 saved</td>
-          </tr>
-          <tr>
-            <td>Stagflation Drawdown</td>
-            <td style="color:var(--accent-red); font-weight:700;">−28% ($70,000)</td>
-            <td style="color:var(--accent-yellow); font-weight:700;">−14% ($35,000)</td>
-            <td style="color:var(--accent-green); font-weight:600;">+$35,000 saved</td>
-          </tr>
-          <tr>
-            <td>Rate Sensitivity (+1%)</td>
-            <td style="color:var(--accent-red); font-weight:700;">−$17,688</td>
-            <td style="color:var(--accent-green); font-weight:700;">−$8,500</td>
-            <td style="color:var(--accent-green); font-weight:600;">−52% reduction</td>
-          </tr>
-          <tr>
-            <td>Effective Diversifiers</td>
-            <td style="color:var(--accent-red); font-weight:700;">2 of 5 holdings</td>
-            <td style="color:var(--accent-green); font-weight:700;">4 of 7 holdings</td>
-            <td style="color:var(--accent-green); font-weight:600;">+2 diversifiers</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="footer-bottom">
+      <span>bridgewater-risk-analysis v1.1 &nbsp;|&nbsp; Generated March 17, 2026 &nbsp;|&nbsp; Powered by Claude Sonnet 4.6</span>
+      <span style="color:var(--accent-red);font-size:10px;">DISCLAIMER: This report is for informational and educational purposes only. It does not constitute financial advice. Always consult a licensed financial advisor before making investment decisions. Past performance does not guarantee future results.</span>
     </div>
   </div>
-</div>
 
-</div><!-- end page-wrapper -->
-
-<!-- ═══════════════════════════════════════════════════════════════════
-     FOOTER
-════════════════════════════════════════════════════════════════════ -->
-<div class="report-footer">
-  <div class="page-wrapper" style="padding-bottom:0; padding-top:0;">
-    <div class="footer-top">
-      <div>
-        <div class="footer-confidential">Confidential — For Authorized Recipients Only</div>
-        <div class="footer-generated">Generated: March 17, 2026 &nbsp;|&nbsp; Model Version: BW-RA-2026.1 &nbsp;|&nbsp; Report ID: RPT-2026-0317-BW-001</div>
-      </div>
-      <div style="text-align:right;">
-        <div style="font-size:13px; font-weight:600; color:var(--text-secondary);">Bridgewater Associates</div>
-        <div style="font-size:12px; color:var(--text-muted);">1 Glendinning Place, Westport, CT 06880</div>
-      </div>
-    </div>
-    <div class="footer-body">
-      <p style="color:var(--text-muted); font-size:11px; margin-bottom:6px;"><strong style="color:var(--text-secondary);">Important Disclosures:</strong> This report was generated by an AI-powered risk analysis framework inspired by Bridgewater Associates' published research, publicly available investment principles, and Ray Dalio's All Weather Portfolio methodology. This report does not constitute investment advice, a recommendation to buy or sell any security, or an offer or solicitation to invest. This framework is not affiliated with, endorsed by, or sponsored by Bridgewater Associates, LP. Bridgewater Associates is a registered trademark of Bridgewater Associates, LP. All portfolio risk estimates, scenario projections, correlation figures, and drawdown estimates are model-generated and subject to significant uncertainty. Past performance and historical correlations do not guarantee future results. Risk models are simplified representations of complex market dynamics and may fail to capture tail events, regime changes, or non-linear market behaviors. All figures are for illustrative purposes only.</p>
-      <p style="color:var(--text-muted); font-size:11px; margin-top:6px;"><strong style="color:var(--text-secondary);">Model Assumptions:</strong> Correlations based on 36-month rolling estimates using ETF price history. Drawdown estimates calibrated against historical analogues. Duration estimates for equity positions reflect aggregate cash flow duration approximations. Scenario probabilities are qualitative estimates derived from Bridgewater-style macro analysis and should not be treated as precise statistical forecasts. Rebalancing recommendations do not account for transaction costs, taxes, or individual investor circumstances.</p>
-    </div>
-  </div>
-</div>
-
+</div><!-- /page-wrapper -->
 </body>
 </html>

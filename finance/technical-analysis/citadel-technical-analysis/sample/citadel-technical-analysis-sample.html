@@ -3,1494 +3,1410 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CITADEL SECURITIES | AAPL Technical Analysis Report</title>
+  <title>CITADEL QUANT | AAPL Technical Analysis — March 17, 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ─── RESET & BASE ─────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:         #0d0d0d;
-      --bg2:        #111111;
-      --bg3:        #161616;
-      --bg4:        #1a1a1a;
-      --border:     #2a2a2a;
-      --border2:    #333333;
-      --green:      #00ff88;
-      --green-dim:  #00cc6a;
-      --green-bg:   rgba(0,255,136,.08);
-      --red:        #ff4444;
-      --red-dim:    #cc3333;
-      --red-bg:     rgba(255,68,68,.08);
-      --yellow:     #ffd700;
-      --yellow-dim: #ccac00;
-      --yellow-bg:  rgba(255,215,0,.08);
-      --blue:       #4d9fff;
-      --blue-bg:    rgba(77,159,255,.08);
-      --text:       #e8e8e8;
-      --text-dim:   #888888;
-      --text-muted: #555555;
-      --mono:       'JetBrains Mono', monospace;
-      --sans:       'Inter', sans-serif;
+      --bg:          #0d0d1a;
+      --bg2:         #111124;
+      --bg3:         #161630;
+      --bg4:         #1a1a38;
+      --border:      #1e2040;
+      --border2:     #2a2d55;
+      --blue:        #3b82f6;
+      --blue-dim:    #2563eb;
+      --blue-glow:   rgba(59,130,246,.18);
+      --blue-bg:     rgba(59,130,246,.08);
+      --green:       #10b981;
+      --green-bg:    rgba(16,185,129,.09);
+      --red:         #ef4444;
+      --red-bg:      rgba(239,68,68,.09);
+      --yellow:      #f59e0b;
+      --yellow-bg:   rgba(245,158,11,.09);
+      --cyan:        #06b6d4;
+      --purple:      #8b5cf6;
+      --text:        #e2e8f0;
+      --text-dim:    #94a3b8;
+      --text-muted:  #4b5563;
+      --mono:        'JetBrains Mono', monospace;
+      --sans:        'Inter', sans-serif;
     }
 
     html { font-size: 14px; background: var(--bg); color: var(--text); font-family: var(--sans); }
-    body { min-height: 100vh; padding: 0; }
+    body { min-height: 100vh; }
 
-    /* ─── SCANLINES OVERLAY ─────────────────────────────────────────────── */
+    /* Scanline overlay */
     body::before {
       content: '';
       position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.04) 2px, rgba(0,0,0,.04) 4px);
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
     }
 
-    /* ─── LAYOUT ─────────────────────────────────────────────────────────── */
-    .page { max-width: 1200px; margin: 0 auto; padding: 24px 24px 48px; }
+    .page { max-width: 1280px; margin: 0 auto; padding: 28px 28px 64px; }
 
-    /* ─── TYPOGRAPHY UTILITIES ───────────────────────────────────────────── */
-    .mono { font-family: var(--mono); }
-    .green { color: var(--green); }
-    .red   { color: var(--red); }
-    .yellow{ color: var(--yellow); }
-    .blue  { color: var(--blue); }
-    .dim   { color: var(--text-dim); }
-    .muted { color: var(--text-muted); }
-    .bold  { font-weight: 700; }
-    .label { font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); font-family: var(--mono); }
-
-    /* ─── HEADER ─────────────────────────────────────────────────────────── */
-    .site-header {
-      display: flex; align-items: center; justify-content: space-between;
+    /* ── HEADER ── */
+    .header {
       border-bottom: 1px solid var(--border2);
-      padding-bottom: 16px; margin-bottom: 24px;
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 16px; flex-wrap: wrap;
     }
-    .logo-block { display: flex; flex-direction: column; gap: 2px; }
-    .logo-firm {
-      font-family: var(--mono); font-size: 1rem; font-weight: 700;
-      letter-spacing: .18em; color: var(--green);
-      text-shadow: 0 0 12px rgba(0,255,136,.4);
+    .header-left {}
+    .firm-badge {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+      color: var(--blue); text-transform: uppercase; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
     }
-    .logo-divider {
-      width: 100%; height: 1px;
-      background: linear-gradient(90deg, var(--green), transparent);
-      margin: 3px 0;
+    .firm-badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--blue); box-shadow: 0 0 8px var(--blue); display: block;
     }
-    .logo-sub {
-      font-family: var(--mono); font-size: .65rem; letter-spacing: .25em;
-      color: var(--text-dim); text-transform: uppercase;
+    .report-title {
+      font-size: 28px; font-weight: 800; letter-spacing: -0.5px;
+      color: var(--text); line-height: 1.1;
     }
-    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-    .report-type {
-      font-family: var(--mono); font-size: .7rem; letter-spacing: .2em;
-      color: var(--text-dim); text-transform: uppercase;
+    .report-title span { color: var(--blue); }
+    .report-subtitle {
+      font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+      margin-top: 6px; letter-spacing: 1px;
     }
-    .report-date {
-      font-family: var(--mono); font-size: .65rem; color: var(--text-muted);
+    .header-right { text-align: right; }
+    .live-price-box {
+      background: var(--blue-bg); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 14px 20px; text-align: right;
+      position: relative; overflow: hidden;
     }
-    .classification {
-      font-family: var(--mono); font-size: .6rem; letter-spacing: .15em;
-      color: var(--yellow); border: 1px solid var(--yellow-dim);
-      padding: 2px 8px; border-radius: 2px;
-      background: var(--yellow-bg);
+    .live-price-box::after {
+      content: 'LIVE'; position: absolute; top: 8px; right: 10px;
+      font-family: var(--mono); font-size: 8px; letter-spacing: 2px;
+      color: var(--green); background: var(--green-bg);
+      padding: 2px 6px; border-radius: 3px;
     }
+    .price-label { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 1px; margin-bottom: 4px; }
+    .price-value { font-family: var(--mono); font-size: 32px; font-weight: 700; color: var(--green); }
+    .price-change { font-family: var(--mono); font-size: 12px; color: var(--green); margin-top: 2px; }
+    .price-range-label { font-family: var(--mono); font-size: 10px; color: var(--text-dim); margin-top: 6px; }
 
-    /* ─── REPORT CARD HEADER ─────────────────────────────────────────────── */
-    .report-card-header {
-      background: var(--bg2);
-      border: 1px solid var(--border2);
-      border-top: 2px solid var(--green);
-      border-radius: 4px;
-      padding: 24px 28px;
-      margin-bottom: 20px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 24px;
-      align-items: start;
-    }
-    .ticker-block { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
-    .ticker-symbol {
-      font-family: var(--mono); font-size: 2.6rem; font-weight: 700;
-      color: #ffffff; letter-spacing: .04em;
-    }
-    .ticker-name {
-      font-size: .85rem; color: var(--text-dim); align-self: center;
-    }
-    .ticker-price {
-      font-family: var(--mono); font-size: 2rem; font-weight: 600;
-      color: var(--green);
-    }
-    .ticker-meta {
-      display: flex; gap: 20px; margin-top: 8px; flex-wrap: wrap;
-    }
-    .meta-item { display: flex; flex-direction: column; gap: 2px; }
-    .meta-value {
-      font-family: var(--mono); font-size: .9rem; font-weight: 600; color: var(--text);
-    }
-    .score-bar-wrap { margin-top: 4px; }
-    .score-bar {
-      height: 4px; border-radius: 2px; background: var(--border2);
-      overflow: hidden; width: 120px;
-    }
-    .score-bar-fill {
-      height: 100%; border-radius: 2px;
-      background: linear-gradient(90deg, var(--green-dim), var(--green));
-    }
-
-    /* RATING BADGE */
-    .rating-block { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
-    .rating-badge {
-      font-family: var(--mono); font-size: 1.6rem; font-weight: 700;
-      padding: 10px 32px; border-radius: 4px; letter-spacing: .1em;
-      border: 2px solid var(--green);
-      color: var(--green);
-      background: var(--green-bg);
-      text-shadow: 0 0 20px rgba(0,255,136,.6);
-      box-shadow: 0 0 20px rgba(0,255,136,.12), inset 0 0 20px rgba(0,255,136,.04);
-    }
-    .timeframe-badge {
-      font-family: var(--mono); font-size: .7rem; letter-spacing: .1em;
-      padding: 4px 12px; border-radius: 2px;
-      border: 1px solid var(--border2);
-      color: var(--text-dim); background: var(--bg3);
-    }
-    .confidence-row {
+    /* ── ALERT BANNER ── */
+    .alert-banner {
+      background: linear-gradient(90deg, rgba(245,158,11,.12), rgba(59,130,246,.06));
+      border: 1px solid rgba(245,158,11,.3);
+      border-radius: 6px; padding: 10px 16px; margin-bottom: 28px;
+      font-family: var(--mono); font-size: 11px; color: var(--yellow);
       display: flex; align-items: center; gap: 10px;
     }
-    .confidence-label { font-family: var(--mono); font-size: .65rem; color: var(--text-dim); letter-spacing: .1em; }
-    .confidence-value { font-family: var(--mono); font-size: .9rem; font-weight: 700; color: var(--green); }
-    .confidence-bar-outer { width: 80px; height: 6px; background: var(--border2); border-radius: 3px; overflow: hidden; }
-    .confidence-bar-inner { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--green-dim), var(--green)); }
+    .alert-banner strong { color: var(--yellow); }
 
-    /* ─── TRADE PLAN SUMMARY BOX ─────────────────────────────────────────── */
-    .trade-plan-box {
-      background: var(--bg3);
-      border: 1px solid var(--green-dim);
-      border-left: 3px solid var(--green);
-      border-radius: 4px;
-      padding: 20px 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 30px rgba(0,255,136,.06);
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+      color: var(--blue); text-transform: uppercase;
+      padding-bottom: 10px; margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-title::before { content: '//'; color: var(--border2); }
+
+    /* ── GRID LAYOUTS ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 24px; }
+    .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; margin-bottom: 24px; }
+    @media (max-width: 900px) {
+      .grid-2, .grid-3, .grid-4, .grid-2-1, .grid-1-2 { grid-template-columns: 1fr; }
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 18px 20px;
+    }
+    .card.blue-accent { border-color: rgba(59,130,246,.25); }
+    .card.green-accent { border-color: rgba(16,185,129,.25); }
+    .card.red-accent { border-color: rgba(239,68,68,.25); }
+    .card.yellow-accent { border-color: rgba(245,158,11,.25); }
+    .card-title {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
+      color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px;
+    }
+
+    /* ── STAT KPI ── */
+    .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .kpi { }
+    .kpi-label { font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 3px; }
+    .kpi-value { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--text); }
+    .kpi-value.green { color: var(--green); }
+    .kpi-value.red { color: var(--red); }
+    .kpi-value.blue { color: var(--blue); }
+    .kpi-value.yellow { color: var(--yellow); }
+    .kpi-sub { font-family: var(--mono); font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+    /* ── STAT ROW ── */
+    .stat-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row-label { font-size: 12px; color: var(--text-dim); }
+    .stat-row-value { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; }
+    .stat-row-value.green { color: var(--green); }
+    .stat-row-value.red { color: var(--red); }
+    .stat-row-value.yellow { color: var(--yellow); }
+    .stat-row-value.blue { color: var(--blue); }
+    .stat-row-value.cyan { color: var(--cyan); }
+
+    /* ── SIGNAL BADGE ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 4px;
+      font-family: var(--mono); font-size: 10px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .badge.buy   { background: var(--green-bg); color: var(--green); border: 1px solid rgba(16,185,129,.25); }
+    .badge.sell  { background: var(--red-bg);   color: var(--red);   border: 1px solid rgba(239,68,68,.25); }
+    .badge.hold  { background: var(--yellow-bg);color: var(--yellow);border: 1px solid rgba(245,158,11,.25); }
+    .badge.neutral { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(59,130,246,.25); }
+    .badge.bearish { background: var(--red-bg); color: var(--red); border: 1px solid rgba(239,68,68,.25); }
+    .badge.bullish { background: var(--green-bg); color: var(--green); border: 1px solid rgba(16,185,129,.25); }
+    .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap { margin: 10px 0; }
+    .progress-label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; color: var(--text-dim); margin-bottom: 4px; }
+    .progress-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 3px; transition: width .3s; }
+    .progress-fill.blue   { background: var(--blue); }
+    .progress-fill.green  { background: var(--green); }
+    .progress-fill.red    { background: var(--red); }
+    .progress-fill.yellow { background: var(--yellow); }
+
+    /* ── TIMELINE ── */
+    .timeframe-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+    }
+    .timeframe-row:last-child { border-bottom: none; }
+    .tf-label { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--blue); min-width: 36px; }
+    .tf-trend { font-family: var(--mono); font-size: 11px; color: var(--text); flex: 1; }
+    .tf-note  { font-size: 11px; color: var(--text-dim); }
+
+    /* ── LEVEL TABLE ── */
+    .level-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .level-table th {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--text-muted);
+      padding: 6px 10px; text-align: left; border-bottom: 1px solid var(--border2);
+    }
+    .level-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+    .level-table tr:last-child td { border-bottom: none; }
+    .level-table tr:hover td { background: var(--bg3); }
+    .lvl-price { font-family: var(--mono); font-weight: 700; }
+    .lvl-price.res { color: var(--red); }
+    .lvl-price.sup { color: var(--green); }
+    .lvl-price.pivot { color: var(--yellow); }
+    .lvl-strength-bar { display: flex; gap: 3px; }
+    .lvl-dot { width: 7px; height: 7px; border-radius: 1px; }
+    .lvl-dot.filled { background: var(--blue); }
+    .lvl-dot.empty  { background: var(--border2); }
+
+    /* ── FIBONACCI ── */
+    .fib-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 0; border-bottom: 1px solid var(--border);
+    }
+    .fib-row:last-child { border-bottom: none; }
+    .fib-pct { font-family: var(--mono); font-size: 11px; color: var(--blue); min-width: 50px; }
+    .fib-price { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--text); min-width: 70px; }
+    .fib-bar { flex: 1; height: 3px; background: var(--border); border-radius: 2px; position: relative; }
+    .fib-bar-fill { height: 100%; border-radius: 2px; background: var(--blue); }
+    .fib-tag { font-family: var(--mono); font-size: 9px; color: var(--text-muted); }
+    .fib-tag.active { color: var(--yellow); font-weight: 700; }
+
+    /* ── TRADE PLAN ── */
+    .trade-plan {
+      background: linear-gradient(135deg, rgba(59,130,246,.06), rgba(16,185,129,.04));
+      border: 1px solid rgba(59,130,246,.3); border-radius: 10px;
+      padding: 24px; margin-bottom: 24px;
+    }
+    .trade-plan-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
     }
     .trade-plan-title {
-      font-family: var(--mono); font-size: .7rem; font-weight: 700;
-      letter-spacing: .2em; color: var(--green); text-transform: uppercase;
-      margin-bottom: 16px;
-      display: flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-size: 13px; font-weight: 700;
+      color: var(--blue); letter-spacing: 2px; text-transform: uppercase;
     }
-    .trade-plan-title::after {
-      content: ''; flex: 1; height: 1px; background: var(--border2);
+    .trade-plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media (max-width: 800px) { .trade-plan-grid { grid-template-columns: 1fr 1fr; } }
+    .tp-cell {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 6px; padding: 14px 16px;
     }
-    .trade-plan-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr) repeat(3, 1fr);
-      gap: 12px 24px;
-    }
-    @media (max-width: 800px) {
-      .trade-plan-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    .tp-item { display: flex; flex-direction: column; gap: 3px; }
-    .tp-label { font-family: var(--mono); font-size: .6rem; letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase; }
-    .tp-value { font-family: var(--mono); font-size: 1rem; font-weight: 700; }
-    .tp-sub   { font-family: var(--mono); font-size: .7rem; color: var(--text-dim); }
+    .tp-cell-label { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .tp-cell-value { font-family: var(--mono); font-size: 22px; font-weight: 800; }
+    .tp-cell-sub { font-family: var(--mono); font-size: 10px; color: var(--text-dim); margin-top: 4px; }
+    .tp-entry .tp-cell-value { color: var(--blue); }
+    .tp-stop  .tp-cell-value { color: var(--red); }
+    .tp-t1    .tp-cell-value { color: var(--green); }
+    .tp-t2    .tp-cell-value { color: var(--cyan); }
 
-    /* ─── SECTION WRAPPER ─────────────────────────────────────────────────── */
-    .section {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      margin-bottom: 16px;
-      overflow: hidden;
-    }
-    .section-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 20px;
-      background: var(--bg3);
-      border-bottom: 1px solid var(--border);
-    }
-    .section-number {
-      font-family: var(--mono); font-size: .65rem; color: var(--text-muted);
-      border: 1px solid var(--border2); padding: 2px 7px; border-radius: 2px;
-      margin-right: 10px;
-    }
-    .section-title {
-      font-family: var(--mono); font-size: .75rem; font-weight: 700;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--text);
-    }
-    .section-badge {
-      font-family: var(--mono); font-size: .65rem; font-weight: 700;
-      letter-spacing: .08em; padding: 3px 10px; border-radius: 2px;
-    }
-    .badge-bull { color: var(--green); background: var(--green-bg); border: 1px solid rgba(0,255,136,.3); }
-    .badge-bear { color: var(--red); background: var(--red-bg); border: 1px solid rgba(255,68,68,.3); }
-    .badge-neut { color: var(--yellow); background: var(--yellow-bg); border: 1px solid rgba(255,215,0,.3); }
-    .section-body { padding: 20px; }
-
-    /* ─── DATA TABLE ─────────────────────────────────────────────────────── */
-    .data-table {
-      width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: .8rem;
-    }
-    .data-table th {
-      text-align: left; padding: 8px 12px;
-      font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--text-muted); border-bottom: 1px solid var(--border2);
-      font-weight: 500;
-    }
-    .data-table td {
-      padding: 9px 12px; border-bottom: 1px solid var(--border);
-      vertical-align: middle;
-    }
-    .data-table tr:last-child td { border-bottom: none; }
-    .data-table tr:hover td { background: rgba(255,255,255,.02); }
-    .data-table td:first-child { color: var(--text-dim); }
-
-    /* ─── PILL ────────────────────────────────────────────────────────────── */
-    .pill {
-      display: inline-block; font-family: var(--mono); font-size: .65rem;
-      font-weight: 700; letter-spacing: .06em; padding: 3px 9px;
-      border-radius: 20px;
-    }
-    .pill-bull { color: var(--green); background: var(--green-bg); border: 1px solid rgba(0,255,136,.25); }
-    .pill-bear { color: var(--red);   background: var(--red-bg);   border: 1px solid rgba(255,68,68,.25); }
-    .pill-neut { color: var(--yellow);background: var(--yellow-bg);border: 1px solid rgba(255,215,0,.25); }
-    .pill-info { color: var(--blue);  background: var(--blue-bg);  border: 1px solid rgba(77,159,255,.25); }
-
-    /* ─── STRENGTH BAR ───────────────────────────────────────────────────── */
-    .str-bar { display: flex; align-items: center; gap: 8px; }
-    .str-pips { display: flex; gap: 3px; }
-    .str-pip { width: 8px; height: 8px; border-radius: 1px; background: var(--border2); }
-    .str-pip.on-bull { background: var(--green); }
-    .str-pip.on-bear { background: var(--red); }
-    .str-pip.on-neut { background: var(--yellow); }
-    .str-label { font-size: .65rem; color: var(--text-dim); letter-spacing: .06em; }
-
-    /* ─── LEVEL BAR ──────────────────────────────────────────────────────── */
-    .level-bar-wrap { display: flex; align-items: center; gap: 8px; }
-    .level-bar { flex: 1; height: 3px; background: var(--border2); border-radius: 2px; max-width: 80px; }
-    .level-bar-fill { height: 100%; border-radius: 2px; }
-
-    /* ─── SVG CHART ──────────────────────────────────────────────────────── */
-    .chart-container {
-      background: var(--bg3);
-      border: 1px solid var(--border2);
-      border-radius: 4px;
-      padding: 16px;
-      margin-bottom: 16px;
-      position: relative;
-      overflow: hidden;
-    }
-    .chart-title {
-      font-family: var(--mono); font-size: .65rem; letter-spacing: .15em;
-      color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px;
-    }
-    .chart-svg { width: 100%; display: block; }
-
-    /* ─── FIBO TABLE ─────────────────────────────────────────────────────── */
-    .fibo-row-active td { background: rgba(0,255,136,.04); }
-    .fibo-bar-wrap { display: flex; align-items: center; gap: 6px; }
-    .fibo-bar { height: 4px; border-radius: 2px; background: var(--green-dim); }
-    .fibo-dot {
-      width: 10px; height: 10px; border-radius: 50%;
-      border: 2px solid var(--green); background: var(--bg2);
-      box-shadow: 0 0 6px var(--green);
-    }
-
-    /* ─── R/R DISPLAY ─────────────────────────────────────────────────────── */
-    .rr-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-    }
-    .rr-card {
+    /* ── RR RATIO ── */
+    .rr-block {
       background: var(--bg3); border: 1px solid var(--border2);
-      border-radius: 4px; padding: 16px;
+      border-radius: 8px; padding: 18px 20px; margin-top: 16px;
     }
-    .rr-card-title { font-family: var(--mono); font-size: .6rem; letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
-    .rr-value { font-family: var(--mono); font-size: 1.4rem; font-weight: 700; }
-    .rr-sub { font-family: var(--mono); font-size: .7rem; color: var(--text-dim); margin-top: 4px; }
+    .rr-title { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+    .rr-bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 8px; }
+    .rr-risk    { background: var(--red); }
+    .rr-reward1 { background: var(--green); }
+    .rr-reward2 { background: var(--cyan); }
+    .rr-labels  { display: flex; gap: 16px; flex-wrap: wrap; }
+    .rr-lbl { font-family: var(--mono); font-size: 10px; color: var(--text-dim); display: flex; align-items: center; gap: 5px; }
+    .rr-lbl-dot { width: 8px; height: 8px; border-radius: 2px; }
+    .rr-lbl-dot.red    { background: var(--red); }
+    .rr-lbl-dot.green  { background: var(--green); }
+    .rr-lbl-dot.cyan   { background: var(--cyan); }
 
-    /* ─── FINAL RATING ────────────────────────────────────────────────────── */
-    .final-box {
-      background: var(--bg3);
-      border: 1px solid var(--border2);
-      border-radius: 4px;
-      padding: 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-    @media (max-width: 700px) { .final-box { grid-template-columns: 1fr; } }
-    .final-rating-num {
-      font-family: var(--mono); font-size: 4rem; font-weight: 700;
-      color: var(--green); line-height: 1;
-      text-shadow: 0 0 30px rgba(0,255,136,.4);
-    }
-    .final-rating-label { font-family: var(--mono); font-size: .7rem; letter-spacing: .15em; color: var(--text-dim); margin-top: 4px; }
-    .catalysts-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-    .catalysts-list li {
-      font-family: var(--mono); font-size: .78rem; color: var(--text);
-      display: flex; gap: 8px; align-items: flex-start;
-    }
-    .catalysts-list li::before { content: '▶'; font-size: .6rem; color: var(--text-muted); flex-shrink: 0; margin-top: 2px; }
-    .risk-list li::before { content: '▼'; color: var(--red) !important; }
+    /* ── CONFIDENCE METER ── */
+    .confidence-block { text-align: center; padding: 20px; }
+    .conf-score { font-family: var(--mono); font-size: 56px; font-weight: 800; color: var(--blue); line-height: 1; }
+    .conf-label { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-top: 8px; }
+    .conf-bars { display: flex; gap: 4px; justify-content: center; margin: 12px 0; }
+    .conf-bar-seg { height: 20px; width: 22px; border-radius: 3px; }
+    .conf-desc { font-size: 12px; color: var(--text-dim); line-height: 1.6; text-align: left; margin-top: 12px; }
 
-    /* ─── VOLUME INDICATORS ─────────────────────────────────────────────── */
-    .vol-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
-    .vol-card {
-      flex: 1; min-width: 140px; background: var(--bg3); border: 1px solid var(--border2);
-      border-radius: 4px; padding: 14px 16px;
-    }
-    .vol-value { font-family: var(--mono); font-size: 1.1rem; font-weight: 700; margin-top: 4px; }
-    .vol-bar-days { display: flex; gap: 4px; align-items: flex-end; margin-top: 8px; height: 36px; }
-    .vol-bar-day { flex: 1; border-radius: 2px 2px 0 0; }
+    /* ── NARRATIVE ── */
+    .narrative { font-size: 13px; line-height: 1.8; color: var(--text-dim); }
+    .narrative strong { color: var(--text); }
+    .narrative .bull { color: var(--green); font-weight: 600; }
+    .narrative .bear { color: var(--red); font-weight: 600; }
+    .narrative .price { color: var(--blue); font-family: var(--mono); font-weight: 700; }
+    .narrative p + p { margin-top: 10px; }
 
-    /* ─── PATTERNS ──────────────────────────────────────────────────────── */
-    .pattern-cards { display: flex; gap: 12px; flex-wrap: wrap; }
-    .pattern-card {
-      flex: 1; min-width: 200px;
-      background: var(--bg3); border: 1px solid var(--border2);
-      border-top: 2px solid var(--green-dim);
-      border-radius: 4px; padding: 16px;
+    /* ── CATALYST LIST ── */
+    .catalyst-list { list-style: none; }
+    .catalyst-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+      font-size: 12px; color: var(--text-dim); line-height: 1.5;
     }
-    .pattern-name { font-family: var(--mono); font-size: .8rem; font-weight: 700; color: var(--green); margin-bottom: 6px; }
-    .pattern-meta { display: flex; flex-direction: column; gap: 4px; }
-    .pattern-row { display: flex; justify-content: space-between; font-family: var(--mono); font-size: .72rem; }
-    .pattern-row .pk { color: var(--text-muted); }
-    .pattern-row .pv { color: var(--text); }
+    .catalyst-list li:last-child { border-bottom: none; }
+    .catalyst-icon { font-size: 14px; margin-top: 0; flex-shrink: 0; }
+    .catalyst-list li strong { color: var(--text); display: block; }
 
-    /* ─── SCALE-IN TABLE ─────────────────────────────────────────────────── */
-    .scale-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-    .scale-card {
-      background: var(--bg3); border: 1px solid var(--border2); border-radius: 4px; padding: 16px;
-    }
-    .scale-card-num { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--blue); }
-    .scale-card-label { font-family: var(--mono); font-size: .65rem; letter-spacing: .1em; color: var(--text-muted); text-transform: uppercase; }
-    .scale-card-detail { font-family: var(--mono); font-size: .72rem; color: var(--text-dim); margin-top: 6px; }
+    /* ── INDICATOR GAUGE ── */
+    .gauge-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); }
+    .gauge-row:last-child { border-bottom: none; }
+    .gauge-name { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+    .gauge-val  { font-family: var(--mono); font-size: 13px; font-weight: 700; }
+    .gauge-sig  { font-family: var(--mono); font-size: 10px; }
 
-    /* ─── TREND SECTION ─────────────────────────────────────────────────── */
-    .trend-summary { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
-    .trend-pill {
-      display: flex; flex-direction: column; align-items: center;
-      background: var(--bg3); border: 1px solid var(--border2);
-      border-radius: 4px; padding: 12px 20px; flex: 1; min-width: 120px;
-    }
-    .trend-tf { font-family: var(--mono); font-size: .6rem; letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase; }
-    .trend-dir { font-family: var(--mono); font-size: .95rem; font-weight: 700; margin-top: 4px; }
-    .trend-arrow { font-size: .8rem; margin-top: 2px; }
+    /* ── SECTION SPACING ── */
+    .section { margin-bottom: 32px; }
 
-    /* ─── FOOTER ─────────────────────────────────────────────────────────── */
+    /* ── SEPARATOR ── */
+    .sep { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+    /* ── FOOTER ── */
     .footer {
-      border-top: 1px solid var(--border);
-      margin-top: 40px; padding-top: 20px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-top: 2px solid var(--border2); border-radius: 8px;
+      padding: 24px 28px; margin-top: 40px;
+      font-family: var(--mono); font-size: 10px;
     }
-    .footer-firm {
-      font-family: var(--mono); font-size: .7rem; letter-spacing: .2em;
-      color: var(--text-muted); margin-bottom: 8px;
+    .footer-title {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 18px; display: flex; align-items: center; gap: 8px;
     }
+    .footer-title::before { content: ''; width: 20px; height: 1px; background: var(--blue); display: block; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-col-title { color: var(--text-dim); letter-spacing: 1.5px; margin-bottom: 8px; text-transform: uppercase; }
+    .footer-row { display: flex; justify-content: space-between; gap: 10px; padding: 4px 0; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+    .footer-row span:last-child { color: var(--text-dim); text-align: right; }
+    .footer-row:last-child { border-bottom: none; }
+    .footer-sources { margin-top: 18px; }
+    .footer-sources a { color: var(--blue); text-decoration: none; }
+    .footer-sources a:hover { text-decoration: underline; }
     .footer-disclaimer {
-      font-size: .65rem; color: var(--text-muted); line-height: 1.6; max-width: 900px;
+      margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border);
+      color: var(--text-muted); font-size: 9px; line-height: 1.7; letter-spacing: 0.5px;
     }
-    .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border);
-      flex-wrap: wrap; gap: 8px;
-    }
-    .footer-id { font-family: var(--mono); font-size: .6rem; color: var(--text-muted); }
 
-    /* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
-    @media (max-width: 700px) {
-      .report-card-header { grid-template-columns: 1fr; }
-      .rating-block { align-items: flex-start; }
+    /* ── CHAPTER DIVIDER ── */
+    .chapter {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--text-muted);
+      display: flex; align-items: center; gap: 10px; margin: 32px 0 20px;
     }
+    .chapter::before, .chapter::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── INLINE TAGS ── */
+    .tag { display: inline-flex; font-family: var(--mono); font-size: 9px;
+      letter-spacing: 1px; padding: 2px 8px; border-radius: 3px;
+      background: var(--bg4); color: var(--text-dim); border: 1px solid var(--border2); }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- ═══════════════════════════ HEADER ═══════════════════════════════════ -->
-  <header class="site-header">
-    <div class="logo-block">
-      <div class="logo-firm">CITADEL SECURITIES</div>
-      <div class="logo-divider"></div>
-      <div class="logo-sub">Quantitative Trading &amp; Research Division</div>
+  <!-- ═══════════════════════════════════════════════════════════════ HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="firm-badge">CITADEL QUANTITATIVE STRATEGIES &nbsp;|&nbsp; EQUITY TECHNICAL DIVISION</div>
+      <div class="report-title">AAPL <span>/ Apple Inc.</span></div>
+      <div class="report-subtitle">TECHNICAL ANALYSIS REPORT &nbsp;·&nbsp; LONG CANDIDATE ASSESSMENT &nbsp;·&nbsp; MARCH 17, 2026</div>
     </div>
     <div class="header-right">
-      <div class="report-type">Technical Analysis Report</div>
-      <div class="report-date mono">Generated: 2026-03-17 &nbsp;|&nbsp; 09:34:22 EST</div>
-      <div class="classification">INTERNAL USE ONLY</div>
-    </div>
-  </header>
-
-  <!-- ═══════════════════════════ REPORT CARD HEADER ═══════════════════════ -->
-  <div class="report-card-header">
-    <div>
-      <div class="ticker-block">
-        <span class="ticker-symbol">AAPL</span>
-        <span class="ticker-name">Apple Inc. &nbsp;·&nbsp; NASDAQ</span>
-        <span class="ticker-price mono">$213.40</span>
-      </div>
-      <div class="ticker-meta">
-        <div class="meta-item">
-          <span class="label">Setup Quality</span>
-          <span class="meta-value green">8.2 / 10</span>
-          <div class="score-bar-wrap">
-            <div class="score-bar"><div class="score-bar-fill" style="width:82%"></div></div>
-          </div>
-        </div>
-        <div class="meta-item">
-          <span class="label">Timeframe</span>
-          <span class="meta-value">30–60 Day Trade</span>
-        </div>
-        <div class="meta-item">
-          <span class="label">Current Position</span>
-          <span class="meta-value yellow">FLAT</span>
-        </div>
-        <div class="meta-item">
-          <span class="label">Sector</span>
-          <span class="meta-value">Technology</span>
-        </div>
-        <div class="meta-item">
-          <span class="label">Mkt Cap</span>
-          <span class="meta-value">$3.21T</span>
-        </div>
-      </div>
-    </div>
-    <div class="rating-block">
-      <div class="rating-badge">▲ BUY</div>
-      <div class="timeframe-badge mono">30–60 DAY SWING</div>
-      <div class="confidence-row">
-        <span class="confidence-label">CONFIDENCE</span>
-        <div class="confidence-bar-outer">
-          <div class="confidence-bar-inner" style="width:72%"></div>
-        </div>
-        <span class="confidence-value">72%</span>
+      <div class="live-price-box">
+        <div class="price-label">NASDAQ: AAPL &nbsp;·&nbsp; LAST PRICE</div>
+        <div class="price-value">$252.82</div>
+        <div class="price-change">▲ +1.08% &nbsp;(+$2.70)</div>
+        <div class="price-range-label">Intraday Range: $249.50 – $253.89</div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════ TRADE PLAN BOX ═══════════════════════════ -->
-  <div class="trade-plan-box">
-    <div class="trade-plan-title">&#9670; Trade Plan Summary</div>
+  <!-- ═══════════════════════════════════════════════════════════════ ALERT -->
+  <div class="alert-banner">
+    <strong>SIGNAL NOTE:</strong>&nbsp; AAPL is trading BELOW its 50-day MA ($267.85–$272.50) and near the 200-day MA ($248.10). Price is in a consolidation range of $248–$265. RSI at 41.5 indicates mildly bearish momentum. Exercise disciplined entry criteria. Earnings catalyst: Apr 30, 2026 (After Close).
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ SNAPSHOT -->
+  <div class="chapter">01 — Market Snapshot</div>
+  <div class="section-title">KEY METRICS AT A GLANCE</div>
+
+  <div class="grid-4">
+    <div class="card blue-accent">
+      <div class="card-title">Last Price</div>
+      <div class="kpi-value blue" style="font-family:var(--mono);font-size:26px;">$252.82</div>
+      <div class="kpi-sub">Mar 17, 2026 · NASDAQ</div>
+    </div>
+    <div class="card">
+      <div class="card-title">52-Week Range</div>
+      <div class="kpi-value" style="font-family:var(--mono);font-size:15px;">$169.21 – $288.62</div>
+      <div class="kpi-sub">Current: 68.2% of range</div>
+    </div>
+    <div class="card">
+      <div class="card-title">From 52W High</div>
+      <div class="kpi-value red" style="font-family:var(--mono);font-size:22px;">-12.4%</div>
+      <div class="kpi-sub">High: $288.62</div>
+    </div>
+    <div class="card">
+      <div class="card-title">From 52W Low</div>
+      <div class="kpi-value green" style="font-family:var(--mono);font-size:22px;">+49.4%</div>
+      <div class="kpi-sub">Low: $169.21</div>
+    </div>
+  </div>
+
+  <div class="grid-4">
+    <div class="card">
+      <div class="card-title">50-Day MA</div>
+      <div class="kpi-value yellow" style="font-family:var(--mono);font-size:22px;">$267.85</div>
+      <div class="kpi-sub">Price is -5.6% below</div>
+    </div>
+    <div class="card">
+      <div class="card-title">200-Day MA</div>
+      <div class="kpi-value cyan" style="font-family:var(--mono);color:var(--cyan);font-size:22px;">$248.10</div>
+      <div class="kpi-sub">Price is +1.9% above</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Avg Daily Vol (3M)</div>
+      <div class="kpi-value" style="font-family:var(--mono);font-size:22px;">48.5M</div>
+      <div class="kpi-sub">TTM avg: 53.9M shares</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Short Interest</div>
+      <div class="kpi-value" style="font-family:var(--mono);font-size:22px;">0.88%</div>
+      <div class="kpi-sub">129.55M shares · Days-to-cover: 3.26</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ TREND ANALYSIS -->
+  <div class="chapter">02 — Multi-Timeframe Trend Analysis</div>
+  <div class="section-title">TREND BY TIMEFRAME</div>
+
+  <div class="grid-2">
+    <div class="card blue-accent">
+      <div class="card-title">Timeframe Breakdown</div>
+      <div class="timeframe-row">
+        <span class="tf-label">INTRA</span>
+        <span class="tf-trend">Mildly Bullish</span>
+        <span class="badge bullish">Bullish</span>
+        <span class="tf-note">Bouncing from $249.50 intraday low; +1.08%</span>
+      </div>
+      <div class="timeframe-row">
+        <span class="tf-label">DAILY</span>
+        <span class="tf-trend">Bearish / Consolidating</span>
+        <span class="badge bearish">Bearish</span>
+        <span class="tf-note">Below 50-day MA; RSI 41.5; MACD negative</span>
+      </div>
+      <div class="timeframe-row">
+        <span class="tf-label">WEEKLY</span>
+        <span class="tf-trend">Neutral / Cautious</span>
+        <span class="badge hold">Neutral</span>
+        <span class="tf-note">Consolidating $248–$265; near 200-day MA support</span>
+      </div>
+      <div class="timeframe-row">
+        <span class="tf-label">MONTHLY</span>
+        <span class="tf-trend">Long-Term Bullish Intact</span>
+        <span class="badge bullish">Bullish</span>
+        <span class="tf-note">Up 49.4% from 52W low; macro uptrend valid above $248</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Trend Narrative</div>
+      <div class="narrative">
+        <p>AAPL peaked at a <strong>52-week high of $288.62</strong> and has since pulled back <strong class="bear">-12.4%</strong> to current levels of <span class="price">$252.82</span>. The stock has been in a controlled distribution/consolidation phase since that peak.</p>
+        <p>The daily chart shows price trading <strong class="bear">below the 50-day MA ($267.85)</strong>, which is now acting as near-term resistance. However, the 200-day MA at <span class="price">$248.10</span> is directly below and providing a key structural floor.</p>
+        <p>The <strong class="bull">golden cross remains intact</strong> (50-day MA above 200-day MA), which is a positive structural reading on the longer-term frame, even as the short-term momentum has deteriorated.</p>
+        <p>From the 52-week low of <span class="price">$169.21</span>, AAPL has recovered <strong class="bull">+49.4%</strong>, demonstrating sustained institutional demand at lower levels.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ MOVING AVERAGES -->
+  <div class="chapter">03 — Moving Average Analysis</div>
+  <div class="section-title">MA STRUCTURE & PRICE POSITIONING</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Moving Average Summary</div>
+      <div class="stat-row">
+        <span class="stat-row-label">Current Price</span>
+        <span class="stat-row-value blue">$252.82</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">20-Day SMA (est.)</span>
+        <span class="stat-row-value yellow">~$257.50</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">50-Day SMA</span>
+        <span class="stat-row-value red">$267.85</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">50-Day EMA</span>
+        <span class="stat-row-value red">$272.50</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">200-Day SMA</span>
+        <span class="stat-row-value green">$248.10</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">200-Day SMA (alt source)</span>
+        <span class="stat-row-value green">$264.69</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">50-day vs 200-day Cross</span>
+        <span class="stat-row-value green">Golden Cross ✓</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">MA Interpretation</div>
+      <div class="narrative">
+        <p><strong>Bearish short-term structure:</strong> AAPL is trading <span class="price">$252.82</span> vs 50-day SMA at <span class="price">$267.85</span> — a gap of <strong class="bear">-$15.03 (-5.6%)</strong>. The 50-day MA is declining and will act as resistance on any bounce attempt.</p>
+        <p><strong>Bullish long-term structure:</strong> The 200-day MA at <span class="price">$248.10</span> sits just <strong class="bull">$4.72 (-1.9%)</strong> below the current price — a thin but critical support layer. A close above $248 on high volume would be a confirming bullish signal.</p>
+        <p>The <strong class="bull">Golden Cross</strong> (50-day above 200-day) remains structurally in place and is considered a longer-term positive signal. The key risk scenario is a <strong class="bear">Death Cross</strong> if the 50-day MA continues declining toward the 200-day.</p>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div class="progress-wrap">
+          <div class="progress-label"><span>200-day MA ($248.10)</span><span>$252.82</span><span>50-day MA ($267.85)</span></div>
+          <div class="progress-track" style="height:8px; position:relative;">
+            <div class="progress-fill blue" style="width:24%;"></div>
+          </div>
+          <div class="progress-label" style="margin-top:4px;"><span style="color:var(--green)">Support</span><span style="color:var(--blue)">PRICE HERE</span><span style="color:var(--red)">Resistance</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ OSCILLATORS -->
+  <div class="chapter">04 — Momentum Oscillators (RSI / MACD / Stochastics)</div>
+  <div class="section-title">MOMENTUM INDICATOR READINGS</div>
+
+  <div class="grid-3">
+    <div class="card red-accent">
+      <div class="card-title">RSI (14-Period Daily)</div>
+      <div style="text-align:center; padding:16px 0 12px;">
+        <div style="font-family:var(--mono); font-size:44px; font-weight:800; color:var(--yellow);">41.5</div>
+        <div style="font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:4px;">MILDLY BEARISH</div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Oversold (30)</span><span>Neutral (50)</span><span>Overbought (70)</span></div>
+        <div class="progress-track" style="height:8px; background: linear-gradient(90deg, #ef4444 0%, #f59e0b 30%, #3b82f6 50%, #f59e0b 70%, #10b981 100%);">
+          <div style="position:relative; height:100%;">
+            <div style="position:absolute; left:41.5%; top:-4px; width:2px; height:16px; background:white; border-radius:1px; box-shadow:0 0 6px white;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <div class="gauge-row">
+          <span class="gauge-name">RSI (14) Daily</span>
+          <span class="gauge-val yellow">41.5</span>
+          <span class="badge hold">Neutral/Bear</span>
+        </div>
+        <div class="gauge-row">
+          <span class="gauge-name">RSI Feb 26 reading</span>
+          <span class="gauge-val green">57.2</span>
+          <span class="badge buy">Was Buy</span>
+        </div>
+        <div class="gauge-row">
+          <span class="gauge-name">RSI Jan 28 reading</span>
+          <span class="gauge-val yellow">45.6</span>
+          <span class="badge hold">Neutral</span>
+        </div>
+        <div class="gauge-row">
+          <span class="gauge-name">Oversold threshold</span>
+          <span class="gauge-val red">30.0</span>
+          <span class="badge neutral">Watch</span>
+        </div>
+      </div>
+      <div class="narrative" style="margin-top:12px;font-size:11px;">
+        RSI of <strong>41.5</strong> is below the neutral 50 line, confirming bearish short-term momentum. The stock is approaching — but has not yet reached — the oversold zone (below 30), which historically has marked AAPL bounces.
+      </div>
+    </div>
+
+    <div class="card red-accent">
+      <div class="card-title">MACD (12,26,9 — Daily)</div>
+      <div style="text-align:center; padding:16px 0 12px;">
+        <div style="font-family:var(--mono); font-size:44px; font-weight:800; color:var(--red);">BEAR</div>
+        <div style="font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-top:4px;">MACD BELOW SIGNAL LINE</div>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">MACD Line (Feb 26)</span>
+        <span class="gauge-val green">+1.34</span>
+        <span class="badge buy">Was Buy</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">MACD Line (Jan 28)</span>
+        <span class="gauge-val red">-5.07</span>
+        <span class="badge sell">Sell</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">MACD vs Signal (Now)</span>
+        <span class="gauge-val red">Negative</span>
+        <span class="badge bearish">Bearish</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">Histogram</span>
+        <span class="gauge-val red">Negative</span>
+        <span class="badge sell">Sell</span>
+      </div>
+      <div class="narrative" style="margin-top:12px;font-size:11px;">
+        MACD is trading <strong>below its signal line</strong> and in negative territory as of March 13, 2026. The bearish crossover signals continued short-term downward pressure. A MACD recross above signal would be a key entry confirmation trigger.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Additional Oscillators</div>
+      <div class="gauge-row">
+        <span class="gauge-name">Stochastic (est.)</span>
+        <span class="gauge-val yellow">~38</span>
+        <span class="badge hold">Neutral</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">Williams %R (est.)</span>
+        <span class="gauge-val red">~-65</span>
+        <span class="badge bearish">Bearish</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">CCI (20) est.</span>
+        <span class="gauge-val red">~-80</span>
+        <span class="badge bearish">Bearish</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">ADX Trend Strength</span>
+        <span class="gauge-val yellow">Moderate</span>
+        <span class="badge hold">Neutral</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">Bollinger Band Position</span>
+        <span class="gauge-val yellow">Lower Mid</span>
+        <span class="badge hold">Near Lower</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">TradingView Consensus</span>
+        <span class="gauge-val red">Sell</span>
+        <span class="badge sell">Sell</span>
+      </div>
+      <div class="narrative" style="margin-top:12px;font-size:11px;">
+        Multiple oscillators are in the bearish/neutral zone. Bollinger Band proximity to the lower band, combined with RSI approaching oversold, suggests a potential mean-reversion bounce setup is building. Not yet triggered.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ SUPPORT / RESISTANCE -->
+  <div class="chapter">05 — Support &amp; Resistance Levels</div>
+  <div class="section-title">KEY PRICE LEVELS — LIVE</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Resistance Levels</div>
+      <table class="level-table">
+        <thead>
+          <tr>
+            <th>Level</th><th>Price</th><th>Type</th><th>Strength</th><th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>R4</td>
+            <td class="lvl-price res">$288.62</td>
+            <td><span class="tag">52W High</span></td>
+            <td>
+              <div class="lvl-strength-bar">
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div>
+              </div>
+            </td>
+            <td style="font-size:11px;color:var(--text-dim)">Major — Dec 2025 ATH</td>
+          </tr>
+          <tr>
+            <td>R3</td>
+            <td class="lvl-price res">$280</td>
+            <td><span class="tag">Pivot</span></td>
+            <td>
+              <div class="lvl-strength-bar">
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot empty"></div>
+              </div>
+            </td>
+            <td style="font-size:11px;color:var(--text-dim)">Prior consolidation area top</td>
+          </tr>
+          <tr>
+            <td>R2</td>
+            <td class="lvl-price res">$272.50</td>
+            <td><span class="tag">50d EMA</span></td>
+            <td>
+              <div class="lvl-strength-bar">
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot empty"></div>
+              </div>
+            </td>
+            <td style="font-size:11px;color:var(--text-dim)">50-day EMA resistance</td>
+          </tr>
+          <tr>
+            <td>R1</td>
+            <td class="lvl-price res">$264.18</td>
+            <td><span class="tag">MA / Prior S</span></td>
+            <td>
+              <div class="lvl-strength-bar">
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div><div class="lvl-dot empty"></div>
+                <div class="lvl-dot empty"></div>
+              </div>
+            </td>
+            <td style="font-size:11px;color:var(--text-dim)">Corrective resistance line</td>
+          </tr>
+          <tr>
+            <td>Near R</td>
+            <td class="lvl-price res">$257.88</td>
+            <td><span class="tag">Trend Line</span></td>
+            <td>
+              <div class="lvl-strength-bar">
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot empty"></div><div class="lvl-dot empty"></div>
+                <div class="lvl-dot empty"></div>
+              </div>
+            </td>
+            <td style="font-size:11px;color:var(--text-dim)">Near-term resistance on bounce</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Support Levels</div>
+      <table class="level-table">
+        <thead>
+          <tr>
+            <th>Level</th><th>Price</th><th>Type</th><th>Strength</th><th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Near S</td>
+            <td class="lvl-price sup">$249.50</td>
+            <td><span class="tag">Intraday</span></td>
+            <td>
+              <div class="lvl-strength-bar">
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot empty"></div><div class="lvl-dot empty"></div>
+                <div class="lvl-dot empty"></div>
+              </div>
+            </td>
+            <td style="font-size:11px;color:var(--text-dim)">Today's intraday low</td>
+          </tr>
+          <tr>
+            <td>S1</td>
+            <td class="lvl-price sup">$248.04</td>
+            <td><span class="tag">Vol Cluster</span></td>
+            <td>
+              <div class="lvl-strength-bar">
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot empty"></div>
+              </div>
+            </td>
+            <td style="font-size:11px;color:var(--text-dim)">High-vol accumulation cluster; 200d MA zone</td>
+          </tr>
+          <tr>
+            <td>S2</td>
+            <td class="lvl-price sup">$248.10</td>
+            <td><span class="tag">200d SMA</span></td>
+            <td>
+              <div class="lvl-strength-bar">
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div>
+              </div>
+            </td>
+            <td style="font-size:11px;color:var(--text-dim)">200-day SMA — critical long-term floor</td>
+          </tr>
+          <tr>
+            <td>S3</td>
+            <td class="lvl-price sup">$202.49</td>
+            <td><span class="tag">Prior Low</span></td>
+            <td>
+              <div class="lvl-strength-bar">
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div><div class="lvl-dot empty"></div>
+                <div class="lvl-dot empty"></div>
+              </div>
+            </td>
+            <td style="font-size:11px;color:var(--text-dim)">Observed mid-year 2025 base</td>
+          </tr>
+          <tr>
+            <td>S4</td>
+            <td class="lvl-price sup">$169.21</td>
+            <td><span class="tag">52W Low</span></td>
+            <td>
+              <div class="lvl-strength-bar">
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div><div class="lvl-dot filled"></div>
+                <div class="lvl-dot filled"></div>
+              </div>
+            </td>
+            <td style="font-size:11px;color:var(--text-dim)">Major floor — 52-week low</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ FIBONACCI -->
+  <div class="chapter">06 — Fibonacci Retracement Levels</div>
+  <div class="section-title">FIBONACCI RETRACEMENT: $169.21 (52W LOW) → $288.62 (52W HIGH)</div>
+
+  <div class="grid-2">
+    <div class="card blue-accent">
+      <div class="card-title">Fibonacci Levels (Swing: $169.21 → $288.62 | Range: $119.41)</div>
+      <div class="fib-row">
+        <span class="fib-pct">0.0%</span>
+        <span class="fib-price">$288.62</span>
+        <div class="fib-bar"><div class="fib-bar-fill" style="width:100%;background:var(--red);"></div></div>
+        <span class="fib-tag">52W High — Extension Target</span>
+      </div>
+      <div class="fib-row">
+        <span class="fib-pct">23.6%</span>
+        <span class="fib-price">$260.46</span>
+        <div class="fib-bar"><div class="fib-bar-fill" style="width:76.4%;background:var(--red);"></div></div>
+        <span class="fib-tag">Near-term resistance</span>
+      </div>
+      <div class="fib-row">
+        <span class="fib-pct">38.2%</span>
+        <span class="fib-price">$243.03</span>
+        <div class="fib-bar"><div class="fib-bar-fill" style="width:61.8%;"></div></div>
+        <span class="fib-tag">Key deeper support</span>
+      </div>
+      <div class="fib-row">
+        <span class="fib-pct">50.0%</span>
+        <span class="fib-price">$228.92</span>
+        <div class="fib-bar"><div class="fib-bar-fill" style="width:50%;background:var(--yellow);"></div></div>
+        <span class="fib-tag">Mid-range pivot</span>
+      </div>
+      <div class="fib-row">
+        <span class="fib-pct">61.8%</span>
+        <span class="fib-price">$214.72</span>
+        <div class="fib-bar"><div class="fib-bar-fill" style="width:38.2%;background:var(--yellow);"></div></div>
+        <span class="fib-tag">Golden ratio retrace</span>
+      </div>
+      <div class="fib-row">
+        <span class="fib-pct">78.6%</span>
+        <span class="fib-price">$195.74</span>
+        <div class="fib-bar"><div class="fib-bar-fill" style="width:21.4%;background:var(--green);"></div></div>
+        <span class="fib-tag">Deep retrace</span>
+      </div>
+      <div class="fib-row">
+        <span class="fib-pct">100%</span>
+        <span class="fib-price">$169.21</span>
+        <div class="fib-bar"><div class="fib-bar-fill" style="width:5%;background:var(--green);"></div></div>
+        <span class="fib-tag">52W Low — Major Floor</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Current Price Context vs Fibonacci</div>
+      <div class="narrative">
+        <p>At <span class="price">$252.82</span>, AAPL sits between the <strong>23.6% retracement ($260.46)</strong> and the <strong>38.2% retracement ($243.03)</strong>. The stock has retraced approximately <strong class="bear">30%</strong> of its full 52-week rally.</p>
+        <p>The <strong class="bull">23.6% Fibonacci level at $260.46</strong> represents the first meaningful resistance on a bounce — bulls need to reclaim and hold above this level to build momentum toward $272–$280.</p>
+        <p>The <strong class="bull">38.2% Fibonacci level at $243.03</strong> is the next major support below, closely aligned with the August 2025 base and broader structural support zone. This level coincides with key institutional accumulation activity.</p>
+        <p>From a Fibonacci extension perspective, if AAPL reclaims the full move from $169 to $288, the 127.2% extension targets <span class="price">$320.88</span> — aligning with the bullish analyst consensus band.</p>
+      </div>
+
+      <div style="margin-top:16px; padding:12px; background:var(--bg3); border-radius:6px; border:1px solid var(--border2);">
+        <div style="font-family:var(--mono); font-size:10px; color:var(--text-dim); margin-bottom:8px; letter-spacing:1px;">PRICE LOCATION ON FIB SCALE</div>
+        <div style="display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px;">
+          <span style="color:var(--green)">$243 (38.2%)</span>
+          <div style="flex:1; height:6px; background:var(--border); border-radius:3px; position:relative;">
+            <div style="position:absolute; height:100%; width:48%; background:linear-gradient(90deg, var(--green), var(--blue)); border-radius:3px;"></div>
+            <div style="position:absolute; left:48%; top:-5px; width:2px; height:16px; background:white; border-radius:1px;"></div>
+          </div>
+          <span style="color:var(--red)">$260 (23.6%)</span>
+        </div>
+        <div style="text-align:center; font-family:var(--mono); font-size:10px; color:var(--blue); margin-top:4px;">$252.82 — between 38.2% and 23.6% retrace</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ VOLUME -->
+  <div class="chapter">07 — Volume Analysis</div>
+  <div class="section-title">VOLUME METRICS &amp; ASSESSMENT</div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">Volume Statistics</div>
+      <div class="stat-row">
+        <span class="stat-row-label">3-Month Avg Daily Vol</span>
+        <span class="stat-row-value blue">48.5M</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">10-Day Avg Daily Vol</span>
+        <span class="stat-row-value yellow">38.4M</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">TTM Avg Daily Vol</span>
+        <span class="stat-row-value blue">53.9M</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Short Interest Shares</span>
+        <span class="stat-row-value">129.55M</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Short Float %</span>
+        <span class="stat-row-value">0.88%</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Days to Cover</span>
+        <span class="stat-row-value green">3.26 days</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Short Interest Trend</div>
+      <div class="narrative">
+        <p>Short interest <strong>decreased</strong> in the last reporting period from <strong>133.37M to 129.55M shares</strong> — a reduction of ~3.82M shares. This declining short interest is a mild <strong class="bull">bullish signal</strong>, suggesting fewer bears are maintaining short positions.</p>
+        <p>The short float of <strong>0.88%</strong> is extremely low by market standards, indicating this is <strong>not a short-squeeze candidate</strong>. Short interest at AAPL is structurally low due to its mega-cap, index-heavyweight nature.</p>
+        <p>Days-to-cover of <strong class="bull">3.26 days</strong> is below the 5-day threshold that typically flags meaningful short pressure.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Volume Assessment</div>
+      <div class="narrative">
+        <p>The 10-day average volume of <strong>38.4M</strong> is running <strong class="bear">below</strong> the 3-month average of <strong>48.5M</strong>, indicating reduced participation in recent sessions. This is characteristic of a <strong>low-conviction consolidation</strong> rather than a high-volume distribution.</p>
+        <p>Low-volume bounces (like today's +1.08%) within a bearish short-term trend are <strong class="bear">suspect</strong> until confirmed by volume expanding above the 3M average on an upday. Target: volume &gt;55M on a breakout day for high conviction.</p>
+        <p>Watch for a <strong class="bull">volume surge on a close above $260</strong> as a confirmation trigger for the next leg higher.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ CHART PATTERNS -->
+  <div class="chapter">08 — Chart Pattern Identification</div>
+  <div class="section-title">IDENTIFIED PATTERNS &amp; FORMATION ANALYSIS</div>
+
+  <div class="grid-2">
+    <div class="card blue-accent">
+      <div class="card-title">Active Chart Patterns</div>
+      <ul class="catalyst-list">
+        <li>
+          <span class="catalyst-icon">📉</span>
+          <div>
+            <strong>Descending Channel / Consolidation Rectangle ($248–$265)</strong>
+            AAPL is consolidating in a $248–$265 range following the December 2025 peak. Price is making lower highs since $288. Pattern is bearish until a confirmed breakout above $265–$270.
+          </div>
+        </li>
+        <li>
+          <span class="catalyst-icon">📊</span>
+          <div>
+            <strong>Potential Double-Bottom Formation (Building)</strong>
+            If AAPL tests and holds the $248–$249 zone a second time, a potential double-bottom pattern could emerge, targeting a measured move to ~$282 ($248 + $34 range). Requires confirmation close above $265.
+          </div>
+        </li>
+        <li>
+          <span class="catalyst-icon">✅</span>
+          <div>
+            <strong>Golden Cross Intact (Long-Term Bullish)</strong>
+            The 50-day MA ($267.85) remains above the 200-day MA ($248.10). This golden cross is the primary long-term structural positive. A death cross would be a major red flag.
+          </div>
+        </li>
+        <li>
+          <span class="catalyst-icon">🔄</span>
+          <div>
+            <strong>Mean-Reversion Setup Building</strong>
+            RSI 41.5, MACD bearish, price near lower Bollinger Band, and 200-day MA support all converging. Classic "oversold mean-reversion" setup building — not yet triggered. Watch for RSI cross above 45 + MACD crossover as signal.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Bollinger Bands Analysis</div>
+      <div class="stat-row">
+        <span class="stat-row-label">Upper Band (est., 20d/2σ)</span>
+        <span class="stat-row-value red">~$278</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Middle Band (20d SMA est.)</span>
+        <span class="stat-row-value yellow">~$257.50</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Lower Band (est.)</span>
+        <span class="stat-row-value green">~$237</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Current Price Position</span>
+        <span class="stat-row-value yellow">Lower Mid Band</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Band Width (est.)</span>
+        <span class="stat-row-value">~16.2% (Moderate)</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">%B Reading</span>
+        <span class="stat-row-value yellow">~0.38 (Below Mid)</span>
+      </div>
+      <div class="narrative" style="margin-top:12px;">
+        Price is pressing toward the lower half of the Bollinger Band structure. A touch or brief pierce of the lower band followed by a reversal candlestick would create a textbook Bollinger squeeze entry signal. Current band width is moderate, suggesting a potential volatility expansion is approaching — likely catalyzed by the April 30 earnings event.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ CATALYST -->
+  <div class="chapter">09 — Catalysts &amp; Macro Context</div>
+  <div class="section-title">UPCOMING CATALYSTS &amp; ANALYST SENTIMENT</div>
+
+  <div class="grid-2">
+    <div class="card yellow-accent">
+      <div class="card-title">Key Upcoming Catalysts</div>
+      <ul class="catalyst-list">
+        <li>
+          <span class="catalyst-icon">📅</span>
+          <div>
+            <strong>Q2 FY2026 Earnings — April 30, 2026 (After Close) CONFIRMED</strong>
+            Major binary event ~44 days away. Expected to be a key inflection point for AAPL. AI integration updates, services revenue growth, and iPhone cycle data will be critical. Historical average post-earnings move: ±4–6%.
+          </div>
+        </li>
+        <li>
+          <span class="catalyst-icon">🤖</span>
+          <div>
+            <strong>Apple Intelligence AI Rollout — 2026 Supercycle Thesis</strong>
+            Wedbush analyst Dan Ives: "2026 is going to finally be the year Apple enters the AI Revolution." Price target raised to $350. This AI narrative is the primary bull thesis for the stock.
+          </div>
+        </li>
+        <li>
+          <span class="catalyst-icon">📊</span>
+          <div>
+            <strong>Analyst Consensus — Strong Buy</strong>
+            77 analysts tracked: Median PT $300.00, range $215–$350. Rating: Strong Buy (8.0/10). 29 Buy / 16 Hold / 4 Sell. Consensus implies 18.7% upside from $252.82.
+          </div>
+        </li>
+        <li>
+          <span class="catalyst-icon">🌐</span>
+          <div>
+            <strong>Services Revenue Growth &amp; iPhone Replacement Cycle</strong>
+            Continued growth in high-margin services segment (App Store, iCloud, Apple TV+) supports premium valuation. A delayed replacement cycle in 2025 could accelerate into 2026 with AI features.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Analyst Price Target Data</div>
+      <div class="stat-row">
+        <span class="stat-row-label">Analyst Count (tracked)</span>
+        <span class="stat-row-value blue">77 analysts</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Median Consensus PT</span>
+        <span class="stat-row-value green">$300.00</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">MarketBeat Consensus PT</span>
+        <span class="stat-row-value green">$297.58</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">TipRanks Average PT</span>
+        <span class="stat-row-value green">$305.18</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Street High PT (Wedbush)</span>
+        <span class="stat-row-value cyan">$350.00</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Street Low PT</span>
+        <span class="stat-row-value red">$215.00</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Consensus Rating</span>
+        <span class="stat-row-value green">Strong Buy (8.0/10)</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Breakdown: Buy / Hold / Sell</span>
+        <span class="stat-row-value">29 / 16 / 4</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Implied Upside (median $300)</span>
+        <span class="stat-row-value green">+18.7%</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-row-label">Next Earnings</span>
+        <span class="stat-row-value yellow">Apr 30, 2026 (AC)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ TRADE PLAN -->
+  <div class="chapter">10 — Trade Plan (Long Candidate)</div>
+  <div class="section-title">ACTIONABLE TRADE PLAN — LONG AAPL</div>
+
+  <div class="trade-plan">
+    <div class="trade-plan-header">
+      <div class="trade-plan-title">LONG AAPL — STAGED ENTRY PLAN</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <span class="badge bullish">Long Setup</span>
+        <span class="badge hold">Partial Entry OK Now</span>
+      </div>
+    </div>
+
     <div class="trade-plan-grid">
-      <div class="tp-item">
-        <span class="tp-label">Entry Zone</span>
-        <span class="tp-value blue">$208 – $212</span>
-        <span class="tp-sub">Near 50-day MA support</span>
+      <div class="tp-cell tp-entry">
+        <div class="tp-cell-label">Entry Zone</div>
+        <div class="tp-cell-value">$249–$253</div>
+        <div class="tp-cell-sub">Current: $252.82 · Staged entry: 50% here, 50% on $248 test or confirmed breakout above $260</div>
       </div>
-      <div class="tp-item">
-        <span class="tp-label">Stop Loss</span>
-        <span class="tp-value red">$198.00</span>
-        <span class="tp-sub">Hard stop · –6.8% from entry</span>
+      <div class="tp-cell tp-stop">
+        <div class="tp-cell-label">Stop Loss</div>
+        <div class="tp-cell-value">$241.00</div>
+        <div class="tp-cell-sub">Below 38.2% Fib ($243) and 200d MA zone; invalidates long thesis on daily close below $241</div>
       </div>
-      <div class="tp-item">
-        <span class="tp-label">Target 1</span>
-        <span class="tp-value green">$228.00</span>
-        <span class="tp-sub">+7.3% · Feb resistance</span>
+      <div class="tp-cell tp-t1">
+        <div class="tp-cell-label">Target 1 (T1)</div>
+        <div class="tp-cell-value">$267.85</div>
+        <div class="tp-cell-sub">50-day SMA resistance — partial profit (40% of position). +5.9% from entry.</div>
       </div>
-      <div class="tp-item">
-        <span class="tp-label">Target 2</span>
-        <span class="tp-value green">$242.00</span>
-        <span class="tp-sub">+13.7% · All-time high</span>
-      </div>
-      <div class="tp-item">
-        <span class="tp-label">Risk / Reward</span>
-        <span class="tp-value green">1 : 2.8</span>
-        <span class="tp-sub">Favorable asymmetry</span>
-      </div>
-      <div class="tp-item">
-        <span class="tp-label">Position Size</span>
-        <span class="tp-value yellow">4 – 6%</span>
-        <span class="tp-sub">Of total portfolio</span>
+      <div class="tp-cell tp-t2">
+        <div class="tp-cell-label">Target 2 (T2)</div>
+        <div class="tp-cell-value">$288.62</div>
+        <div class="tp-cell-sub">52-week high / ATH retake. +14.2% from entry. Remainder runs toward analyst consensus $300.</div>
       </div>
     </div>
-  </div>
 
-  <!-- ═══════════════════════════ SVG PRICE CHART ═══════════════════════════ -->
-  <div class="chart-container">
-    <div class="chart-title">&#9632; AAPL Daily Price Action — Nov 2025 to Mar 2026 (Simulated)</div>
-
-    <svg class="chart-svg" viewBox="0 0 1100 280" xmlns="http://www.w3.org/2000/svg" aria-label="AAPL price chart">
-      <defs>
-        <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#00ff88" stop-opacity="0.15"/>
-          <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
-        </linearGradient>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="2" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-
-      <!-- Background grid -->
-      <line x1="60" y1="20" x2="60" y2="240" stroke="#222" stroke-width="1"/>
-      <line x1="60" y1="240" x2="1080" y2="240" stroke="#222" stroke-width="1"/>
-      <!-- Horizontal grid lines -->
-      <line x1="60" y1="60" x2="1080" y2="60" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4,4"/>
-      <line x1="60" y1="100" x2="1080" y2="100" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4,4"/>
-      <line x1="60" y1="140" x2="1080" y2="140" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4,4"/>
-      <line x1="60" y1="180" x2="1080" y2="180" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4,4"/>
-      <line x1="60" y1="220" x2="1080" y2="220" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4,4"/>
-
-      <!-- Y-axis labels -->
-      <text x="52" y="64" text-anchor="end" fill="#555" font-family="JetBrains Mono,monospace" font-size="9">$242</text>
-      <text x="52" y="104" text-anchor="end" fill="#555" font-family="JetBrains Mono,monospace" font-size="9">$228</text>
-      <text x="52" y="144" text-anchor="end" fill="#555" font-family="JetBrains Mono,monospace" font-size="9">$213</text>
-      <text x="52" y="184" text-anchor="end" fill="#555" font-family="JetBrains Mono,monospace" font-size="9">$198</text>
-      <text x="52" y="224" text-anchor="end" fill="#555" font-family="JetBrains Mono,monospace" font-size="9">$186</text>
-
-      <!-- X-axis month labels -->
-      <text x="100" y="258" fill="#444" font-family="JetBrains Mono,monospace" font-size="9">NOV '25</text>
-      <text x="260" y="258" fill="#444" font-family="JetBrains Mono,monospace" font-size="9">DEC '25</text>
-      <text x="430" y="258" fill="#444" font-family="JetBrains Mono,monospace" font-size="9">JAN '26</text>
-      <text x="620" y="258" fill="#444" font-family="JetBrains Mono,monospace" font-size="9">FEB '26</text>
-      <text x="840" y="258" fill="#444" font-family="JetBrains Mono,monospace" font-size="9">MAR '26</text>
-
-      <!-- Resistance line: $228 -->
-      <line x1="60" y1="100" x2="1080" y2="100" stroke="#ff4444" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
-      <text x="1084" y="104" fill="#ff4444" font-family="JetBrains Mono,monospace" font-size="8">R1 $228</text>
-
-      <!-- Resistance line: $242 ATH -->
-      <line x1="60" y1="62" x2="1080" y2="62" stroke="#ff6666" stroke-width="1" stroke-dasharray="3,5" opacity="0.4"/>
-      <text x="1084" y="66" fill="#ff6666" font-family="JetBrains Mono,monospace" font-size="8">ATH $242</text>
-
-      <!-- Support line: 50d MA ~$208 -->
-      <line x1="60" y1="162" x2="1080" y2="162" stroke="#4d9fff" stroke-width="1" stroke-dasharray="8,4" opacity="0.7"/>
-      <text x="1084" y="166" fill="#4d9fff" font-family="JetBrains Mono,monospace" font-size="8">50d $208</text>
-
-      <!-- Support line: 100d MA ~$198 -->
-      <line x1="60" y1="184" x2="1080" y2="184" stroke="#8b6fd1" stroke-width="1" stroke-dasharray="8,4" opacity="0.6"/>
-      <text x="1084" y="188" fill="#8b6fd1" font-family="JetBrains Mono,monospace" font-size="8">100d $198</text>
-
-      <!-- Support line: 200d MA ~$186 -->
-      <line x1="60" y1="224" x2="1080" y2="224" stroke="#ff9944" stroke-width="1" stroke-dasharray="8,4" opacity="0.5"/>
-      <text x="1084" y="228" fill="#ff9944" font-family="JetBrains Mono,monospace" font-size="8">200d $186</text>
-
-      <!-- Area fill under price line -->
-      <polygon
-        points="80,212 110,208 140,215 170,200 200,195 230,190 260,185 290,180 320,188 350,183 380,175 410,168 440,162 470,155 500,160 530,150 560,145 590,155 620,140 650,135 680,100 710,118 740,130 770,148 800,144 830,140 850,145 870,140 890,145 910,142 940,144 960,142 980,145 1000,142 1020,144 1040,140 1070,144 1070,240 80,240"
-        fill="url(#areaGrad)"/>
-
-      <!-- Main price line -->
-      <polyline
-        points="80,212 110,208 140,215 170,200 200,195 230,190 260,185 290,180 320,188 350,183 380,175 410,168 440,162 470,155 500,160 530,150 560,145 590,155 620,140 650,135 680,100 710,118 740,130 770,148 800,144 830,140 850,145 870,140 890,145 910,142 940,144 960,142 980,145 1000,142 1020,144 1040,140 1070,144"
-        fill="none" stroke="#00ff88" stroke-width="2" filter="url(#glow)"/>
-
-      <!-- Cup & Handle visual cue -->
-      <path d="M 430,162 Q 560,195 690,115" fill="none" stroke="#ffd700" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
-      <text x="520" y="200" fill="#ffd700" font-family="JetBrains Mono,monospace" font-size="8" opacity="0.8">Cup</text>
-
-      <!-- Handle box -->
-      <rect x="780" y="136" width="250" height="20" fill="rgba(255,215,0,0.04)" stroke="#ffd700" stroke-width="1" stroke-dasharray="3,3" opacity="0.5" rx="2"/>
-      <text x="828" y="130" fill="#ffd700" font-family="JetBrains Mono,monospace" font-size="8" opacity="0.8">Handle (forming)</text>
-
-      <!-- Breakout level at $215 -->
-      <line x1="60" y1="132" x2="1080" y2="132" stroke="#ffd700" stroke-width="1" stroke-dasharray="2,6" opacity="0.5"/>
-      <text x="1084" y="136" fill="#ffd700" font-family="JetBrains Mono,monospace" font-size="8">BKT $215</text>
-
-      <!-- Current price dot + annotation -->
-      <circle cx="1070" cy="144" r="5" fill="#00ff88" filter="url(#glow)"/>
-      <circle cx="1070" cy="144" r="9" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.4"/>
-      <text x="950" y="120" fill="#00ff88" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">$213.40 NOW</text>
-      <line x1="998" y1="122" x2="1065" y2="142" stroke="#00ff88" stroke-width="0.8" opacity="0.6"/>
-
-      <!-- Volume bars at bottom -->
-      <g opacity="0.4">
-        <!-- simplified volume histogram -->
-        <rect x="80" y="233" width="6" height="5" fill="#00ff88"/>
-        <rect x="110" y="235" width="6" height="3" fill="#ff4444"/>
-        <rect x="140" y="232" width="6" height="6" fill="#ff4444"/>
-        <rect x="170" y="231" width="6" height="7" fill="#00ff88"/>
-        <rect x="200" y="234" width="6" height="4" fill="#00ff88"/>
-        <rect x="230" y="233" width="6" height="5" fill="#00ff88"/>
-        <rect x="260" y="234" width="6" height="4" fill="#ff4444"/>
-        <rect x="290" y="231" width="6" height="7" fill="#00ff88"/>
-        <rect x="320" y="233" width="6" height="5" fill="#ff4444"/>
-        <rect x="350" y="230" width="6" height="8" fill="#00ff88"/>
-        <rect x="380" y="231" width="6" height="7" fill="#00ff88"/>
-        <rect x="410" y="232" width="6" height="6" fill="#00ff88"/>
-        <rect x="440" y="230" width="6" height="8" fill="#00ff88"/>
-        <rect x="470" y="229" width="6" height="9" fill="#00ff88"/>
-        <rect x="500" y="233" width="6" height="5" fill="#ff4444"/>
-        <rect x="530" y="228" width="6" height="10" fill="#00ff88"/>
-        <rect x="560" y="231" width="6" height="7" fill="#00ff88"/>
-        <rect x="590" y="232" width="6" height="6" fill="#ff4444"/>
-        <rect x="620" y="227" width="6" height="11" fill="#00ff88"/>
-        <rect x="650" y="226" width="6" height="12" fill="#00ff88"/>
-        <rect x="680" y="223" width="6" height="15" fill="#00ff88"/>
-        <rect x="710" y="232" width="6" height="6" fill="#ff4444"/>
-        <rect x="740" y="233" width="6" height="5" fill="#ff4444"/>
-        <rect x="770" y="234" width="6" height="4" fill="#ff4444"/>
-        <rect x="800" y="233" width="6" height="5" fill="#00ff88"/>
-        <rect x="830" y="231" width="6" height="7" fill="#00ff88"/>
-        <rect x="860" y="234" width="6" height="4" fill="#ff4444"/>
-        <rect x="890" y="231" width="6" height="7" fill="#00ff88"/>
-        <rect x="920" y="233" width="6" height="5" fill="#ff4444"/>
-        <rect x="950" y="230" width="6" height="8" fill="#00ff88"/>
-        <rect x="980" y="234" width="6" height="4" fill="#ff4444"/>
-        <rect x="1010" y="231" width="6" height="7" fill="#00ff88"/>
-        <rect x="1040" y="230" width="6" height="8" fill="#00ff88"/>
-        <rect x="1070" y="229" width="6" height="9" fill="#00ff88"/>
-      </g>
-      <text x="60" y="244" fill="#333" font-family="JetBrains Mono,monospace" font-size="7">VOL</text>
-
-      <!-- Legend -->
-      <rect x="80" y="10" width="8" height="2" fill="#00ff88"/>
-      <text x="94" y="17" fill="#666" font-family="JetBrains Mono,monospace" font-size="8">Price</text>
-      <rect x="140" y="10" width="8" height="2" fill="#ff4444" opacity="0.8"/>
-      <text x="154" y="17" fill="#666" font-family="JetBrains Mono,monospace" font-size="8">Resistance</text>
-      <rect x="240" y="10" width="8" height="2" fill="#4d9fff" opacity="0.8"/>
-      <text x="254" y="17" fill="#666" font-family="JetBrains Mono,monospace" font-size="8">50d MA</text>
-      <rect x="310" y="10" width="8" height="2" fill="#8b6fd1" opacity="0.8"/>
-      <text x="324" y="17" fill="#666" font-family="JetBrains Mono,monospace" font-size="8">100d MA</text>
-      <rect x="390" y="10" width="8" height="2" fill="#ff9944" opacity="0.8"/>
-      <text x="404" y="17" fill="#666" font-family="JetBrains Mono,monospace" font-size="8">200d MA</text>
-      <rect x="470" y="10" width="8" height="2" fill="#ffd700" opacity="0.7"/>
-      <text x="484" y="17" fill="#666" font-family="JetBrains Mono,monospace" font-size="8">Cup&amp;Handle / Breakout</text>
-    </svg>
-  </div>
-
-  <!-- ═══════════════════════════ SECTION 01 — TREND ═══════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div style="display:flex;align-items:center">
-        <span class="section-number">01</span>
-        <span class="section-title">Trend Analysis</span>
-      </div>
-      <span class="section-badge badge-bull">MULTI-TIMEFRAME UPTREND</span>
-    </div>
-    <div class="section-body">
-      <div class="trend-summary">
-        <div class="trend-pill">
-          <span class="trend-tf">Daily</span>
-          <span class="trend-dir green">UPTREND</span>
-          <span class="trend-arrow green">↑</span>
-        </div>
-        <div class="trend-pill">
-          <span class="trend-tf">Weekly</span>
-          <span class="trend-dir green">UPTREND</span>
-          <span class="trend-arrow green">↑</span>
-        </div>
-        <div class="trend-pill">
-          <span class="trend-tf">Monthly</span>
-          <span class="trend-dir green">UPTREND</span>
-          <span class="trend-arrow green">↑</span>
-        </div>
-        <div class="trend-pill">
-          <span class="trend-tf">4-Hour</span>
-          <span class="trend-dir yellow">CONSOLIDATING</span>
-          <span class="trend-arrow yellow">→</span>
-        </div>
-      </div>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Timeframe</th>
-            <th>Direction</th>
-            <th>Strength</th>
-            <th>Key Structure</th>
-            <th>Signal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Daily (1D)</td>
-            <td class="green bold">UPTREND</td>
-            <td>
-              <div class="str-bar">
-                <div class="str-pips">
-                  <div class="str-pip on-bull"></div><div class="str-pip on-bull"></div><div class="str-pip on-bull"></div><div class="str-pip on-bull"></div><div class="str-pip"></div>
-                </div>
-                <span class="str-label">Strong</span>
-              </div>
-            </td>
-            <td>Higher highs &amp; higher lows since Jan 2026</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-          </tr>
-          <tr>
-            <td>Weekly (1W)</td>
-            <td class="green bold">UPTREND</td>
-            <td>
-              <div class="str-bar">
-                <div class="str-pips">
-                  <div class="str-pip on-bull"></div><div class="str-pip on-bull"></div><div class="str-pip on-bull"></div><div class="str-pip on-bull"></div><div class="str-pip on-bull"></div>
-                </div>
-                <span class="str-label">Very Strong</span>
-              </div>
-            </td>
-            <td>Price above 40-week MA · trend intact since Oct 2025</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-          </tr>
-          <tr>
-            <td>Monthly (1M)</td>
-            <td class="green bold">UPTREND</td>
-            <td>
-              <div class="str-bar">
-                <div class="str-pips">
-                  <div class="str-pip on-bull"></div><div class="str-pip on-bull"></div><div class="str-pip on-bull"></div><div class="str-pip on-bull"></div><div class="str-pip on-bull"></div>
-                </div>
-                <span class="str-label">Very Strong</span>
-              </div>
-            </td>
-            <td>Long-term secular uptrend intact since 2023 lows</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-          </tr>
-          <tr>
-            <td>4-Hour (4H)</td>
-            <td class="yellow bold">CONSOLIDATION</td>
-            <td>
-              <div class="str-bar">
-                <div class="str-pips">
-                  <div class="str-pip on-neut"></div><div class="str-pip on-neut"></div><div class="str-pip on-neut"></div><div class="str-pip"></div><div class="str-pip"></div>
-                </div>
-                <span class="str-label">Moderate</span>
-              </div>
-            </td>
-            <td>Ascending triangle coiling near $215 breakout level</td>
-            <td><span class="pill pill-neut">NEUTRAL</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <p style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-top:12px;">
-        &#9656; Trend alignment: 3/4 timeframes bullish. Daily consolidation within larger uptrend is constructive — coiling for continuation.
-      </p>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════ SECTION 02 — S/R ══════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div style="display:flex;align-items:center">
-        <span class="section-number">02</span>
-        <span class="section-title">Support &amp; Resistance Levels</span>
-      </div>
-      <span class="section-badge badge-bull">PRICE BETWEEN KEY LEVELS</span>
-    </div>
-    <div class="section-body">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Level</th>
-            <th>Distance from $213.40</th>
-            <th>Relative Position</th>
-            <th>Origin / Confluence</th>
-            <th>Signal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="pill pill-bear">RESISTANCE</span></td>
-            <td class="bold red">$242.00</td>
-            <td class="red">+$28.60 &nbsp;(+13.4%)</td>
-            <td>
-              <div class="level-bar-wrap">
-                <div class="level-bar"><div class="level-bar-fill" style="width:85%;background:var(--red)"></div></div>
-                <span class="dim" style="font-size:.65rem">Above</span>
-              </div>
-            </td>
-            <td>All-time high · heavy overhead supply</td>
-            <td><span class="pill pill-bear">STRONG</span></td>
-          </tr>
-          <tr>
-            <td><span class="pill pill-bear">RESISTANCE</span></td>
-            <td class="bold red">$228.00</td>
-            <td class="red">+$14.60 &nbsp;(+6.8%)</td>
-            <td>
-              <div class="level-bar-wrap">
-                <div class="level-bar"><div class="level-bar-fill" style="width:55%;background:var(--red-dim)"></div></div>
-                <span class="dim" style="font-size:.65rem">Above</span>
-              </div>
-            </td>
-            <td>Feb 2026 swing high · gap fill zone</td>
-            <td><span class="pill pill-bear">MODERATE</span></td>
-          </tr>
-          <tr>
-            <td><span class="pill pill-info">BREAKOUT</span></td>
-            <td class="bold blue">$215.00</td>
-            <td class="blue">+$1.60 &nbsp;(+0.7%)</td>
-            <td>
-              <div class="level-bar-wrap">
-                <div class="level-bar"><div class="level-bar-fill" style="width:12%;background:var(--blue)"></div></div>
-                <span class="dim" style="font-size:.65rem">Just above</span>
-              </div>
-            </td>
-            <td>Cup &amp; Handle breakout trigger · ascending triangle top</td>
-            <td><span class="pill pill-info">KEY LEVEL</span></td>
-          </tr>
-          <tr>
-            <td>— Current Price —</td>
-            <td class="bold green">$213.40</td>
-            <td class="green">—</td>
-            <td>—</td>
-            <td>61.8% Fibonacci retracement zone</td>
-            <td><span class="pill pill-bull">HERE</span></td>
-          </tr>
-          <tr>
-            <td><span class="pill pill-bull">SUPPORT</span></td>
-            <td class="bold green">$208.20</td>
-            <td class="green">–$5.20 &nbsp;(–2.4%)</td>
-            <td>
-              <div class="level-bar-wrap">
-                <div class="level-bar"><div class="level-bar-fill" style="width:30%;background:var(--green-dim)"></div></div>
-                <span class="dim" style="font-size:.65rem">Below</span>
-              </div>
-            </td>
-            <td>50-day MA · 50% Fibonacci · entry zone upper bound</td>
-            <td><span class="pill pill-bull">STRONG</span></td>
-          </tr>
-          <tr>
-            <td><span class="pill pill-bull">SUPPORT</span></td>
-            <td class="bold green">$198.50</td>
-            <td class="green">–$14.90 &nbsp;(–7.0%)</td>
-            <td>
-              <div class="level-bar-wrap">
-                <div class="level-bar"><div class="level-bar-fill" style="width:60%;background:var(--green-dim)"></div></div>
-                <span class="dim" style="font-size:.65rem">Below</span>
-              </div>
-            </td>
-            <td>100-day MA · hard stop zone · 23.6% Fibonacci</td>
-            <td><span class="pill pill-bull">STRONG</span></td>
-          </tr>
-          <tr>
-            <td><span class="pill pill-bull">SUPPORT</span></td>
-            <td class="bold" style="color:var(--green-dim)">$186.40</td>
-            <td style="color:var(--green-dim)">–$27.00 &nbsp;(–12.7%)</td>
-            <td>
-              <div class="level-bar-wrap">
-                <div class="level-bar"><div class="level-bar-fill" style="width:90%;background:#007744"></div></div>
-                <span class="dim" style="font-size:.65rem">Well below</span>
-              </div>
-            </td>
-            <td>200-day MA · major long-term support · 0% Fibonacci base</td>
-            <td><span class="pill pill-bull">MAJOR</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════ SECTION 03 — MOVING AVERAGES ════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div style="display:flex;align-items:center">
-        <span class="section-number">03</span>
-        <span class="section-title">Moving Averages</span>
-      </div>
-      <span class="section-badge badge-bull">ALL MAs BULLISH ALIGNED</span>
-    </div>
-    <div class="section-body">
-      <div style="background:var(--green-bg);border:1px solid rgba(0,255,136,.2);border-radius:4px;padding:12px 16px;margin-bottom:16px;font-family:var(--mono);font-size:.75rem;color:var(--green);">
-        &#9670; Golden Cross active since October 2025: 50-day MA crossed above 200-day MA. Price trading above all key moving averages — structurally bullish.
-      </div>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Moving Average</th>
-            <th>Value</th>
-            <th>Price vs MA</th>
-            <th>Distance</th>
-            <th>Slope</th>
-            <th>Signal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>10-day EMA</td>
-            <td class="bold mono">$212.10</td>
-            <td class="green">ABOVE ↑</td>
-            <td class="green mono">+$1.30 &nbsp;(+0.6%)</td>
-            <td class="green">Rising ↑</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-          </tr>
-          <tr>
-            <td>20-day EMA</td>
-            <td class="bold mono">$210.80</td>
-            <td class="green">ABOVE ↑</td>
-            <td class="green mono">+$2.60 &nbsp;(+1.2%)</td>
-            <td class="green">Rising ↑</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-          </tr>
-          <tr>
-            <td>50-day SMA</td>
-            <td class="bold mono">$208.20</td>
-            <td class="green">ABOVE ↑</td>
-            <td class="green mono">+$5.20 &nbsp;(+2.5%)</td>
-            <td class="green">Rising ↑</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-          </tr>
-          <tr>
-            <td>100-day SMA</td>
-            <td class="bold mono">$198.50</td>
-            <td class="green">ABOVE ↑</td>
-            <td class="green mono">+$14.90 &nbsp;(+7.5%)</td>
-            <td class="green">Rising ↑</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-          </tr>
-          <tr>
-            <td>200-day SMA</td>
-            <td class="bold mono">$186.40</td>
-            <td class="green">ABOVE ↑</td>
-            <td class="green mono">+$27.00 &nbsp;(+14.5%)</td>
-            <td class="green">Rising ↑</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-          </tr>
-          <tr>
-            <td>40-week SMA</td>
-            <td class="bold mono">$193.20</td>
-            <td class="green">ABOVE ↑</td>
-            <td class="green mono">+$20.20 &nbsp;(+10.5%)</td>
-            <td class="green">Rising ↑</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════ SECTION 04 — INDICATORS ═════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div style="display:flex;align-items:center">
-        <span class="section-number">04</span>
-        <span class="section-title">Technical Indicators</span>
-      </div>
-      <span class="section-badge badge-bull">PREDOMINANTLY BULLISH</span>
-    </div>
-    <div class="section-body">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Indicator</th>
-            <th>Reading</th>
-            <th>Threshold / Context</th>
-            <th>Signal</th>
-            <th>Interpretation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>RSI (14-period)</td>
-            <td class="bold yellow mono">58.4</td>
-            <td class="dim">Neutral zone: 40–60 &nbsp;|&nbsp; Overbought: 70+</td>
-            <td><span class="pill pill-neut">NEUTRAL/BULL</span></td>
-            <td>Room to run before overbought. Not extended. Positive bias.</td>
-          </tr>
-          <tr>
-            <td>MACD (12,26,9)</td>
-            <td class="bold green mono">+1.82</td>
-            <td class="dim">Signal line cross 3 days ago · histogram expanding</td>
-            <td><span class="pill pill-bull">BULLISH CROSS</span></td>
-            <td>Bullish crossover confirmed. Momentum accelerating upward.</td>
-          </tr>
-          <tr>
-            <td>MACD Histogram</td>
-            <td class="bold green mono">+0.47</td>
-            <td class="dim">Increasing for 3 consecutive sessions</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-            <td>Expanding histogram confirms strengthening momentum.</td>
-          </tr>
-          <tr>
-            <td>Bollinger Bands (20,2)</td>
-            <td class="bold green mono">Upper half</td>
-            <td class="dim">Upper: $224 &nbsp;|&nbsp; Mid: $210 &nbsp;|&nbsp; Lower: $196</td>
-            <td><span class="pill pill-bull">BULLISH</span></td>
-            <td>Price in upper band half. Bullish momentum intact. Band width tightening = potential breakout setup.</td>
-          </tr>
-          <tr>
-            <td>Stochastic (14,3,3)</td>
-            <td class="bold yellow mono">62 / 58</td>
-            <td class="dim">%K / %D &nbsp;|&nbsp; Overbought: 80+ · Oversold: 20–</td>
-            <td><span class="pill pill-neut">NEUTRAL</span></td>
-            <td>Mid-range, slight bullish cross. Room before exhaustion.</td>
-          </tr>
-          <tr>
-            <td>ATR (14-period)</td>
-            <td class="bold mono" style="color:var(--text)">$3.84</td>
-            <td class="dim">Average daily range · volatility measure</td>
-            <td><span class="pill pill-info">INFO</span></td>
-            <td>Moderate volatility. Supports tight stop at $198 with acceptable risk per share.</td>
-          </tr>
-          <tr>
-            <td>Williams %R (14)</td>
-            <td class="bold yellow mono">–38.2</td>
-            <td class="dim">Overbought: –0 to –20 &nbsp;|&nbsp; Oversold: –80 to –100</td>
-            <td><span class="pill pill-neut">NEUTRAL</span></td>
-            <td>Mid-range reading. Neither overbought nor oversold. Constructive.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════ SECTION 05 — VOLUME ══════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div style="display:flex;align-items:center">
-        <span class="section-number">05</span>
-        <span class="section-title">Volume Analysis</span>
-      </div>
-      <span class="section-badge badge-bull">ACCUMULATION PATTERN</span>
-    </div>
-    <div class="section-body">
-      <div class="vol-row">
-        <div class="vol-card">
-          <span class="label">20-Day Avg Volume</span>
-          <div class="vol-value mono green">78.3M</div>
-          <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-muted);margin-top:4px;">shares / day</div>
-        </div>
-        <div class="vol-card">
-          <span class="label">OBV Trend</span>
-          <div class="vol-value mono green">Rising ↑</div>
-          <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-muted);margin-top:4px;">On-Balance Volume</div>
-        </div>
-        <div class="vol-card">
-          <span class="label">Volume Pattern</span>
-          <div class="vol-value mono green" style="font-size:.9rem;">ACCUMULATION</div>
-          <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-muted);margin-top:4px;">Smart money buying</div>
-        </div>
-        <div class="vol-card">
-          <span class="label">Up-Day vs Down-Day Vol</span>
-          <div class="vol-value mono green">+34% Premium</div>
-          <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-muted);margin-top:4px;">Up days dominate</div>
-        </div>
-      </div>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Session</th>
-            <th>Date</th>
-            <th>Price Move</th>
-            <th>Volume</th>
-            <th>vs 20-Day Avg</th>
-            <th>Pattern Read</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>3 Days Ago</td>
-            <td class="mono">2026-03-12</td>
-            <td class="green mono">+$1.84 (+0.87%)</td>
-            <td class="mono">104.2M</td>
-            <td class="green">+33% above avg</td>
-            <td><span class="pill pill-bull">BULLISH ACCUMULATION</span></td>
-          </tr>
-          <tr>
-            <td>2 Days Ago</td>
-            <td class="mono">2026-03-13</td>
-            <td class="red mono">–$0.96 (–0.45%)</td>
-            <td class="mono">51.7M</td>
-            <td class="green">–34% below avg</td>
-            <td><span class="pill pill-bull">HEALTHY PULLBACK</span></td>
-          </tr>
-          <tr>
-            <td>Yesterday</td>
-            <td class="mono">2026-03-16</td>
-            <td class="green mono">+$2.10 (+0.99%)</td>
-            <td class="mono">92.6M</td>
-            <td class="green">+18% above avg</td>
-            <td><span class="pill pill-bull">BULLISH ACCUMULATION</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <p style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-top:12px;">
-        &#9656; Classic accumulation signature: above-average volume on up days, below-average on down days. Institutional buying consistent with distribution thesis ABSENT. OBV trending to new highs ahead of price.
-      </p>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════ SECTION 06 — PATTERNS ═══════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div style="display:flex;align-items:center">
-        <span class="section-number">06</span>
-        <span class="section-title">Chart Patterns</span>
-      </div>
-      <span class="section-badge badge-bull">BULLISH PATTERNS ACTIVE</span>
-    </div>
-    <div class="section-body">
-      <div class="pattern-cards">
-        <div class="pattern-card">
-          <div class="pattern-name">Cup &amp; Handle (Daily)</div>
-          <div class="pattern-meta">
-            <div class="pattern-row"><span class="pk">Timeframe:</span><span class="pv">Daily chart</span></div>
-            <div class="pattern-row"><span class="pk">Cup Duration:</span><span class="pv">~3 months</span></div>
-            <div class="pattern-row"><span class="pk">Handle Duration:</span><span class="pv">~3 weeks (forming)</span></div>
-            <div class="pattern-row"><span class="pk">Cup Depth:</span><span class="pv">$232 → $186 (–19.8%)</span></div>
-            <div class="pattern-row"><span class="pk">Breakout Level:</span><span class="pv green">$215.00</span></div>
-            <div class="pattern-row"><span class="pk">Measured Target:</span><span class="pv green">$242.00</span></div>
-            <div class="pattern-row"><span class="pk">Pattern Status:</span><span class="pv yellow">FORMING — handle</span></div>
-            <div class="pattern-row"><span class="pk">Reliability:</span><span class="pv">High (William O'Neil class)</span></div>
-          </div>
-        </div>
-        <div class="pattern-card">
-          <div class="pattern-name">Ascending Triangle (4H)</div>
-          <div class="pattern-meta">
-            <div class="pattern-row"><span class="pk">Timeframe:</span><span class="pv">4-Hour chart</span></div>
-            <div class="pattern-row"><span class="pk">Flat Top:</span><span class="pv red">$215.00</span></div>
-            <div class="pattern-row"><span class="pk">Rising Low 1:</span><span class="pv">$206.40</span></div>
-            <div class="pattern-row"><span class="pk">Rising Low 2:</span><span class="pv">$208.80</span></div>
-            <div class="pattern-row"><span class="pk">Touches:</span><span class="pv">3 top / 2 bottom</span></div>
-            <div class="pattern-row"><span class="pk">Breakout Level:</span><span class="pv green">$215.00 (above)</span></div>
-            <div class="pattern-row"><span class="pk">Measured Target:</span><span class="pv green">$224.00</span></div>
-            <div class="pattern-row"><span class="pk">Pattern Status:</span><span class="pv yellow">COILING — near apex</span></div>
-          </div>
-        </div>
-        <div class="pattern-card">
-          <div class="pattern-name">Higher Highs / Higher Lows</div>
-          <div class="pattern-meta">
-            <div class="pattern-row"><span class="pk">Timeframe:</span><span class="pv">Daily</span></div>
-            <div class="pattern-row"><span class="pk">Swing Low 1:</span><span class="pv">$186.40 (Nov 2025)</span></div>
-            <div class="pattern-row"><span class="pk">Swing High 1:</span><span class="pv">$232.00 (Dec 2025)</span></div>
-            <div class="pattern-row"><span class="pk">Swing Low 2:</span><span class="pv">$198.20 (Jan 2026)</span></div>
-            <div class="pattern-row"><span class="pk">Swing High 2:</span><span class="pv">$228.00 (Feb 2026)</span></div>
-            <div class="pattern-row"><span class="pk">Sequence:</span><span class="pv green">Textbook uptrend</span></div>
-            <div class="pattern-row"><span class="pk">Current:</span><span class="pv yellow">Pulling back to test support</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════ SECTION 07 — FIBONACCI ══════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div style="display:flex;align-items:center">
-        <span class="section-number">07</span>
-        <span class="section-title">Fibonacci Retracement Levels</span>
-      </div>
-      <span class="section-badge badge-neut">PRICE AT 61.8% KEY ZONE</span>
-    </div>
-    <div class="section-body">
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin-bottom:12px;">
-        Swing range: $186.40 (Nov 2025 low) → $232.00 (Dec 2025 high) &nbsp;|&nbsp; Span: $45.60
-      </div>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Fibonacci Level</th>
-            <th>Price</th>
-            <th>Distance from $213.40</th>
-            <th>Significance</th>
-            <th>Current Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="mono">0% (Prior High)</td>
-            <td class="mono bold">$232.00</td>
-            <td class="red mono">+$18.60 (+8.7%)</td>
-            <td>Full retracement — prior swing high</td>
-            <td><span class="pill pill-bear">RESISTANCE</span></td>
-          </tr>
-          <tr>
-            <td class="mono">23.6%</td>
-            <td class="mono bold">$221.24</td>
-            <td class="red mono">+$7.84 (+3.7%)</td>
-            <td>Minor pullback target</td>
-            <td><span class="pill pill-bear">RESISTANCE</span></td>
-          </tr>
-          <tr>
-            <td class="mono">38.2%</td>
-            <td class="mono bold">$214.57</td>
-            <td class="yellow mono">+$1.17 (+0.5%)</td>
-            <td>Shallow retracement — near current price</td>
-            <td><span class="pill pill-neut">NEAR PRICE</span></td>
-          </tr>
-          <tr class="fibo-row-active">
-            <td class="mono green bold">61.8% ◀ CURRENT</td>
-            <td class="mono bold green">$213.81</td>
-            <td class="green mono">+$0.41 (+0.2%)</td>
-            <td>Golden ratio — highest-probability bounce zone</td>
-            <td><span class="pill pill-bull">CONSOLIDATING HERE</span></td>
-          </tr>
-          <tr>
-            <td class="mono">50.0%</td>
-            <td class="mono bold">$209.20</td>
-            <td class="green mono">–$4.20 (–2.0%)</td>
-            <td>Mid-range support · confluence with 50-day MA</td>
-            <td><span class="pill pill-bull">KEY SUPPORT</span></td>
-          </tr>
-          <tr>
-            <td class="mono">78.6%</td>
-            <td class="mono bold">$196.56</td>
-            <td class="green mono">–$16.84 (–7.9%)</td>
-            <td>Deep retracement — near 100-day MA and hard stop</td>
-            <td><span class="pill pill-bull">STOP ZONE</span></td>
-          </tr>
-          <tr>
-            <td class="mono">100% (Prior Low)</td>
-            <td class="mono bold">$186.40</td>
-            <td class="green mono">–$27.00 (–12.7%)</td>
-            <td>Full retracement to base — 200-day MA confluence</td>
-            <td><span class="pill pill-bull">MAJOR SUPPORT</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <p style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-top:12px;">
-        &#9656; Price consolidating within the 61.8% Fibonacci zone — the &quot;golden ratio&quot; level. Historical probability of continuation from this zone in uptrends exceeds 65%. Confluence with ascending triangle pattern adds conviction.
-      </p>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════ SECTION 08 — TRADE PLAN ═════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div style="display:flex;align-items:center">
-        <span class="section-number">08</span>
-        <span class="section-title">Detailed Trade Plan</span>
-      </div>
-      <span class="section-badge badge-bull">ACTIONABLE</span>
-    </div>
-    <div class="section-body">
-      <div class="scale-grid">
-        <div class="scale-card">
-          <div class="scale-card-label">Entry Tranche 1 — 50%</div>
-          <div class="scale-card-num">$208–$212</div>
-          <div class="scale-card-detail">Buy near 50-day MA / 50% Fibonacci zone on any pullback. Current price ($213.40) is slightly above entry zone — wait for dip or scale aggressively.</div>
-        </div>
-        <div class="scale-card">
-          <div class="scale-card-label">Entry Tranche 2 — 50%</div>
-          <div class="scale-card-num" style="color:var(--yellow)">$215+ BKT</div>
-          <div class="scale-card-detail">Add remaining position on confirmed breakout above $215 with volume &gt;100M. This confirms Cup &amp; Handle pattern activation.</div>
-        </div>
-      </div>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Price Level</th>
-            <th>Action</th>
-            <th>% from Entry Mid ($210)</th>
-            <th>$/Share Impact</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="mono bold blue">$208–$212</td>
-            <td><span class="pill pill-bull">BUY TRANCHE 1</span></td>
-            <td class="blue">Entry zone</td>
-            <td class="blue mono">Base cost</td>
-            <td>Limit orders near MA support · avoid chasing</td>
-          </tr>
-          <tr>
-            <td class="mono bold blue">$215+</td>
-            <td><span class="pill pill-bull">BUY TRANCHE 2</span></td>
-            <td class="blue">+$5 above mid</td>
-            <td class="blue mono">Breakout add</td>
-            <td>On volume confirmation · momentum entry</td>
-          </tr>
-          <tr>
-            <td class="mono bold red">$198.00</td>
-            <td><span class="pill pill-bear">STOP LOSS</span></td>
-            <td class="red">–6.8% from entry</td>
-            <td class="red mono">–$14.40/sh</td>
-            <td>Hard stop · below 100-day MA · no averaging down</td>
-          </tr>
-          <tr>
-            <td class="mono bold green">$228.00</td>
-            <td><span class="pill pill-bull">TAKE PROFIT 1</span></td>
-            <td class="green">+7.3% from entry</td>
-            <td class="green mono">+$15.60/sh</td>
-            <td>Sell 50% at T1 · let runners go · trail stop up</td>
-          </tr>
-          <tr>
-            <td class="mono bold green">$242.00</td>
-            <td><span class="pill pill-bull">TAKE PROFIT 2</span></td>
-            <td class="green">+13.7% from entry</td>
-            <td class="green mono">+$29.60/sh</td>
-            <td>Sell remaining 50% · all-time high zone · re-evaluate</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════ SECTION 09 — R/R ════════════════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div style="display:flex;align-items:center">
-        <span class="section-number">09</span>
-        <span class="section-title">Risk / Reward Calculation</span>
-      </div>
-      <span class="section-badge badge-bull">FAVORABLE ASYMMETRY</span>
-    </div>
-    <div class="section-body">
-      <div class="rr-grid" style="margin-bottom:16px;">
-        <div class="rr-card">
-          <div class="rr-card-title">Maximum Risk</div>
-          <div class="rr-value red">–$14.40 / share</div>
-          <div class="rr-sub">–6.8% from entry mid $210 to stop $198</div>
-        </div>
-        <div class="rr-card">
-          <div class="rr-card-title">Target 1 Reward</div>
-          <div class="rr-value green">+$15.60 / share</div>
-          <div class="rr-sub">+7.3% from entry mid $210 to T1 $228</div>
-        </div>
-        <div class="rr-card">
-          <div class="rr-card-title">Target 2 Reward</div>
-          <div class="rr-value green">+$29.60 / share</div>
-          <div class="rr-sub">+13.7% from entry mid $210 to T2 $242</div>
-        </div>
-        <div class="rr-card" style="border-top:2px solid var(--green);">
-          <div class="rr-card-title">Probability-Weighted EV</div>
-          <div class="rr-value green">+$8.20 / share</div>
-          <div class="rr-sub">72% bull × $22.60 avg reward – 28% bear × $14.40 loss</div>
-        </div>
-      </div>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Scenario</th>
-            <th>R/R Ratio</th>
-            <th>$/Share</th>
-            <th>% Move</th>
-            <th>Probability Estimate</th>
-            <th>EV Contribution</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Risk (Stop Hit)</td>
-            <td class="red mono bold">1 : —</td>
-            <td class="red mono">–$14.40</td>
-            <td class="red mono">–6.8%</td>
-            <td class="mono">28%</td>
-            <td class="red mono">–$4.03</td>
-          </tr>
-          <tr>
-            <td>Target 1 Only</td>
-            <td class="green mono bold">1 : 1.1</td>
-            <td class="green mono">+$15.60</td>
-            <td class="green mono">+7.3%</td>
-            <td class="mono">35%</td>
-            <td class="green mono">+$5.46</td>
-          </tr>
-          <tr>
-            <td>Target 2 (Full Run)</td>
-            <td class="green mono bold">1 : 2.8</td>
-            <td class="green mono">+$29.60</td>
-            <td class="green mono">+13.7%</td>
-            <td class="mono">37%</td>
-            <td class="green mono">+$10.95</td>
-          </tr>
-          <tr style="background:rgba(0,255,136,.04);">
-            <td class="bold">Weighted EV (Total)</td>
-            <td class="green mono bold">Net Positive</td>
-            <td class="green mono bold">+$8.20</td>
-            <td class="green mono bold">+3.9%</td>
-            <td class="mono">—</td>
-            <td class="green mono bold">+$12.38</td>
-          </tr>
-        </tbody>
-      </table>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px;">
-        <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:14px;text-align:center;">
-          <div class="label">R/R to Target 1</div>
-          <div style="font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--green);margin-top:4px;">1 : 1.1</div>
-        </div>
-        <div style="background:var(--bg3);border:1px solid var(--green-dim);border-radius:4px;padding:14px;text-align:center;">
-          <div class="label">R/R to Target 2</div>
-          <div style="font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--green);margin-top:4px;">1 : 2.8</div>
-        </div>
-        <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:14px;text-align:center;">
-          <div class="label">Kelly Fraction</div>
-          <div style="font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--yellow);margin-top:4px;">18.4%</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════ SECTION 10 — FINAL RATING ═══════════════ -->
-  <div class="section">
-    <div class="section-header">
-      <div style="display:flex;align-items:center">
-        <span class="section-number">10</span>
-        <span class="section-title">Final Rating &amp; Recommendation</span>
-      </div>
-      <span class="section-badge badge-bull">BUY RECOMMENDATION</span>
-    </div>
-    <div class="section-body">
-      <div class="final-box">
+    <div class="rr-block" style="margin-top:20px;">
+      <div class="rr-title">Risk / Reward Analysis</div>
+      <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:12px; margin-bottom:16px;">
         <div>
-          <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:12px;">
-            <div class="final-rating-num">BUY</div>
-            <div>
-              <div class="final-rating-label">OVERALL RATING</div>
-              <div style="font-family:var(--mono);font-size:1rem;color:var(--green);margin-top:2px;">72% Confidence</div>
-            </div>
+          <div class="kpi-label">Entry (midpoint)</div>
+          <div class="kpi-value blue" style="font-family:var(--mono);font-size:16px;">$252.00</div>
+        </div>
+        <div>
+          <div class="kpi-label">Risk (to stop)</div>
+          <div class="kpi-value red" style="font-family:var(--mono);font-size:16px;">-$11.00 (-4.4%)</div>
+        </div>
+        <div>
+          <div class="kpi-label">Reward T1</div>
+          <div class="kpi-value green" style="font-family:var(--mono);font-size:16px;">+$15.85 (+6.3%)</div>
+        </div>
+        <div>
+          <div class="kpi-label">Reward T2</div>
+          <div class="kpi-value cyan" style="font-family:var(--mono);font-size:16px;">+$36.62 (+14.5%)</div>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+        <div>
+          <div class="rr-title" style="margin-bottom:8px;">R:R Visual (Risk vs. Reward)</div>
+          <div class="rr-bar">
+            <div class="rr-risk" style="width:19%;"></div>
+            <div class="rr-reward1" style="width:27%;"></div>
+            <div class="rr-reward2" style="width:54%;"></div>
           </div>
-          <div style="font-family:var(--mono);font-size:.75rem;color:var(--text-dim);margin-bottom:16px;line-height:1.7;">
-            AAPL presents a high-quality technical setup with multi-timeframe trend alignment, a developing Cup &amp; Handle pattern, volume accumulation, and price consolidating at the key 61.8% Fibonacci level. Entry near $208–$212 (50-day MA support) offers favorable risk/reward of 1:2.8 to the all-time high target.
-          </div>
-          <div style="background:var(--green-bg);border:1px solid rgba(0,255,136,.2);border-radius:4px;padding:12px;margin-bottom:16px;">
-            <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--green);margin-bottom:8px;">BULLISH CATALYSTS</div>
-            <ul class="catalysts-list">
-              <li>Upcoming iPhone 17 &amp; Vision Pro cycle — product supercycle potential</li>
-              <li>$110B+ buyback program active — continuous EPS support</li>
-              <li>Services segment approaching $110B ARR — recurring revenue re-rating</li>
-              <li>AI integration roadmap (Apple Intelligence) — monetization optionality</li>
-              <li>Cup &amp; Handle breakout target aligned with ATH — clean measured move</li>
-            </ul>
+          <div class="rr-labels" style="margin-top:6px;">
+            <div class="rr-lbl"><div class="rr-lbl-dot red"></div>Risk: 4.4%</div>
+            <div class="rr-lbl"><div class="rr-lbl-dot green"></div>T1: 6.3%</div>
+            <div class="rr-lbl"><div class="rr-lbl-dot cyan"></div>T2: 14.5%</div>
           </div>
         </div>
         <div>
-          <div style="background:var(--bg4);border:1px solid var(--border2);border-radius:4px;padding:16px;margin-bottom:12px;">
-            <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--text-muted);margin-bottom:10px;">SCORE SUMMARY</div>
-            <table style="width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.72rem;">
-              <tr>
-                <td style="padding:5px 0;color:var(--text-dim);">Trend Strength</td>
-                <td style="padding:5px 0;text-align:right;" class="green">9.0 / 10</td>
-              </tr>
-              <tr>
-                <td style="padding:5px 0;color:var(--text-dim);">Pattern Quality</td>
-                <td style="padding:5px 0;text-align:right;" class="green">8.5 / 10</td>
-              </tr>
-              <tr>
-                <td style="padding:5px 0;color:var(--text-dim);">Momentum (Indicators)</td>
-                <td style="padding:5px 0;text-align:right;" class="yellow">7.2 / 10</td>
-              </tr>
-              <tr>
-                <td style="padding:5px 0;color:var(--text-dim);">Volume Confirmation</td>
-                <td style="padding:5px 0;text-align:right;" class="green">8.8 / 10</td>
-              </tr>
-              <tr>
-                <td style="padding:5px 0;color:var(--text-dim);">Risk/Reward</td>
-                <td style="padding:5px 0;text-align:right;" class="green">8.0 / 10</td>
-              </tr>
-              <tr>
-                <td style="padding:5px 0;color:var(--text-dim);">S/R Structure</td>
-                <td style="padding:5px 0;text-align:right;" class="yellow">7.8 / 10</td>
-              </tr>
-              <tr style="border-top:1px solid var(--border2);">
-                <td style="padding:8px 0 4px;color:var(--text);font-weight:700;">COMPOSITE SCORE</td>
-                <td style="padding:8px 0 4px;text-align:right;color:var(--green);font-weight:700;font-size:.85rem;">8.2 / 10</td>
-              </tr>
-            </table>
+          <div class="stat-row">
+            <span class="stat-row-label">R:R Ratio (to T1)</span>
+            <span class="stat-row-value green">1.44 : 1</span>
           </div>
-          <div style="background:var(--red-bg);border:1px solid rgba(255,68,68,.2);border-radius:4px;padding:12px;">
-            <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--red);margin-bottom:8px;">KEY RISKS TO THESIS</div>
-            <ul class="catalysts-list risk-list">
-              <li>Broad market selloff (SPX correction &gt;5%) would invalidate setup</li>
-              <li>Earnings miss in April — next ER &lt;30 days away (elevated IV)</li>
-              <li>Break below $198 invalidates pattern — hard stop mandatory</li>
-              <li>USD strength headwind on international revenue</li>
-            </ul>
+          <div class="stat-row">
+            <span class="stat-row-label">R:R Ratio (to T2)</span>
+            <span class="stat-row-value green">3.33 : 1</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-row-label">R:R Ratio (to Analyst $300)</span>
+            <span class="stat-row-value cyan">4.36 : 1</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-row-label">Stop Type</span>
+            <span class="stat-row-value">Daily Close Below $241</span>
           </div>
         </div>
       </div>
     </div>
+
+    <div style="margin-top:20px; padding:16px 18px; background:var(--bg3); border-radius:6px; border:1px solid var(--border2);">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px;">EXECUTION NOTES</div>
+      <ul class="catalyst-list" style="font-size:11px;">
+        <li><span class="catalyst-icon">1.</span><div><strong>Current price ($252.82) is within the entry zone.</strong> A staged entry (50% now) is acceptable. Add the second 50% on either a dip to the $248–$249 zone (testing 200d MA) OR a confirmed breakout close above $260 on volume &gt;50M.</div></li>
+        <li><span class="catalyst-icon">2.</span><div><strong>Do NOT hold through earnings (Apr 30) without hedging.</strong> Earnings introduces binary risk. Consider reducing to 50% position size going into the April 30 print, then re-assessing post-earnings.</div></li>
+        <li><span class="catalyst-icon">3.</span><div><strong>Entry is invalidated if AAPL closes below $241.</strong> This would break the 200d MA zone and the 38.2% Fibonacci level, shifting the technical structure from consolidation to distribution/downtrend.</div></li>
+        <li><span class="catalyst-icon">4.</span><div><strong>Breakout confirmation trigger: close above $265 on volume.</strong> A move above $265 reclaims the 50-day SMA zone and shifts the daily trend back to bullish. This is the highest-conviction add point.</div></li>
+      </ul>
+    </div>
   </div>
 
-  <!-- ═══════════════════════════ FOOTER ═══════════════════════════════════ -->
-  <footer class="footer">
-    <div class="footer-firm">CITADEL SECURITIES — QUANTITATIVE TRADING &amp; RESEARCH DIVISION</div>
-    <p class="footer-disclaimer">
-      This report is generated for internal research purposes only and is intended solely for use by authorized personnel of Citadel Securities LP and its affiliates. The information, analysis, and recommendations contained herein are based on technical analysis methodologies and do not constitute investment advice, a solicitation, or an offer to buy or sell any security. Past performance of technical setups is not indicative of future results. All trading involves risk of loss, including possible loss of principal. Position sizing recommendations are illustrative only and do not account for individual portfolio risk parameters or regulatory constraints. The price levels, targets, and stop-loss levels presented are for analytical purposes and should be reviewed by a qualified portfolio manager before execution. This document contains proprietary quantitative analysis techniques and is classified confidential. Unauthorized distribution is prohibited.
-    </p>
-    <div class="footer-bottom">
-      <div class="footer-id mono">REPORT ID: CSQ-TA-2026-0317-AAPL-001 &nbsp;|&nbsp; ANALYST: QUANT-ENGINE v4.2 &nbsp;|&nbsp; GENERATED: 2026-03-17 09:34:22 EST</div>
-      <div class="footer-id mono">© 2026 CITADEL SECURITIES LP. ALL RIGHTS RESERVED.</div>
+  <!-- ═══════════════════════════════════════════════════════════════ CONFIDENCE -->
+  <div class="chapter">11 — Overall Assessment &amp; Confidence Rating</div>
+  <div class="section-title">COMPOSITE SIGNAL RATING</div>
+
+  <div class="grid-2">
+    <div class="card blue-accent">
+      <div class="confidence-block">
+        <div class="conf-score">62</div>
+        <div style="font-family:var(--mono);font-size:13px;color:var(--blue);font-weight:700;margin-top:4px;">/ 100 CONFIDENCE</div>
+        <div class="conf-label">CAUTIOUS LONG — CONDITIONAL</div>
+        <div class="conf-bars" style="margin-top:16px;">
+          <div class="conf-bar-seg" style="background:var(--green);opacity:1;"></div>
+          <div class="conf-bar-seg" style="background:var(--green);opacity:0.9;"></div>
+          <div class="conf-bar-seg" style="background:var(--green);opacity:0.8;"></div>
+          <div class="conf-bar-seg" style="background:var(--blue);opacity:1;"></div>
+          <div class="conf-bar-seg" style="background:var(--blue);opacity:0.9;"></div>
+          <div class="conf-bar-seg" style="background:var(--blue);opacity:0.8;"></div>
+          <div class="conf-bar-seg" style="background:var(--border2);opacity:1;"></div>
+          <div class="conf-bar-seg" style="background:var(--border2);opacity:1;"></div>
+          <div class="conf-bar-seg" style="background:var(--border2);opacity:1;"></div>
+          <div class="conf-bar-seg" style="background:var(--border2);opacity:1;"></div>
+        </div>
+        <div class="conf-desc" style="text-align:center;">
+          The long setup scores <strong style="color:var(--blue)">62/100</strong>. Bullish structural factors (Golden Cross, strong analyst consensus, low short interest, 200d MA support) are partially offset by short-term bearish momentum (RSI 41.5, MACD negative, below 50d MA, below $260 resistance). Not a screaming buy — a <strong>conditional entry with discipline</strong>.
+        </div>
+      </div>
     </div>
-  </footer>
+
+    <div class="card">
+      <div class="card-title">Signal Scorecard</div>
+      <div class="gauge-row">
+        <span class="gauge-name">Long-Term Trend (MA Golden Cross)</span>
+        <span class="badge bullish">Bullish</span>
+        <span class="gauge-val green" style="margin-left:8px;">+</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">Short-Term Trend (Price vs 50d MA)</span>
+        <span class="badge bearish">Bearish</span>
+        <span class="gauge-val red" style="margin-left:8px;">-</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">RSI (41.5 — approaching oversold)</span>
+        <span class="badge hold">Neutral</span>
+        <span class="gauge-val yellow" style="margin-left:8px;">~</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">MACD (negative / bearish)</span>
+        <span class="badge bearish">Bearish</span>
+        <span class="gauge-val red" style="margin-left:8px;">-</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">200d MA Support ($248.10)</span>
+        <span class="badge bullish">Bullish</span>
+        <span class="gauge-val green" style="margin-left:8px;">+</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">Volume (below avg, low conviction)</span>
+        <span class="badge hold">Neutral</span>
+        <span class="gauge-val yellow" style="margin-left:8px;">~</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">Short Interest (0.88% — very low)</span>
+        <span class="badge bullish">Bullish</span>
+        <span class="gauge-val green" style="margin-left:8px;">+</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">Analyst Consensus ($300 PT / Strong Buy)</span>
+        <span class="badge bullish">Bullish</span>
+        <span class="gauge-val green" style="margin-left:8px;">+</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">Fibonacci (between 23.6% and 38.2%)</span>
+        <span class="badge hold">Neutral</span>
+        <span class="gauge-val yellow" style="margin-left:8px;">~</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">Earnings Risk (Apr 30 — binary event)</span>
+        <span class="badge hold">Caution</span>
+        <span class="gauge-val yellow" style="margin-left:8px;">~</span>
+      </div>
+      <div class="gauge-row">
+        <span class="gauge-name">R:R Ratio (to T2: 3.33:1)</span>
+        <span class="badge bullish">Favorable</span>
+        <span class="gauge-val green" style="margin-left:8px;">+</span>
+      </div>
+      <div style="margin-top:14px; padding:10px 14px; background:var(--bg3); border-radius:6px; font-family:var(--mono); font-size:10px; color:var(--text-dim);">
+        Bullish: 5 &nbsp;|&nbsp; Neutral/Caution: 4 &nbsp;|&nbsp; Bearish: 2 &nbsp;|&nbsp; <strong style="color:var(--blue)">Net: Cautious Long Bias</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ BULL / BEAR CASE -->
+  <div class="chapter">12 — Bull &amp; Bear Scenarios</div>
+
+  <div class="grid-2">
+    <div class="card green-accent">
+      <div class="section-title" style="color:var(--green);border-color:var(--green-bg)">// BULL CASE (Base-to-Upside)</div>
+      <ul class="catalyst-list">
+        <li>
+          <span class="catalyst-icon">▲</span>
+          <div>
+            <strong>200d MA Holds &amp; Reversal ($248 Holds Firm)</strong>
+            AAPL bounces off the $248–$249 structural support zone (200d MA + high-volume cluster). RSI moves back above 50, MACD turns positive — long position plays out to $267–$288. <strong>+5–14% from entry.</strong>
+          </div>
+        </li>
+        <li>
+          <span class="catalyst-icon">▲</span>
+          <div>
+            <strong>Breakout Above $265 Triggers Technical Rally</strong>
+            A daily close above $265 reclaims the 50-day MA zone and inverts the short-term downtrend. Rapid momentum toward $280–$288 (ATH retake). Institutional FOMO kicks in on AI narrative.
+          </div>
+        </li>
+        <li>
+          <span class="catalyst-icon">▲</span>
+          <div>
+            <strong>Q2 Earnings Beat + AI Revenue Surprise (Apr 30)</strong>
+            Apple delivers strong Q2 with material AI services revenue contribution. Stock gaps to $290–$310 range. Analyst upgrades follow. Analyst bull target of $350 comes into play on 12-month horizon.
+          </div>
+        </li>
+      </ul>
+      <div style="margin-top:10px; padding:10px 12px; background:var(--green-bg); border-radius:6px; font-family:var(--mono); font-size:11px; color:var(--green);">
+        Bull Targets: $267 (T1) → $288 (T2) → $300 (consensus) → $350 (Wedbush bull case)
+      </div>
+    </div>
+
+    <div class="card red-accent">
+      <div class="section-title" style="color:var(--red);border-color:var(--red-bg)">// BEAR CASE (Risk Scenario)</div>
+      <ul class="catalyst-list">
+        <li>
+          <span class="catalyst-icon">▼</span>
+          <div>
+            <strong>200d MA Breaks — Structural Damage Below $241</strong>
+            A daily close below $241 breaks below the 200d MA ($248) and the 38.2% Fibonacci level ($243). This shifts the technical structure to a potential downtrend. Stops triggered. Risk to $220–$228 (50% Fibonacci retrace).
+          </div>
+        </li>
+        <li>
+          <span class="catalyst-icon">▼</span>
+          <div>
+            <strong>Broader Market Risk-Off Selloff (Macro)</strong>
+            Fed surprise, macro deterioration, or tech sector rotation could drag AAPL below $240 regardless of Apple-specific fundamentals. As a mega-cap, AAPL is highly correlated to SPX/QQQ.
+          </div>
+        </li>
+        <li>
+          <span class="catalyst-icon">▼</span>
+          <div>
+            <strong>Q2 Earnings Miss / AI Disappointment (Apr 30)</strong>
+            If Apple fails to demonstrate meaningful AI revenue contribution or misses EPS/revenue guidance, the AI supercycle thesis gets challenged. Potential gap-down to $225–$235 range.
+          </div>
+        </li>
+      </ul>
+      <div style="margin-top:10px; padding:10px 12px; background:var(--red-bg); border-radius:6px; font-family:var(--mono); font-size:11px; color:var(--red);">
+        Bear Targets: $243 (38.2% Fib) → $228 (50% Fib) → $202 (prior support) → $169 (52W low)
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ FOOTER -->
+  <div class="footer">
+    <div class="footer-title">REPORT METADATA &amp; DATA PROVENANCE</div>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-col-title">Report Information</div>
+        <div class="footer-row"><span>Report Generated</span><span>March 17, 2026, ~14:00 EST</span></div>
+        <div class="footer-row"><span>Skill Version</span><span>citadel-technical-analysis v1.1</span></div>
+        <div class="footer-row"><span>Model</span><span>Claude Sonnet 4.6 (claude-sonnet-4-6)</span></div>
+        <div class="footer-row"><span>Live Price As Of</span><span>March 17, 2026 (intraday)</span></div>
+        <div class="footer-row"><span>Ticker</span><span>AAPL / NASDAQ</span></div>
+        <div class="footer-row"><span>Report Type</span><span>Long Candidate Technical Assessment</span></div>
+        <div class="footer-row"><span>Est. Generation Time</span><span>~2.5 min (9 searches × 10–15s + 30s synthesis)</span></div>
+        <div class="footer-row"><span>Confidence Rating</span><span>62/100 — Cautious Long (Conditional)</span></div>
+
+        <div class="footer-col-title" style="margin-top:16px;">Live Data Retrieved</div>
+        <div class="footer-row"><span>Current Price</span><span>$252.82 (+1.08%)</span></div>
+        <div class="footer-row"><span>Intraday Range</span><span>$249.50 – $253.89</span></div>
+        <div class="footer-row"><span>52W High / Low</span><span>$288.62 / $169.21</span></div>
+        <div class="footer-row"><span>50-Day SMA / EMA</span><span>$267.85 / $272.50</span></div>
+        <div class="footer-row"><span>200-Day SMA</span><span>$248.10</span></div>
+        <div class="footer-row"><span>RSI (14, Daily)</span><span>41.5</span></div>
+        <div class="footer-row"><span>MACD Status</span><span>Negative / Below Signal Line</span></div>
+        <div class="footer-row"><span>Avg Daily Vol (3M)</span><span>48.5M shares</span></div>
+        <div class="footer-row"><span>Short Interest</span><span>129.55M (0.88% float)</span></div>
+        <div class="footer-row"><span>Days to Cover</span><span>3.26 days</span></div>
+        <div class="footer-row"><span>Next Earnings</span><span>Apr 30, 2026 (After Close)</span></div>
+        <div class="footer-row"><span>Analyst Consensus PT</span><span>$300.00 median (Strong Buy)</span></div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Search Queries Executed (Phase 0)</div>
+        <div class="footer-row"><span>Query 1</span><span>AAPL stock price today 2026</span></div>
+        <div class="footer-row"><span>Query 2</span><span>AAPL 52 week high 52 week low 2026</span></div>
+        <div class="footer-row"><span>Query 3</span><span>AAPL 50 day MA 200 day MA current 2026</span></div>
+        <div class="footer-row"><span>Query 4</span><span>AAPL RSI MACD technical analysis current 2026</span></div>
+        <div class="footer-row"><span>Query 5</span><span>AAPL support resistance levels TA 2026</span></div>
+        <div class="footer-row"><span>Query 6</span><span>AAPL short interest ratio 2026</span></div>
+        <div class="footer-row"><span>Query 7</span><span>AAPL average daily trading volume 2026</span></div>
+        <div class="footer-row"><span>Query 8</span><span>AAPL next earnings date 2026</span></div>
+        <div class="footer-row"><span>Query 9</span><span>AAPL analyst price target consensus 2026</span></div>
+
+        <div class="footer-col-title footer-sources" style="margin-top:16px;">Data Sources Cited</div>
+        <div class="footer-row"><span><a href="https://finance.yahoo.com/quote/AAPL/" target="_blank">Yahoo Finance — AAPL Quote</a></span><span>Price, fundamentals</span></div>
+        <div class="footer-row"><span><a href="https://www.marketbeat.com/stocks/NASDAQ/AAPL/short-interest/" target="_blank">MarketBeat — Short Interest</a></span><span>Short data, Mar 2026</span></div>
+        <div class="footer-row"><span><a href="https://www.marketbeat.com/stocks/NASDAQ/AAPL/forecast/" target="_blank">MarketBeat — Forecast</a></span><span>PT $297.58</span></div>
+        <div class="footer-row"><span><a href="https://www.tipranks.com/stocks/aapl/forecast" target="_blank">TipRanks — AAPL Forecast</a></span><span>PT $305.18, ratings</span></div>
+        <div class="footer-row"><span><a href="https://www.investing.com/equities/apple-computer-inc-technical" target="_blank">Investing.com — Technical</a></span><span>RSI, MACD, MAs</span></div>
+        <div class="footer-row"><span><a href="https://altindex.com/ticker/aapl/technical-analysis" target="_blank">AltIndex — TA 2026</a></span><span>50d/200d MAs</span></div>
+        <div class="footer-row"><span><a href="https://www.capitalstreetfx.com/apple-aapl-trade-idea-technical-analysis-forecast-trade-setup-march-13-2026/" target="_blank">CapitalStreetFX — Mar 13, 2026</a></span><span>RSI, MACD, consolidation</span></div>
+        <div class="footer-row"><span><a href="https://www.barchart.com/stocks/quotes/AAPL/technical-analysis" target="_blank">Barchart — TA</a></span><span>MAs, indicators</span></div>
+        <div class="footer-row"><span><a href="https://www.nasdaq.com/market-activity/stocks/aapl/earnings" target="_blank">Nasdaq — Earnings Calendar</a></span><span>Apr 30, 2026 date</span></div>
+        <div class="footer-row"><span><a href="https://fintel.io/ss/us/aapl" target="_blank">Fintel — Short Interest</a></span><span>Short float data</span></div>
+        <div class="footer-row"><span><a href="https://www.gurufocus.com/term/sma-50/AAPL" target="_blank">GuruFocus — 50d SMA</a></span><span>Moving average levels</span></div>
+        <div class="footer-row"><span><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/technicals/" target="_blank">TradingView — AAPL Technicals</a></span><span>Consensus sell signal</span></div>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer">
+      DISCLAIMER: This report is generated by an AI system (Claude Sonnet 4.6 via Citadel Technical Analysis skill v1.1) using live web search data for informational and educational purposes only. This is NOT investment advice and does NOT constitute a recommendation to buy or sell any security. All price levels, technical readings, and analyst targets are sourced from third-party data providers and may contain inaccuracies or be delayed. Past performance is not indicative of future results. Technical analysis involves significant uncertainty and all trades carry risk, including total loss of capital. Always conduct your own research and consult a qualified financial advisor before making any investment decisions. The Citadel name is used for stylistic/skill-branding purposes only and implies no affiliation with Citadel LLC or Citadel Securities.
+    </div>
+  </div>
 
 </div>
 </body>
