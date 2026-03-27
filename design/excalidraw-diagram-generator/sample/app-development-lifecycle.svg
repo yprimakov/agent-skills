@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="698" viewBox="170 -25 660 698">
+<rect x="170" y="-25" width="660" height="698" fill="#ffffff"/>
+<defs>
+  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#343a40"/>
+  </marker>
+</defs>
+<rect x="400" y="90" width="200" height="80" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="590" y="200" width="200" height="80" fill="#d0bfff" stroke="#6741d9" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="590" y="420" width="200" height="80" fill="#99e9f2" stroke="#0c8599" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="400" y="530" width="200" height="80" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="210" y="420" width="200" height="80" fill="#96f2d7" stroke="#099268" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="210" y="200" width="200" height="80" fill="#fcc2d7" stroke="#c2255c" stroke-width="2" rx="8" opacity="1.0"/>
+<polygon points="690,220 678.5758221106678,216.32737702004496 683.6282754774387,209.83136554848238" fill="#343a40" opacity="1.0"/>
+<path d="M600,150 L645,185 L690,220" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="690,420 685.8852263105346,408.72752744583147 694.1147736894654,408.72752744583147" fill="#343a40" opacity="1.0"/>
+<path d="M690,280 L690,350 L690,420" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="600,550 606.3717245225613,539.8313655484824 611.4241778893322,546.327377020045" fill="#343a40" opacity="1.0"/>
+<path d="M690,480 L645,515 L600,550" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="310,480 321.42417788933216,483.67262297995507 316.3717245225613,490.1686344515176" fill="#343a40" opacity="1.0"/>
+<path d="M400,550 L355,515 L310,480" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="310,280 314.11477368946544,291.27247255416853 305.88522631053456,291.27247255416853" fill="#343a40" opacity="1.0"/>
+<path d="M310,420 L310,350 L310,280" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="400,150 393.6282754774387,160.16863445151762 388.57582211066784,153.67262297995504" fill="#343a40" opacity="1.0"/>
+<path d="M310,220 L355,185 L400,150" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<text x="500.0" y="47.0" font-size="32" fill="#343a40" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Application Development Lifecycle</text>
+<text x="500.0" y="134.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Plan</text>
+<text x="500.0" y="189.0" font-size="14" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Requirements &amp; user stories</text>
+<text x="690.0" y="244.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Design</text>
+<text x="690.0" y="299.0" font-size="14" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">UI/UX design &amp; architecture</text>
+<text x="690.0" y="464.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Develop</text>
+<text x="690.0" y="519.0" font-size="14" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Coding &amp; code review</text>
+<text x="500.0" y="574.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Test</text>
+<text x="500.0" y="629.0" font-size="14" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">QA &amp; automated tests</text>
+<text x="310.0" y="464.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Deploy</text>
+<text x="310.0" y="519.0" font-size="14" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">CI/CD, staging &amp; production</text>
+<text x="310.0" y="244.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Monitor</text>
+<text x="310.0" y="299.0" font-size="14" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Observability, alerts &amp; feedback</text>
+</svg>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="765" viewBox="-10 -25 1120 765">
+<rect x="-10" y="-25" width="1120" height="765" fill="#ffffff"/>
+<defs>
+  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#343a40"/>
+  </marker>
+</defs>
+<rect x="30" y="60" width="1040" height="180" fill="none" stroke="#aaa" stroke-width="1" stroke-dasharray="6 3" rx="4" opacity="0.6"/>
+<text x="38" y="54" font-size="12" fill="#888" font-family="Inter, sans-serif">Presentation Tier</text>
+<rect x="30" y="280" width="1040" height="200" fill="none" stroke="#aaa" stroke-width="1" stroke-dasharray="6 3" rx="4" opacity="0.6"/>
+<text x="38" y="274" font-size="12" fill="#888" font-family="Inter, sans-serif">Application Tier</text>
+<rect x="30" y="520" width="1040" height="180" fill="none" stroke="#aaa" stroke-width="1" stroke-dasharray="6 3" rx="4" opacity="0.6"/>
+<text x="38" y="514" font-size="12" fill="#888" font-family="Inter, sans-serif">Data Tier</text>
+<rect x="100" y="100" width="160" height="60" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="370" y="100" width="160" height="60" fill="#e9ecef" stroke="#343a40" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="640" y="85" width="160" height="50" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="640" y="155" width="160" height="50" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="370" y="310" width="160" height="60" fill="#d0bfff" stroke="#6741d9" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="100" y="310" width="160" height="60" fill="#d0bfff" stroke="#6741d9" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="640" y="310" width="160" height="60" fill="#d0bfff" stroke="#6741d9" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="370" y="410" width="160" height="50" fill="#e9ecef" stroke="#343a40" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="100" y="570" width="180" height="60" fill="#96f2d7" stroke="#099268" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="400" y="570" width="160" height="60" fill="#96f2d7" stroke="#099268" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="680" y="570" width="160" height="60" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" rx="8" opacity="1.0"/>
+<polygon points="370,130 358.72752744583147,134.1147736894654 358.72752744583147,125.88522631053459" fill="#1e1e1e" opacity="1.0"/>
+<path d="M260,130 L370,130" fill="none" stroke="#1e1e1e" stroke-width="2" opacity="1.0"/>
+<polygon points="640,110 629.1463552689818,115.11843687592612 628.401287057438,106.92268654894481" fill="#1e1e1e" opacity="1.0"/>
+<path d="M530,120 L640,110" fill="none" stroke="#1e1e1e" stroke-width="2" opacity="1.0"/>
+<polygon points="640,180 628.000009062592,180.01474795328048 630.812399791685,172.2806734482748" fill="#1e1e1e" opacity="1.0"/>
+<path d="M530,140 L640,180" fill="none" stroke="#1e1e1e" stroke-width="2" opacity="1.0"/>
+<polygon points="450,310 457.2213223047405,300.4160287891158 461.6973357146724,307.3218780501536" fill="#1e1e1e" opacity="1.0"/>
+<path d="M720,135 L450,310" fill="none" stroke="#1e1e1e" stroke-width="2" opacity="1.0"/>
+<polygon points="450,310 459.01461274106066,302.07934616785286 461.99738141955163,309.74932276968684" fill="#1e1e1e" opacity="1.0"/>
+<path d="M720,205 L450,310" fill="none" stroke="#1e1e1e" stroke-width="2" opacity="1.0"/>
+<polygon points="260,340 271.27247255416853,335.88522631053456 271.27247255416853,344.11477368946544" fill="#1e1e1e" opacity="1.0"/>
+<path d="M370,340 L260,340" fill="none" stroke="#1e1e1e" stroke-width="2" opacity="1.0"/>
+<polygon points="640,340 628.7275274458315,344.11477368946544 628.7275274458315,335.88522631053456" fill="#1e1e1e" opacity="1.0"/>
+<path d="M530,340 L640,340" fill="none" stroke="#1e1e1e" stroke-width="2" opacity="1.0"/>
+<polygon points="410,410 398.12163789867134,411.7042634155901 399.81701091302733,403.65124159739906" fill="#868e96" opacity="1.0"/>
+<path d="M220,370 L410,410" fill="none" stroke="#868e96" stroke-width="2" opacity="1.0" stroke-dasharray="8 4"/>
+<polygon points="530,410 539.8316333422501,403.1196667360109 541.9520803328173,411.07134295063776" fill="#868e96" opacity="1.0"/>
+<path d="M680,370 L530,410" fill="none" stroke="#868e96" stroke-width="2" opacity="1.0" stroke-dasharray="8 4"/>
+<polygon points="190,570 185.32743973727278,558.9470736639032 193.546719429886,558.5361096792725" fill="#1e1e1e" opacity="1.0"/>
+<path d="M180,370 L190,570" fill="none" stroke="#1e1e1e" stroke-width="2" opacity="1.0"/>
+<polygon points="760,570 753.754418684494,559.7534047590723 761.8241538139564,558.1394577331798" fill="#1e1e1e" opacity="1.0"/>
+<path d="M720,370 L760,570" fill="none" stroke="#1e1e1e" stroke-width="2" opacity="1.0"/>
+<polygon points="400,600 388.72752744583147,604.1147736894654 388.72752744583147,595.8852263105346" fill="#099268" opacity="1.0"/>
+<path d="M280,600 L400,600" fill="none" stroke="#099268" stroke-width="2" opacity="1.0" stroke-dasharray="8 4"/>
+<text x="550.0" y="43.0" font-size="28" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Three-Tier Web Application Architecture</text>
+<text x="180.0" y="131.1" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Browser / Mobile</text>
+<text x="450.0" y="131.1" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Load Balancer</text>
+<text x="720.0" y="110.6" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Web Server 1</text>
+<text x="720.0" y="180.6" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Web Server 2</text>
+<text x="450.0" y="341.1" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">API Gateway</text>
+<text x="180.0" y="341.1" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">App Server 1</text>
+<text x="720.0" y="341.1" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">App Server 2</text>
+<text x="450.0" y="435.6" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Cache (Redis)</text>
+<text x="190.0" y="601.1" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Primary DB</text>
+<text x="480.0" y="601.1" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Read Replica</text>
+<text x="760.0" y="600.65" font-size="14" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Object Storage (S3)</text>
+<text x="340.0" y="592.15" font-size="14" fill="#099268" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">replication</text>
+</svg>

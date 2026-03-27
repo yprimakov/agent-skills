@@ -299,6 +299,30 @@ Use `"viewBackgroundColor": "#ffffff"` for light mode (default) or `"#1e1e1e"` f
 
 ---
 
+## Phase 4: Visual Verification
+
+After writing the file, render a preview SVG and screenshot it with Playwright to verify the layout before reporting to the user.
+
+**Steps:**
+1. Parse the `.excalidraw` JSON and render it to an SVG file using basic shape rendering (rectangles, diamonds, ellipses, arrows with arrowheads, text positioning)
+2. Open the SVG in Playwright and screenshot it
+3. Review the screenshot for:
+   - **Arrow direction**: Do arrows point the correct way?
+   - **Arrow crossing**: Are there unnecessary crossings that can be fixed by repositioning nodes?
+   - **Text overflow**: Does text fit inside its container?
+   - **Element overlap**: Are any shapes sitting on top of each other?
+   - **Layout balance**: Is the diagram centered and well-spaced?
+4. If issues are found, adjust element positions/arrow points and regenerate
+5. Minimum 1 verification pass; iterate until the layout is clean
+
+**Arrow crossing rules** (learned from iteration):
+- In layered/tiered diagrams, vertically align components between tiers so cross-tier arrows go straight down
+- Place related components in the same column across tiers
+- If fan-out is needed (e.g., load balancer → web servers), stack targets vertically and keep them close to the source's horizontal position
+- For circular/cycle diagrams, space nodes evenly around the circle and use consistent angular gaps
+
+---
+
 ## Quality Checklist
 
 Before writing the file, verify:
@@ -306,6 +330,7 @@ Before writing the file, verify:
 - [ ] All `boundElements` references are bidirectional (container↔text, shape↔arrow)
 - [ ] All arrow `points` start with `[0, 0]`
 - [ ] Arrow `width`/`height` match the points bounding box
+- [ ] No duplicate points in arrow `points` arrays
 - [ ] No overlapping elements (check x/y/width/height don't collide)
 - [ ] Text fits within containers (text_width < container_width - 10)
 - [ ] Consistent color palette throughout (don't mix palettes)
@@ -313,6 +338,8 @@ Before writing the file, verify:
 - [ ] All seeds are unique
 - [ ] Font sizes are appropriate for the diagram scale
 - [ ] Sufficient spacing between elements (min 40px gaps)
+- [ ] Cross-tier arrows flow vertically (no full-width diagonal crossings)
+- [ ] Visual preview screenshot reviewed and approved
 
 ---
 

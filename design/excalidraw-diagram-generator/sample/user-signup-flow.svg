@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="550" height="1190" viewBox="70 -20 550 1190">
+<rect x="70" y="-20" width="550" height="1190" fill="#ffffff"/>
+<defs>
+  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#343a40"/>
+  </marker>
+</defs>
+<rect x="150" y="80" width="180" height="70" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="150" y="230" width="180" height="70" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<polygon points="240.0,380 310,435.0 240.0,490 170,435.0" fill="#ffec99" stroke="#f08c00" stroke-width="2" opacity="1.0"/>
+<rect x="400" y="400" width="180" height="70" fill="#ffc9c9" stroke="#e03131" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="150" y="570" width="180" height="70" fill="#d0bfff" stroke="#6741d9" stroke-width="2" rx="8" opacity="1.0"/>
+<polygon points="240.0,720 310,775.0 240.0,830 170,775.0" fill="#ffec99" stroke="#f08c00" stroke-width="2" opacity="1.0"/>
+<rect x="400" y="740" width="180" height="70" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="150" y="910" width="180" height="70" fill="#99e9f2" stroke="#0c8599" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="150" y="1060" width="180" height="70" fill="#b2f2bb" stroke="#2f9e44" stroke-width="4" rx="8" opacity="1.0"/>
+<polygon points="240,230 235.8852263105346,218.72752744583144 244.1147736894654,218.72752744583144" fill="#2f9e44" opacity="1.0"/>
+<path d="M240,150 L240,230" fill="none" stroke="#2f9e44" stroke-width="2" opacity="1.0"/>
+<polygon points="240,380 235.8852263105346,368.72752744583147 244.1147736894654,368.72752744583147" fill="#2f9e44" opacity="1.0"/>
+<path d="M240,300 L240,380" fill="none" stroke="#2f9e44" stroke-width="2" opacity="1.0"/>
+<polygon points="400,435 388.72752744583147,439.11477368946544 388.72752744583147,430.88522631053456" fill="#e03131" opacity="1.0"/>
+<path d="M310,435 L400,435" fill="none" stroke="#e03131" stroke-width="2" opacity="1.0"/>
+<polygon points="240,265 244.1147736894654,276.27247255416853 235.8852263105346,276.27247255416853" fill="#e03131" opacity="1.0"/>
+<path d="M490,400 L490,285 L240,285 L240,265" fill="none" stroke="#e03131" stroke-width="2" opacity="1.0" stroke-dasharray="8 4"/>
+<polygon points="240,570 235.8852263105346,558.7275274458315 244.1147736894654,558.7275274458315" fill="#2f9e44" opacity="1.0"/>
+<path d="M240,490 L240,570" fill="none" stroke="#2f9e44" stroke-width="2" opacity="1.0"/>
+<polygon points="240,720 235.8852263105346,708.7275274458315 244.1147736894654,708.7275274458315" fill="#2f9e44" opacity="1.0"/>
+<path d="M240,640 L240,720" fill="none" stroke="#2f9e44" stroke-width="2" opacity="1.0"/>
+<polygon points="400,775 388.72752744583147,779.1147736894654 388.72752744583147,770.8852263105346" fill="#e03131" opacity="1.0"/>
+<path d="M310,775 L400,775" fill="none" stroke="#e03131" stroke-width="2" opacity="1.0"/>
+<polygon points="240,875 235.8852263105346,863.7275274458315 244.1147736894654,863.7275274458315" fill="#e03131" opacity="1.0"/>
+<path d="M490,740 L490,670 L240,670 L240,875" fill="none" stroke="#e03131" stroke-width="2" opacity="1.0" stroke-dasharray="8 4"/>
+<polygon points="240,910 235.8852263105346,898.7275274458315 244.1147736894654,898.7275274458315" fill="#2f9e44" opacity="1.0"/>
+<path d="M240,830 L240,910" fill="none" stroke="#2f9e44" stroke-width="2" opacity="1.0"/>
+<polygon points="240,1060 235.8852263105346,1048.7275274458314 244.1147736894654,1048.7275274458314" fill="#2f9e44" opacity="1.0"/>
+<path d="M240,980 L240,1060" fill="none" stroke="#2f9e44" stroke-width="2" opacity="1.0"/>
+<text x="240.0" y="48.0" font-size="28" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">User Signup Flow</text>
+<text x="240.0" y="119.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Landing Page</text>
+<text x="295.0" y="190.15" font-size="14" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Click Sign Up</text>
+<text x="240.0" y="269.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Sign Up Form</text>
+<text x="275.0" y="340.15" font-size="14" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Submit</text>
+<text x="240.0" y="431.1" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Validate Input</text>
+<text x="357.5" y="427.15" font-size="14" fill="#e03131" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Invalid</text>
+<text x="490.0" y="439.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Show Errors</text>
+<text x="267.5" y="530.15" font-size="14" fill="#2f9e44" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Valid</text>
+<text x="240.0" y="609.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Create Account</text>
+<text x="285.0" y="680.15" font-size="14" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Send email</text>
+<text x="240.0" y="771.1" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Verify Email</text>
+<text x="357.0" y="767.15" font-size="14" fill="#e03131" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Timeout</text>
+<text x="490.0" y="779.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Resend Email</text>
+<text x="275.0" y="870.15" font-size="14" fill="#2f9e44" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Verified</text>
+<text x="240.0" y="949.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Onboarding</text>
+<text x="300.0" y="1020.15" font-size="14" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Complete profile</text>
+<text x="240.0" y="1099.0" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Dashboard</text>
+</svg>

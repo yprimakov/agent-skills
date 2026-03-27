@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1070" height="570" viewBox="10 -20 1070 570">
+<rect x="10" y="-20" width="1070" height="570" fill="#ffffff"/>
+<defs>
+  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#343a40"/>
+  </marker>
+</defs>
+<rect x="50" y="120" width="180" height="70" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="320" y="120" width="180" height="70" fill="#d0bfff" stroke="#6741d9" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="590" y="120" width="180" height="70" fill="#99e9f2" stroke="#0c8599" stroke-width="2" rx="8" opacity="1.0"/>
+<polygon points="690.0,270 760,325.0 690.0,380 620,325.0" fill="#ffec99" stroke="#f08c00" stroke-width="2" opacity="1.0"/>
+<rect x="320" y="290" width="180" height="70" fill="#96f2d7" stroke="#099268" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="860" y="290" width="180" height="70" fill="#ffc9c9" stroke="#e03131" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="100" y="290" width="180" height="70" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="100" y="440" width="180" height="70" fill="#eebefa" stroke="#9c36b5" stroke-width="2" rx="8" opacity="1.0"/>
+<polygon points="320,155.007 308.72752744583147,159.1217736894654 308.72752744583147,150.8922263105346" fill="#343a40" opacity="1.0"/>
+<path d="M230,155.007 L320,155.007" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="590,155.007 578.7275274458315,159.1217736894654 578.7275274458315,150.8922263105346" fill="#343a40" opacity="1.0"/>
+<path d="M500,155.007 L590,155.007" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="690.014,270 684.5333485096518,259.3246798998183 692.6993965518391,258.304332196947" fill="#343a40" opacity="1.0"/>
+<path d="M680.018,190 L690.014,270" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="500,325.007 511.27260970702895,320.8926020619055 511.2723353887832,329.12214943626435" fill="#2f9e44" opacity="1.0"/>
+<path d="M620,325.01099999999997 L500,325.007" fill="none" stroke="#2f9e44" stroke-width="2" opacity="1.0"/>
+<polygon points="860,325.007 848.7276920457969,329.1222245850754 848.7273628639019,320.8926772127282" fill="#e03131" opacity="1.0"/>
+<path d="M760,325.01099999999997 L860,325.007" fill="none" stroke="#e03131" stroke-width="2" opacity="1.0"/>
+<polygon points="280,325.007 291.27247255416853,320.89222631053457 291.27247255416853,329.12177368946544" fill="#343a40" opacity="1.0"/>
+<path d="M320,325.007 L280,325.007" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="190.018,440 185.9032263105346,428.72752744583147 194.1327736894654,428.72752744583147" fill="#343a40" opacity="1.0"/>
+<path d="M190.018,360 L190.018,440" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="140.01800000000003,120 144.12697587447508,131.27458723248802 135.8974295838597,131.2703548943957" fill="#e03131" opacity="1.0"/>
+<path d="M950.018,290 L950.0,155 L140.0,155 L140.01800000000003,120" fill="none" stroke="#e03131" stroke-width="2" opacity="1.0" stroke-dasharray="8 4"/>
+<text x="500.0" y="52.0" font-size="32" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">CI/CD Pipeline Architecture</text>
+<text x="140.0" y="159.5" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Git Push</text>
+<text x="410.0" y="159.5" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Build</text>
+<text x="680.0" y="159.5" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Run Tests</text>
+<text x="690.0" y="329.5" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Pass?</text>
+<text x="410.0" y="329.5" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Deploy Staging</text>
+<text x="950.0" y="329.5" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Fix &amp; Push</text>
+<text x="190.0" y="329.5" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Deploy Prod</text>
+<text x="190.0" y="479.5" font-size="20" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Monitor</text>
+<text x="559.6212005615234" y="328.6" font-size="16" fill="#2f9e44" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Yes</text>
+<text x="809.6294326782227" y="328.6" font-size="16" fill="#e03131" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">No</text>
+</svg>
