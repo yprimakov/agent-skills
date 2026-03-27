@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1105" height="1145" viewBox="-35 -25 1105 1145">
+<rect x="-35" y="-25" width="1105" height="1145" fill="#ffffff"/>
+<defs>
+  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <polygon points="0 0, 10 3.5, 0 7" fill="#343a40"/>
+  </marker>
+</defs>
+<rect x="40" y="90" width="140" height="50" fill="#ffc9c9" stroke="#e03131" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="210" y="90" width="140" height="50" fill="#e9ecef" stroke="#343a40" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="380" y="90" width="140" height="50" fill="#fcc2d7" stroke="#c2255c" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="550" y="90" width="140" height="50" fill="#99e9f2" stroke="#0c8599" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="720" y="90" width="140" height="50" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="890" y="90" width="140" height="50" fill="#e9ecef" stroke="#343a40" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="350" y="220" width="280" height="70" fill="#d0bfff" stroke="#6741d9" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="60" y="380" width="220" height="65" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="380" y="380" width="220" height="65" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="700" y="380" width="220" height="65" fill="#a5d8ff" stroke="#1971c2" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="330" y="530" width="320" height="70" fill="#96f2d7" stroke="#099268" stroke-width="2" rx="8" opacity="1.0"/>
+<polygon points="490.0,670 570,730.0 490.0,790 410,730.0" fill="#ffec99" stroke="#f08c00" stroke-width="2" opacity="1.0"/>
+<rect x="700" y="695" width="240" height="70" fill="#ffd8a8" stroke="#e8590c" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="310" y="860" width="360" height="70" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2" rx="8" opacity="1.0"/>
+<rect x="140" y="1010" width="250" height="70" fill="#b2f2bb" stroke="#2f9e44" stroke-width="4" rx="8" opacity="1.0"/>
+<rect x="590" y="1010" width="250" height="70" fill="#b2f2bb" stroke="#2f9e44" stroke-width="4" rx="8" opacity="1.0"/>
+<polygon points="490,220 478.12163789867134,221.7042634155901 479.81701091302733,213.6512415973991" fill="#868e96" opacity="0.6"/>
+<path d="M110,140 L490,220" fill="none" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<polygon points="480,220 468.00558340123604,219.63398025286085 471.0619605683853,211.9930373349877" fill="#868e96" opacity="0.6"/>
+<path d="M280,140 L480,220" fill="none" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<polygon points="490,220 481.2784315462068,211.75777677408584 488.6391624915446,208.07741130141693" fill="#868e96" opacity="0.6"/>
+<path d="M450,140 L490,220" fill="none" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<polygon points="590,220 590.1052466938904,208.00046154498327 597.8108120229703,210.8900485433882" fill="#868e96" opacity="0.6"/>
+<path d="M620,140 L590,220" fill="none" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<polygon points="590,220 598.9380394316147,211.9930373349877 601.9944165987639,219.63398025286085" fill="#868e96" opacity="0.6"/>
+<path d="M790,140 L590,220" fill="none" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<polygon points="580,220 590.1829890869726,213.6512415973991 591.8783621013287,221.7042634155901" fill="#868e96" opacity="0.6"/>
+<path d="M960,140 L580,220" fill="none" stroke="#868e96" stroke-width="1" opacity="0.6"/>
+<polygon points="170,380 179.1099514566118,372.18918797702975 181.99953845501673,379.8947533061095" fill="#6741d9" opacity="1.0"/>
+<path d="M410,290 L170,380" fill="none" stroke="#6741d9" stroke-width="2" opacity="1.0"/>
+<polygon points="490,380 485.88522631053456,368.72752744583147 494.11477368946544,368.72752744583147" fill="#6741d9" opacity="1.0"/>
+<path d="M490,290 L490,380" fill="none" stroke="#6741d9" stroke-width="2" opacity="1.0"/>
+<polygon points="810,380 798.0004615449833,379.8947533061095 800.8900485433882,372.18918797702975" fill="#6741d9" opacity="1.0"/>
+<path d="M570,290 L810,380" fill="none" stroke="#6741d9" stroke-width="2" opacity="1.0"/>
+<polygon points="480,530 468.0406994124524,530.9874864336708 470.21686615374944,523.0508783183523" fill="#1971c2" opacity="1.0"/>
+<path d="M170,445 L480,530" fill="none" stroke="#1971c2" stroke-width="2" opacity="1.0"/>
+<polygon points="490,530 485.88522631053456,518.7275274458315 494.11477368946544,518.7275274458315" fill="#1971c2" opacity="1.0"/>
+<path d="M490,445 L490,530" fill="none" stroke="#1971c2" stroke-width="2" opacity="1.0"/>
+<polygon points="630,530 638.4360837418602,521.4658046014682 641.9501523633162,528.9073616821985" fill="#1971c2" opacity="1.0"/>
+<path d="M810,445 L630,530" fill="none" stroke="#1971c2" stroke-width="2" opacity="1.0"/>
+<polygon points="490,670 485.88522631053456,658.7275274458315 494.11477368946544,658.7275274458315" fill="#343a40" opacity="1.0"/>
+<path d="M490,600 L490,670" fill="none" stroke="#343a40" stroke-width="2" opacity="1.0"/>
+<polygon points="700,730 688.7275274458315,734.1147736894654 688.7275274458315,725.8852263105346" fill="#e8590c" opacity="1.0"/>
+<path d="M570,730 L700,730" fill="none" stroke="#e8590c" stroke-width="2" opacity="1.0"/>
+<polygon points="650,565 661.2724725541685,560.8852263105346 661.2724725541685,569.1147736894654" fill="#e8590c" opacity="1.0"/>
+<path d="M820,695 L820,565 L650,565" fill="none" stroke="#e8590c" stroke-width="2" opacity="1.0" stroke-dasharray="8 4"/>
+<polygon points="490,860 485.88522631053456,848.7275274458315 494.11477368946544,848.7275274458315" fill="#2f9e44" opacity="1.0"/>
+<path d="M490,790 L490,860" fill="none" stroke="#2f9e44" stroke-width="2" opacity="1.0"/>
+<polygon points="265,1010 272.59989123903466,1000.7133615794064 276.79533416391496,1007.7931715151419" fill="#2f9e44" opacity="1.0"/>
+<path d="M400,930 L265,1010" fill="none" stroke="#2f9e44" stroke-width="2" opacity="1.0"/>
+<polygon points="715,1010 703.204665836085,1007.7931715151419 707.4001087609654,1000.7133615794064" fill="#2f9e44" opacity="1.0"/>
+<path d="M580,930 L715,1010" fill="none" stroke="#2f9e44" stroke-width="2" opacity="1.0"/>
+<text x="520.0" y="47.0" font-size="32" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Media Ingestion &amp; Analysis Skill</text>
+<text x="110.0" y="118.55" font-size="18" fill="#e03131" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">YouTube</text>
+<text x="280.0" y="118.55" font-size="18" fill="#343a40" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">X / Twitter</text>
+<text x="450.0" y="118.55" font-size="18" fill="#c2255c" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Instagram</text>
+<text x="620.0" y="118.55" font-size="18" fill="#0c8599" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">TikTok</text>
+<text x="790.0" y="118.55" font-size="18" fill="#1971c2" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">LinkedIn</text>
+<text x="960.0" y="118.55" font-size="18" fill="#343a40" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Any URL</text>
+<text x="490.0" y="247.8" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">URL Parser &amp;</text>
+<text x="490.0" y="270.3" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Media Type Detection</text>
+<text x="170.0" y="416.55" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Pull Transcripts</text>
+<text x="490.0" y="416.55" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Transcribe Audio</text>
+<text x="810.0" y="405.8" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Scrape &amp; Download</text>
+<text x="810.0" y="428.3" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Media Content</text>
+<text x="490.0" y="557.8" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Content Analysis &amp;</text>
+<text x="490.0" y="580.3" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Summary Generation</text>
+<text x="490.0" y="723.6" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">More</text>
+<text x="490.0" y="743.6" font-size="16" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Context?</text>
+<text x="820.0" y="722.8" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">WebSearch &amp;</text>
+<text x="820.0" y="745.3" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Context Research</text>
+<text x="630.0" y="721.15" font-size="14" fill="#e8590c" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Yes</text>
+<text x="490.0" y="887.8" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Synthesize Key Findings</text>
+<text x="490.0" y="910.3" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">&amp; Takeaways</text>
+<text x="509.5" y="823.15" font-size="14" fill="#2f9e44" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">No</text>
+<text x="265.0" y="1037.8" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Markdown Files</text>
+<text x="265.0" y="1060.3" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">(findings.md)</text>
+<text x="715.0" y="1037.8" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">Summary Response</text>
+<text x="715.0" y="1060.3" font-size="18" fill="#1e1e1e" text-anchor="middle" font-family="Inter, sans-serif" opacity="1.0">(key takeaways)</text>
+<text x="15.0" y="123.0" font-size="28" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="0.4">1</text>
+<text x="15.0" y="263.0" font-size="28" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="0.4">2</text>
+<text x="15.0" y="423.0" font-size="28" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="0.4">3</text>
+<text x="15.0" y="578.0" font-size="28" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="0.4">4</text>
+<text x="15.0" y="738.0" font-size="28" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="0.4">5</text>
+<text x="15.0" y="908.0" font-size="28" fill="#868e96" text-anchor="middle" font-family="Inter, sans-serif" opacity="0.4">6</text>
+</svg>
