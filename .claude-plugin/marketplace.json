@@ -1,0 +1,75 @@
+{
+  "name": "agent-skills",
+  "description": "Finance research, design tools, and media analysis skills for Claude Code. Includes 8 Wall Street-style finance reports, an Excalidraw diagram generator, a frontend design system deconstructor, and a media ingestion/analysis pipeline.",
+  "owner": {
+    "name": "Yury Primakov",
+    "url": "https://github.com/yprimakov"
+  },
+  "plugins": [
+    {
+      "name": "goldman-sachs-stock-screener",
+      "source": "./finance/fundamental-analysis/goldman-sachs-stock-screener",
+      "description": "Goldman Sachs-style stock screening report with investment profile questionnaire"
+    },
+    {
+      "name": "morgan-stanley-dcf-valuation",
+      "source": "./finance/fundamental-analysis/morgan-stanley-dcf-valuation",
+      "description": "Morgan Stanley-style DCF valuation deep dive for any stock"
+    },
+    {
+      "name": "jpmorgan-earnings-breakdown",
+      "source": "./finance/fundamental-analysis/jpmorgan-earnings-breakdown",
+      "description": "JPMorgan-style earnings preview with beat/miss history and trade recommendation"
+    },
+    {
+      "name": "bridgewater-risk-analysis",
+      "source": "./finance/risk-analysis/bridgewater-risk-analysis",
+      "description": "Bridgewater All-Weather portfolio stress test and risk exposure analysis"
+    },
+    {
+      "name": "blackrock-portfolio-model",
+      "source": "./finance/portfolio-construction/blackrock-portfolio-model",
+      "description": "BlackRock-style portfolio construction tailored to age, goals, and risk tolerance"
+    },
+    {
+      "name": "citadel-technical-analysis",
+      "source": "./finance/technical-analysis/citadel-technical-analysis",
+      "description": "Citadel-style technical analysis with entry price, stop-loss, and profit target"
+    },
+    {
+      "name": "harvard-dividend-strategy",
+      "source": "./finance/income-strategy/harvard-dividend-strategy",
+      "description": "Harvard endowment-style dividend portfolio for passive income targets"
+    },
+    {
+      "name": "bain-competitive-analysis",
+      "source": "./finance/competitive-analysis/bain-competitive-analysis",
+      "description": "Bain-style competitive moat analysis across all major companies in a sector"
+    },
+    {
+      "name": "renaissance-pattern-finder",
+      "source": "./finance/quantitative/renaissance-pattern-finder",
+      "description": "Renaissance-style quantitative pattern detection and statistical edge finder"
+    },
+    {
+      "name": "mckinsey-macro-assessment",
+      "source": "./finance/macro-strategy/mckinsey-macro-assessment",
+      "description": "McKinsey-style macroeconomic impact assessment on portfolio holdings"
+    },
+    {
+      "name": "frontend-deconstructor",
+      "source": "./design/frontend-deconstructor",
+      "description": "Reverse-engineer any website's design system — colors, typography, components, animations"
+    },
+    {
+      "name": "excalidraw-diagram-generator",
+      "source": "./design/excalidraw-diagram-generator",
+      "description": "Generate polished Excalidraw diagrams from data, markdown, or descriptions"
+    },
+    {
+      "name": "ingest",
+      "source": "./media/ingest",
+      "description": "Ingest and analyze content from any URL — YouTube, X, Instagram, TikTok, LinkedIn, or any website"
+    }
+  ]
+}

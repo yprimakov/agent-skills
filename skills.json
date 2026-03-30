@@ -1,0 +1,55 @@
+{
+  "skills": {
+    "goldman-sachs-stock-screener": {
+      "path": "finance/fundamental-analysis/goldman-sachs-stock-screener"
+    },
+    "stock-screener-md-report": {
+      "path": "finance/fundamental-analysis/goldman-sachs-stock-screener/companions/stock-screener-md-report"
+    },
+    "stock-screener-html-report": {
+      "path": "finance/fundamental-analysis/goldman-sachs-stock-screener/companions/stock-screener-html-report"
+    },
+    "morgan-stanley-dcf-valuation": {
+      "path": "finance/fundamental-analysis/morgan-stanley-dcf-valuation"
+    },
+    "dcf-md-report": {
+      "path": "finance/fundamental-analysis/morgan-stanley-dcf-valuation/companions/dcf-md-report"
+    },
+    "dcf-html-report": {
+      "path": "finance/fundamental-analysis/morgan-stanley-dcf-valuation/companions/dcf-html-report"
+    },
+    "jpmorgan-earnings-breakdown": {
+      "path": "finance/fundamental-analysis/jpmorgan-earnings-breakdown"
+    },
+    "bridgewater-risk-analysis": {
+      "path": "finance/risk-analysis/bridgewater-risk-analysis"
+    },
+    "blackrock-portfolio-model": {
+      "path": "finance/portfolio-construction/blackrock-portfolio-model"
+    },
+    "citadel-technical-analysis": {
+      "path": "finance/technical-analysis/citadel-technical-analysis"
+    },
+    "harvard-dividend-strategy": {
+      "path": "finance/income-strategy/harvard-dividend-strategy"
+    },
+    "bain-competitive-analysis": {
+      "path": "finance/competitive-analysis/bain-competitive-analysis"
+    },
+    "renaissance-pattern-finder": {
+      "path": "finance/quantitative/renaissance-pattern-finder"
+    },
+    "mckinsey-macro-assessment": {
+      "path": "finance/macro-strategy/mckinsey-macro-assessment"
+    },
+    "frontend-deconstructor": {
+      "path": "design/frontend-deconstructor"
+    },
+    "excalidraw-diagram-generator": {
+      "path": "design/excalidraw-diagram-generator"
+    },
+    "ingest": {
+      "path": "media/ingest"
+    }
+  }
+}
