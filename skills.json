@@ -50,6 +50,15 @@
     },
     "ingest": {
       "path": "media/ingest"
+    },
+    "curate": {
+      "path": "media/curate"
+    },
+    "fact-check": {
+      "path": "media/fact-check"
+    },
+    "brand-voice": {
+      "path": "media/brand-voice"
     }
   }
 }

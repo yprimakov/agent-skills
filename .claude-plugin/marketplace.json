@@ -70,6 +70,21 @@
       "name": "ingest",
       "source": "./media/ingest",
       "description": "Ingest and analyze content from any URL — YouTube, X, Instagram, TikTok, LinkedIn, or any website"
+    },
+    {
+      "name": "curate",
+      "source": "./media/curate",
+      "description": "Organize ingested content into a searchable Obsidian library with archetypes, hook analysis, and Dataview queries"
+    },
+    {
+      "name": "fact-check",
+      "source": "./media/fact-check",
+      "description": "Evaluate accuracy and truthfulness of claims using a 5-dimension model — accuracy, context, source reliability, bias, and confidence"
+    },
+    {
+      "name": "brand-voice",
+      "source": "./media/brand-voice",
+      "description": "Extract your unique writing style into a reusable Voice DNA Profile — tone, vocabulary, patterns, and platform adaptations"
     }
   ]
 }
