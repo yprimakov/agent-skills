@@ -1,1 +1,22 @@
+# Temporary files
 temp/
+
+# Runtime output from skill executions (generated results, not source)
+*-workspace/
+ingest-output/
+fact-check-output/
+brand-voice/
+content-library/
+
+# Obsidian local config
+.obsidian/
+
+# Playwright MCP local state
+.playwright-mcp/
+
+# Node modules (if any skills install deps)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
