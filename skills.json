@@ -59,6 +59,9 @@
     },
     "brand-voice": {
       "path": "media/brand-voice"
+    },
+    "company-research": {
+      "path": "research/company-research"
     }
   }
 }

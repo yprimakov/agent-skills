@@ -85,6 +85,11 @@
       "name": "brand-voice",
       "source": "./media/brand-voice",
       "description": "Extract your unique writing style into a reusable Voice DNA Profile — tone, vocabulary, patterns, and platform adaptations"
+    },
+    {
+      "name": "company-research",
+      "source": "./research/company-research",
+      "description": "Comprehensive company due diligence and research report as a self-contained HTML file — 26 categories covering financials, leadership, litigation, patents, cybersecurity, ESG, and more"
     }
   ]
 }
