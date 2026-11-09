@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Skill Loading Test</title>
+<style>
+:root{--bg:#f7f6f3;--panel:#fff;--ink:#1d1d1b;--muted:#6b6a65;--line:#e3e1db;--a:#2f6fd1;--b:#c2662d;--b2:#1f9a6f;--c:#9a9890;--ok:#1f9a6f;--bad:#c2412d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--panel:#1d1d1b;--ink:#f0eee8;--muted:#a4a29b;--line:#34332f;--a:#6b9cf0;--b:#e08a52;--b2:#3fc493;--c:#77756e;--ok:#3fc493;--bad:#ec6a55}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:880px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:28px;margin:0 0 6px}h2{font-size:20px;margin:40px 0 12px}p{margin:0 0 12px}.muted{color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.kpi b{display:block;font-size:26px}.kpi span{color:var(--muted);font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}
+td.n{font-variant-numeric:tabular-nums}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+svg text{fill:var(--ink);font:13px system-ui,sans-serif}svg .m{fill:var(--muted)}
+code{font-size:14px;background:var(--line);padding:1px 5px;border-radius:4px}
+ul{padding-left:20px}li{margin-bottom:6px}
+.verdict{border-left:4px solid var(--ok)}
+</style>
+</head>
+<body><main>
+<p class="muted">Agent Skills · test run 2026-11-09 · Claude Code 2.1.310 · Sonnet</p>
+<h1>Built-in skill loading beats a router skill, for now</h1>
+<p>I tested two ways to give agents a large skill library without loading every skill into every session. Each setup had 20 sample skills: 5 daily and 15 rare (image, 3D, voice, video and others). Each setup got the same 30 requests.</p>
+
+<div class="card verdict">
+<p><b>Result.</b> Both setups picked the right skill on every rare-skill request. The built-in setup (A) took about 40% less time, fewer steps and less cost. The router (B2) saved only about 5 tokens per skill at startup.</p>
+<p style="margin:0"><b>Recommendation.</b> Use built-in <code>skillOverrides: "name-only"</code> for rare skills. Give each one a clear, specific name. Add a router only when the rare library grows past several hundred skills.</p>
+</div>
+
+<div class="kpis">
+<div class="card kpi"><b>17/17 vs 17/17</b><span>rare requests correct, A vs B2</span></div>
+<div class="card kpi"><b>5.9 s vs 9.9 s</b><span>average time on rare requests</span></div>
+<div class="card kpi"><b>3.0 vs 5.2</b><span>average turns on rare requests</span></div>
+<div class="card kpi"><b>~5 tokens</b><span>startup cost per name-only skill</span></div>
+</div>
+
+<h2>The setups</h2>
+<table>
+<tr><th>Setup</th><th>What it loads at session start</th></tr>
+<tr><td><span class="sw" style="background:var(--a)"></span>A. Built-in</td><td>All 20 skills installed. The 15 rare ones are set to <code>name-only</code>, so only their names load.</td></tr>
+<tr><td><span class="sw" style="background:var(--b)"></span>B. Router v1</td><td>5 daily skills plus 1 router skill. The rare skills sit in a folder with a catalog file.</td></tr>
+<tr><td><span class="sw" style="background:var(--b2)"></span>B2. Router v2</td><td>Same as B, with two fixes: the router finds its files reliably, and its description names example domains.</td></tr>
+<tr><td><span class="sw" style="background:var(--c)"></span>C. Control</td><td>All 20 skills with full descriptions. Measured for token cost only.</td></tr>
+</table>
+
+<h2>Correct skill picked</h2>
+<div class="card">
+<svg viewBox="0 0 640 210" width="100%" role="img" aria-label="Correct picks per setup by request type">
+<text x="0" y="16" class="m">Rare (17)</text>
+<rect x="110" y="4" width="480" height="16" fill="var(--a)" rx="3"/><text x="596" y="17">17</text>
+<rect x="110" y="24" width="282" height="16" fill="var(--b)" rx="3"/><text x="398" y="37">10</text>
+<rect x="110" y="44" width="480" height="16" fill="var(--b2)" rx="3"/><text x="596" y="57">17</text>
+<text x="0" y="90" class="m">Daily (5)</text>
+<rect x="110" y="78" width="384" height="16" fill="var(--a)" rx="3"/><text x="500" y="91">4</text>
+<rect x="110" y="98" width="384" height="16" fill="var(--b)" rx="3"/><text x="500" y="111">4</text>
+<rect x="110" y="118" width="480" height="16" fill="var(--b2)" rx="3"/><text x="596" y="131">5</text>
+<text x="0" y="164" class="m">No skill (8)</text>
+<rect x="110" y="152" width="480" height="16" fill="var(--a)" rx="3"/><text x="596" y="165">8</text>
+<rect x="110" y="172" width="480" height="16" fill="var(--b)" rx="3"/><text x="596" y="185">8</text>
+<rect x="110" y="192" width="480" height="16" fill="var(--b2)" rx="3"/><text x="596" y="205">8</text>
+</svg>
+<p class="muted" style="margin:6px 0 0">Bars are scaled to each group's total. A and B both missed one daily request. I count that as noise: the prompt pasted only one line of an article, so Claude asked for the rest.</p>
+</div>
+
+<h2>Full results</h2>
+<table>
+<tr><th>Setup</th><th>Correct</th><th>Avg time</th><th>Avg time, rare</th><th>Turns, rare</th><th>Cost, 30 runs</th><th>Startup tokens</th></tr>
+<tr><td>A. Built-in</td><td class="n">29/30</td><td class="n">5.7 s</td><td class="n">5.9 s</td><td class="n">3.0</td><td class="n">$1.14</td><td class="n">14,178</td></tr>
+<tr><td>B. Router v1</td><td class="n">22/30</td><td class="n">10.6 s</td><td class="n">14.4 s</td><td class="n">5.5</td><td class="n">$1.43</td><td class="n">14,129</td></tr>
+<tr><td>B2. Router v2</td><td class="n">30/30</td><td class="n">7.9 s</td><td class="n">9.9 s</td><td class="n">5.2</td><td class="n">$1.32</td><td class="n">14,144</td></tr>
+<tr><td>C. Control</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td class="n">14,599</td></tr>
+</table>
+<p class="muted">Startup tokens are the first request's full input, including Claude Code's own system prompt. Only the differences between rows matter.</p>
+
+<h2>Context cost as the library grows</h2>
+<div class="card">
+<svg viewBox="0 0 640 230" width="100%" role="img" aria-label="Projected startup tokens for rare skills by library size">
+<line x1="60" y1="190" x2="620" y2="190" stroke="var(--line)"/>
+<line x1="60" y1="20" x2="60" y2="190" stroke="var(--line)"/>
+<text x="0" y="24" class="m">33k</text><text x="8" y="194" class="m">0</text>
+<text x="60" y="210" class="m">0</text><text x="320" y="210" class="m">500</text><text x="590" y="210" class="m">1,000 rare skills</text>
+<polyline points="60,190 620,20" fill="none" stroke="var(--c)" stroke-width="2.5"/>
+<polyline points="60,190 620,164" fill="none" stroke="var(--a)" stroke-width="2.5"/>
+<polyline points="60,189.8 620,189.8" fill="none" stroke="var(--b2)" stroke-width="2.5"/>
+<text x="470" y="58">Full descriptions ~33k</text>
+<text x="470" y="156">Name-only ~5k</text>
+<text x="470" y="184">Router ~50</text>
+</svg>
+<p class="muted" style="margin:6px 0 0">This is a straight-line projection from the 15-skill measurement: about 33 tokens per skill with a full description and about 5 with name-only. Real descriptions are often longer than these samples.</p>
+</div>
+<p>At 200 rare skills, name-only costs about 1,000 tokens per session. That is under 1% of a 200k context window. The router saves those tokens, but it adds about 4 seconds and 2 turns each time a rare skill is used.</p>
+
+<h2>What went wrong with Router v1</h2>
+<ul>
+<li><b>Path mix-up.</b> Claude looked for the catalog next to the router file, not in the project folder, so the run failed.</li>
+<li><b>Skipped router.</b> On SQL, tax and invoice requests, Claude answered by itself and never opened the router. Its vague description gave Claude no reason to look.</li>
+<li><b>The fix needs upkeep.</b> B2 worked because its description lists example domains. That list must change each time you add a new kind of skill.</li>
+</ul>
+
+<h2>Limits of this test</h2>
+<ul>
+<li>One run per request and one model (Sonnet). Small differences, like 29 against 30, are noise.</li>
+<li>The sample skills have clear names. A rare skill with a vague name, such as <code>helper-v2</code>, would hurt setup A more than B2.</li>
+<li>Each test skill only replies "ACTIVE: name". Real skills add their own work time on top of these numbers.</li>
+<li>Each test ran in a sealed config with your own skills and plugins turned off, so your setup was not changed.</li>
+</ul>
+
+<h2>How to rerun</h2>
+<p>The harness is in <code>_reports/skill-loading-ab/harness.py</code> in the agent-skills repo: <code>python harness.py build</code>, then <code>build2</code>, then <code>run A</code> and <code>run B2</code>.</p>
+</main></body></html>

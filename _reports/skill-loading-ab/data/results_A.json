@@ -1,0 +1,1956 @@
+[
+  {
+    "duration": 5.4,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "voice-gen"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8661,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8661
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: voice-gen",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8867,
+      "cache_read_input_tokens": 19737,
+      "output_tokens": 66,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8867,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 14,
+          "cache_read_input_tokens": 14199,
+          "cache_creation_input_tokens": 206,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 206
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0381137,
+    "rc": 0,
+    "stderr": "",
+    "i": 0,
+    "prompt": "Can you make me a narrated MP3 of this sentence: 'Welcome to the spring open house.'",
+    "expected": "voice-gen",
+    "picked": "voice-gen"
+  },
+  {
+    "duration": 6.1,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "image-gen",
+          "args": "Hero illustration of a fox reading a newspaper, for a blog header."
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8659,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8659
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: image-gen",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8939,
+      "cache_read_input_tokens": 19735,
+      "output_tokens": 108,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8939,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 13,
+          "cache_read_input_tokens": 14197,
+          "cache_creation_input_tokens": 280,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 280
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0388215,
+    "rc": 0,
+    "stderr": "",
+    "i": 1,
+    "prompt": "I need a hero illustration of a fox reading a newspaper for my blog header.",
+    "expected": "image-gen",
+    "picked": "image-gen"
+  },
+  {
+    "duration": 6.0,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "3d-model"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8653,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8653
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: 3d-model",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8857,
+      "cache_read_input_tokens": 19729,
+      "output_tokens": 65,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8857,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 14,
+          "cache_read_input_tokens": 14191,
+          "cache_creation_input_tokens": 204,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 204
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0380629,
+    "rc": 0,
+    "stderr": "",
+    "i": 2,
+    "prompt": "Make a printable STL of a small phone stand with a 60 degree tilt.",
+    "expected": "3d-model",
+    "picked": "3d-model"
+  },
+  {
+    "duration": 5.9,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "video-edit"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8669,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8669
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: video-edit",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8871,
+      "cache_read_input_tokens": 19745,
+      "output_tokens": 64,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8871,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 13,
+          "cache_read_input_tokens": 14207,
+          "cache_creation_input_tokens": 202,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 202
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0381105,
+    "rc": 0,
+    "stderr": "",
+    "i": 3,
+    "prompt": "Cut the first 12 seconds off intro.mp4 and burn in subtitles from subs.srt.",
+    "expected": "video-edit",
+    "picked": "video-edit"
+  },
+  {
+    "duration": 5.6,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "music-gen"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8656,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8656
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: music-gen",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8858,
+      "cache_read_input_tokens": 19732,
+      "output_tokens": 64,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8858,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 13,
+          "cache_read_input_tokens": 14194,
+          "cache_creation_input_tokens": 202,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 202
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0380572,
+    "rc": 0,
+    "stderr": "",
+    "i": 4,
+    "prompt": "Compose a 20-second upbeat ukulele jingle for a bakery ad.",
+    "expected": "music-gen",
+    "picked": "music-gen"
+  },
+  {
+    "duration": 6.0,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "pdf-forms"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8666,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8666
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: pdf-forms",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8876,
+      "cache_read_input_tokens": 19742,
+      "output_tokens": 68,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8876,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 15,
+          "cache_read_input_tokens": 14204,
+          "cache_creation_input_tokens": 210,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 210
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0381702,
+    "rc": 0,
+    "stderr": "",
+    "i": 5,
+    "prompt": "Fill out the W-9 form in w9.pdf with my business name and EIN, then flatten it.",
+    "expected": "pdf-forms",
+    "picked": "pdf-forms"
+  },
+  {
+    "duration": 5.8,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "invoice-builder",
+          "args": "Bill Acme Corp for 14 hours of consulting at $150/hr plus 6.625% NJ tax, net 30."
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8674,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8674
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: invoice-builder",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8998,
+      "cache_read_input_tokens": 19750,
+      "output_tokens": 130,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8998,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 15,
+          "cache_read_input_tokens": 14212,
+          "cache_creation_input_tokens": 324,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 324
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.039279,
+    "rc": 0,
+    "stderr": "",
+    "i": 6,
+    "prompt": "Bill Acme Corp for 14 hours of consulting at $150/hr plus 6.625% NJ tax, net 30.",
+    "expected": "invoice-builder",
+    "picked": "invoice-builder"
+  },
+  {
+    "duration": 5.9,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "translate-doc"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8659,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8659
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: translate-doc",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8865,
+      "cache_read_input_tokens": 19735,
+      "output_tokens": 66,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8865,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 14,
+          "cache_read_input_tokens": 14197,
+          "cache_creation_input_tokens": 206,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 206
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0381055,
+    "rc": 0,
+    "stderr": "",
+    "i": 7,
+    "prompt": "Translate handbook.docx into Spanish and keep all the headings and tables intact.",
+    "expected": "translate-doc",
+    "picked": "translate-doc"
+  },
+  {
+    "duration": 6.1,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "sql-tuner",
+          "args": "SELECT * FROM orders WHERE customer_id = 42 ORDER BY created_at takes 9 seconds. How do I speed it up?"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8681,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8681
+      },
+      "output_tokens": 8,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: sql-tuner",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 9064,
+      "cache_read_input_tokens": 19757,
+      "output_tokens": 183,
+      "output_tokens_details": {
+        "thinking_tokens": 46
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 9064,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 15,
+          "cache_read_input_tokens": 14219,
+          "cache_creation_input_tokens": 383,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 383
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0400737,
+    "rc": 0,
+    "stderr": "",
+    "i": 8,
+    "prompt": "This query takes 9 seconds: SELECT * FROM orders WHERE customer_id = 42 ORDER BY created_at. How do I speed it up?",
+    "expected": "sql-tuner",
+    "picked": "sql-tuner"
+  },
+  {
+    "duration": 5.5,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "k8s-deploy"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8661,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8661
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: k8s-deploy",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8875,
+      "cache_read_input_tokens": 19737,
+      "output_tokens": 70,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8875,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 16,
+          "cache_read_input_tokens": 14199,
+          "cache_creation_input_tokens": 214,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 214
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0381857,
+    "rc": 0,
+    "stderr": "",
+    "i": 9,
+    "prompt": "Deploy my api container to the cluster with 3 replicas and a LoadBalancer service.",
+    "expected": "k8s-deploy",
+    "picked": "k8s-deploy"
+  },
+  {
+    "duration": 5.6,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "seo-audit",
+          "args": "https://example.com"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8662,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8662
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: seo-audit",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8908,
+      "cache_read_input_tokens": 19738,
+      "output_tokens": 91,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8908,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 14,
+          "cache_read_input_tokens": 14200,
+          "cache_creation_input_tokens": 246,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 246
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.038527799999999994,
+    "rc": 0,
+    "stderr": "",
+    "i": 10,
+    "prompt": "Why isn't my landing page ranking on Google? Check https://example.com for problems.",
+    "expected": "seo-audit",
+    "picked": "seo-audit"
+  },
+  {
+    "duration": 7.2,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "recipe-scaler"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8655,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8655
+      },
+      "output_tokens": 17,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: recipe-scaler",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8869,
+      "cache_read_input_tokens": 19731,
+      "output_tokens": 70,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8869,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 16,
+          "cache_read_input_tokens": 14193,
+          "cache_creation_input_tokens": 214,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 214
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0381611,
+    "rc": 0,
+    "stderr": "",
+    "i": 11,
+    "prompt": "My chili recipe serves 4; I need it for 22 people and in metric units.",
+    "expected": "recipe-scaler",
+    "picked": "recipe-scaler"
+  },
+  {
+    "duration": 6.4,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "tax-estimator",
+          "args": "Freelance income $38,000 this quarter, expenses $6,000. What to send the IRS (estimated tax payment)?"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8665,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8665
+      },
+      "output_tokens": 2,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: tax-estimator",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 9004,
+      "cache_read_input_tokens": 19741,
+      "output_tokens": 147,
+      "output_tokens_details": {
+        "thinking_tokens": 18
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 9004,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 15,
+          "cache_read_input_tokens": 14203,
+          "cache_creation_input_tokens": 339,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 339
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0394721,
+    "rc": 0,
+    "stderr": "",
+    "i": 12,
+    "prompt": "I made $38k freelancing this quarter with $6k expenses. What should I send the IRS?",
+    "expected": "tax-estimator",
+    "picked": "tax-estimator"
+  },
+  {
+    "duration": 5.6,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "floorplan-sketch"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8685,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8685
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: floorplan-sketch",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8903,
+      "cache_read_input_tokens": 19761,
+      "output_tokens": 72,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8903,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 17,
+          "cache_read_input_tokens": 14223,
+          "cache_creation_input_tokens": 218,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 218
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.038320099999999996,
+    "rc": 0,
+    "stderr": "",
+    "i": 13,
+    "prompt": "Sketch a layout for a 2-bedroom apartment: living room 5x4 m, kitchen 3x3 m, two bedrooms 3.5x3 m.",
+    "expected": "floorplan-sketch",
+    "picked": "floorplan-sketch"
+  },
+  {
+    "duration": 6.0,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "podcast-transcribe"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8653,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8653
+      },
+      "output_tokens": 17,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: podcast-transcribe",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8871,
+      "cache_read_input_tokens": 19729,
+      "output_tokens": 72,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8871,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 17,
+          "cache_read_input_tokens": 14191,
+          "cache_creation_input_tokens": 218,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 218
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0381889,
+    "rc": 0,
+    "stderr": "",
+    "i": 14,
+    "prompt": "Turn episode42.wav into text with who said what and when.",
+    "expected": "podcast-transcribe",
+    "picked": "podcast-transcribe"
+  },
+  {
+    "duration": 6.0,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "meeting-notes"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8684,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8684
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: meeting-notes",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8894,
+      "cache_read_input_tokens": 19760,
+      "output_tokens": 68,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8894,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 15,
+          "cache_read_input_tokens": 14222,
+          "cache_creation_input_tokens": 210,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 210
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.038244,
+    "rc": 0,
+    "stderr": "",
+    "i": 15,
+    "prompt": "Here are my notes from standup: Ana fixed login, Bo blocked on API keys, decide on launch date Friday. Clean these up into minutes.",
+    "expected": "meeting-notes",
+    "picked": "meeting-notes"
+  },
+  {
+    "duration": 7.0,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "email-draft"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8656,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8656
+      },
+      "output_tokens": 3,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: email-draft",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 9009,
+      "cache_read_input_tokens": 19732,
+      "output_tokens": 215,
+      "output_tokens_details": {
+        "thinking_tokens": 150
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 9009,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 13,
+          "cache_read_input_tokens": 14194,
+          "cache_creation_input_tokens": 353,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 353
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0401712,
+    "rc": 0,
+    "stderr": "",
+    "i": 16,
+    "prompt": "Write a polite reply declining the vendor's renewal offer, keep it short.",
+    "expected": "email-draft",
+    "picked": "email-draft"
+  },
+  {
+    "duration": 5.6,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "bug-triage"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8661,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8661
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: bug-triage",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8867,
+      "cache_read_input_tokens": 19737,
+      "output_tokens": 66,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8867,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 14,
+          "cache_read_input_tokens": 14199,
+          "cache_creation_input_tokens": 206,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 206
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0381137,
+    "rc": 0,
+    "stderr": "",
+    "i": 17,
+    "prompt": "Users say the checkout button does nothing on Safari 17. Help me triage this.",
+    "expected": "bug-triage",
+    "picked": "bug-triage"
+  },
+  {
+    "duration": 5.8,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "weekly-report",
+          "args": "Shipped auth, migrated DB, blocked on design review."
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8664,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8664
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: weekly-report",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8940,
+      "cache_read_input_tokens": 19740,
+      "output_tokens": 106,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8940,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 14,
+          "cache_read_input_tokens": 14202,
+          "cache_creation_input_tokens": 276,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 276
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.038806,
+    "rc": 0,
+    "stderr": "",
+    "i": 18,
+    "prompt": "Put together my status update for this week: shipped auth, migrated DB, blocked on design review.",
+    "expected": "weekly-report",
+    "picked": "weekly-report"
+  },
+  {
+    "duration": 7.6,
+    "calls": [],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8664,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8664
+      },
+      "output_tokens": 4,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "The text you pasted is only the opening line. It says remote work rose 30% in 2025 while office leases fell.\n\nI have not seen the rest of the article, so I can't give more key points. I haven't verified the 30% figure.\n\n**Decisions**\n1. **Input: Article source.** What should I summarize?\n   - A. You paste the full text here. (Recommended)\n   - B. You give a file path or URL, and I read it.\n   - C. I summarize only the one line you gave me.",
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8664,
+      "cache_read_input_tokens": 5538,
+      "output_tokens": 419,
+      "output_tokens_details": {
+        "thinking_tokens": 265
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8664,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 419,
+          "cache_read_input_tokens": 5538,
+          "cache_creation_input_tokens": 8664,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 8664
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0394038,
+    "rc": 0,
+    "stderr": "",
+    "i": 19,
+    "prompt": "Give me the key points of this article: 'Remote work rose 30% in 2025 while office leases fell...'",
+    "expected": "doc-summarize",
+    "picked": null
+  },
+  {
+    "duration": 6.0,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "image-gen",
+          "args": "Square logo for 'Pinecrest Dental' in teal and white"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8657,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8657
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: image-gen",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8933,
+      "cache_read_input_tokens": 19733,
+      "output_tokens": 106,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8933,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 13,
+          "cache_read_input_tokens": 14195,
+          "cache_creation_input_tokens": 276,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 276
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.038777299999999994,
+    "rc": 0,
+    "stderr": "",
+    "i": 20,
+    "prompt": "Generate a square logo for 'Pinecrest Dental' in teal and white.",
+    "expected": "image-gen",
+    "picked": "image-gen"
+  },
+  {
+    "duration": 5.3,
+    "calls": [
+      {
+        "name": "Skill",
+        "input": {
+          "skill": "voice-gen"
+        }
+      }
+    ],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8664,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8664
+      },
+      "output_tokens": 16,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "ACTIVE: voice-gen",
+    "num_turns": 3,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 8870,
+      "cache_read_input_tokens": 19740,
+      "output_tokens": 66,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8870,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 4,
+          "output_tokens": 14,
+          "cache_read_input_tokens": 14202,
+          "cache_creation_input_tokens": 206,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 206
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.03812599999999999,
+    "rc": 0,
+    "stderr": "",
+    "i": 21,
+    "prompt": "Read this script aloud as an audio file in a calm British voice: 'Your order has shipped.'",
+    "expected": "voice-gen",
+    "picked": "voice-gen"
+  },
+  {
+    "duration": 4.6,
+    "calls": [],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8639,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8639
+      },
+      "output_tokens": 3,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "17 \u00d7 23 = 391.\n\nChecked by hand: 17 \u00d7 20 = 340, plus 17 \u00d7 3 = 51, gives 391.",
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8639,
+      "cache_read_input_tokens": 5538,
+      "output_tokens": 49,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8639,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 49,
+          "cache_read_input_tokens": 5538,
+          "cache_creation_input_tokens": 8639,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 8639
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.035603800000000005,
+    "rc": 0,
+    "stderr": "",
+    "i": 22,
+    "prompt": "What is 17 times 23?",
+    "expected": null,
+    "picked": null
+  },
+  {
+    "duration": 4.4,
+    "calls": [],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8650,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8650
+      },
+      "output_tokens": 4,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "A closure is a function that remembers the variables from the scope where it was created, even after that outer scope has finished running. This lets the function keep reading and changing those variables later, which makes closures useful for private state and callbacks.",
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8650,
+      "cache_read_input_tokens": 5538,
+      "output_tokens": 69,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8650,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 69,
+          "cache_read_input_tokens": 5538,
+          "cache_creation_input_tokens": 8650,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 8650
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0358478,
+    "rc": 0,
+    "stderr": "",
+    "i": 23,
+    "prompt": "Explain what a JavaScript closure is in two sentences.",
+    "expected": null,
+    "picked": null
+  },
+  {
+    "duration": 4.6,
+    "calls": [],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8640,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8640
+      },
+      "output_tokens": 9,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "Canberra is the capital of Australia.\n\nI answered from general knowledge and did not check any source.",
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8640,
+      "cache_read_input_tokens": 5538,
+      "output_tokens": 32,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8640,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 32,
+          "cache_read_input_tokens": 5538,
+          "cache_creation_input_tokens": 8640,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 8640
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0354378,
+    "rc": 0,
+    "stderr": "",
+    "i": 24,
+    "prompt": "What's the capital of Australia?",
+    "expected": null,
+    "picked": null
+  },
+  {
+    "duration": 5.5,
+    "calls": [],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8649,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8649
+      },
+      "output_tokens": 1,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "TCP is connection-based and reliable. UDP is connectionless and gives no delivery guarantee.\n\nThree differences:\n1. **Connection:** TCP sets up a connection with a handshake. UDP sends data with no setup.\n2. **Reliability and order:** TCP retransmits lost packets and keeps them in order. UDP does neither.\n3. **Speed and overhead:** TCP has larger headers and flow control, so it is slower. UDP is lighter and faster, which suits DNS, video and games.",
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8649,
+      "cache_read_input_tokens": 5538,
+      "output_tokens": 168,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8649,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 168,
+          "cache_read_input_tokens": 5538,
+          "cache_creation_input_tokens": 8649,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 8649
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0368338,
+    "rc": 0,
+    "stderr": "",
+    "i": 25,
+    "prompt": "Name three differences between TCP and UDP.",
+    "expected": null,
+    "picked": null
+  },
+  {
+    "duration": 4.7,
+    "calls": [],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8666,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8666
+      },
+      "output_tokens": 2,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "**Affect** is correct: \"The change will affect sales.\"\n\n\"Affect\" is the verb meaning \"to influence\", and the sentence needs a verb after \"will\". Not run or tested; this is a grammar rule.",
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8666,
+      "cache_read_input_tokens": 5538,
+      "output_tokens": 68,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8666,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 68,
+          "cache_read_input_tokens": 5538,
+          "cache_creation_input_tokens": 8666,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 8666
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0359018,
+    "rc": 0,
+    "stderr": "",
+    "i": 26,
+    "prompt": "Is 'affect' or 'effect' correct in: 'The change will ___ sales'?",
+    "expected": null,
+    "picked": null
+  },
+  {
+    "duration": 5.6,
+    "calls": [],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8642,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8642
+      },
+      "output_tokens": 2,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "Crimson leaves let go.\nThe cold wind carries them off.\nSmoke curls from a roof.\n\nNothing to verify. This is a creative piece, so I ran no checks.",
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8642,
+      "cache_read_input_tokens": 5538,
+      "output_tokens": 60,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8642,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 60,
+          "cache_read_input_tokens": 5538,
+          "cache_creation_input_tokens": 8642,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 8642
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0357258,
+    "rc": 0,
+    "stderr": "",
+    "i": 27,
+    "prompt": "Write a haiku about autumn.",
+    "expected": null,
+    "picked": null
+  },
+  {
+    "duration": 4.7,
+    "calls": [],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8655,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8655
+      },
+      "output_tokens": 2,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "72\u00b0F is 22.2\u00b0C.\n\nFormula: (72 \u2212 32) \u00d7 5/9 = 22.22\u00b0C. I did the math by hand and ran no tools.",
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8655,
+      "cache_read_input_tokens": 5538,
+      "output_tokens": 53,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8655,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 53,
+          "cache_read_input_tokens": 5538,
+          "cache_creation_input_tokens": 8655,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 8655
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0357078,
+    "rc": 0,
+    "stderr": "",
+    "i": 28,
+    "prompt": "Convert 72 Fahrenheit to Celsius.",
+    "expected": null,
+    "picked": null
+  },
+  {
+    "duration": 5.8,
+    "calls": [],
+    "first_usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8643,
+      "cache_read_input_tokens": 5538,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 8643
+      },
+      "output_tokens": 3,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "speed": "standard"
+    },
+    "text": "HTTP 418 means \"I'm a teapot.\" A teapot returns it when someone asks it to brew coffee.\n\nRFC 2324 (1998) defined it as an April Fools' joke, and RFC 7168 extended it. This comes from memory, and I did not check it against a live server.",
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 8643,
+      "cache_read_input_tokens": 5538,
+      "output_tokens": 130,
+      "output_tokens_details": {
+        "thinking_tokens": 36
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 8643,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 130,
+          "cache_read_input_tokens": 5538,
+          "cache_creation_input_tokens": 8643,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 8643
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "cost": 0.0364298,
+    "rc": 0,
+    "stderr": "",
+    "i": 29,
+    "prompt": "What does HTTP status 418 mean?",
+    "expected": null,
+    "picked": null
+  }
+]

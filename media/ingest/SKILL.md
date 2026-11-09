@@ -1,6 +1,7 @@
 ---
 name: ingest
-description: Ingests and analyzes content from any URL — YouTube videos, X/Twitter posts, Instagram, TikTok, LinkedIn, or any public website. Extracts transcripts, transcribes audio, scrapes content, conducts analysis, and produces structured markdown findings with key takeaways.
+description: >-
+  Ingests and analyzes content from any URL — YouTube videos, X/Twitter posts, Instagram, TikTok, LinkedIn, or any public website. Extracts transcripts, transcribes audio, scrapes content, conducts analysis, and produces structured markdown findings with key takeaways.
   Use this skill whenever the user shares a URL and wants to understand, summarize, or analyze the content. Also use when the user says "ingest this", "analyze this link", "what's this about", "summarize this video/post/article", "break down this content", "pull the key points from this", or shares any social media or website link with a request for analysis.
   Do NOT use for: generating new content from scratch (no URL provided), live data dashboards, or real-time monitoring.
 ---
